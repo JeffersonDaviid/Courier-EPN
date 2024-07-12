@@ -4,10 +4,46 @@
  */
 
 
+-- ADMINISTRACION
 
-CREATE TABLE
-    MascotaTipo (
-        idMascotaTipo INTEGER PRIMARY KEY AUTOINCREMENT,
-        Nombre VARCHAR(10) NOT NULL,
-        Estado VARCHAR(1) NOT NULL DEFAULT('A')
-    );
+
+
+
+-- TRANSPORTE
+
+
+
+
+
+-- GESTION DE PAQUETES
+
+
+
+
+
+
+
+-- FACTURACION
+
+
+
+
+
+
+
+-- ALMACENAMIENTO
+
+
+
+
+
+
+-- SEGUIMIENTO DE PAQUETES
+
+
+
+
+
+
+-- RECLAMOS
+

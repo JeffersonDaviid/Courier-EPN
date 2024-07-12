@@ -25,7 +25,7 @@ public class DataHelper {
     public static DataHelper getInstancia() throws SQLException {
         if (dh == null || dh.conexion.isClosed()) {
             dh = new DataHelper();
-        }  
+        }
         return dh;
     }
 
