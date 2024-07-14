@@ -10,14 +10,15 @@ public class Vehiculo {
     int capacidadCarga;
     boolean disponibilidad;
     List<Paquete> Paquetes;
-    // Ruta ruta;
+    Ruta ruta;
 
-    public Vehiculo(String modelo, String marca, int capacidadCarga, boolean disponibilidad, List<Paquete> paquetes) {
+    public Vehiculo(String modelo, String marca, int capacidadCarga, boolean disponibilidad, List<Paquete> paquetes, Ruta ruta) {
         this.modelo = modelo;
         this.marca = marca;
         this.capacidadCarga = capacidadCarga;
         this.disponibilidad = disponibilidad;
         Paquetes = paquetes;
+        this.ruta = ruta;
     }
 
     public String getModelo() {
@@ -60,7 +61,11 @@ public class Vehiculo {
         Paquetes = paquetes;
     }
 
-    public void metodoEjemplo() {
 
+    protected void verificarDisponibilidad() {
+        if (!disponibilidad) {
+            System.out.println("El vehiculo no esta disponible");
+        }   
     }
+    
 }

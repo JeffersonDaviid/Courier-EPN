@@ -4,9 +4,9 @@ import java.util.List;
 
 import BL.GestionPaquete.Paquete;
 
-public class CamionCarga extends Vehiculo {
+public class CamionEntrega extends Vehiculo {
 
-    public CamionCarga(String modelo, String marca, int capacidadCarga, boolean disponibilidad,
+    public CamionEntrega(String modelo, String marca, int capacidadCarga, boolean disponibilidad,
             List<Paquete> paquetes, Ruta ruta) {
         super(modelo, marca, capacidadCarga, disponibilidad, paquetes, ruta);
     }
