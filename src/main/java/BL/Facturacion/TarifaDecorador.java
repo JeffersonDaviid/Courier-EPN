@@ -2,7 +2,7 @@ package BL.Facturacion;
 
 public abstract class TarifaDecorador extends Tarifa {
 
-    Tarifa tarifaDecorada;
+    protected Tarifa tarifaDecorada;
 
     public TarifaDecorador(Tarifa tarifaDecorada) {
         this.tarifaDecorada = tarifaDecorada;

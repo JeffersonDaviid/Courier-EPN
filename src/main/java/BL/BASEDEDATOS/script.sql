@@ -25,7 +25,7 @@
 
 -- FACTURACION
 
-CREATE TABLE Factura (
+CREATE TABLE Facturas (
     idFactura INTEGER PRIMARY KEY AUTOINCREMENT,
     idCliente INTEGER,
     idPaquete INTEGER,
@@ -33,7 +33,7 @@ CREATE TABLE Factura (
     subtotal REAL NOT NULL,
     iva REAL NOT NULL,
     total REAL NOT NULL,
-    descripcionTarifa TEXT NOT NULL, -- Usamos INTEGER para representar BOOLEAN (0 = false, 1 = true)
+    descripcionTarifa TEXT NOT NULL, 
     FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente),
     FOREIGN KEY (idPaquete) REFERENCES Paquete(idPaquete)
 );

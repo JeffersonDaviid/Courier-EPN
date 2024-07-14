@@ -30,23 +30,46 @@ public class DataHelper {
     }
 
     /***
-     * Método ESTÁTICO que realiza una petición a la base de datos
+     * Método ESTÁTICO que realiza una solicitud GET a la base de datos
      * 
      * @param sql : es la petición a la Base de Datos
      * @return : retorna la respuesta de la Base de Datos, objeto de tipo ResultSet
      * @throws SQLException : indica las excepciones que se pueden lanzar durante la
      *                      ejecución, especificadas en la clase AppException
      */
-    public ResultSet getResultSet(String sql) throws SQLException {
+    public ResultSet executeQueryRead(String sql) throws SQLException {
         Statement stmt;
         ResultSet rs = null;
 
         try {
-            stmt = conexion.createStatement(); // CRUD : select * ...
+            stmt = conexion.createStatement();
             rs = stmt.executeQuery(sql);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
-                    "Error al obtener respuesta en : getResultSet(String sql) " + e.getMessage());
+                    "Error al obtener respuesta en : executeQueryRead(String sql) " + e.getMessage());
+        }
+        return rs;
+    }
+
+    /***
+     * Método ESTÁTICO que realiza una solicitud INSERT, PUT y DELETE a la base de
+     * datos
+     * 
+     * @param sql : es la petición a la Base de Datos
+     * @return : retorna el numero de filas afectadas, 0 = no se hizo cambios
+     * @throws SQLException : indica las excepciones que se pueden lanzar durante la
+     *                      ejecución, especificadas en la clase AppException
+     */
+    public int executeQueryInsertUpdateDelete(String sql) throws SQLException {
+        Statement stmt;
+        int rs = -1;
+
+        try {
+            stmt = conexion.createStatement();
+            rs = stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al obtener respuesta en : executeQueryInsertUpdateDelete(String sql) " + e.getMessage());
         }
         return rs;
     }

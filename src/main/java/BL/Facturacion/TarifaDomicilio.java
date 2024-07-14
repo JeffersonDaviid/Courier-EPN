@@ -13,7 +13,8 @@ public class TarifaDomicilio extends TarifaDecorador {
     public void calcularPrecioEnvio() {
         // valor quemado
         setPrecio(getPrecio() + valorDomicilio);
-        setDescripcionTarifa(getDescripcionTarifa().concat(", " + nombreDescripcion));
+        setDescripcionTarifa(
+                getDescripcionTarifa() != null ? getDescripcionTarifa() + ", " + nombreDescripcion : nombreDescripcion);
 
     }
 

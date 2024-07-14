@@ -21,7 +21,7 @@ public class CourierEPN {
         String sql = "SELECT * FROM prueba";
 
         try {
-            ResultSet rs = DataHelper.getInstancia().getResultSet(sql);
+            ResultSet rs = DataHelper.getInstancia().executeQueryRead(sql);
 
             while (rs.next()) {
                 JOptionPane.showMessageDialog(null, rs.getInt("id") + " " + rs.getString("nombre"));
@@ -31,10 +31,18 @@ public class CourierEPN {
     }
 
     public static void probarFacturacion() {
-        Factura.obtenerFactura(1);
-
         TarifaEnvio envio = new TarifaEnvio();
         envio.calcularPrecioEnvio();
+        System.out.println("Precio envio: " + envio.getPrecio());
+        System.out.println("Descripcion: " + envio.getDescripcionTarifa());
 
+        TarifaDomicilio envioDom = new TarifaDomicilio(envio);
+        envioDom.calcularPrecioEnvio();
+        System.out.println("Precio envio: " + envioDom.getPrecio());
+        System.out.println("Descripcion: " + envioDom.getDescripcionTarifa());
+
+        Factura factura = new Factura(1, 1, envioDom.getPrecio(), 15.0f, 115.0, "Envio express");
+        // factura.guardarFactura();
+        Factura.obtenerFactura(7);
     }
 }
