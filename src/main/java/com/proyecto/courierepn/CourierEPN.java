@@ -4,6 +4,8 @@ import BL.BASEDEDATOS.DataHelper;
 import BL.Facturacion.Factura;
 import BL.Facturacion.TarifaDomicilio;
 import BL.Facturacion.TarifaEnvio;
+import UI.Facturacion.Facturacion;
+import UI.Facturacion.FacturacionUI;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,8 +18,18 @@ import javax.swing.JOptionPane;
 public class CourierEPN {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        probarFacturacion();
+        Facturacion facturacion = new Facturacion();
+        facturacion.setVisible(true);
+
+        FacturacionUI facturacionUI = new FacturacionUI();
+        facturacionUI.setVisible(true);
+
+        // ejemploConsultaBaseDatos();
+        // probarFacturacion();
+
+    }
+
+    public static void ejemploConsultaBaseDatos() {
         String sql = "SELECT * FROM prueba";
 
         try {
