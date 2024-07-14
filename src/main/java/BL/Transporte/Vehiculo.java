@@ -60,4 +60,7 @@ public class Vehiculo {
         Paquetes = paquetes;
     }
 
+    public void metodoEjemplo() {
+
+    }
 }
