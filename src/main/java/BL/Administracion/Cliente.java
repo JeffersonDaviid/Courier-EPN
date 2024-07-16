@@ -9,13 +9,14 @@ package BL.Administracion;
  * @author PCM
  */
 public class Cliente extends Perfil {
+    String cedula;
     String correo;
     String pass;
     String nombre;
     String apellido;
 
-    public Cliente(String correo, String pass, String nombre, String apellido) {
-        super(correo, pass, nombre, apellido);
+    public Cliente(String cedula, String correo, String pass, String nombre, String apellido) {
+        super(cedula, correo, pass, nombre, apellido);
     }
     
     @Override
