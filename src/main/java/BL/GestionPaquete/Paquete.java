@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  * @author TOMMY
  */
 public class Paquete {
-  //  private String id_paquete;
+    private int id_paquete;
     private float peso;
     private String tamanio;
     private String isfragil;
@@ -30,8 +30,9 @@ public class Paquete {
     public Paquete() {
     }
 
-    public Paquete(float peso, String tamanio, String isfragil, String fechaHoraLlegada, String fechaHoraSalida, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String tipoEnvio, String sucursalAceptoPaquete, String sucursalParaRecoger, float precio) {
+    public Paquete(int id_paquete,float peso, String tamanio, String isfragil, String fechaHoraLlegada, String fechaHoraSalida, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String tipoEnvio, String sucursalAceptoPaquete, String sucursalParaRecoger, float precio) {
        
+        this.id_paquete= id_paquete;
         this.peso = peso;
         this.tamanio = tamanio;
         this.isfragil = isfragil;
@@ -56,6 +57,15 @@ public class Paquete {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
+    public int getId_paquete() {
+        return id_paquete;
+    }
+
+    public void setId_paquete(int id_paquete) {
+        this.id_paquete = id_paquete;
+    }
+    
 
     
 
@@ -173,34 +183,9 @@ public class Paquete {
         this.sucursalParaRecoger = sucursalParaRecoger;
     }
     
-    private static final String ID_PREFIX = "PQE";
-
-    private String generarNuevoIdPaquete() {
-        int ultimoId = 0;
-        String sql = "SELECT MAX(idPaquete) AS max_id FROM Paquete";
-
-        try {
-            DataHelper dataHelper = DataHelper.getInstancia();
-            ResultSet rs = dataHelper.executeQueryRead(sql);
-
-            if (rs.next()) {
-                String maxIdStr = rs.getString("max_id");
-                if (maxIdStr != null) {
-                    ultimoId = Integer.parseInt(maxIdStr.replace(ID_PREFIX, ""));
-                }
-            }
-
-            dataHelper.closeConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return ID_PREFIX + (ultimoId + 1);
-    }
-    /*
+  
     
-    
-    */
+   
    public void guardarPaquete(Paquete paquete) {
     int rs = -1;
     String sql = "INSERT INTO Paquete (peso, tamanio, isFragil, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger, precio) VALUES ("
