@@ -6,7 +6,15 @@
 
 -- ADMINISTRACION
 
-
+CREATE TABLE Usuarios (
+    idUsuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    cedula TEXT NOT NULL UNIQUE,
+    nombre TEXT NOT NULL,
+    apellido TEXT NOT NULL,
+    correo TEXT NOT NULL UNIQUE,
+    contrasena TEXT NOT NULL,
+    rol TEXT NOT NULL
+);
 
 
 -- TRANSPORTE
