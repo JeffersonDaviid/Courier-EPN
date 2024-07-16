@@ -48,8 +48,14 @@ public class Inventario {
     }
 
     //Mostrar paquete
+    public void mostrarPaquete(){
+
+    }
 
     //Buscar paquete
+    public void buscarPaquete(){
+        
+    }
 
     private void notificarCapacidadCompleta(){
         System.out.println("Capacidad total alcanzada");
