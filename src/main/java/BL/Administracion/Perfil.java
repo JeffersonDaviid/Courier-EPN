@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package BL.Administracion;
 
 /**
@@ -9,19 +13,12 @@ public class Perfil {
     private String pass;
     private String nombre;
     private String apellido;
-    private String rol;
 
-    // Constructor por defecto
-    public Perfil() {
-    }
-
-    // Constructor con parámetros
-    public Perfil(String correo, String pass, String nombre, String apellido, String rol) {
+    public Perfil(String correo, String pass, String nombre, String apellido) {
         this.correo = correo;
         this.pass = pass;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.rol = rol;
     }
 
     public String getCorreo() {
@@ -55,15 +52,7 @@ public class Perfil {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
+  
     public boolean ingresarSistema(String usuario, String pass) {
         // Método de autenticación simulado
         return "usuario".equals(usuario) && "pass".equals(pass);
