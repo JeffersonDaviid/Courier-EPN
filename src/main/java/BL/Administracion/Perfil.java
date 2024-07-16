@@ -9,18 +9,28 @@ package BL.Administracion;
  * 
  */
 public class Perfil {
+    private String cedula;
     private String correo;
     private String pass;
     private String nombre;
     private String apellido;
+    
+    public Perfil(){
+        
+    }
 
-    public Perfil(String correo, String pass, String nombre, String apellido) {
+    public Perfil(String cedula, String correo, String pass, String nombre, String apellido) {
+        this.cedula = cedula;
         this.correo = correo;
         this.pass = pass;
         this.nombre = nombre;
         this.apellido = apellido;
     }
 
+    public String getCedula(){
+        return cedula;
+    }
+    
     public String getCorreo() {
         return correo;
     }
