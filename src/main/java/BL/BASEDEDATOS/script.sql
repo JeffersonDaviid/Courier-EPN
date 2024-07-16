@@ -35,14 +35,15 @@ CREATE TABLE Usuarios (
 
 CREATE TABLE Facturas (
     idFactura INTEGER PRIMARY KEY AUTOINCREMENT,
-    idCliente INTEGER,
-    idPaquete INTEGER,
+    idPaquete TEXT NOT NULL,
+    correoCliente TEXT NOT NULL,
     fecha TEXT NOT NULL,
     subtotal REAL NOT NULL,
     iva REAL NOT NULL,
+    ivaPorcentaje REAL NOT NULL,
     total REAL NOT NULL,
     descripcionTarifa TEXT NOT NULL, 
-    FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente),
+    FOREIGN KEY (correoCliente) REFERENCES Cliente(correoCliente),
     FOREIGN KEY (idPaquete) REFERENCES Paquete(idPaquete)
 );
 

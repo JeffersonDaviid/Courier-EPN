@@ -1,7 +1,6 @@
 package BL.Facturacion;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,34 +11,16 @@ import BL.BASEDEDATOS.DataHelper;
 
 public class Factura {
     private int idFactura;
-    private int idCliente;
-    private int idPaquete;
-    private String fecha;
+    private String correoCliente;
+    private String nombreCliente;
+    private String apellidoCliente;
+    private String idPaquete;
+    private static String fecha = String.format("%tF %tT", new java.util.Date(), new java.util.Date());;
     private float subtotal;
-    private float iva;
+    private static float iva;
     private float ivaPorcentaje;
     private double total;
     private String descripcionTarifa;
-
-    /**
-     * Contructor para insertar una factura en la base de datos
-     * 
-     * @param idCliente         id del cliente
-     * @param idPaquete         id del paquete
-     * @param subtotal          subtotal de la factura
-     * @param iva               iva de la factura
-     * @param total             total de la factura
-     * @param descripcionTarifa descripcion de la tarifa
-     * 
-     */
-    public Factura(int idCliente, int idPaquete, float subtotal, float iva, double total, String descripcionTarifa) {
-        this.idCliente = idCliente;
-        this.idPaquete = idPaquete;
-        this.subtotal = subtotal;
-        this.iva = iva;
-        this.total = total;
-        this.descripcionTarifa = descripcionTarifa;
-    }
 
     /**
      * Constructor para obtener una factura de la base de datos
@@ -53,39 +34,29 @@ public class Factura {
      * @param total
      * @param descripcionTarifa
      */
-    public Factura(int idFactura, int idCliente, int idPaquete, String fecha, float subtotal, float iva,
-            float ivaPorcentaje, double total,
-            String descripcionTarifa) {
+    public Factura(int idFactura, String idPaquete, String correoCliente, String nombreCliente, String apellidoCliente,
+            String fecha, float subtotal, float iva, float ivaPorcentaje, double total, String descripcionTarifa) {
         this.idFactura = idFactura;
-        this.idCliente = idCliente;
         this.idPaquete = idPaquete;
-        this.fecha = fecha;
+        this.correoCliente = correoCliente;
+        this.nombreCliente = nombreCliente;
+        this.apellidoCliente = apellidoCliente;
+        Factura.fecha = fecha;
         this.subtotal = subtotal;
-        this.iva = iva;
+        Factura.iva = iva;
         this.ivaPorcentaje = ivaPorcentaje;
         this.total = total;
         this.descripcionTarifa = descripcionTarifa;
     }
 
-    public void guardarFactura() {
-        Properties props = new Properties();
-        try {
-            var in = Files.newInputStream(Paths.get("opciones.properties"));
-            props.load(in);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar el archivo de propiedades: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-
-        // Formato: yyyy-MM-dd HH:mm:ss en string
-        java.util.Date fechaActual = new java.util.Date();
-        fecha = String.format("%tF %tT", fechaActual, fechaActual);
+    public static void guardarFactura(String correoCliente, String idPaquete, float subtotal, double total,
+            String descripcionTarifa) {
+        cargarIva();
         int rs = -1;
 
-        String sql = "INSERT INTO FACTURAS (idCliente, idPaquete, fecha, subtotal, iva, ivaPorcentaje, total, descripcionTarifa) VALUES ("
-                + idCliente + ", " + idPaquete + ", '" + fecha + "', " + subtotal + ", " + iva + ", "
-                + Float.parseFloat(props.getProperty("IVA")) + ", " + total + ", '"
-                + descripcionTarifa + "')";
+        String sql = "INSERT INTO FACTURAS (correoCliente, idPaquete, fecha, subtotal, iva, ivaPorcentaje, total, descripcionTarifa) VALUES ("
+                + correoCliente + ", " + idPaquete + ", '" + fecha + "', " + subtotal + ", " + (subtotal * iva) + ", "
+                + iva + ", " + total + ", '" + descripcionTarifa + "')";
 
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
@@ -103,17 +74,21 @@ public class Factura {
         }
     }
 
-    public static Factura obtenerFactura(int idFactura) {
+    public static Factura obtenerFactura(int idFactura, String idPaquete) {
         Factura factura = null;
-        String sql = String.format("SELECT * FROM FACTURAS WHERE idFactura = %d", idFactura);
+        String sql = String.format(
+                "SELECT * FROM FACTURAS fa JOIN CLIENTES cl on fa.correoCliente = cl.correoCliente WHERE idFactura = %d OR idPaquete = %d",
+                idFactura, idPaquete);
 
         try {
             ResultSet rs = DataHelper.getInstancia().executeQueryRead(sql);
             while (rs.next()) {
                 factura = new Factura(
                         rs.getInt("idFactura"),
-                        rs.getInt("idCliente"),
-                        rs.getInt("idPaquete"),
+                        rs.getString("idPaquete"),
+                        rs.getString("cl.correoCliente"),
+                        rs.getString("nombreCliente"),
+                        rs.getString("apellidoCliente"),
                         rs.getString("fecha"),
                         rs.getFloat("subtotal"),
                         rs.getFloat("iva"),
@@ -131,11 +106,13 @@ public class Factura {
         if (factura != null) {
             String message = "<html><body>"
                     + "ID Factura: " + factura.idFactura + "<br>"
-                    + "ID Cliente: " + factura.idCliente + "<br>"
                     + "ID Paquete: " + factura.idPaquete + "<br>"
-                    + "Fecha: " + factura.fecha + "<br>"
+                    + "ID Cliente: " + factura.correoCliente + "<br>"
+                    + "ID Cliente: " + factura.nombreCliente + "<br>"
+                    + "ID Cliente: " + factura.apellidoCliente + "<br>"
+                    + "Fecha: " + Factura.fecha + "<br>"
                     + "Subtotal: " + factura.subtotal + "<br>"
-                    + "IVA (" + factura.ivaPorcentaje + "%): " + factura.iva + "<br>"
+                    + "IVA (" + factura.ivaPorcentaje + "%): " + Factura.iva + "<br>"
                     + "Total: " + factura.total + "<br>"
                     + "Descripcion de la tarifa: " + factura.descripcionTarifa + "<br>"
                     + "</body></html>";
@@ -144,4 +121,61 @@ public class Factura {
 
         return factura;
     }
+
+    private static void cargarIva() {
+        Properties props = new Properties();
+        try {
+            var in = Files.newInputStream(Paths.get("opciones.properties"));
+            props.load(in);
+            iva = Float.parseFloat(props.getProperty("IVA"));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el archivo de propiedades: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public int getIdFactura() {
+        return idFactura;
+    }
+
+    public String getCorreoCliente() {
+        return correoCliente;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public String getApellidoCliente() {
+        return apellidoCliente;
+    }
+
+    public String getIdPaquete() {
+        return idPaquete;
+    }
+
+    public static String getFecha() {
+        return fecha;
+    }
+
+    public float getSubtotal() {
+        return subtotal;
+    }
+
+    public static float getIva() {
+        return iva;
+    }
+
+    public float getIvaPorcentaje() {
+        return ivaPorcentaje;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public String getDescripcionTarifa() {
+        return descripcionTarifa;
+    }
+
 }

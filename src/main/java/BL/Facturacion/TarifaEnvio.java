@@ -1,39 +1,28 @@
 package BL.Facturacion;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Properties;
-
 import javax.swing.JOptionPane;
 
 public class TarifaEnvio extends Tarifa {
-        // private Entrega entrega;
-        private float iva;
+        private float peso;
+        private String tamano;
+        private String ciudadInicial;
+        private String ciudadFinal;
 
-        public TarifaEnvio() {
-                setDescripcionTarifa("normal");
+        public TarifaEnvio(float peso, String tamano, String ciudadInicial, String ciudadFinal) {
+                this.peso = peso;
+                this.tamano = tamano;
+                this.ciudadInicial = ciudadInicial;
+                this.ciudadFinal = ciudadFinal;
 
-                Properties props = new Properties();
-                try {
-                        var in = Files.newInputStream(Paths.get("opciones.properties"));
-                        props.load(in);
-                } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null,
-                                        "Error al cargar el archivo de propiedades: " + e.getMessage(), "Error",
-                                        JOptionPane.ERROR_MESSAGE);
-                }
-                iva = Float.parseFloat(props.getProperty("IVA"));
+                super.cargarIvar();
         }
 
+        /**
+         * DISTANCIA: 1ctv X km
+         * PESO: 0.25ctv X 1kg
+         * TAMAÑO: grande 1$, mediano 0.75$, pequeño 0.5$
+         */
         public void calcularPrecioEnvio() {
-                // DISTANCIA - 1ctv x km
-                // PESO - 1kg x 0.25ctv
-                // TAMAÑO - grande 1$ , mediano 0.75$ , pequeño 0.5$
-                String ciudadInicial = "Portoviejo";
-                String ciudadFinal = "Cuenca";
-                int peso = 6;
-                String tamano = "grande";
-
                 String[] ciudades = {
                                 "Ambato", "Azogues", "Babahoyo", "Cuenca", "Esmeraldas", "Guayaquil", "Guaranda",
                                 "Ibarra", "Latacunga", "Loja", "Macará", "Macas", "Machala", "Manta", "Portoviejo",
@@ -156,18 +145,9 @@ public class TarifaEnvio extends Tarifa {
                 // Obtener la distancia entre las ciudades
                 int distancia = distancias[indiceInicial][indiceFinal];
                 float precioDistancia = distancia * 0.01f; // 1ctv por km
-                float subtotal = precioPeso + precioTamano + precioDistancia;
+                super.setSubtotal(precioPeso + precioTamano + precioDistancia);
 
-                setPrecio(subtotal + (subtotal * (iva / 100)));
-
-                String message = "<html><body>"
-                                + "Agencia de emision: " + ciudadInicial + "<br>"
-                                + "Agencia destino: " + ciudadFinal + "<br>"
-                                + "Subtotal: " + subtotal + "<br>"
-                                + "IVA (" + iva + "%): " + subtotal * iva / 100 + "<br>"
-                                + "Total: " + getPrecio() + "<br>"
-                                + "</body></html>";
-                JOptionPane.showMessageDialog(null, message, "Descripcion del envio", JOptionPane.INFORMATION_MESSAGE);
-
+                super.setTotal(super.getSubtotal() + (super.getSubtotal() * (super.getIva() / 100)));
         }
+
 }
