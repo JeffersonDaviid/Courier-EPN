@@ -25,7 +25,24 @@ CREATE TABLE Usuarios (
 
 -- GESTION DE PAQUETES
 
-
+CREATE TABLE Paquete (
+    idPaquete INTEGER PRIMARY KEY AUTOINCREMENT,
+    peso REAL,
+    tamanio TEXT,
+    isFragil TEXT,
+    fechaHoraLlegada TEXT,
+    fechaHoraSalida TEXT,
+    nombreRemitente TEXT,
+    correoRemitente TEXT,
+    telefonoRemitente TEXT,
+    nombreDestinatario TEXT,
+    correoDestinatario TEXT,
+    telefonoDestinatario TEXT,
+    tipoEnvio TEXT,
+    sucursalAceptoPaquete TEXT,
+    sucursalParaRecoger TEXT,
+    precio REAL
+);
 
 
 
