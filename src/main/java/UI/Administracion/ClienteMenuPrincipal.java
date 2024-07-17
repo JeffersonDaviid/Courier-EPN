@@ -7,6 +7,7 @@ package UI.Administracion;
 
 import BL.Administracion.Perfil;
 import UI.Administracion.views.*;
+import UI.SeguimientoPaquete.UISeguimiento;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
@@ -204,20 +205,8 @@ public class ClienteMenuPrincipal extends javax.swing.JFrame {
     }// GEN-LAST:event_btn_prinActionPerformed
 
     private void btn_lendsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lendsActionPerformed
-
+        ShowJPanel(new UISeguimiento());
     }// GEN-LAST:event_btn_lendsActionPerformed
-
-    private void btn_returnsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_returnsActionPerformed
-
-    }// GEN-LAST:event_btn_returnsActionPerformed
-
-    private void btn_lends1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btn_lends1ActionPerformed
-
-    private void btn_lends2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends2ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btn_lends2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel appName;
