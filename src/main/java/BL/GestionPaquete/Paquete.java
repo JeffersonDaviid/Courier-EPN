@@ -1,19 +1,17 @@
 package BL.GestionPaquete;
 
 import BL.BASEDEDATOS.DataHelper;
-import java.sql.ResultSet;
+import BL.Facturacion.Tarifa;
+import BL.Facturacion.TarifaDomicilio;
+import BL.Facturacion.TarifaEnvio;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.util.Random;
 
-/**
- *
- * @author TOMMY
- */
 public class Paquete {
     private int id_paquete;
     private float peso;
     private String tamanio;
-    private String isfragil;
     private String fechaHoraLlegada;
     private String fechaHoraSalida;
     private String nombreRemitente;
@@ -26,16 +24,19 @@ public class Paquete {
     private String sucursalAceptoPaquete;
     private String sucursalParaRecoger;
     private float precio;
+    private String trackingNumber;
+    private String estado;
+    private float precioEnvio;
 
     public Paquete() {
+        this.trackingNumber = generateTrackingNumber();
+        this.estado = "recibido";
     }
 
-    public Paquete(int id_paquete,float peso, String tamanio, String isfragil, String fechaHoraLlegada, String fechaHoraSalida, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String tipoEnvio, String sucursalAceptoPaquete, String sucursalParaRecoger, float precio) {
-       
-        this.id_paquete= id_paquete;
+    public Paquete(int id_paquete, float peso, String tamanio, String fechaHoraLlegada, String fechaHoraSalida, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String tipoEnvio, String sucursalAceptoPaquete, String sucursalParaRecoger, float precio, String trackingNumber, String estado, float precioEnvio) {
+        this.id_paquete = id_paquete;
         this.peso = peso;
         this.tamanio = tamanio;
-        this.isfragil = isfragil;
         this.fechaHoraLlegada = fechaHoraLlegada;
         this.fechaHoraSalida = fechaHoraSalida;
         this.nombreRemitente = nombreRemitente;
@@ -48,15 +49,18 @@ public class Paquete {
         this.sucursalAceptoPaquete = sucursalAceptoPaquete;
         this.sucursalParaRecoger = sucursalParaRecoger;
         this.precio = precio;
+        this.trackingNumber = trackingNumber;
+        this.estado = estado;
+        this.precioEnvio = precioEnvio;
     }
 
-    public float getPrecio() {
-        return precio;
+    public void setPrecioEnvio(float precioEnvio) {
+        this.precioEnvio = precioEnvio;
     }
+    
+    
 
-    public void setPrecio(float precio) {
-        this.precio = precio;
-    }
+   
 
     public int getId_paquete() {
         return id_paquete;
@@ -65,11 +69,6 @@ public class Paquete {
     public void setId_paquete(int id_paquete) {
         this.id_paquete = id_paquete;
     }
-    
-
-    
-
-    
 
     public float getPeso() {
         return peso;
@@ -85,14 +84,6 @@ public class Paquete {
 
     public void setTamanio(String tamanio) {
         this.tamanio = tamanio;
-    }
-
-    public String getIsfragil() {
-        return isfragil;
-    }
-
-    public void setIsfragil(String isfragil) {
-        this.isfragil = isfragil;
     }
 
     public String getFechaHoraLlegada() {
@@ -182,34 +173,82 @@ public class Paquete {
     public void setSucursalParaRecoger(String sucursalParaRecoger) {
         this.sucursalParaRecoger = sucursalParaRecoger;
     }
-    
-  
-    
-   
-   public void guardarPaquete(Paquete paquete) {
-    int rs = -1;
-    String sql = "INSERT INTO Paquete (peso, tamanio, isFragil, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger, precio) VALUES ("
-        + paquete.getPeso() + ", '" + paquete.getTamanio() + "', '" + paquete.getIsfragil() + "', '"
-        + paquete.getFechaHoraLlegada() + "', '" + paquete.getFechaHoraSalida() + "', '" + paquete.getNombreRemitente() + "', '"
-        + paquete.getCorreoRemitente() + "', '" + paquete.getTelefonoRemitente() + "', '" + paquete.getNombreDestinatario() + "', '"
-        + paquete.getCorreoDestinatario() + "', '" + paquete.getTelefonoDestinatario() + "', '" + paquete.getTipoEnvio() + "', '"
-        + paquete.getSucursalAceptoPaquete() + "', '" + paquete.getSucursalParaRecoger() + "', " + paquete.getPrecio() + ")";
 
-    try {
-        rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+    public float getPrecio() {
+        return precio;
+    }
 
-        if (rs > 0) {
-            JOptionPane.showMessageDialog(null, "Paquete guardado con éxito", "Guardado",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al guardar el paquete", "Error", JOptionPane.ERROR_MESSAGE);
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    
+
+    private String generateTrackingNumber() {
+        Random random = new Random();
+        int number = 1000000 + random.nextInt(9000000);
+        return String.valueOf(number);
+    }
+    
+    public void calcularPrecioEnvio(String tipoEnvio,float peso,String tamanio,String sucursalAceptaPaquete,String sucursalRecibe) {
+        Tarifa tarifa;
+        if (tipoEnvio.equals("Domicilio")) {
+            tarifa = new TarifaDomicilio(new TarifaEnvio(peso, tamanio, sucursalAceptaPaquete, sucursalRecibe));
+        } else { // Suponiendo que el otro caso es "Agencia"
+            tarifa = new TarifaEnvio(peso, tamanio, sucursalAceptaPaquete, sucursalRecibe);
         }
 
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al guardar el paquete: " + e.getMessage(), "Error",
-                JOptionPane.ERROR_MESSAGE);
+        tarifa.calcularPrecioEnvio(); // Calcular el precio de envío
+        this.precioEnvio = tarifa.getTotal(); // Guardar el precio en el objeto Paquete
+
+        // Mostrar costo de envío en algún componente visual si es necesario
+        //JOptionPane.showMessageDialog(null, "Precio de envío calculado: " + this.precioEnvio, "Precio de Envío", JOptionPane.INFORMATION_MESSAGE);
     }
-}
 
+    // Otros métodos getter y setter según sea necesario
+    public float getPrecioEnvio() {
+        return precioEnvio;
+    }
 
+    public void guardarPaquete(Paquete paquete) {
+        int rs = -1;
+        String sql = "INSERT INTO Paquete (peso, tamanio, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger, precio, trackingNumber, estado) VALUES ("
+            + paquete.getPeso() + ", '" + paquete.getTamanio() + "', '" + paquete.getFechaHoraLlegada() + "', '"
+            + paquete.getFechaHoraSalida() + "', '" + paquete.getNombreRemitente() + "', '"
+            + paquete.getCorreoRemitente() + "', '" + paquete.getTelefonoRemitente() + "', '" + paquete.getNombreDestinatario() + "', '"
+            + paquete.getCorreoDestinatario() + "', '" + paquete.getTelefonoDestinatario() + "', '" + paquete.getTipoEnvio() + "', '"
+            + paquete.getSucursalAceptoPaquete() + "', '" + paquete.getSucursalParaRecoger() + "', " + paquete.getPrecio() + ", '"
+            + paquete.getTrackingNumber() + "', '" + paquete.getEstado() + "')";
+
+        try {
+            rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+
+            if (rs > 0) {
+                JOptionPane.showMessageDialog(null, "Paquete guardado con éxito", "Guardado",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al guardar el paquete", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar el paquete: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
