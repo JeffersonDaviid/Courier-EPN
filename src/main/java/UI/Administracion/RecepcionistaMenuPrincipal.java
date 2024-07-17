@@ -38,7 +38,9 @@ public class RecepcionistaMenuPrincipal extends javax.swing.JFrame {
     private VentanaLogin login;
     private Perfil perfil;
 
-    public RecepcionistaMenuPrincipal() {
+    public RecepcionistaMenuPrincipal(VentanaLogin ventanaLogin, Perfil perfil) {
+        this.login = ventanaLogin;
+        this.perfil = perfil;
         initComponents();
         InitStyles();
         SetDate();
