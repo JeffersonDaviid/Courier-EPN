@@ -17,7 +17,7 @@ public class CamionCarga extends Vehiculo {
 
     
 
-    public CamionCarga(String modelo, String marca, int capacidadCarga, boolean disponibilidad, List<Paquete> paquetes,
+    public CamionCarga(String modelo, String marca, int capacidadCarga, int disponibilidad, List<Paquete> paquetes,
             Ruta ruta, String ubicacion, List<Paquete> paquetesInventario) {
         super(modelo, marca, capacidadCarga, disponibilidad, paquetes, ruta);
         this.ubicacion = ubicacion;
