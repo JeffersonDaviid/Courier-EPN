@@ -26,21 +26,263 @@ public class Transporte extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        PanelInfoCamion = new javax.swing.JPanel();
+        ImgCamion = new javax.swing.JLabel();
+        TxtModelo = new javax.swing.JLabel();
+        TxtCamion = new javax.swing.JLabel();
+        TxtMarca = new javax.swing.JLabel();
+        TxtModeloCamion = new javax.swing.JTextField();
+        TxtMarcaCamion = new javax.swing.JTextField();
+        TxtMarca1 = new javax.swing.JLabel();
+        TxtMarcaCamion1 = new javax.swing.JTextField();
+        TxtDisponible = new javax.swing.JLabel();
+        TxtDisponibleCamion = new javax.swing.JTextField();
+        BtnGuardarListaPaquetesCamion = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaListaInventarioCamion = new javax.swing.JTable();
+        TxtCamionCarga = new javax.swing.JLabel();
+        TxtInventarioLista1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaListaInventario = new javax.swing.JTable();
+        BtnActualizarListaPaquetesInventario1 = new javax.swing.JButton();
+        BtnAgregarListaPaquetesCamion1 = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        PanelInfoCamion.setBackground(new java.awt.Color(37, 101, 234));
+
+        ImgCamion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Transporte/Imagenes/camion.jpg"))); // NOI18N
+
+        TxtModelo.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        TxtModelo.setForeground(new java.awt.Color(255, 255, 255));
+        TxtModelo.setText("Modelo");
+
+        TxtCamion.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        TxtCamion.setForeground(new java.awt.Color(255, 255, 255));
+        TxtCamion.setText("CAMIÓN");
+
+        TxtMarca.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        TxtMarca.setForeground(new java.awt.Color(255, 255, 255));
+        TxtMarca.setText("Marca");
+
+        TxtModeloCamion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtModeloCamionActionPerformed(evt);
+            }
+        });
+
+        TxtMarcaCamion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtMarcaCamionActionPerformed(evt);
+            }
+        });
+
+        TxtMarca1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        TxtMarca1.setForeground(new java.awt.Color(255, 255, 255));
+        TxtMarca1.setText("Capacidad");
+
+        TxtMarcaCamion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtMarcaCamion1ActionPerformed(evt);
+            }
+        });
+
+        TxtDisponible.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        TxtDisponible.setForeground(new java.awt.Color(255, 255, 255));
+        TxtDisponible.setText("Disponible");
+
+        TxtDisponibleCamion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtDisponibleCamionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelInfoCamionLayout = new javax.swing.GroupLayout(PanelInfoCamion);
+        PanelInfoCamion.setLayout(PanelInfoCamionLayout);
+        PanelInfoCamionLayout.setHorizontalGroup(
+            PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInfoCamionLayout.createSequentialGroup()
+                .addGroup(PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelInfoCamionLayout.createSequentialGroup()
+                        .addContainerGap(15, Short.MAX_VALUE)
+                        .addGroup(PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TxtModelo)
+                            .addComponent(TxtMarca))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtCamion)
+                            .addComponent(TxtModeloCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TxtMarcaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelInfoCamionLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(TxtMarca1)
+                        .addGap(18, 18, 18)
+                        .addComponent(TxtMarcaCamion1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(34, 34, 34))
+            .addGroup(PanelInfoCamionLayout.createSequentialGroup()
+                .addGroup(PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelInfoCamionLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(ImgCamion))
+                    .addGroup(PanelInfoCamionLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(TxtDisponible)
+                        .addGap(18, 18, 18)
+                        .addComponent(TxtDisponibleCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        PanelInfoCamionLayout.setVerticalGroup(
+            PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelInfoCamionLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(ImgCamion)
+                .addGap(18, 18, 18)
+                .addComponent(TxtCamion)
+                .addGap(30, 30, 30)
+                .addGroup(PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtModelo)
+                    .addComponent(TxtModeloCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtMarca)
+                    .addComponent(TxtMarcaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtDisponible)
+                    .addComponent(TxtDisponibleCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
+                .addGroup(PanelInfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtMarca1)
+                    .addComponent(TxtMarcaCamion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
+
+        getContentPane().add(PanelInfoCamion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 680));
+
+        BtnGuardarListaPaquetesCamion.setBackground(new java.awt.Color(37, 98, 234));
+        BtnGuardarListaPaquetesCamion.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        BtnGuardarListaPaquetesCamion.setForeground(new java.awt.Color(255, 255, 255));
+        BtnGuardarListaPaquetesCamion.setText("Guardar");
+        BtnGuardarListaPaquetesCamion.setActionCommand("Actualizar");
+        BtnGuardarListaPaquetesCamion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarListaPaquetesCamionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnGuardarListaPaquetesCamion, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 630, -1, -1));
+
+        TablaListaInventarioCamion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID_Paquete", "Traking Number", "Peso", "Tamanio", "Tipo de Envio", "Direccion Destino", "Sucursal Salida"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TablaListaInventarioCamion);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, 580, 210));
+
+        TxtCamionCarga.setBackground(new java.awt.Color(37, 98, 234));
+        TxtCamionCarga.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        TxtCamionCarga.setText("CAMIÓN");
+        getContentPane().add(TxtCamionCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, -1, -1));
+
+        TxtInventarioLista1.setBackground(new java.awt.Color(37, 98, 234));
+        TxtInventarioLista1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        TxtInventarioLista1.setText("INVENTARIO");
+        getContentPane().add(TxtInventarioLista1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, -1, -1));
+
+        TablaListaInventario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID_Paquete", "Traking Number", "Peso", "Tamanio", "Tipo de Envio", "Direccion Destino", "Sucursal Salida"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(TablaListaInventario);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 580, 210));
+
+        BtnActualizarListaPaquetesInventario1.setBackground(new java.awt.Color(37, 98, 234));
+        BtnActualizarListaPaquetesInventario1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        BtnActualizarListaPaquetesInventario1.setForeground(new java.awt.Color(255, 255, 255));
+        BtnActualizarListaPaquetesInventario1.setText("Actualizar");
+        BtnActualizarListaPaquetesInventario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarListaPaquetesInventario1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnActualizarListaPaquetesInventario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+
+        BtnAgregarListaPaquetesCamion1.setBackground(new java.awt.Color(37, 98, 234));
+        BtnAgregarListaPaquetesCamion1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        BtnAgregarListaPaquetesCamion1.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgregarListaPaquetesCamion1.setText("Agregar");
+        BtnAgregarListaPaquetesCamion1.setActionCommand("Actualizar");
+        BtnAgregarListaPaquetesCamion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarListaPaquetesCamion1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnAgregarListaPaquetesCamion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 590, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TxtModeloCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtModeloCamionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtModeloCamionActionPerformed
+
+    private void TxtMarcaCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtMarcaCamionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtMarcaCamionActionPerformed
+
+    private void TxtMarcaCamion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtMarcaCamion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtMarcaCamion1ActionPerformed
+
+    private void TxtDisponibleCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDisponibleCamionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtDisponibleCamionActionPerformed
+
+    private void BtnGuardarListaPaquetesCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarListaPaquetesCamionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnGuardarListaPaquetesCamionActionPerformed
+
+    private void BtnActualizarListaPaquetesInventario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarListaPaquetesInventario1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnActualizarListaPaquetesInventario1ActionPerformed
+
+    private void BtnAgregarListaPaquetesCamion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarListaPaquetesCamion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnAgregarListaPaquetesCamion1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +320,25 @@ public class Transporte extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnActualizarListaPaquetesInventario1;
+    private javax.swing.JButton BtnAgregarListaPaquetesCamion1;
+    private javax.swing.JButton BtnGuardarListaPaquetesCamion;
+    private javax.swing.JLabel ImgCamion;
+    private javax.swing.JPanel PanelInfoCamion;
+    private javax.swing.JTable TablaListaInventario;
+    private javax.swing.JTable TablaListaInventarioCamion;
+    private javax.swing.JLabel TxtCamion;
+    private javax.swing.JLabel TxtCamionCarga;
+    private javax.swing.JLabel TxtDisponible;
+    private javax.swing.JTextField TxtDisponibleCamion;
+    private javax.swing.JLabel TxtInventarioLista1;
+    private javax.swing.JLabel TxtMarca;
+    private javax.swing.JLabel TxtMarca1;
+    private javax.swing.JTextField TxtMarcaCamion;
+    private javax.swing.JTextField TxtMarcaCamion1;
+    private javax.swing.JLabel TxtModelo;
+    private javax.swing.JTextField TxtModeloCamion;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
