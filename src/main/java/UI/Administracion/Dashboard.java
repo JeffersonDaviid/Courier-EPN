@@ -5,6 +5,7 @@
  */
 package UI.Administracion;
 
+import BL.Administracion.Perfil;
 import UI.Administracion.views.*;
 import UI.Almacenamiento.Almacenamiento;
 import UI.SeguimientoPaquete.UIEnvio;
@@ -27,10 +28,14 @@ import javax.swing.UIManager;
  */
 public class Dashboard extends javax.swing.JFrame {
 
+    private VentanaLogin login;
+    private Perfil perfil;
     /**
      * Creates new form Dashboard
      */
-    public Dashboard() {
+    public Dashboard(VentanaLogin login, Perfil perfil) {
+        this.perfil = perfil;
+        this.login = login;
         initComponents();
         InitStyles();
         SetDate();
@@ -285,21 +290,6 @@ public class Dashboard extends javax.swing.JFrame {
     private void btn_lends2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends2ActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_btn_lends2ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        FlatMaterialLighterIJTheme.setup();
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel appName;

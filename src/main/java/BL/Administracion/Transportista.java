@@ -4,6 +4,7 @@ package BL.Administracion;
 import javax.swing.JFrame;
 
 import BL.Transporte.Vehiculo;
+import UI.Administracion.Dashboard;
 import UI.Administracion.VentanaLogin;
 
 
@@ -44,9 +45,9 @@ public class Transportista extends Perfil {
 
     @Override
     public JFrame verModulos(VentanaLogin login) {
-        return TransMenuPrincipal(login, this)
+        return new Dashboard(login, this);
     }
-    
+
     
 }
 
