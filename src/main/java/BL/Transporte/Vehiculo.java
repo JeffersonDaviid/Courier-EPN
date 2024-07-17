@@ -2,6 +2,8 @@ package BL.Transporte;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import BL.GestionPaquete.Paquete;
 
 public class Vehiculo {
@@ -9,7 +11,7 @@ public class Vehiculo {
     String marca;
     int capacidadCarga;
     boolean disponibilidad;
-    List<Paquete> Paquetes;
+    List<Paquete> paquetesCamionCarga;
     Ruta ruta;
 
     public Vehiculo(String modelo, String marca, int capacidadCarga, boolean disponibilidad, List<Paquete> paquetes, Ruta ruta) {
@@ -17,7 +19,7 @@ public class Vehiculo {
         this.marca = marca;
         this.capacidadCarga = capacidadCarga;
         this.disponibilidad = disponibilidad;
-        Paquetes = paquetes;
+        this.paquetesCamionCarga = paquetes;
         this.ruta = ruta;
     }
 
@@ -54,17 +56,17 @@ public class Vehiculo {
     }
 
     public List<Paquete> getPaquetes() {
-        return Paquetes;
+        return paquetesCamionCarga;
     }
 
     public void setPaquetes(List<Paquete> paquetes) {
-        Paquetes = paquetes;
+        paquetesCamionCarga = paquetes;
     }
 
 
     protected void verificarDisponibilidad() {
         if (!disponibilidad) {
-            System.out.println("El vehiculo no esta disponible");
+            JOptionPane.showMessageDialog(null, "El vehiculo no esta disponible");
         }   
     }
     

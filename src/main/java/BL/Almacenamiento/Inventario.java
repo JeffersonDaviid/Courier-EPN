@@ -108,7 +108,7 @@ public class Inventario {
 
     //Método que retorna el id del paquete si se encuentra en bodega 
     public String retirarPaquete(String idPaquete){
-        if(!idPaquetes.contains(idPaquete);){
+        if(!idPaquetes.contains(idPaquete)){
             return null;
         }
         idPaquetes.remove(Integer.parseInt(idPaquete));
