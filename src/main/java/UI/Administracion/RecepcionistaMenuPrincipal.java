@@ -60,7 +60,7 @@ public class RecepcionistaMenuPrincipal extends javax.swing.JFrame {
     }
     
     public static void ShowJPanel(JPanel p) {
-        p.setSize(750, 430);
+        p.setSize(800, 430);
         p.setLocation(0,0);
         
         content.removeAll();
@@ -87,7 +87,7 @@ public class RecepcionistaMenuPrincipal extends javax.swing.JFrame {
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1050, 660));
+        setMinimumSize(new java.awt.Dimension(1080, 793));
 
         background.setBackground(new java.awt.Color(255, 255, 255));
 
