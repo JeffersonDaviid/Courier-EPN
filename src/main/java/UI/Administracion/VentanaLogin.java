@@ -157,6 +157,7 @@ public class VentanaLogin extends javax.swing.JFrame {
             dataHelper = DataHelper.getInstancia();
 
             // Definir la consulta SQL
+            rol = rol.substring(0, 1).toUpperCase();
             String sql = "SELECT * FROM Usuarios WHERE cedula = '" + usuario + "' AND contrasena = '" + pass + "' AND rol = '" + rol + "'";
 
             // Ejecutar la consulta de lectura
