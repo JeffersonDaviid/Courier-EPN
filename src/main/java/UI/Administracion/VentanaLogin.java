@@ -13,14 +13,14 @@
  
  /**
   *
-  * @author Antonio
+  * @author Esencia Salvaje
   */
  public class VentanaLogin extends javax.swing.JFrame {
  
      /**
       * Creates new form Dashboard
       */
-     public Login() {
+     public VentanaLogin() {
          initComponents();
          InitStyles();
          SetDate();
