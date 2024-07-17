@@ -47,7 +47,7 @@ public class VentanaLogin extends javax.swing.JFrame {
 
         jLabel1.setText("Login");
 
-        jLabel2.setText("Correo:");
+        jLabel2.setText("Cédula:");
 
         jLabel3.setText("Contraseña:");
 
@@ -60,7 +60,7 @@ public class VentanaLogin extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("Correo");
+        jTextField1.setText("Cédula");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -158,7 +158,7 @@ public class VentanaLogin extends javax.swing.JFrame {
             dataHelper = DataHelper.getInstancia();
 
             // Definir la consulta SQL
-            rol = rol.substring(0, 1).toUpperCase();
+            //rol = rol.substring(0, 1).toUpperCase();
             String sql = "SELECT * FROM Usuarios WHERE cedula = '" + usuario + "' AND contrasena = '" + pass + "' AND rol = '" + rol + "'";
 
             // Ejecutar la consulta de lectura
