@@ -23,17 +23,18 @@ public class Paquete {
     private String tipoEnvio;
     private String sucursalAceptoPaquete;
     private String sucursalParaRecoger;
-    private float precio;
     private String trackingNumber;
     private String estado;
     private float precioEnvio;
+    private String domicilio;
 
     public Paquete() {
         this.trackingNumber = generateTrackingNumber();
         this.estado = "recibido";
+        this.domicilio = "NO";
     }
 
-    public Paquete(int id_paquete, float peso, String tamanio, String fechaHoraLlegada, String fechaHoraSalida, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String tipoEnvio, String sucursalAceptoPaquete, String sucursalParaRecoger, float precio, String trackingNumber, String estado, float precioEnvio) {
+    public Paquete(int id_paquete, float peso, String tamanio, String fechaHoraLlegada, String fechaHoraSalida, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String tipoEnvio, String sucursalAceptoPaquete, String sucursalParaRecoger, String trackingNumber, String estado, float precioEnvio, String domicilio) {
         this.id_paquete = id_paquete;
         this.peso = peso;
         this.tamanio = tamanio;
@@ -48,14 +49,24 @@ public class Paquete {
         this.tipoEnvio = tipoEnvio;
         this.sucursalAceptoPaquete = sucursalAceptoPaquete;
         this.sucursalParaRecoger = sucursalParaRecoger;
-        this.precio = precio;
         this.trackingNumber = trackingNumber;
         this.estado = estado;
         this.precioEnvio = precioEnvio;
+        this.domicilio = domicilio;
     }
+
+    
 
     public void setPrecioEnvio(float precioEnvio) {
         this.precioEnvio = precioEnvio;
+    }
+
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(String domicilio) {
+        this.domicilio = domicilio;
     }
     
     
@@ -174,13 +185,7 @@ public class Paquete {
         this.sucursalParaRecoger = sucursalParaRecoger;
     }
 
-    public float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(float precio) {
-        this.precio = precio;
-    }
+ 
 
     public String getTrackingNumber() {
         return trackingNumber;
@@ -206,35 +211,17 @@ public class Paquete {
         return String.valueOf(number);
     }
     
-    public void calcularPrecioEnvio(String tipoEnvio,float peso,String tamanio,String sucursalAceptaPaquete,String sucursalRecibe) {
-        Tarifa tarifa;
-        if (tipoEnvio.equals("Domicilio")) {
-            tarifa = new TarifaDomicilio(new TarifaEnvio(peso, tamanio, sucursalAceptaPaquete, sucursalRecibe));
-        } else { // Suponiendo que el otro caso es "Agencia"
-            tarifa = new TarifaEnvio(peso, tamanio, sucursalAceptaPaquete, sucursalRecibe);
-        }
-
-        tarifa.calcularPrecioEnvio(); // Calcular el precio de envío
-        this.precioEnvio = tarifa.getTotal(); // Guardar el precio en el objeto Paquete
-
-        // Mostrar costo de envío en algún componente visual si es necesario
-        //JOptionPane.showMessageDialog(null, "Precio de envío calculado: " + this.precioEnvio, "Precio de Envío", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    // Otros métodos getter y setter según sea necesario
-    public float getPrecioEnvio() {
-        return precioEnvio;
-    }
+   
 
     public void guardarPaquete(Paquete paquete) {
         int rs = -1;
-        String sql = "INSERT INTO Paquete (peso, tamanio, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger, precio, trackingNumber, estado) VALUES ("
+        String sql = "INSERT INTO Paquete (peso, tamanio, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger, trackingNumber, estado, domicilio) VALUES ("
             + paquete.getPeso() + ", '" + paquete.getTamanio() + "', '" + paquete.getFechaHoraLlegada() + "', '"
             + paquete.getFechaHoraSalida() + "', '" + paquete.getNombreRemitente() + "', '"
             + paquete.getCorreoRemitente() + "', '" + paquete.getTelefonoRemitente() + "', '" + paquete.getNombreDestinatario() + "', '"
             + paquete.getCorreoDestinatario() + "', '" + paquete.getTelefonoDestinatario() + "', '" + paquete.getTipoEnvio() + "', '"
-            + paquete.getSucursalAceptoPaquete() + "', '" + paquete.getSucursalParaRecoger() + "', " + paquete.getPrecio() + ", '"
-            + paquete.getTrackingNumber() + "', '" + paquete.getEstado() + "')";
+            + paquete.getSucursalAceptoPaquete() + "', '" + paquete.getSucursalParaRecoger() + "', '" + paquete.getTrackingNumber() + "', '"
+            + paquete.getEstado() + "', '" + paquete.getDomicilio() + "')";
 
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);

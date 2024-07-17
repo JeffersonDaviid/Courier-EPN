@@ -39,9 +39,9 @@ CREATE TABLE Paquete (
     tipoEnvio TEXT,
     sucursalAceptoPaquete TEXT,
     sucursalParaRecoger TEXT,
-    precio REAL,
     trackingNumber TEXT,
-    estado TEXT DEFAULT 'recibido'
+    estado TEXT DEFAULT 'recibido',
+    domicilio TEXT DEFAULT 'NO'
 );
 
 
