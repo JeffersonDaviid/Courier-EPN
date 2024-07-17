@@ -3,7 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package UI.Administracion;
 
+import BL.Administracion.Perfil;
+import BL.Administracion.PerfilFactory;
+import BL.BASEDEDATOS.DataHelper;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.mycompany.views.*;
 import java.awt.Color;
