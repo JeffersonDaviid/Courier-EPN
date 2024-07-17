@@ -346,6 +346,13 @@ public class VentanaLogin extends javax.swing.JFrame {
             }
         });
     }
+    
+    @Override
+    public void setVisible(boolean b) {
+        jFormattedTextField1.setText(null);
+        jPasswordField2.setText(null);
+        super.setVisible(b);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel appName;
