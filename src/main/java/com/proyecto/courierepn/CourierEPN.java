@@ -2,6 +2,7 @@ package com.proyecto.courierepn;
 
 import BL.BASEDEDATOS.DataHelper;
 import BL.Facturacion.Factura;
+import BL.Facturacion.Tarifa;
 import BL.Facturacion.TarifaDomicilio;
 import BL.Facturacion.TarifaEnvio;
 import UI.Facturacion.Facturacion;
@@ -43,18 +44,18 @@ public class CourierEPN {
     }
 
     public static void probarFacturacion() {
-        TarifaEnvio envio = new TarifaEnvio();
+        Tarifa envio = new TarifaEnvio(23, "pequeño", "Guayaquil", "Quito");
         envio.calcularPrecioEnvio();
-        System.out.println("Precio envio: " + envio.getPrecio());
-        System.out.println("Descripcion: " + envio.getDescripcionTarifa());
+        envio.mostrarCostoEnvio();
 
-        TarifaDomicilio envioDom = new TarifaDomicilio(envio);
-        envioDom.calcularPrecioEnvio();
-        System.out.println("Precio envio: " + envioDom.getPrecio());
-        System.out.println("Descripcion: " + envioDom.getDescripcionTarifa());
+        envio = new TarifaDomicilio(envio);
+        envio.calcularPrecioEnvio();
+        envio.mostrarCostoEnvio();
 
-        Factura factura = new Factura(1, 1, envioDom.getPrecio(), 15.0f, 115.0, "Envio express");
-        // factura.guardarFactura();
-        Factura.obtenerFactura(7);
+        Factura.guardarFactura("correoCliente", "idPaquete", envio.getSubtotal(), envio.getTotal(),
+                envio.getDescripcionTarifa());
+        Factura.obtenerFactura(3, "idPaquete");
+        Factura fa = Factura.obtenerFactura(3, "idPaquete");
+        fa.getCorreoCliente();
     }
 }
