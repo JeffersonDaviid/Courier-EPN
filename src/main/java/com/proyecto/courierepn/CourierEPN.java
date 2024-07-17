@@ -9,6 +9,7 @@ import BL.Facturacion.TarifaDomicilio;
 import BL.Facturacion.TarifaEnvio;
 import BL.GestionPaquete.Paquete;
 import BL.Transporte.CamionCarga;
+import UI.Administracion.VentanaLogin;
 import UI.Facturacion.Facturacion;
 import UI.Facturacion.FacturacionUI;
 
@@ -23,43 +24,53 @@ import javax.swing.JOptionPane;
 public class CourierEPN {
 
     public static void main(String[] args) {
-        // LOGICA DE NEGOCIO
 
-        // REGISTRAMOS UN CLIENTE
-        Cliente cliente = new Cliente("1723456789", "pruebas@gmail.com", "1234", "Juan", "Perez");
-        // cliente.guardarCliente(); // guarda en la base de datos
+        VentanaLogin ventana = new VentanaLogin();
+        ventana.setVisible(true);
 
-        Paquete paquete = new Paquete();
-        paquete.setPeso(234);
-        // set..... todos los atributos (se puede mejorar)
-
-        // CALCULAR TARIFA DE ENVIO
-        TarifaEnvio envio = new TarifaEnvio(paquete.getPeso(), paquete.getTamanio(), paquete.getSucursalAceptoPaquete(),
-                paquete.getSucursalParaRecoger());
-        envio.calcularPrecioEnvio();
-        envio.mostrarCostoEnvio();
-
-        // SI ACEPTA EL PRECIO DE ENVIO
-        // guardar en db
-        paquete.guardarPaquete(paquete);
-        Factura.guardarFactura(cliente.getCorreo(), paquete.getId_paquete(), envio.getSubtotal(), envio.getTotal(),
-                envio.getDescripcionTarifa());
-        Inventario inventario = new Inventario();
-        inventario.registrarPaquete("idPaquete");
-        InventarioHistorial inventarioHistorial = new InventarioHistorial();
-        inventarioHistorial.registrarPaquete("idPaquete");
-        paquete.setEstado("EN INVENTARIO REMITENTE");
-
-        // ENVIOS A SUCURSAL
-        CamionCarga camion = new CamionCarga("modelo", "marca", 1000, true, null, null);
-        camion.agregarPaquete("idPaquete"); // varios paquetes
-        inventario.eliminarPaquete("idPaquete"); // varios paquetes
-        inventarioHistorial.setFechaHoraSalida("idPaquete");
-        camion.comerzarViaje("sucursalDestino"); // algo asi
-        paquete.setEstado("EN CAMINO A SUCURSAL DESTINO");
-
-        // LLEGA A SUCURSAL DESTINO
-        paquete.setEstado("EN SUCURSAL DESTINO");
+        /*
+         * // LOGICA DE NEGOCIO
+         * 
+         * // REGISTRAMOS UN CLIENTE
+         * Cliente cliente = new Cliente("1723456789", "pruebas@gmail.com", "1234",
+         * "Juan", "Perez");
+         * // cliente.guardarCliente(); // guarda en la base de datos
+         * 
+         * Paquete paquete = new Paquete();
+         * paquete.setPeso(234);
+         * // set..... todos los atributos (se puede mejorar)
+         * 
+         * // CALCULAR TARIFA DE ENVIO
+         * TarifaEnvio envio = new TarifaEnvio(paquete.getPeso(), paquete.getTamanio(),
+         * paquete.getSucursalAceptoPaquete(),
+         * paquete.getSucursalParaRecoger());
+         * envio.calcularPrecioEnvio();
+         * envio.mostrarCostoEnvio();
+         * 
+         * // SI ACEPTA EL PRECIO DE ENVIO
+         * // guardar en db
+         * paquete.guardarPaquete(paquete);
+         * Factura.guardarFactura(cliente.getCorreo(), paquete.getId_paquete(),
+         * envio.getSubtotal(), envio.getTotal(),
+         * envio.getDescripcionTarifa());
+         * Inventario inventario = new Inventario();
+         * inventario.registrarPaquete("idPaquete");
+         * InventarioHistorial inventarioHistorial = new InventarioHistorial();
+         * inventarioHistorial.registrarPaquete("idPaquete");
+         * paquete.setEstado("EN INVENTARIO REMITENTE");
+         * 
+         * // ENVIOS A SUCURSAL
+         * CamionCarga camion = new CamionCarga("modelo", "marca", 1000, true, null,
+         * null);
+         * camion.agregarPaquete("idPaquete"); // varios paquetes
+         * inventario.eliminarPaquete("idPaquete"); // varios paquetes
+         * inventarioHistorial.setFechaHoraSalida("idPaquete");
+         * camion.comerzarViaje("sucursalDestino"); // algo asi
+         * paquete.setEstado("EN CAMINO A SUCURSAL DESTINO");
+         * 
+         * // LLEGA A SUCURSAL DESTINO
+         * paquete.setEstado("EN SUCURSAL DESTINO");
+         */
     }
 
     public static void ejemploConsultaBaseDatos() {
