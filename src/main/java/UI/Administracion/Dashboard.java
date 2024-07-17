@@ -6,6 +6,10 @@
 package UI.Administracion;
 
 import UI.Administracion.views.*;
+import UI.Almacenamiento.Almacenamiento;
+import UI.SeguimientoPaquete.UIEnvio;
+import UI.SeguimientoPaquete.UISeguimiento;
+
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -267,7 +271,7 @@ public class Dashboard extends javax.swing.JFrame {
     }// GEN-LAST:event_btn_prinActionPerformed
 
     private void btn_lendsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lendsActionPerformed
-
+        ShowJPanel(new UISeguimiento());
     }// GEN-LAST:event_btn_lendsActionPerformed
 
     private void btn_returnsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_returnsActionPerformed

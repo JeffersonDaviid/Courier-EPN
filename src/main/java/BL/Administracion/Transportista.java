@@ -16,9 +16,8 @@ public class Transportista extends Perfil {
     boolean disponible;
     Vehiculo camion;
 
-    public Transportista(String cedula, String correo, String pass, String nombre, String apellido, boolean disponible) {
+    public Transportista(String cedula, String correo, String pass, String nombre, String apellido) {
         super(cedula, correo, pass, nombre, apellido);
-        this.disponible = disponible;
         this.camion = null;
     }
 
