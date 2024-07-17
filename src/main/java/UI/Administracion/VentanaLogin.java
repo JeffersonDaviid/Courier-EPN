@@ -140,6 +140,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         String pass = jTextField2.getText();
         Perfil perfil = ingresarSistema(user, pass, rol);
         if (perfil != null){
+            JOptionPane.showMessageDialog(this, "Usuario logeado!");
             JFrame MenuPrincipal = perfil.verModulos();
             MenuPrincipal.setVisible(true);
         }else{
