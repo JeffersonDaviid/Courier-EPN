@@ -23,8 +23,8 @@ CREATE TABLE Vehiculo (
     marca TEXT,
     capacidadCarga INTEGER,
     disponibilidad INTEGER, -- Usaremos 0 para FALSE y 1 para TRUE
-    ruta INTEGER,
-    FOREIGN KEY (ruta) REFERENCES Ruta(id)
+    ruta INTEGER
+    --FOREIGN KEY (ruta) REFERENCES Ruta(id)
 );
 
 
