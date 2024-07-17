@@ -7,22 +7,19 @@ package BL.Administracion;
 import BL.BASEDEDATOS.DataHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  * Clase Perfil para la administración de usuarios
  * 
  */
-public class Perfil {
+public abstract class Perfil {
     private String cedula;
     private String correo;
     private String pass;
     private String nombre;
     private String apellido;
-    
-    public Perfil(){
-        
-    }
 
     public Perfil(String cedula, String correo, String pass, String nombre, String apellido) {
         this.cedula = cedula;
@@ -31,6 +28,8 @@ public class Perfil {
         this.nombre = nombre;
         this.apellido = apellido;
     }
+    
+    public abstract JFrame verModulos();
 
     public String getCedula(){
         return cedula;
@@ -67,12 +66,10 @@ public class Perfil {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-  
-    public boolean ingresarSistema(String usuario, String pass, String rol) {
-        System.out.println("Sesión iniciada.");
-    }
 
     public void cerrarSesion() {
         System.out.println("Sesión cerrada.");
     }
+    
+    
 }

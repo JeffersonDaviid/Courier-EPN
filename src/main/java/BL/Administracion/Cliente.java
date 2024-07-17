@@ -4,6 +4,9 @@
  */
 package BL.Administracion;
 
+import UI.Administracion.VentanaPrincipal;
+import javax.swing.JFrame;
+
 /**
  *
  * @author PCM
@@ -19,7 +22,11 @@ public class Cliente extends Perfil {
         super(cedula, correo, pass, nombre, apellido);
     }
     
-    
+    @Override
+    public JFrame verModulos() {
+        // Implementación específica para Cliente
+        return new VentanaPrincipal();
+    }
 
     public void consultarEnvio() {
         String nombre = this.nombre;

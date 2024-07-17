@@ -1,5 +1,8 @@
 package BL.Administracion;
 
+import UI.Administracion.VentanaPrincipal;
+import javax.swing.JFrame;
+
 
 public class Transportista extends Perfil {
     String cedula;
@@ -28,15 +31,15 @@ public class Transportista extends Perfil {
     }
 
     @Override
-    public boolean ingresarSistema(String usuario, String pass) {
-        // Logica especifica del transportista para ingresar al sistema
-        return super.ingresarSistema(usuario, pass);
-    }
-
-    @Override
     public void cerrarSesion() {
         // Logica especifica del transportista para cerrar sesión
         super.cerrarSesion();
+    }
+    
+    @Override
+    public JFrame verModulos() {
+        // Implementación específica para Cliente
+        return new VentanaPrincipal(this);
     }
 }
 

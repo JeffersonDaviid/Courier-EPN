@@ -1,5 +1,8 @@
 package BL.Administracion;
 
+import UI.Administracion.VentanaPrincipal;
+import javax.swing.JFrame;
+
 public class Administrador extends Perfil {
 
     String cedula;
@@ -10,12 +13,6 @@ public class Administrador extends Perfil {
 
     public Administrador(String cedula, String correo, String pass, String nombre, String apellido) {
         super(cedula, correo, pass, nombre, apellido);
-    }
-    
-    @Override
-    public boolean ingresarSistema(String usuario, String pass) {
-        // Logica especifica del cliente
-        return super.ingresarSistema(usuario, pass);
     }
 
     @Override
@@ -62,6 +59,12 @@ public class Administrador extends Perfil {
 
     public void gestionarParametrosDeEnvio() {
         // Logica para gestionar parametros de envio
+    }
+    
+    @Override
+    public JFrame verModulos() {
+        // Implementación específica para Cliente
+        return new VentanaPrincipal(this);
     }
 
 }

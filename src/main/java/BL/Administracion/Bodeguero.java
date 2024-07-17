@@ -1,5 +1,8 @@
 package BL.Administracion;
 
+import UI.Administracion.VentanaPrincipal;
+import javax.swing.JFrame;
+
 public class Bodeguero extends Perfil {
     String cedula;
     String correo;
@@ -11,12 +14,6 @@ public class Bodeguero extends Perfil {
     public Bodeguero(String cedula, String correo, String pass, String nombre, String apellido) {
         super(cedula, correo, pass, nombre, apellido);
 
-    }
-
-    @Override
-    public boolean ingresarSistema(String usuario, String pass) {
-        // Logica especifica del bodeguero
-        return super.ingresarSistema(usuario, pass);
     }
 
     @Override
@@ -55,6 +52,12 @@ public class Bodeguero extends Perfil {
 
     public void buscarPaquetePorID() {
         // Logica para buscar paquetes por ID
+    }
+    
+    @Override
+    public JFrame verModulos() {
+        // Implementación específica para Cliente
+        return new VentanaPrincipal(this);
     }
 
 }

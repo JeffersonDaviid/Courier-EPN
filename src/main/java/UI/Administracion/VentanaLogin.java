@@ -4,9 +4,12 @@
  */
 package UI.Administracion;
 
+import BL.Administracion.Perfil;
+import BL.Administracion.PerfilFactory;
 import BL.BASEDEDATOS.DataHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -135,17 +138,19 @@ public class VentanaLogin extends javax.swing.JFrame {
         String rol = (String) jComboBox1.getSelectedItem();
         String user = jTextField1.getText();
         String pass = jTextField2.getText();
-        if(ingresarSistema(user, pass, rol)){
-            System.out.println("Login correcto");
+        Perfil perfil = ingresarSistema(user, pass, rol);
+        if (perfil != null){
+            JFrame MenuPrincipal = perfil.verModulos();
+            MenuPrincipal.setVisible(true);
         }else{
-            System.out.println("Login incorrecto");
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public boolean ingresarSistema(String usuario, String pass, String rol) {
+    public Perfil ingresarSistema(String usuario, String pass, String rol) {
         DataHelper dataHelper = null;
         ResultSet rs = null;
-        boolean ingresoPermitido = false;
+        Perfil perfil = null;
 
         try {
             // Obtener la instancia de DataHelper
@@ -159,7 +164,20 @@ public class VentanaLogin extends javax.swing.JFrame {
 
             // Verificar si se encontró el usuario con la contraseña y rol especificados
             if (rs.next()) {
-                ingresoPermitido = true;
+                 // Recuperar los datos específicos de cada perfil desde la base de datos
+                String cedula = rs.getString("cedula");
+                String correo = rs.getString("correo");
+                String password = rs.getString("pass");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                
+                // Dependiendo del rol encontrado, crear la instancia correspondiente del perfil
+                if (rol.equals("Transportista")) {
+                    boolean disponible = rs.getBoolean("disponible");
+                    perfil = PerfilFactory.crearPerfil(rol, cedula, correo, password, nombre, apellido, disponible);
+                } else {
+                    perfil = PerfilFactory.crearPerfil(rol, cedula, correo, password, nombre, apellido);
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Usuario no encontrado: " + e.getMessage());
@@ -177,7 +195,7 @@ public class VentanaLogin extends javax.swing.JFrame {
             }
         }
 
-        return ingresoPermitido;
+        return perfil;
     }
     
     /**
