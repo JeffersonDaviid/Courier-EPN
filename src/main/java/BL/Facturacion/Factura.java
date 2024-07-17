@@ -11,10 +11,10 @@ import BL.BASEDEDATOS.DataHelper;
 
 public class Factura {
     private int idFactura;
-    private String correoCliente;
+    private String cedulaCliente;
     private String nombreCliente;
     private String apellidoCliente;
-    private String idPaquete;
+    private int idPaquete;
     private static String fecha = String.format("%tF %tT", new java.util.Date(), new java.util.Date());;
     private float subtotal;
     private static float iva;
@@ -26,7 +26,7 @@ public class Factura {
      * Constructor para obtener una factura de la base de datos
      * 
      * @param idFactura
-     * @param idCliente
+     * @param cedulaCliente
      * @param idPaquete
      * @param fecha
      * @param subtotal
@@ -34,11 +34,11 @@ public class Factura {
      * @param total
      * @param descripcionTarifa
      */
-    public Factura(int idFactura, String idPaquete, String correoCliente, String nombreCliente, String apellidoCliente,
+    public Factura(int idFactura, int idPaquete, String cedulaCliente, String nombreCliente, String apellidoCliente,
             String fecha, float subtotal, float iva, float ivaPorcentaje, double total, String descripcionTarifa) {
         this.idFactura = idFactura;
         this.idPaquete = idPaquete;
-        this.correoCliente = correoCliente;
+        this.cedulaCliente = cedulaCliente;
         this.nombreCliente = nombreCliente;
         this.apellidoCliente = apellidoCliente;
         Factura.fecha = fecha;
@@ -85,7 +85,7 @@ public class Factura {
             while (rs.next()) {
                 factura = new Factura(
                         rs.getInt("idFactura"),
-                        rs.getString("idPaquete"),
+                        rs.getInt("idPaquete"),
                         rs.getString("cl.correoCliente"),
                         rs.getString("nombreCliente"),
                         rs.getString("apellidoCliente"),
@@ -107,7 +107,7 @@ public class Factura {
             String message = "<html><body>"
                     + "ID Factura: " + factura.idFactura + "<br>"
                     + "ID Paquete: " + factura.idPaquete + "<br>"
-                    + "ID Cliente: " + factura.correoCliente + "<br>"
+                    + "ID Cliente: " + factura.cedulaCliente + "<br>"
                     + "ID Cliente: " + factura.nombreCliente + "<br>"
                     + "ID Cliente: " + factura.apellidoCliente + "<br>"
                     + "Fecha: " + Factura.fecha + "<br>"
@@ -138,8 +138,8 @@ public class Factura {
         return idFactura;
     }
 
-    public String getCorreoCliente() {
-        return correoCliente;
+    public String getCedulaCliente() {
+        return cedulaCliente;
     }
 
     public String getNombreCliente() {
@@ -150,7 +150,7 @@ public class Factura {
         return apellidoCliente;
     }
 
-    public String getIdPaquete() {
+    public int getIdPaquete() {
         return idPaquete;
     }
 
