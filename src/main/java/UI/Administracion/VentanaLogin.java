@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
-import com.mycompany.views.*;
 import java.awt.Color;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -47,7 +46,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     }
 
     private void InitContent() {
-        ShowJPanel(new Principal());
+        //ShowJPanel(new Principal());
     }
 
     public static void ShowJPanel(JPanel p) {
@@ -238,20 +237,20 @@ public class VentanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String rol = (String) jComboBox1.getSelectedItem();
-        String user = jTextField1.getText();
-        String pass = jTextField2.getText();
+        String rol = (String) jComboBox2.getSelectedItem();
+        String user = jFormattedTextField1.getText();
+        String pass = jPasswordField2.getText();
         Perfil perfil = ingresarSistema(user, pass, rol);
         if (perfil != null) {
             JOptionPane.showMessageDialog(this, "Usuario logeado!");
             JFrame MenuPrincipal = perfil.verModulos();
             MenuPrincipal.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+            JOptionPane.showMessageDialog(this, "Cédula, contraseña o rol incorrecto(s).");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    public Perfil ingresarSistema(String usuario, String pass, String rol) {
+    public Perfil ingresarSistema(String cedula, String pass, String rol) {
         DataHelper dataHelper = null;
         ResultSet rs = null;
         Perfil perfil = null;
@@ -262,7 +261,7 @@ public class VentanaLogin extends javax.swing.JFrame {
 
             // Definir la consulta SQL
             //rol = rol.substring(0, 1).toUpperCase();
-            String sql = "SELECT * FROM Usuarios WHERE cedula = '" + usuario + "' AND contrasena = '" + pass + "' AND rol = '" + rol + "'";
+            String sql = "SELECT * FROM Usuarios WHERE cedula = '" + cedula + "' AND contrasena = '" + pass + "' AND rol = '" + rol + "'";
 
             // Ejecutar la consulta de lectura
             rs = dataHelper.executeQueryRead(sql);
@@ -270,7 +269,7 @@ public class VentanaLogin extends javax.swing.JFrame {
             // Verificar si se encontró el usuario con la contraseña y rol especificados
             if (rs.next()) {
                  // Recuperar los datos específicos de cada perfil desde la base de datos
-                String cedula = rs.getString("cedula");
+                cedula = rs.getString("cedula");
                 String correo = rs.getString("correo");
                 String password = rs.getString("contrasena");
                 String nombre = rs.getString("nombre");
