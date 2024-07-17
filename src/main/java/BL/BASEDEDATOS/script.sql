@@ -83,7 +83,13 @@ CREATE TABLE Inventario (
 
 
 -- SEGUIMIENTO DE PAQUETES
-
+CREATE TABLE Envio (
+    idEnvio INTEGER PRIMARY KEY AUTOINCREMENT,
+    idPaquete INTEGER NOT NULL,
+    idTransporte INTEGER NOT NULL,
+    FOREIGN KEY (idPaquete) REFERENCES Paquete(idPaquete),
+    FOREIGN KEY (idTransporte) REFERENCES Transporte(idTransporte)
+);
 
 
 
