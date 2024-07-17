@@ -1,17 +1,14 @@
 package BL.Almacenamiento;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
 import BL.BASEDEDATOS.DataHelper;
-import BL.GestionPaquete.Paquete;
 
 import java.util.List;
 
@@ -62,18 +59,49 @@ public class Historial {
     }
 
     //Método que consulta todo el historial de la bodega, indicando de cada paquete
-    public void consultar(){
+    public ArrayList<String[]> consultarHoy(){
+        //Dataframe de todos los dato de registro
+        //Id - fecha ingreso - hora ingreso - fecha salida - hora salida
+        ArrayList<String[]> datosRegistros = new ArrayList<>();
+        String[] registroDatos = new String[5];
+        int i = 0;
+        List<Registro> registro;
+        for (String clave : registros.keySet()) {
+            registro = registros.get(clave);
+
+            registroDatos[0] = registro.get(0).getIdPaquete();
+
+            if(registro.size() == 2){
+                registroDatos[1] = registro.get(0).getFecha();
+                registroDatos[2] = registro.get(0).getHora();
+                registroDatos[3] = registro.get(1).getFecha();
+                registroDatos[4] = registro.get(1).getHora();
+            }else{
+                registroDatos[1] = registro.get(0).getFecha();
+                registroDatos[2] = registro.get(0).getHora();
+            }
+            i++;
+            datosRegistros.add(registroDatos);
+        }
+        return datosRegistros;
     }
 
-    //Método que muestra el historial de todos los paquete recibidos o ingresados a la bodega
-    public void consultarIngresos(){
+    public void filtrarHistorial(String parametro){
+        //Algoritmo para mostrar los registros segun el parametro
+        //Consulta a la base
     }
 
-    //Método que muestra el historial de todos los paquete enviados o que salieron de la bodega
-    public void consultarSalidas(){
-    }
+    public void mostrarRegistros() {
+        System.out.println(registros.size());
+        for (Map.Entry<String, List<Registro>> entry : registros.entrySet()) {
+            String clave = entry.getKey();
+            List<Registro> lista = entry.getValue();
 
-    public void filtrarHistorial(String fecha){
-        //Algoritmo para mostrar los registros segun la fecha
+            System.out.println("Clave: " + clave);
+
+            for (Registro registro : lista) {
+                System.out.println("\t" + registro);
+            }
+        }
     }
 }
