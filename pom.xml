@@ -29,13 +29,8 @@
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.42.0.0</version> <!-- Reemplaza con la versión más reciente si es necesario -->
+            <version>3.42.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
+    </dependencies>
 </project>

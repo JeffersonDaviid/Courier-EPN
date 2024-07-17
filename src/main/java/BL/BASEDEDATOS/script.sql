@@ -17,7 +17,15 @@ CREATE TABLE Usuarios (
 
 
 -- TRANSPORTE
-
+CREATE TABLE Camion (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    modelo TEXT,
+    marca TEXT,
+    capacidadCarga INTEGER,
+    disponibilidad INTEGER, -- Usaremos 0 para FALSE y 1 para TRUE
+    ruta_id INTEGER,
+    FOREIGN KEY (ruta_id) REFERENCES Ruta(id)
+);
 
 
 
