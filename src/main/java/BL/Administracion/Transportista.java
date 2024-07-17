@@ -29,17 +29,7 @@ public class Transportista extends Perfil {
     public void actualizarEstadoPaquetes() {
         // Logica para actualizar el estado de los paquetes
     }
-
-    @Override
-    public void cerrarSesion() {
-        // Logica especifica del transportista para cerrar sesión
-        super.cerrarSesion();
-    }
     
-    @Override
-    public JFrame verModulos() {
-        // Implementación específica para Cliente
-        return new VentanaPrincipal(this);
-    }
+    
 }
 

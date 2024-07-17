@@ -15,11 +15,6 @@ public class Administrador extends Perfil {
         super(cedula, correo, pass, nombre, apellido);
     }
 
-    @Override
-    public void cerrarSesion() {
-        // Logica especifica de administrador
-        super.cerrarSesion();
-    }
 
     public void registrarEmpleado() {
         // Logica para registrar empleado

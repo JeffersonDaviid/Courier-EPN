@@ -66,10 +66,6 @@ public abstract class Perfil {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
-    public void cerrarSesion() {
-        System.out.println("Sesión cerrada.");
-    }
     
     
 }

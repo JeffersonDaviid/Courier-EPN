@@ -16,12 +16,6 @@ public class Bodeguero extends Perfil {
 
     }
 
-    @Override
-    public void cerrarSesion() {
-        // Logica especifica del bodeguero
-        super.cerrarSesion();
-    }
-
     public void clasificarPaquete() {
         // Logica para clasificar paquetes
     }
