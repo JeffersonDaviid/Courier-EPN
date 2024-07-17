@@ -49,7 +49,7 @@ public class Factura {
         this.descripcionTarifa = descripcionTarifa;
     }
 
-    public static void guardarFactura(String correoCliente, String idPaquete, float subtotal, double total,
+    public static void guardarFactura(String correoCliente, int idPaquete, float subtotal, double total,
             String descripcionTarifa) {
         cargarIva();
         int rs = -1;
