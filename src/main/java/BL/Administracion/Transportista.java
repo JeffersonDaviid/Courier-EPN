@@ -4,6 +4,7 @@ package BL.Administracion;
 import javax.swing.JFrame;
 
 import BL.Transporte.Vehiculo;
+import UI.Administracion.VentanaLogin;
 
 
 public class Transportista extends Perfil {
@@ -43,9 +44,8 @@ public class Transportista extends Perfil {
     }
 
     @Override
-    public JFrame verModulos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verModulos'");
+    public JFrame verModulos(VentanaLogin login) {
+        return TransMenuPrincipal(login, this)
     }
     
     

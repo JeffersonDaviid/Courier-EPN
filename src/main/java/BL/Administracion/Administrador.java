@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import BL.BASEDEDATOS.DataHelper;
 import BL.Transporte.Ruta;
 import BL.Transporte.Vehiculo;
+import UI.Administracion.AdminMenuPrincipal;
+import UI.Administracion.VentanaLogin;
 
 public class Administrador extends Perfil {
 
@@ -125,11 +127,10 @@ public class Administrador extends Perfil {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     @Override
-    public JFrame verModulos() {
-        // Implementación específica para Cliente
-        return new JFrame();
+    public JFrame verModulos(VentanaLogin login) {
+        return new AdminMenuPrincipal(login, this);
     }
 
 }
