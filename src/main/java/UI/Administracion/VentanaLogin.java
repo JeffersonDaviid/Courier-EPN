@@ -157,7 +157,7 @@ public class VentanaLogin extends javax.swing.JFrame {
             dataHelper = DataHelper.getInstancia();
 
             // Definir la consulta SQL
-            String sql = "SELECT * FROM Usuarios WHERE usuario = '" + usuario + "' AND pass = '" + pass + "' AND rol = '" + rol + "'";
+            String sql = "SELECT * FROM Usuarios WHERE cedula = '" + usuario + "' AND contrasena = '" + pass + "' AND rol = '" + rol + "'";
 
             // Ejecutar la consulta de lectura
             rs = dataHelper.executeQueryRead(sql);
@@ -167,7 +167,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                  // Recuperar los datos específicos de cada perfil desde la base de datos
                 String cedula = rs.getString("cedula");
                 String correo = rs.getString("correo");
-                String password = rs.getString("pass");
+                String password = rs.getString("contrasena");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
                 
