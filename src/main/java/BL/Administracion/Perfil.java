@@ -4,6 +4,11 @@
  */
 package BL.Administracion;
 
+import BL.BASEDEDATOS.DataHelper;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  * Clase Perfil para la administración de usuarios
  * 
@@ -63,9 +68,8 @@ public class Perfil {
         this.apellido = apellido;
     }
   
-    public boolean ingresarSistema(String usuario, String pass) {
-        // Método de autenticación simulado
-        return "usuario".equals(usuario) && "pass".equals(pass);
+    public boolean ingresarSistema(String usuario, String pass, String rol) {
+        System.out.println("Sesión iniciada.");
     }
 
     public void cerrarSesion() {

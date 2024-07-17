@@ -4,6 +4,11 @@
  */
 package UI.Administracion;
 
+import BL.BASEDEDATOS.DataHelper;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PCM
@@ -127,9 +132,54 @@ public class VentanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String rol = (String) jComboBox1.getSelectedItem();
+        String user = jTextField1.getText();
+        String pass = jTextField2.getText();
+        if(ingresarSistema(user, pass, rol)){
+            System.out.println("Login correcto");
+        }else{
+            System.out.println("Login incorrecto");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public boolean ingresarSistema(String usuario, String pass, String rol) {
+        DataHelper dataHelper = null;
+        ResultSet rs = null;
+        boolean ingresoPermitido = false;
+
+        try {
+            // Obtener la instancia de DataHelper
+            dataHelper = DataHelper.getInstancia();
+
+            // Definir la consulta SQL
+            String sql = "SELECT * FROM Usuarios WHERE usuario = '" + usuario + "' AND pass = '" + pass + "' AND rol = '" + rol + "'";
+
+            // Ejecutar la consulta de lectura
+            rs = dataHelper.executeQueryRead(sql);
+
+            // Verificar si se encontró el usuario con la contraseña y rol especificados
+            if (rs.next()) {
+                ingresoPermitido = true;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Usuario no encontrado: " + e.getMessage());
+        } finally {
+            // Cerrar el ResultSet y la conexión a la base de datos
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+                if (dataHelper != null) {
+                    dataHelper.closeConnection();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar los recursos: " + e.getMessage());
+            }
+        }
+
+        return ingresoPermitido;
+    }
+    
     /**
      * @param args the command line arguments
      */

@@ -19,17 +19,7 @@ public class Cliente extends Perfil {
         super(cedula, correo, pass, nombre, apellido);
     }
     
-    @Override
-    public boolean ingresarSistema(String usuario, String pass) {
-        // Logica especifica del cliente
-        return super.ingresarSistema(usuario, pass);
-    }
-
-    @Override
-    public void cerrarSesion() {
-        // Logica especifica del cliente
-        super.cerrarSesion();
-    }
+    
 
     public void consultarEnvio() {
         String nombre = this.nombre;
