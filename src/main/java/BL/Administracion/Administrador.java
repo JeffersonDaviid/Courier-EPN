@@ -1,5 +1,7 @@
 package BL.Administracion;
 
+import java.sql.ResultSet;
+
 //import UI.Administracion.VentanaPrincipal;
 
 import java.sql.SQLException;
@@ -8,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import BL.BASEDEDATOS.DataHelper;
+import BL.Transporte.Ruta;
+import BL.Transporte.Vehiculo;
 
 public class Administrador extends Perfil {
 
@@ -23,73 +27,109 @@ public class Administrador extends Perfil {
     }
 
 
-    public void registrarEmpleado(Perfil perfil) {
+    public void registrarUsuario(Perfil perfil) {
         int rs = -1;
 
-        String sql = "INSERT INTO Usuarios (cedula, correo, contrasena, nombre, apellido, rol) VALUES ("
-                + perfil.getCedula() + ", " + perfil.getCorreo() + ", '" + perfil.getPass() + "', " + perfil.getNombre() + ", " + perfil.getApellido() + ", "
-                + perfil.getClass().getSimpleName() + "')";
+        String sql = "INSERT INTO Usuarios (cedula, correo, contrasena, nombre, apellido, rol) VALUES ('"
+                + perfil.getCedula() + "', '" + perfil.getCorreo() + "', '" + perfil.getPass() + "', '" + perfil.getNombre() 
+                + "', '" + perfil.getApellido() + "', '" + perfil.getClass().getSimpleName() + "')";
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
 
             if (rs > 0) {
-                JOptionPane.showMessageDialog(null, "Factura guardada con éxito", "Guardado",
+                JOptionPane.showMessageDialog(null, "Usuario registrado con éxito", "Guardado",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Error al guardar la factura", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error al registrar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar la factura: " + e.getMessage(), "Error",
+            JOptionPane.showMessageDialog(null, "Error al registrar el usuario: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void consultarEmpleado() {
-        // Logica para consultar empleado
+    public void consultarUsuario(String cedula) {
+        Perfil perfil = null;
+        String sql = String.format("SELECT * FROM Usuarios WHERE cedula = %s", cedula);
+
+        try {
+            ResultSet rs = DataHelper.getInstancia().executeQueryRead(sql);
+            while (rs.next()) {
+                perfil = PerfilFactory.crearPerfil(rs.getString("rol"),
+                        rs.getString("cedula"),
+                        rs.getString("correo"),
+                        rs.getString("contrasena"),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"));
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar el cliente: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (perfil != null) {
+            System.out.println("Cédula: " + perfil.getCedula());
+            System.out.println("Correo: " + perfil.getCorreo());
+            System.out.println("Contraseña: " + perfil.getPass());
+            System.out.println("Nombre: " + perfil.getNombre());
+            System.out.println("Apellido: " + perfil.getApellido());
+        }
     }
 
     public void actualizarEmpleado() {
         // Logica para modificar empleado
     }
-    
-    public void darDeBajaEmpleado() {
-        // Logica para modificar empleado
+
+    public void asignarChoferACamion(Transportista transportista, Vehiculo camion) {
+        transportista.setCamion(camion);
     }
 
-    public void asignarChoferACamion() {
-        // Logica para asignar chofer a camion
+    public void registrarCamion(Vehiculo camion) {
+        int rs = -1;
+
+        String sql = "INSERT INTO ";
+        try {
+            rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+
+            if (rs > 0) {
+                JOptionPane.showMessageDialog(null, "Camión registrado con éxito", "Guardado",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al registrar el camión", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar el camión: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    public void registrarCamion() {
-        // Logica para registrar camion
-    }
+    public void registrarRuta(Ruta ruta) {
+        int rs = -1;
 
-    public void eliminarCamion() {
-        // Logica para eliminar camion
-    }
+        String sql = "INSERT INTO ";
+        try {
+            rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
 
-    public void registrarRuta() {
-        // Logica para registrar ruta
-    }
+            if (rs > 0) {
+                JOptionPane.showMessageDialog(null, "Ruta registrada con éxito", "Guardado",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al registrar la ruta", "Error", JOptionPane.ERROR_MESSAGE);
+            }
 
-    public void eliminarRuta() {
-        // Logica para eliminar ruta
-    }
-
-    public void gestionarParametrosDeEnvio() {
-        // Logica para gestionar parametros de envio
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar la ruta: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     @Override
     public JFrame verModulos() {
         // Implementación específica para Cliente
         return new JFrame();
-    }
-
-    public static void main(String[] args) {
-        Administrador admin = new Administrador("123456789", "N/A", "1234", "Admin", "Admin");
-        System.out.println(admin.getClass().getSimpleName());
     }
 
 }
