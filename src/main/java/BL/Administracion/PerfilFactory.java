@@ -19,16 +19,18 @@ public class PerfilFactory {
                 return new Bodeguero(cedula, correo, pass, nombre, apellido);
             case "Administrador":
                 return new Administrador(cedula, correo, pass, nombre, apellido);
+            case "Transportista":
+                return new Transportista(cedula, correo, pass, nombre, apellido);
             default:
                 throw new IllegalArgumentException("Rol desconocido: " + rol);
         }
     }
     
-    public static Perfil crearPerfil(String rol, String cedula, String correo, String pass, String nombre, String apellido, boolean disponible) {
+    /*public static Perfil crearPerfil(String rol, String cedula, String correo, String pass, String nombre, String apellido, boolean disponible) {
         if (rol.equals("Transportista")) {
             return new Transportista(cedula, correo, pass, nombre, apellido, disponible);
         } else {
             throw new IllegalArgumentException("Rol no compatible con atributo disponible: " + rol);
         }
-    }
+    }*/
 }

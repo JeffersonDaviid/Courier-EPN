@@ -282,13 +282,13 @@ public class VentanaLogin extends javax.swing.JFrame {
                 String apellido = rs.getString("apellido");
 
                 // Dependiendo del rol encontrado, crear la instancia correspondiente del perfil
-                if (rol.equals("Transportista")) {
-                    boolean disponible = rs.getBoolean("disponible");
-                    perfil = PerfilFactory.crearPerfil(rol, cedula, correo, pass, nombre, apellido, disponible);
-                } else {
+                //if (rol.equals("Transportista")) {
+                    //boolean disponible = rs.getBoolean("disponible");
+                    //perfil = PerfilFactory.crearPerfil(rol, cedula, correo, pass, nombre, apellido, disponible);
+                //} else {
                     perfil = PerfilFactory.crearPerfil(rol, cedula, correo, pass, nombre, apellido);
                     JOptionPane.showMessageDialog(null, rol + cedula + correo + pass + nombre + apellido);
-                }
+                //}
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Usuario no encontrado: " + e.getMessage());
