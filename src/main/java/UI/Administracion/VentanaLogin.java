@@ -272,8 +272,9 @@ public class VentanaLogin extends javax.swing.JFrame {
         Perfil perfil = ingresarSistema(user, pass, rol);
         if (perfil != null) {
             JOptionPane.showMessageDialog(this, "Usuario logeado!");
-            JFrame MenuPrincipal = perfil.verModulos();
+            JFrame MenuPrincipal = perfil.verModulos(this);
             MenuPrincipal.setVisible(true);
+            setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Cédula, contraseña o rol incorrecto(s).");
         }
@@ -292,25 +293,24 @@ public class VentanaLogin extends javax.swing.JFrame {
             // rol = rol.substring(0, 1).toUpperCase();
             String sql = "SELECT * FROM Usuarios WHERE cedula = '" + cedula + "' AND contrasena = '" + pass
                     + "' AND rol = '" + rol + "'";
-
+            JOptionPane.showMessageDialog(null, rol + cedula + pass);
             // Ejecutar la consulta de lectura
             rs = dataHelper.executeQueryRead(sql);
 
             // Verificar si se encontró el usuario con la contraseña y rol especificados
             if (rs.next()) {
                 // Recuperar los datos específicos de cada perfil desde la base de datos
-                cedula = rs.getString("cedula");
                 String correo = rs.getString("correo");
-                String password = rs.getString("contrasena");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
 
                 // Dependiendo del rol encontrado, crear la instancia correspondiente del perfil
                 if (rol.equals("Transportista")) {
                     boolean disponible = rs.getBoolean("disponible");
-                    perfil = PerfilFactory.crearPerfil(rol, cedula, correo, password, nombre, apellido, disponible);
+                    perfil = PerfilFactory.crearPerfil(rol, cedula, correo, pass, nombre, apellido, disponible);
                 } else {
-                    perfil = PerfilFactory.crearPerfil(rol, cedula, correo, password, nombre, apellido);
+                    perfil = PerfilFactory.crearPerfil(rol, cedula, correo, pass, nombre, apellido);
+                    JOptionPane.showMessageDialog(null, rol + cedula + correo + pass + nombre + apellido);
                 }
             }
         } catch (SQLException e) {

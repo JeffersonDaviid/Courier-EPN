@@ -4,7 +4,8 @@
  */
 package BL.Administracion;
 
-import UI.Administracion.VentanaPrincipal;
+import UI.Administracion.ClienteMenuPrincipal;
+import UI.Administracion.VentanaLogin;
 import javax.swing.JFrame;
 
 /**
@@ -23,9 +24,9 @@ public class Cliente extends Perfil {
     }
     
     @Override
-    public JFrame verModulos() {
+    public JFrame verModulos(VentanaLogin login) {
         // Implementación específica para Cliente
-        return new VentanaPrincipal();
+        return new ClienteMenuPrincipal(login, this);
     }
 
     public void consultarEnvio() {

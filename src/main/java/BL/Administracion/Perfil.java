@@ -5,6 +5,7 @@
 package BL.Administracion;
 
 import BL.BASEDEDATOS.DataHelper;
+import UI.Administracion.VentanaLogin;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;
@@ -29,7 +30,7 @@ public abstract class Perfil {
         this.apellido = apellido;
     }
     
-    public abstract JFrame verModulos();
+    public abstract JFrame verModulos(VentanaLogin login);
 
     public String getCedula(){
         return cedula;
