@@ -29,7 +29,6 @@ CREATE TABLE Paquete (
     idPaquete INTEGER PRIMARY KEY AUTOINCREMENT,
     peso REAL,
     tamanio TEXT,
-    isFragil TEXT,
     fechaHoraLlegada TEXT,
     fechaHoraSalida TEXT,
     nombreRemitente TEXT,
@@ -41,8 +40,11 @@ CREATE TABLE Paquete (
     tipoEnvio TEXT,
     sucursalAceptoPaquete TEXT,
     sucursalParaRecoger TEXT,
-    precio REAL
+    precio REAL,
+    trackingNumber TEXT,
+    estado TEXT DEFAULT 'recibido'
 );
+
 
 
 

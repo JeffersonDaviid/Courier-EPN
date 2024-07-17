@@ -4,6 +4,9 @@
  */
 package UI.GestionPaquete;
 
+import BL.Facturacion.Tarifa;
+import BL.Facturacion.TarifaDomicilio;
+import BL.Facturacion.TarifaEnvio;
 import BL.GestionPaquete.Paquete;
 import javax.swing.JOptionPane;
 
@@ -16,8 +19,10 @@ public class GestionPaquete extends javax.swing.JFrame {
     /**
      * Creates new form GestionPaquete
      */
+    private Paquete paquete;
     public GestionPaquete() {
         initComponents();
+        paquete = new Paquete();
     }
 
     /**
@@ -64,8 +69,6 @@ public class GestionPaquete extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jBaceptar = new javax.swing.JButton();
-        jComboisFragil = new javax.swing.JComboBox<>();
-        jLabel16 = new javax.swing.JLabel();
         jComboTipoEnvio = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         jTFechasalida = new javax.swing.JTextField();
@@ -156,10 +159,6 @@ public class GestionPaquete extends javax.swing.JFrame {
             }
         });
 
-        jComboisFragil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
-
-        jLabel16.setText("esFragil");
-
         jComboTipoEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Domicilio", "Agencia", " " }));
 
         jLabel17.setText("Fecha de salida");
@@ -179,42 +178,29 @@ public class GestionPaquete extends javax.swing.JFrame {
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTpeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(67, 67, 67)
-                                        .addComponent(jComboTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel13)
-                                        .addGap(98, 98, 98)
-                                        .addComponent(jLabel14)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboisFragil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel16)
-                                        .addGap(28, 28, 28)))
-                                .addGap(56, 56, 56)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jbCalcularPrecio)
-                                        .addGap(36, 36, 36)
-                                        .addComponent(jTprecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
-                                        .addGap(13, 13, 13))))
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel13)
+                                .addGap(86, 86, 86)
+                                .addComponent(jLabel14)
+                                .addGap(145, 145, 145)
+                                .addComponent(jLabel15))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel18)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel17)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTFechasalida, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel18)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTFechasalida, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(jTpeso, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(jComboTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(80, 80, 80)
+                                .addComponent(jTprecio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61)
+                                .addComponent(jbCalcularPrecio)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -233,7 +219,7 @@ public class GestionPaquete extends javax.swing.JFrame {
                             .addComponent(jtCorreoRemitente, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(jtTelefonoRemitente, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel7)
@@ -309,22 +295,16 @@ public class GestionPaquete extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTpeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbCalcularPrecio)
-                            .addComponent(jComboTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTprecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboisFragil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTpeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbCalcularPrecio)
+                    .addComponent(jComboTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTprecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -369,6 +349,7 @@ public class GestionPaquete extends javax.swing.JFrame {
 
     private void jbCalcularPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalcularPrecioActionPerformed
         // TODO add your handling code here:
+        calcularYMostrarPrecioEnvio();
     }//GEN-LAST:event_jbCalcularPrecioActionPerformed
 
     private void jBaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBaceptarActionPerformed
@@ -380,43 +361,54 @@ public class GestionPaquete extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     
-  private void guardarPaquete() {
-    String nombreRemitente = jtNombreRemitente.getText();
-    String correoRemitente = jtCorreoRemitente.getText();
-    String telefonoRemitente = jtTelefonoRemitente.getText();
-    String nombreDestinatario = jtNombreDestinatario.getText();
-    String correoDestinatario = jtCorreoDestinatario.getText();
-    String telefonoDestinatario = jtTelefonoDestinatario.getText();
-    float peso = Float.parseFloat(jTpeso.getText());
-    String tamanio = (String) jComboTamanio.getSelectedItem(); // Obtener el tamaño seleccionado
-    String isFragil = (String) jComboisFragil.getSelectedItem();
-    String fechaSalida = jTFechasalida.getText();
-    String fechaLlegada = jTFechaLlegada.getText();
-    String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem(); // Nuevo campo
-    String sucursalAceptoPaquete = jTsucursalAcepto.getText(); // Nuevo campo
-    String sucursalParaRecoger = jTsucursalRecibe.getText(); // Nuevo campo
-    float precio = Float.parseFloat(jTprecio.getText());
+     private void calcularYMostrarPrecioEnvio() {
+        // Obtener datos del formulario
+        
+        float peso = Float.parseFloat(jTpeso.getText());
+        String tamanio = (String) jComboTamanio.getSelectedItem();
+        String sucursalAceptoPaquete = jTsucursalAcepto.getText();
+        String sucursalParaRecoger = jTsucursalRecibe.getText();
+        String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem(); 
+        
+        
+        paquete.calcularPrecioEnvio(tipoEnvio,peso,tamanio,sucursalAceptoPaquete,sucursalParaRecoger);
+        jTprecio.setText(String.valueOf(paquete.getPrecioEnvio()));
+    }
+    
+private void guardarPaquete() {
+        String nombreRemitente = jtNombreRemitente.getText();
+        String correoRemitente = jtCorreoRemitente.getText();
+        String telefonoRemitente = jtTelefonoRemitente.getText();
+        String nombreDestinatario = jtNombreDestinatario.getText();
+        String correoDestinatario = jtCorreoDestinatario.getText();
+        String telefonoDestinatario = jtTelefonoDestinatario.getText();
+        float peso = Float.parseFloat(jTpeso.getText());
+        String tamanio = (String) jComboTamanio.getSelectedItem();
+        String fechaSalida = jTFechasalida.getText();
+        String fechaLlegada = jTFechaLlegada.getText();
+        String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem();
+        String sucursalAceptoPaquete = jTsucursalAcepto.getText();
+        String sucursalParaRecoger = jTsucursalRecibe.getText();
+        float precio = Float.parseFloat(jTprecio.getText());
 
-    Paquete paquete = new Paquete();
-    paquete.setPeso(peso);
-    paquete.setTamanio(tamanio); // Asignar el tamaño seleccionado
-    paquete.setIsfragil(isFragil);
-    paquete.setFechaHoraLlegada(fechaLlegada);
-    paquete.setFechaHoraSalida(fechaSalida);
+        
+        paquete.setPeso(peso);
+        paquete.setTamanio(tamanio);
+        paquete.setFechaHoraLlegada(fechaLlegada);
+        paquete.setFechaHoraSalida(fechaSalida);
+        paquete.setNombreRemitente(nombreRemitente);
+        paquete.setCorreoRemitente(correoRemitente);
+        paquete.setTelefonoRemitente(telefonoRemitente);
+        paquete.setNombreDestinatario(nombreDestinatario);
+        paquete.setCorreoDestinatario(correoDestinatario);
+        paquete.setTelefonoDestinatario(telefonoDestinatario);
+        paquete.setTipoEnvio(tipoEnvio);
+        paquete.setSucursalAceptoPaquete(sucursalAceptoPaquete);
+        paquete.setSucursalParaRecoger(sucursalParaRecoger);
+        paquete.setPrecio(precio);
 
-    paquete.setNombreRemitente(nombreRemitente);
-    paquete.setCorreoRemitente(correoRemitente);
-    paquete.setTelefonoRemitente(telefonoRemitente);
-    paquete.setNombreDestinatario(nombreDestinatario);
-    paquete.setCorreoDestinatario(correoDestinatario);
-    paquete.setTelefonoDestinatario(telefonoDestinatario);
-    paquete.setTipoEnvio(tipoEnvio); // Nuevo campo
-    paquete.setSucursalAceptoPaquete(sucursalAceptoPaquete); // Nuevo campo
-    paquete.setSucursalParaRecoger(sucursalParaRecoger); // Nuevo campo
-    paquete.setPrecio(precio); // Nuevo campo
-
-    paquete.guardarPaquete(paquete); // Llama al método de instancia en la clase Paquete
-}
+        paquete.guardarPaquete(paquete);
+    }
 
 
     public static void main(String args[]) {
@@ -460,7 +452,6 @@ public class GestionPaquete extends javax.swing.JFrame {
     private javax.swing.JButton jBaceptar;
     private javax.swing.JComboBox<String> jComboTamanio;
     private javax.swing.JComboBox<String> jComboTipoEnvio;
-    private javax.swing.JComboBox<String> jComboisFragil;
     private javax.swing.JLabel jLNombreRem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -469,7 +460,6 @@ public class GestionPaquete extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel3;
