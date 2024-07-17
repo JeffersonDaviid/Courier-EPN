@@ -63,10 +63,7 @@ public class GestionPaquete extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jTpeso = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jbCalcularPrecio = new javax.swing.JButton();
         jComboTamanio = new javax.swing.JComboBox<>();
-        jTprecio = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jBaceptar = new javax.swing.JButton();
         jComboTipoEnvio = new javax.swing.JComboBox<>();
@@ -74,6 +71,8 @@ public class GestionPaquete extends javax.swing.JFrame {
         jTFechasalida = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jTFechaLlegada = new javax.swing.JTextField();
+        jTdomicilio = new javax.swing.JTextField();
+        jldomicilio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,16 +140,7 @@ public class GestionPaquete extends javax.swing.JFrame {
 
         jLabel14.setText("Tamaño");
 
-        jbCalcularPrecio.setText("Calcular Precio");
-        jbCalcularPrecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCalcularPrecioActionPerformed(evt);
-            }
-        });
-
         jComboTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pequeño", "mediano", "grande", " " }));
-
-        jLabel15.setText("Precio");
 
         jBaceptar.setText("GUARDAR");
         jBaceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,55 +150,26 @@ public class GestionPaquete extends javax.swing.JFrame {
         });
 
         jComboTipoEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Domicilio", "Agencia", " " }));
+        jComboTipoEnvio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboTipoEnvioActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("Fecha de salida");
 
         jLabel18.setText("Fecha de llegada");
+
+        jldomicilio.setText("Direccion de domicilio");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBaceptar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel13)
-                                .addGap(86, 86, 86)
-                                .addComponent(jLabel14)
-                                .addGap(145, 145, 145)
-                                .addComponent(jLabel15))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel18)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel17)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTFechasalida, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTpeso, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44)
-                                .addComponent(jComboTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80)
-                                .addComponent(jTprecio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61)
-                                .addComponent(jbCalcularPrecio)))))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator4)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator3)
-                        .addContainerGap())
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,18 +192,49 @@ public class GestionPaquete extends javax.swing.JFrame {
                         .addGap(121, 121, 121))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addGap(29, 29, 29)
                                 .addComponent(jComboTipoEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(108, 108, 108)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jTsucursalAcepto)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jTsucursalRecibe, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)))
-                            .addComponent(jLabel12))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jldomicilio)
+                                    .addComponent(jTdomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jTsucursalAcepto)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jTsucursalRecibe, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3)
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBaceptar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel13)
+                                .addGap(86, 86, 86)
+                                .addComponent(jLabel14))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTpeso, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(jComboTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel17))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFechasalida, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,42 +270,45 @@ public class GestionPaquete extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtTelefonoDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel11)
-                    .addComponent(jComboTipoEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTsucursalAcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jComboTipoEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTsucursalAcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTsucursalRecibe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jldomicilio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTdomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTpeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbCalcularPrecio)
                     .addComponent(jComboTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTprecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(jTFechasalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(jTFechaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBaceptar)
@@ -347,67 +342,64 @@ public class GestionPaquete extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtNombreDestinatarioActionPerformed
 
-    private void jbCalcularPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalcularPrecioActionPerformed
-        // TODO add your handling code here:
-        calcularYMostrarPrecioEnvio();
-    }//GEN-LAST:event_jbCalcularPrecioActionPerformed
-
     private void jBaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBaceptarActionPerformed
         // TODO add your handling code here:
         guardarPaquete();
     }//GEN-LAST:event_jBaceptarActionPerformed
 
+    private void jComboTipoEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTipoEnvioActionPerformed
+        // TODO add your handling code here:
+        if (jComboTipoEnvio.getSelectedItem().toString().equals("Domicilio")) {
+            jldomicilio.setVisible(true);
+            jTdomicilio.setVisible(true);
+            jTdomicilio.setText("");
+        } else {
+            jTdomicilio.setVisible(false);
+            jldomicilio.setVisible(false);
+            jTdomicilio.setText("NO");
+        }
+    }//GEN-LAST:event_jComboTipoEnvioActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
-     private void calcularYMostrarPrecioEnvio() {
-        // Obtener datos del formulario
-        
-        float peso = Float.parseFloat(jTpeso.getText());
-        String tamanio = (String) jComboTamanio.getSelectedItem();
-        String sucursalAceptoPaquete = jTsucursalAcepto.getText();
-        String sucursalParaRecoger = jTsucursalRecibe.getText();
-        String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem(); 
-        
-        
-        paquete.calcularPrecioEnvio(tipoEnvio,peso,tamanio,sucursalAceptoPaquete,sucursalParaRecoger);
-        jTprecio.setText(String.valueOf(paquete.getPrecioEnvio()));
-    }
+     
     
 private void guardarPaquete() {
-        String nombreRemitente = jtNombreRemitente.getText();
-        String correoRemitente = jtCorreoRemitente.getText();
-        String telefonoRemitente = jtTelefonoRemitente.getText();
-        String nombreDestinatario = jtNombreDestinatario.getText();
-        String correoDestinatario = jtCorreoDestinatario.getText();
-        String telefonoDestinatario = jtTelefonoDestinatario.getText();
-        float peso = Float.parseFloat(jTpeso.getText());
-        String tamanio = (String) jComboTamanio.getSelectedItem();
-        String fechaSalida = jTFechasalida.getText();
-        String fechaLlegada = jTFechaLlegada.getText();
-        String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem();
-        String sucursalAceptoPaquete = jTsucursalAcepto.getText();
-        String sucursalParaRecoger = jTsucursalRecibe.getText();
-        float precio = Float.parseFloat(jTprecio.getText());
+    String nombreRemitente = jtNombreRemitente.getText();
+    String correoRemitente = jtCorreoRemitente.getText();
+    String telefonoRemitente = jtTelefonoRemitente.getText();
+    String nombreDestinatario = jtNombreDestinatario.getText();
+    String correoDestinatario = jtCorreoDestinatario.getText();
+    String telefonoDestinatario = jtTelefonoDestinatario.getText();
+    float peso = Float.parseFloat(jTpeso.getText());
+    String tamanio = (String) jComboTamanio.getSelectedItem();
+    String fechaSalida = jTFechasalida.getText();
+    String fechaLlegada = jTFechaLlegada.getText();
+    String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem();
+    String sucursalAceptoPaquete = jTsucursalAcepto.getText();
+    String sucursalParaRecoger = jTsucursalRecibe.getText();
+    
+    String domicilio = jTdomicilio.getText();
 
-        
-        paquete.setPeso(peso);
-        paquete.setTamanio(tamanio);
-        paquete.setFechaHoraLlegada(fechaLlegada);
-        paquete.setFechaHoraSalida(fechaSalida);
-        paquete.setNombreRemitente(nombreRemitente);
-        paquete.setCorreoRemitente(correoRemitente);
-        paquete.setTelefonoRemitente(telefonoRemitente);
-        paquete.setNombreDestinatario(nombreDestinatario);
-        paquete.setCorreoDestinatario(correoDestinatario);
-        paquete.setTelefonoDestinatario(telefonoDestinatario);
-        paquete.setTipoEnvio(tipoEnvio);
-        paquete.setSucursalAceptoPaquete(sucursalAceptoPaquete);
-        paquete.setSucursalParaRecoger(sucursalParaRecoger);
-        paquete.setPrecio(precio);
+    paquete.setPeso(peso);
+    paquete.setTamanio(tamanio);
+    paquete.setFechaHoraLlegada(fechaLlegada);
+    paquete.setFechaHoraSalida(fechaSalida);
+    paquete.setNombreRemitente(nombreRemitente);
+    paquete.setCorreoRemitente(correoRemitente);
+    paquete.setTelefonoRemitente(telefonoRemitente);
+    paquete.setNombreDestinatario(nombreDestinatario);
+    paquete.setCorreoDestinatario(correoDestinatario);
+    paquete.setTelefonoDestinatario(telefonoDestinatario);
+    paquete.setTipoEnvio(tipoEnvio);
+    paquete.setSucursalAceptoPaquete(sucursalAceptoPaquete);
+    paquete.setSucursalParaRecoger(sucursalParaRecoger);
+    
+    paquete.setDomicilio(domicilio);
 
-        paquete.guardarPaquete(paquete);
+    paquete.guardarPaquete(paquete);
     }
 
 
@@ -459,7 +451,6 @@ private void guardarPaquete() {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel3;
@@ -475,11 +466,11 @@ private void guardarPaquete() {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTFechaLlegada;
     private javax.swing.JTextField jTFechasalida;
+    private javax.swing.JTextField jTdomicilio;
     private javax.swing.JTextField jTpeso;
-    private javax.swing.JTextField jTprecio;
     private javax.swing.JTextField jTsucursalAcepto;
     private javax.swing.JTextField jTsucursalRecibe;
-    private javax.swing.JButton jbCalcularPrecio;
+    private javax.swing.JLabel jldomicilio;
     private javax.swing.JTextField jtCorreoDestinatario;
     private javax.swing.JTextField jtCorreoRemitente;
     private javax.swing.JTextField jtNombreDestinatario;
