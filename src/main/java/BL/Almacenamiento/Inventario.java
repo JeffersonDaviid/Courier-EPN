@@ -17,7 +17,7 @@ import BL.BASEDEDATOS.*;
  * @author BugsBusters
  */
 public class Inventario {
-    private HashMap<String,Paquete> paquetes;
+    private HashMap<Integer,Paquete> paquetes;
     private int capacidadTotal;
     private int capacidadOcupada;
     private Historial historial;
@@ -29,13 +29,22 @@ public class Inventario {
     public Inventario(int tiempoMaximo, int capacidadTotal){
         this.tiempoMaximo = tiempoMaximo;
         this.capacidadTotal = capacidadTotal;
-        this.capacidadOcupada = 0;
         this.paquetes = getPaquetesAlmacenados();
+        this.capacidadOcupada = calcularCapacidadOcupada();
         this.historial = new Historial();
     }
 
-    private HashMap<String, Paquete> getPaquetesAlmacenados() {
-        HashMap<String,Paquete> paquetes = new HashMap<>();
+    //Método que calcula la capacidad ocupada por los paquetes ya almacenados en la bodega
+    private int calcularCapacidadOcupada() {
+        int capacidad = 0;
+        for (Paquete paq : paquetes.values()) {
+            capacidad += clasificarCapacidad(paq.getTamanio());
+        }
+        return capacidad;
+    }
+
+    private HashMap<Integer, Paquete> getPaquetesAlmacenados() {
+        HashMap<Integer,Paquete> paquetesBaseDeDatos = new HashMap<>();
         String sql = "SELECT * FROM Paquete WHERE estado = 'En bodega'";
         try {
             DataHelper dataHelper = DataHelper.getInstancia();
@@ -45,7 +54,6 @@ public class Inventario {
                 int idPaquete = rs.getInt("idPaquete");
                 float peso = rs.getFloat("peso");
                 String tamanio = rs.getString("tamanio");
-                String isFragil = rs.getString("isFragil");
                 String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
                 String fechaHoraSalida = rs.getString("fechaHoraSalida");
                 String nombreRemitente = rs.getString("nombreRemitente");
@@ -58,38 +66,41 @@ public class Inventario {
                 String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
                 String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
                 float precio = rs.getFloat("precio");
-                paquetes.put(String.valueOf(idPaquete), new Paquete(peso,tamanio,isFragil,fechaHoraLlegada,fechaHoraSalida
-                ,nombreRemitente,correoRemitente,telefonoRemitente,nombreDestinatario,
-                correoDestinatario,telefonoDestinatario,tipoEnvio,sucursalAceptoPaquete,
-                sucursalParaRecoger,precio));
+                String trackingNumber = rs.getString("trackingNumber");
+                String estado = rs.getString("estado");
+                
+                paquetesBaseDeDatos.put(idPaquete, new Paquete(idPaquete, peso, tamanio, fechaHoraLlegada, 
+                fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario,
+                correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger,
+                precio, trackingNumber, estado, precio));
             }
-    
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return paquetes;
+        return paquetesBaseDeDatos;
     }
 
     //Metodo que registra un paquete que se ha recibido la agencia
     public void registrarPaquete(String idPaquete){
         Paquete paquete = obtenerPaquete(idPaquete);
         int capacidadPaquete = clasificarCapacidad(paquete.getTamanio());
-        //Si no hay espacio para ingresar el paqute, se notifica y termina elmetodo
+        //Si no hay espacio para ingresar el paquete, se notifica y termina elmetodo
         if(!hayEspacioSuficiente(capacidadPaquete)){
             notificarCapacidadCompleta();
             return;
         }
         //Si existe espacio suficiente, se ingresa a la bodega y se crea el registro
-        paquetes.put(idPaquete, paquete);
+        paquetes.put(Integer.parseInt(idPaquete), paquete);
         historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.INGRESO));
-        System.out.println("Registrado con exito");
+        JOptionPane.showMessageDialog(null, "registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
         actualizarBodega(capacidadPaquete);
         //Cambiar estado del paquete a "En bodega"
         actualizarEstadoPaquete(idPaquete,"En Bodega");
     }
 
     public void retirarPaquete(String idPaquete){
-        Paquete paquete = paquetes.remove(idPaquete);
+        Paquete paquete = paquetes.remove(Integer.parseInt(idPaquete));
         historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
         int capacidadPaquete = clasificarCapacidad(paquete.getTamanio());
         actualizarBodega(-capacidadPaquete);
@@ -99,7 +110,7 @@ public class Inventario {
 
     private void actualizarEstadoPaquete(String idPaquete, String estado) {
         int rs = -1;
-        String sql = "UPDATE Paquete SET estado = '"+ estado +"' WHERE idPaquete = '" + estado + "';"; 
+        String sql = "UPDATE Paquete SET estado = '"+ estado +"' WHERE idPaquete = '" + idPaquete + "';"; 
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
 
@@ -140,7 +151,6 @@ public class Inventario {
 
                 float peso = rs.getFloat("peso");
                 String tamanio = rs.getString("tamanio");
-                String isFragil = rs.getString("isFragil");
                 String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
                 String fechaHoraSalida = rs.getString("fechaHoraSalida");
                 String nombreRemitente = rs.getString("nombreRemitente");
@@ -153,10 +163,13 @@ public class Inventario {
                 String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
                 String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
                 float precio = rs.getFloat("precio");
-                return new Paquete(peso,tamanio,isFragil,fechaHoraLlegada,fechaHoraSalida
-                ,nombreRemitente,correoRemitente,telefonoRemitente,nombreDestinatario,
-                correoDestinatario,telefonoDestinatario,tipoEnvio,sucursalAceptoPaquete,
-                sucursalParaRecoger,precio);
+                String trackingNumber = rs.getString("trackingNumber");
+                String estado = rs.getString("estado");
+                
+                return new Paquete(Integer.parseInt(idPaquete), peso, tamanio, fechaHoraLlegada, 
+                fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario,
+                correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger,
+                precio, trackingNumber, estado, precio);
             }
     
         } catch (SQLException e) {
@@ -195,7 +208,7 @@ public class Inventario {
     }
 
     private void notificarCapacidadCompleta(){
-        System.out.println("Capacidad total alcanzada");
+        JOptionPane.showMessageDialog(null, "Capacidad de la bodega alcanzado", "Alerta",JOptionPane.INFORMATION_MESSAGE);
     } 
 
     private String getFecha(){

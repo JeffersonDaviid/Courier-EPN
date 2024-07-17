@@ -71,9 +71,15 @@ CREATE TABLE Facturas (
 
 -- ALMACENAMIENTO
 
-
-
-
+CREATE TABLE Registro (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fecha TEXT NOT NULL,
+    hora TEXT NOT NULL,
+    sucursal TEXT NOT NULL,
+    idPaquete TEXT NOT NULL,
+    tipo TEXT NOT NULL
+    FOREIGN KEY (idPaquete) REFERENCES Paquete(idPaquete)
+);
 
 
 -- SEGUIMIENTO DE PAQUETES
