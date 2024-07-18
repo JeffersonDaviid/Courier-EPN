@@ -4,12 +4,20 @@
  */
 package UI.Transporte;
 
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+
+import BL.GestionPaquete.Paquete;
+import BL.Transporte.Vehiculo;
+
 /**
  *
  * @author saidl
  */
 public class UITransporte extends javax.swing.JPanel {
 
+    Vehiculo vehiculo = new Vehiculo();
     /**
      * Creates new form UITransporte
      */
@@ -161,6 +169,11 @@ public class UITransporte extends javax.swing.JPanel {
         BtnActualizar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         BtnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         BtnActualizar.setText("Actualizar");
+        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnActualizarActionPerformed(evt);
+            }
+        });
 
         TxtInventario.setBackground(new java.awt.Color(37, 98, 234));
         TxtInventario.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
@@ -284,7 +297,30 @@ public class UITransporte extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAgrergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgrergarActionPerformed
-        // TODO add your handling code here:
+        vehiculo.cambiarEstadoPaquete("recibido", "En Transito");
+        //vehiculo.cambiarEstadoPaquete("En Transito", "recibido");
+        List<Paquete> paquetes = vehiculo.listarPaquetes("En Transito");
+
+        // Obtener el modelo de la tabla de inventario del camión
+        DefaultTableModel camionModel = (DefaultTableModel) TablaListaInventarioCamion.getModel();
+        camionModel.setRowCount(0); // Limpiar la tabla antes de agregar nuevos datos
+
+        // Agregar las filas correspondientes a TablaListaInventarioCamion
+        for (Paquete paquete : paquetes) {
+            Object[] row = new Object[7]; // Ajusta este tamaño según el número de columnas en tu tabla
+            row[0] = paquete.getId_paquete();
+            row[1] = paquete.getTrackingNumber();
+            row[2] = paquete.getPeso();
+            row[3] = paquete.getTamanio();
+            row[4] = paquete.getTipoEnvio();
+            row[5] = paquete.getSucursalParaRecoger();
+            row[6] = paquete.getSucursalParaRecoger();
+            camionModel.addRow(row);
+        }
+        
+        //vehiculo.cambiarEstadoPaquete("Retiro Transporte", "En Transito");
+              //  List Vehiculo = vehiculo.listarPaquetes("En Transito");
+                // cargar tabla 1(limpiar) y 2 (Cargar)
     }//GEN-LAST:event_BtnAgrergarActionPerformed
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
@@ -292,6 +328,31 @@ public class UITransporte extends javax.swing.JPanel {
     //AdminMenuPrincipal.ShowJPanel(uitp);
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
+    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+        Vehiculo vehiculo = new Vehiculo(); // Asegúrate de que esto crea una instancia válida de Vehiculo
+        // Obtener la lista de paquetes con el estado "Retiro Transporte"
+        List<Paquete> paquetes = vehiculo.listarPaquetes("recibido");
+
+        // Crear el modelo de la tabla
+        DefaultTableModel model = (DefaultTableModel) TablaListaInventario.getModel();
+        model.setRowCount(0); // Limpiar la tabla
+
+        // Llenar la tabla con la información de los paquetes
+        for (Paquete paquete : paquetes) {
+            Object[] row = new Object[7]; // Ajusta este tamaño según el número de columnas en tu tabla
+            row[0] = paquete.getId_paquete();
+            row[1] = paquete.getTrackingNumber();
+            row[2] = paquete.getPeso();
+            row[3] = paquete.getTamanio();
+            row[4] = paquete.getTipoEnvio();
+            row[5] = paquete.getSucursalParaRecoger();
+            row[6] = paquete.getSucursalParaRecoger();
+            model.addRow(row);
+        }
+
+    }//GEN-LAST:event_BtnActualizarActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;

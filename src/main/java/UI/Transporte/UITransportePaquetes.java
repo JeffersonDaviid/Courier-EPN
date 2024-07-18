@@ -4,17 +4,22 @@
  */
 package UI.Transporte;
 
+//import BL.Transporte.Vehiculo;
+
 /**
  *
  * @author dell
  */
 public class UITransportePaquetes extends javax.swing.JPanel {
 
+  //  Vehiculo vehiculo = new Vehiculo();
     /**
      * Creates new form UITransportePaquetes
      */
     public UITransportePaquetes() {
         initComponents();
+       // List paquete =    vehiculo.listarPaquetes("En Transito")       
+    // obtener la lista de "En transito" y cargar en tabla 1
     }
 
     /**
@@ -188,7 +193,8 @@ public class UITransportePaquetes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntregarPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarPaquetesActionPerformed
-        // TODO add your handling code here:
+       // vehiculo.cambiarEstadoPaquete("En Transito", "Recibido");
+        // listar tabla 1
     }//GEN-LAST:event_btnEntregarPaquetesActionPerformed
 
 
