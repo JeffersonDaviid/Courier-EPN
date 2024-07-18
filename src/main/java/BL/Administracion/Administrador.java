@@ -89,7 +89,7 @@ public class Administrador extends Perfil {
     public void registrarCamion(Vehiculo camion) {
         int rs = -1;
 
-        String sql = "INSERT INTO Vehiculo(modelo, marca, capacidadCarga, disponibilidad, ruta) VALUES ('"
+        String sql = "INSERT INTO camiones(modelo, marca, capacidadCarga, disponibilidad, ruta_id) VALUES ('"
                 + camion.getModelo() + "', '" + camion.getMarca() + "', " + camion.getCapacidadCarga() + ", "
                 + camion.getDisponibilidad() + ", " + camion.getRuta() + ")";
         try {
@@ -108,9 +108,9 @@ public class Administrador extends Perfil {
         }
     }
 
-    public void consultarCamion(int idCamion) {
+    public void consultarCamion(String idCamion) {
         Vehiculo camion = null;
-        String sql = String.format("SELECT * FROM Vehiculo WHERE id = %s", idCamion);
+        String sql = String.format("SELECT * FROM Camiones WHERE id = %s", idCamion);
         String out = "";
         try {
             ResultSet rs = DataHelper.getInstancia().executeQueryRead(sql);
@@ -121,7 +121,7 @@ public class Administrador extends Perfil {
                     rs.getInt("capacidadCarga"),
                     rs.getInt("disponibilidad"),
                     null, 
-                    rs.getInt("ruta"));
+                    rs.getInt("ruta_id"));
             }
 
         } catch (SQLException e) {
