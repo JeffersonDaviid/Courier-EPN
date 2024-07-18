@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
+
 import BL.BASEDEDATOS.DataHelper;
 import BL.GestionPaquete.Paquete;
 
@@ -14,16 +16,19 @@ public class Vehiculo {
     private int capacidadCarga;
     private int disponibilidad;
     private List<Paquete> paquetesCamionCarga;
-    private Ruta ruta;
+    private int ruta;
 
     public Vehiculo(String modelo, String marca, int capacidadCarga, int disponibilidad, List<Paquete> paquetes,
-            Ruta ruta) {
+            int ruta) {
         this.modelo = modelo;
         this.marca = marca;
         this.capacidadCarga = capacidadCarga;
         this.disponibilidad = disponibilidad;
         this.paquetesCamionCarga = paquetes;
         this.ruta = ruta;
+    }
+
+    public Vehiculo() {
     }
 
     public String getModelo() {
@@ -66,20 +71,20 @@ public class Vehiculo {
         paquetesCamionCarga = paquetes;
     }
 
-    public Ruta getRuta() {
+    public int getRuta() {
         return ruta;
     }
 
-    public void setRuta(Ruta ruta) {
+    public void setRuta(int ruta) {
         this.ruta = ruta;
     }
 
     public void registrarCamion(Vehiculo vehiculo) {
         int rs = -1;
-        String sql = "INSERT INTO Vehiculo (modelo, marca, capacidadCarga, disponibilidad, ruta) VALUES ('"
+        String sql = "INSERT INTO Camiones (modelo, marca, capacidadCarga, disponibilidad, ruta_id) VALUES ('"
                 + vehiculo.getModelo() + "', '" + vehiculo.getMarca() + "', '"
                 + vehiculo.getCapacidadCarga() + "', '" + vehiculo.getDisponibilidad() + "', '"
-                + vehiculo.getRuta().getSector() + "' , '" + vehiculo.getRuta().getDireccion() + "')";
+                + vehiculo.getRuta() + "')";
 
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
@@ -95,6 +100,33 @@ public class Vehiculo {
             JOptionPane.showMessageDialog(null, "Error al registrar el camión: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public static Vehiculo obtenerCamionPorId(int id) {
+        Vehiculo vehiculo = null;
+        String sql = "SELECT * FROM Camiones WHERE id = " + id; // Concatenando el ID directamente en la consulta SQL
+
+        ResultSet rs = null; // Declarar el ResultSet fuera del bloque try para que sea accesible en el
+                             // bloque finally
+
+        try {
+            DataHelper dataHelper = DataHelper.getInstancia();
+            rs = dataHelper.executeQueryRead(sql);
+
+            if (rs.next()) {
+                String modelo = rs.getString("modelo");
+                String marca = rs.getString("marca");
+                int capacidadCarga = rs.getInt("capacidadCarga");
+                int disponibilidad = rs.getInt("disponibilidad");
+
+                int ruta = rs.getInt("ruta");
+                // List<Paquete> paquetes = new ArrayList<>();
+                vehiculo = new Vehiculo(modelo, marca, capacidadCarga, disponibilidad, null, ruta);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return vehiculo;
     }
 
     public void verificarDisponibilidad() {
@@ -160,13 +192,27 @@ public class Vehiculo {
         return tablaExiste;
     }
 
+    public boolean verificarTablaCamion() {
+        boolean tablaExiste = false;
+        String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='Camiones';";
+        try {
+            DataHelper dataHelper = DataHelper.getInstancia();
+            ResultSet rs = dataHelper.executeQueryRead(sql);
+            if (rs.next()) {
+                tablaExiste = true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return tablaExiste;
+    }
+
     public static void main(String[] args) {
-        // Crear una ruta de ejemplo
-        Ruta ruta = new Ruta("Sector Ejemplo", "Dirección Ejemplo");
 
         // Crear un vehículo de ejemplo con una lista vacía de paquetes
-        Vehiculo vehiculo = new Vehiculo("Modelo Ejemplo", "Marca Ejemplo", 1000, 1, null, ruta);
+        Vehiculo vehiculo = new Vehiculo("Kenworth T680", "Volvo", 500, 1, null, 3);
 
+        vehiculo.registrarCamion(vehiculo);
         // Verificar si la tabla Paquete existe
         if (!vehiculo.verificarTablaPaquete()) {
             System.out.println("La tabla 'Paquete' no existe en la base de datos.");
@@ -199,6 +245,15 @@ public class Vehiculo {
             System.out.println("Domicilio: " + paquete.getDomicilio());
             System.out.println("=====================================");
         }
+
+        Vehiculo camion = obtenerCamionPorId(1); // Reemplaza con el ID que desees consultar
+
+        if (camion != null) {
+            System.out.println(camion.toString());
+        } else {
+            System.out.println("No se encontró ningún camión con el ID proporcionado.");
+        }
+
     }
 
 }
