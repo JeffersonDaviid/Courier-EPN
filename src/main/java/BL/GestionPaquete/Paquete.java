@@ -25,7 +25,6 @@ public class Paquete {
     private String sucursalParaRecoger;
     private String trackingNumber;
     private String estado;
-    private float precioEnvio;
     private String domicilio;
 
     public Paquete() {
@@ -51,16 +50,10 @@ public class Paquete {
         this.sucursalParaRecoger = sucursalParaRecoger;
         this.trackingNumber = trackingNumber;
         this.estado = estado;
-        this.precioEnvio = precioEnvio;
         this.domicilio = domicilio;
     }
 
     
-
-    public void setPrecioEnvio(float precioEnvio) {
-        this.precioEnvio = precioEnvio;
-    }
-
     public String getDomicilio() {
         return domicilio;
     }
