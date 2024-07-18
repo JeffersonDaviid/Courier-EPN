@@ -7,30 +7,38 @@ package UI.Administracion;
 
 import BL.Administracion.Perfil;
 import UI.Administracion.views.*;
+import UI.Almacenamiento.Almacenamiento;
+import UI.SeguimientoPaquete.UIEnvio;
+import UI.SeguimientoPaquete.UISeguimiento;
+import UI.Transporte.UITransporte;
+
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 /**
  *
  * @author Antonio
  */
-public class AdminMenuPrincipal extends javax.swing.JFrame {
+public class TransMenuPrincipal extends javax.swing.JFrame {
 
     private VentanaLogin login;
     private Perfil perfil;
     /**
      * Creates new form Dashboard
-     * @param ventanaLogin
-     * @param perfil
      */
-    public AdminMenuPrincipal(VentanaLogin ventanaLogin, Perfil perfil) {
-        this.login = ventanaLogin;
+    public TransMenuPrincipal(VentanaLogin login, Perfil perfil) {
+        this.login = login;
         this.perfil = perfil;
         initComponents();
         InitStyles();
@@ -93,7 +101,7 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1036, 793));
+        setMinimumSize(new java.awt.Dimension(1080, 793));
 
         background.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -103,7 +111,7 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
         appName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         appName.setForeground(new java.awt.Color(255, 255, 255));
         appName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        appName.setText("Administrador");
+        appName.setText("Transportista");
 
         jSeparator1.setPreferredSize(new java.awt.Dimension(50, 5));
 
@@ -126,7 +134,7 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
         btn_lends.setBackground(new java.awt.Color(21, 101, 192));
         btn_lends.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_lends.setForeground(new java.awt.Color(255, 255, 255));
-        btn_lends.setText("Perfiles");
+        btn_lends.setText("Transporte");
         btn_lends.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         btn_lends.setBorderPainted(false);
         btn_lends.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -142,7 +150,7 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
         Cerrar.setBackground(new java.awt.Color(21, 101, 192));
         Cerrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Cerrar.setForeground(new java.awt.Color(255, 255, 255));
-        Cerrar.setText("Cerrar Sesión");
+        Cerrar.setText("Cerrar Sesion");
         Cerrar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         Cerrar.setBorderPainted(false);
         Cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -228,20 +236,10 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
     }// GEN-LAST:event_btn_prinActionPerformed
 
     private void btn_lendsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lendsActionPerformed
-        ShowJPanel(new AdminPerfilesUI(perfil));
+        ShowJPanel(new UITransporte());
     }// GEN-LAST:event_btn_lendsActionPerformed
 
-    private void btn_returnsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_returnsActionPerformed
-
-    }// GEN-LAST:event_btn_returnsActionPerformed
-
-    private void btn_lends1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btn_lends1ActionPerformed
-
-    private void btn_lends2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends2ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btn_lends2ActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cerrar;

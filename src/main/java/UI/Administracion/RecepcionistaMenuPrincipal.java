@@ -5,31 +5,40 @@
  */
 package UI.Administracion;
 
-import BL.Administracion.Perfil;
 import UI.Administracion.views.*;
+import UI.Almacenamiento.Almacenamiento;
+import UI.SeguimientoPaquete.UIEnvio;
+import UI.SeguimientoPaquete.UISeguimiento;
+
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+
+import BL.Administracion.Perfil;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.Insets;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
- * @author Antonio
+ * @author Estefano Proaño
  */
-public class AdminMenuPrincipal extends javax.swing.JFrame {
+public class RecepcionistaMenuPrincipal extends javax.swing.JFrame {
 
     private VentanaLogin login;
     private Perfil perfil;
-    /**
-     * Creates new form Dashboard
-     * @param ventanaLogin
-     * @param perfil
-     */
-    public AdminMenuPrincipal(VentanaLogin ventanaLogin, Perfil perfil) {
+
+    public RecepcionistaMenuPrincipal(VentanaLogin ventanaLogin, Perfil perfil) {
         this.login = ventanaLogin;
         this.perfil = perfil;
         initComponents();
@@ -48,7 +57,6 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
     }
 
     private void InitStyles() {
-
         appName.putClientProperty("FlatLaf.style", "font: bold $h1.regular.font");
         appName.setForeground(Color.white);
     }
@@ -61,6 +69,7 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
 
     private void InitContent() {
         ShowJPanel(new Principal());
+
     }
 
     public static void ShowJPanel(JPanel p) {
@@ -93,7 +102,7 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1036, 793));
+        setMinimumSize(new java.awt.Dimension(1080, 793));
 
         background.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -103,14 +112,14 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
         appName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         appName.setForeground(new java.awt.Color(255, 255, 255));
         appName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        appName.setText("Administrador");
+        appName.setText("Recepcionista");
 
         jSeparator1.setPreferredSize(new java.awt.Dimension(50, 5));
 
         btn_prin.setBackground(new java.awt.Color(21, 101, 192));
         btn_prin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_prin.setForeground(new java.awt.Color(255, 255, 255));
-        btn_prin.setText("Inicio");
+        btn_prin.setText("Registrar Paquete\n");
         btn_prin.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         btn_prin.setBorderPainted(false);
         btn_prin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -126,7 +135,7 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
         btn_lends.setBackground(new java.awt.Color(21, 101, 192));
         btn_lends.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_lends.setForeground(new java.awt.Color(255, 255, 255));
-        btn_lends.setText("Perfiles");
+        btn_lends.setText("Facturar");
         btn_lends.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         btn_lends.setBorderPainted(false);
         btn_lends.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -182,7 +191,7 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
                         .addGap(50, 50, 50)
                         .addComponent(btn_lends, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_prin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
                 .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -196,11 +205,11 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE))
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+            .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -228,20 +237,9 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
     }// GEN-LAST:event_btn_prinActionPerformed
 
     private void btn_lendsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lendsActionPerformed
-        ShowJPanel(new AdminPerfilesUI(perfil));
+        // ShowJPanel(new Lendings());
     }// GEN-LAST:event_btn_lendsActionPerformed
 
-    private void btn_returnsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_returnsActionPerformed
-
-    }// GEN-LAST:event_btn_returnsActionPerformed
-
-    private void btn_lends1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btn_lends1ActionPerformed
-
-    private void btn_lends2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends2ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btn_lends2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cerrar;

@@ -1,8 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package UI.SeguimientoPaquete;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import BL.BASEDEDATOS.DataHelper;
+import BL.SeguimientoPaquete.Envio;
 
 /**
  *
@@ -10,13 +13,41 @@ package UI.SeguimientoPaquete;
  */
 public class UIEnvio extends javax.swing.JPanel {
 
-    /**
-     * Creates new form UIEnvio
-     */
+    private DataHelper dataHelper;
+
     public UIEnvio() {
         initComponents();
+         try {
+            dataHelper = DataHelper.getInstancia();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al conectar a la base de datos: " + e.getMessage());
+        }
     }
+    public void mostrar(String tabla){     
+    String sql = "SELECT IdPaquete, nombreRemitente, nombreDestinatario, tipoEnvio, estado FROM " + tabla;
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("IdPaquete");
+        model.addColumn("Nombre Remitente");
+        model.addColumn("Nombre Destinatario");
+        model.addColumn("Tipo Envio");
+        model.addColumn("Estado");
+        jTable1.setModel(model);
+        String[] datos = new String[5];
 
+        try {
+            ResultSet rs = dataHelper.executeQueryRead(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                model.addRow(datos);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.toString());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,10 +57,12 @@ public class UIEnvio extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("ENVIOS");
@@ -49,6 +82,13 @@ public class UIEnvio extends javax.swing.JPanel {
 
         jButton1.setText("Enviar");
 
+        jButton2.setText("Paquetes Recibidos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -56,33 +96,62 @@ public class UIEnvio extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(jLabel1))
+                        .addGap(203, 203, 203)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addGap(32, 32, 32)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(218, 218, 218)
+                        .addGap(216, 216, 216)
                         .addComponent(jButton1)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(33, 33, 33)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(jButton1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        mostrar("Paquete");
+    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+       // Criterio para obtener el id del paquete (esto debe basarse en tu lógica de negocio)
+        String estadoPaquete = "recibido"; // Reemplaza con el valor real
+
+        // Crea una instancia de Envio y obtiene el idPaquete
+        Envio envio = new Envio();
+        int idPaquete = envio.obtenerIdPaquete(estadoPaquete);
+
+        // Comprueba que se haya obtenido un idPaquete válido
+        if (idPaquete != -1) {
+            // Guarda el envio en la base de datos
+            envio.guardarEnvio(idPaquete);
+
+            // Actualiza el estado del paquete a "enviado"
+            envio.actualizarEstadoPaquete(idPaquete, "enviado");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró un paquete con el criterio especificado");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

@@ -13,8 +13,8 @@ public class PerfilFactory {
         switch (rol) {
             case "Cliente":
                 return new Cliente(cedula, correo, pass, nombre, apellido);
-            //case "Recepcionista":
-                //return new Recepcionista(cedula, correo, pass, nombre, apellido);
+            case "Recepcionista":
+                return new Recepcionista(cedula, correo, pass, nombre, apellido);
             case "Bodeguero":
                 return new Bodeguero(cedula, correo, pass, nombre, apellido);
             case "Administrador":
