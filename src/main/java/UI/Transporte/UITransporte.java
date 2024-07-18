@@ -288,8 +288,8 @@ public class UITransporte extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnAgrergarActionPerformed
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
-    UITransportePaquetes uitp = new UITransportePaquetes();
-    AdminMenuPrincipal.ShowJPanel(uitp);
+   // UITransportePaquetes uitp = new UITransportePaquetes();
+    //AdminMenuPrincipal.ShowJPanel(uitp);
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
 

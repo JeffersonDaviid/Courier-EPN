@@ -81,11 +81,6 @@ public class UIEnvio extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Enviar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("Paquetes Recibidos");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -160,12 +155,10 @@ public static void main(String args[]) {
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        mostrar("Paquetes");
+        mostrar("Paquete");
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        // Criterio para obtener el id del paquete (esto debe basarse en tu lógica de negocio)
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+       // Criterio para obtener el id del paquete (esto debe basarse en tu lógica de negocio)
         String estadoPaquete = "recibido"; // Reemplaza con el valor real
 
         // Crea una instancia de Envio y obtiene el idPaquete
@@ -182,8 +175,7 @@ public static void main(String args[]) {
         } else {
             JOptionPane.showMessageDialog(this, "No se encontró un paquete con el criterio especificado");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-   
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
