@@ -574,42 +574,6 @@ public class InventarioUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTFidAniadirKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidAniadirKeyReleased
-        dato = inventario.getDatosPaquete(jTFidAniadir.getText());
-        jTFPesoAniadir.setText(dato[0]);
-        jTFTamanioAniadir.setText(dato[1]);
-        jTFTipoEnvioAnadir.setText(dato[2]);
-        jTFRemitenteAniadir.setText(dato[3]);
-        jTFDestinatarioAniadir.setText(dato[4]);
-        jTFSucursalOrigenAniadir.setText(dato[5]);
-        jTFSucursalDestinoAniadir.setText(dato[6]);
-        jTFEstadoPaqueteAñadir.setText(dato[7]);
-    }//GEN-LAST:event_jTFidAniadirKeyReleased
-
-    private void jBCancelarRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarRetiroActionPerformed
-        jTFidRetirar.setText("");
-        jTFPesoRetirar.setText("");
-        jTFTamanioRetirar.setText("");
-        jTFTipoEnvioRetirar.setText("");
-        jTFRemitenteRetirar.setText("");
-        jTFDestinatarioRetirar.setText("");
-        jTFSucursalOrigenRetirar.setText("");
-        jTFSucursalDestinoRetirar.setText("");
-        jTFEstadoPaqueteRetiro.setText("");
-    }//GEN-LAST:event_jBCancelarRetiroActionPerformed
-
-    private void jTFidRetirarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidRetirarKeyReleased
-        dato = inventario.getDatosPaquete(jTFidRetirar.getText());
-        jTFPesoRetirar.setText(dato[0]);
-        jTFTamanioRetirar.setText(dato[1]);
-        jTFTipoEnvioRetirar.setText(dato[2]);
-        jTFRemitenteRetirar.setText(dato[3]);
-        jTFDestinatarioRetirar.setText(dato[4]);
-        jTFSucursalOrigenRetirar.setText(dato[5]);
-        jTFSucursalDestinoRetirar.setText(dato[6]);
-        jTFEstadoPaqueteRetiro.setText(dato[7]);
-    }//GEN-LAST:event_jTFidRetirarKeyReleased
-
     private void jTablePaquetesBodegaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePaquetesBodegaMouseClicked
         String id = jTablePaquetesBodega.getValueAt(jTablePaquetesBodega.getSelectedRow(), 0).toString();
         jTFidRetirar.setText(id);
@@ -626,6 +590,50 @@ public class InventarioUI extends javax.swing.JPanel {
         jTFEstadoPaqueteRetiro.setText(dato[7]);
     }//GEN-LAST:event_jTablePaquetesBodegaMouseClicked
 
+    private void jTabbedPanelMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPanelMainMouseClicked
+        int butonIndex = evt.getButton();
+
+        if(butonIndex == 1)
+        jTablePaquetesBodega.setFocusable(false);
+        if(butonIndex == 2)
+        jTablePaquetesBodega.setFocusable(true);
+        if(butonIndex == 3)
+        jTablePaquetesBodega.setFocusable(false);
+    }//GEN-LAST:event_jTabbedPanelMainMouseClicked
+
+    private void jBCancelarRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarRetiroActionPerformed
+        jTFidRetirar.setText("");
+        jTFPesoRetirar.setText("");
+        jTFTamanioRetirar.setText("");
+        jTFTipoEnvioRetirar.setText("");
+        jTFRemitenteRetirar.setText("");
+        jTFDestinatarioRetirar.setText("");
+        jTFSucursalOrigenRetirar.setText("");
+        jTFSucursalDestinoRetirar.setText("");
+        jTFEstadoPaqueteRetiro.setText("");
+    }//GEN-LAST:event_jBCancelarRetiroActionPerformed
+
+    private void jBAceptarRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarRetiroActionPerformed
+        // TODO add your handling code here:
+        inventario.retirarPaquete(jTFidRetirar.getText());
+        jTablePaquetesBodega.setModel(inventario.mostrarPaquetes());
+    }//GEN-LAST:event_jBAceptarRetiroActionPerformed
+
+    private void jTFidRetirarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidRetirarKeyReleased
+        String id = jTFidRetirar.getText();
+        if(!id.isEmpty()){
+            dato = inventario.getDatosPaquete(id);
+            jTFPesoRetirar.setText(dato[0]);
+            jTFTamanioRetirar.setText(dato[1]);
+            jTFTipoEnvioRetirar.setText(dato[2]);
+            jTFRemitenteRetirar.setText(dato[3]);
+            jTFDestinatarioRetirar.setText(dato[4]);
+            jTFSucursalOrigenRetirar.setText(dato[5]);
+            jTFSucursalDestinoRetirar.setText(dato[6]);
+            jTFEstadoPaqueteRetiro.setText(dato[7]);
+        }
+    }//GEN-LAST:event_jTFidRetirarKeyReleased
+
     private void jButtonCancelarAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarAñadirActionPerformed
         jTFidAniadir.setText("");
         jTFPesoAniadir.setText("");
@@ -638,48 +646,77 @@ public class InventarioUI extends javax.swing.JPanel {
         jTFEstadoPaqueteAñadir.setText("");
     }//GEN-LAST:event_jButtonCancelarAñadirActionPerformed
 
-    private void jTabbedPanelMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPanelMainMouseClicked
-        int butonIndex = evt.getButton();
-        
-        if(butonIndex == 1)
-            jTablePaquetesBodega.setFocusable(false);
-        if(butonIndex == 2)
-            jTablePaquetesBodega.setFocusable(true);
-        if(butonIndex == 3)
-            jTablePaquetesBodega.setFocusable(false);
-    }//GEN-LAST:event_jTabbedPanelMainMouseClicked
-
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
         // TODO add your handling code here:
         inventario.registrarPaquete(jTFidAniadir.getText());
         jTablePaquetesBodega.setModel(inventario.mostrarPaquetes());
     }//GEN-LAST:event_jButtonAñadirActionPerformed
 
-    private void jBAceptarRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarRetiroActionPerformed
-        // TODO add your handling code here:
-        inventario.retirarPaquete(jTFidRetirar.getText());
-        jTablePaquetesBodega.setModel(inventario.mostrarPaquetes());
-    }//GEN-LAST:event_jBAceptarRetiroActionPerformed
+    private void jTFidAniadirKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidAniadirKeyReleased
+        String id = jTFidAniadir.getText();
+        if(!id.isEmpty()){
+            dato = inventario.getDatosPaquete(id);
+            jTFPesoAniadir.setText(dato[0]);
+            jTFTamanioAniadir.setText(dato[1]);
+            jTFTipoEnvioAnadir.setText(dato[2]);
+            jTFRemitenteAniadir.setText(dato[3]);
+            jTFDestinatarioAniadir.setText(dato[4]);
+            jTFSucursalOrigenAniadir.setText(dato[5]);
+            jTFSucursalDestinoAniadir.setText(dato[6]);
+            jTFEstadoPaqueteAñadir.setText(dato[7]);
+        }
+    }//GEN-LAST:event_jTFidAniadirKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAceptarRetiro;
+    private javax.swing.JButton jBAceptarRetiro1;
+    private javax.swing.JButton jBAceptarRetiro2;
     private javax.swing.JButton jBCancelarRetiro;
+    private javax.swing.JButton jBCancelarRetiro1;
+    private javax.swing.JButton jBCancelarRetiro2;
     private javax.swing.JButton jButtonAñadir;
     private javax.swing.JButton jButtonCancelarAñadir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -687,32 +724,64 @@ public class InventarioUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelAñadir;
     private javax.swing.JPanel jPanelRetirar;
     private javax.swing.JProgressBar jProgressBarCapacidad;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFDestinatarioAniadir;
     private javax.swing.JTextField jTFDestinatarioRetirar;
+    private javax.swing.JTextField jTFDestinatarioRetirar1;
+    private javax.swing.JTextField jTFDestinatarioRetirar2;
+    private javax.swing.JTextField jTFDestinatarioRetirar3;
     private javax.swing.JTextField jTFEstadoPaqueteAñadir;
     private javax.swing.JTextField jTFEstadoPaqueteRetiro;
+    private javax.swing.JTextField jTFEstadoPaqueteRetiro1;
+    private javax.swing.JTextField jTFEstadoPaqueteRetiro2;
+    private javax.swing.JTextField jTFEstadoPaqueteRetiro3;
     private javax.swing.JTextField jTFPesoAniadir;
     private javax.swing.JTextField jTFPesoRetirar;
+    private javax.swing.JTextField jTFPesoRetirar1;
+    private javax.swing.JTextField jTFPesoRetirar2;
+    private javax.swing.JTextField jTFPesoRetirar3;
     private javax.swing.JTextField jTFRemitenteAniadir;
     private javax.swing.JTextField jTFRemitenteRetirar;
+    private javax.swing.JTextField jTFRemitenteRetirar1;
+    private javax.swing.JTextField jTFRemitenteRetirar2;
+    private javax.swing.JTextField jTFRemitenteRetirar3;
     private javax.swing.JTextField jTFSucursalDestinoAniadir;
     private javax.swing.JTextField jTFSucursalDestinoRetirar;
+    private javax.swing.JTextField jTFSucursalDestinoRetirar1;
+    private javax.swing.JTextField jTFSucursalDestinoRetirar2;
+    private javax.swing.JTextField jTFSucursalDestinoRetirar3;
     private javax.swing.JTextField jTFSucursalOrigenAniadir;
     private javax.swing.JTextField jTFSucursalOrigenRetirar;
+    private javax.swing.JTextField jTFSucursalOrigenRetirar1;
+    private javax.swing.JTextField jTFSucursalOrigenRetirar2;
+    private javax.swing.JTextField jTFSucursalOrigenRetirar3;
     private javax.swing.JTextField jTFTamanioAniadir;
     private javax.swing.JTextField jTFTamanioRetirar;
+    private javax.swing.JTextField jTFTamanioRetirar1;
+    private javax.swing.JTextField jTFTamanioRetirar2;
+    private javax.swing.JTextField jTFTamanioRetirar3;
     private javax.swing.JTextField jTFTipoEnvioAnadir;
     private javax.swing.JTextField jTFTipoEnvioRetirar;
+    private javax.swing.JTextField jTFTipoEnvioRetirar1;
+    private javax.swing.JTextField jTFTipoEnvioRetirar2;
+    private javax.swing.JTextField jTFTipoEnvioRetirar3;
     private javax.swing.JTextField jTFidAniadir;
     private javax.swing.JTextField jTFidRetirar;
+    private javax.swing.JTextField jTFidRetirar1;
+    private javax.swing.JTextField jTFidRetirar2;
+    private javax.swing.JTextField jTFidRetirar3;
     private javax.swing.JTabbedPane jTabbedPanelMain;
     private javax.swing.JTable jTablePaquetesBodega;
     // End of variables declaration//GEN-END:variables
