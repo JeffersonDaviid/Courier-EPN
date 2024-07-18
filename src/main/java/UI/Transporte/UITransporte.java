@@ -297,27 +297,30 @@ public class UITransporte extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAgrergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgrergarActionPerformed
-        vehiculo.cambiarEstadoPaquete("recibido", "En Transito");
-        //vehiculo.cambiarEstadoPaquete("En Transito", "recibido");
+        //vehiculo.cambiarEstadoPaquete("recibido", "En Transito");
+        vehiculo.cambiarEstadoPaquete("En Transito", "recibido");
         List<Paquete> paquetes = vehiculo.listarPaquetes("En Transito");
 
         // Obtener el modelo de la tabla de inventario del camión
         DefaultTableModel camionModel = (DefaultTableModel) TablaListaInventarioCamion.getModel();
-        camionModel.setRowCount(0); // Limpiar la tabla antes de agregar nuevos datos
+        camionModel.setRowCount(0); // Limpiar la tabla de inventario del camión
+
+        // Obtener el modelo de la tabla de inventario principal
+        DefaultTableModel inventarioModel = (DefaultTableModel) TablaListaInventario.getModel();
+        inventarioModel.setRowCount(0); // Limpiar la tabla de inventario principal
 
         // Agregar las filas correspondientes a TablaListaInventarioCamion
         for (Paquete paquete : paquetes) {
-            Object[] row = new Object[7]; // Ajusta este tamaño según el número de columnas en tu tabla
+            Object[] row = new Object[7]; 
             row[0] = paquete.getId_paquete();
             row[1] = paquete.getTrackingNumber();
             row[2] = paquete.getPeso();
             row[3] = paquete.getTamanio();
             row[4] = paquete.getTipoEnvio();
             row[5] = paquete.getSucursalParaRecoger();
-            row[6] = paquete.getSucursalParaRecoger();
+            row[6] = paquete.getSucursalAceptoPaquete();
             camionModel.addRow(row);
         }
-        
         //vehiculo.cambiarEstadoPaquete("Retiro Transporte", "En Transito");
               //  List Vehiculo = vehiculo.listarPaquetes("En Transito");
                 // cargar tabla 1(limpiar) y 2 (Cargar)
@@ -329,8 +332,8 @@ public class UITransporte extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        Vehiculo vehiculo = new Vehiculo(); // Asegúrate de que esto crea una instancia válida de Vehiculo
-        // Obtener la lista de paquetes con el estado "Retiro Transporte"
+        Vehiculo vehiculo = new Vehiculo(); 
+        // Obtener la lista de paquetes con el estado "recibido"
         List<Paquete> paquetes = vehiculo.listarPaquetes("recibido");
 
         // Crear el modelo de la tabla
@@ -346,7 +349,7 @@ public class UITransporte extends javax.swing.JPanel {
             row[3] = paquete.getTamanio();
             row[4] = paquete.getTipoEnvio();
             row[5] = paquete.getSucursalParaRecoger();
-            row[6] = paquete.getSucursalParaRecoger();
+            row[6] = paquete.getSucursalAceptoPaquete();
             model.addRow(row);
         }
 
