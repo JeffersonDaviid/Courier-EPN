@@ -298,7 +298,7 @@ public class UITransporte extends javax.swing.JPanel {
 
     private void BtnAgrergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgrergarActionPerformed
         vehiculo.cambiarEstadoPaquete("recibido", "En Transito");
-        //vehiculo.cambiarEstadoPaquete("En Transito", "recibido");
+        //vehiculo.cambiarEstadoPaquete("Entregado", "recibido");
         List<Paquete> paquetes = vehiculo.listarPaquetes("En Transito");
 
         // Obtener el modelo de la tabla de inventario del camión
