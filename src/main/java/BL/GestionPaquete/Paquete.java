@@ -1,9 +1,6 @@
 package BL.GestionPaquete;
 
 import BL.BASEDEDATOS.DataHelper;
-import BL.Facturacion.Tarifa;
-import BL.Facturacion.TarifaDomicilio;
-import BL.Facturacion.TarifaEnvio;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.util.Random;
@@ -61,10 +58,6 @@ public class Paquete {
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
-    
-    
-
-   
 
     public int getId_paquete() {
         return id_paquete;
