@@ -42,6 +42,7 @@ public class Historial {
         int rs = -1;
         String sql = "INSERT INTO Registros(idPaquete, fecha, hora, sucursal,tipo) VALUES("+Integer.parseInt(registro.getIdPaquete())+",'"+
         registro.getFecha()+"','"+registro.getHora()+"','"+registro.getSucursal()+"','"+registro.getTipo()+"')";
+        System.out.println(sql);
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
             if (!(rs > 0)) {

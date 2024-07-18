@@ -176,20 +176,20 @@ public class Inventario {
         return idPaquete;
     } 
 
-    /*Método que retorna el paquete si se encuentra en bodega 
-    public Paquete retirarPaquete(String idPaquete){
-        if(!paquetes.containsKey(Integer.parseInt(idPaquete))){
+    //Método que retorna el paquete si se encuentra en bodega 
+    public Paquete retirarPaquete(int idPaquete){
+        if(!paquetes.containsKey(idPaquete)){
             return null;
         }
         Paquete paquete = paquetes.remove(idPaquete);
-        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
-        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
+        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),String.valueOf(idPaquete),TipoRegistro.SALIDA));
+        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(String.valueOf(idPaquete)));
         actualizar(-capacidadPaquete);
         //Cambiar el estado del paquete a "Retiro Transporte"
         paquete.setEstado("Retiro Transporte");
-        actualizarEstadoPaquete(idPaquete,"Retiro Transporte");
+        actualizarEstadoPaquete(String.valueOf(idPaquete),"Retiro Transporte");
         return paquete;
-    } */
+    }
 
     private void actualizarEstadoPaquete(String idPaquete, String estado) {
         int rs = -1;
@@ -269,10 +269,6 @@ public DefaultTableModel mostrarPaquetes() {
             rsPaquete = DataHelper.getInstancia().executeQueryRead(sql_paquete);
             rsFecha = DataHelper.getInstancia().executeQueryRead(sql_fecha);
 
-            for (String columna : columnas) {
-                model.addColumn(columna);
-            }
-
             if (rsPaquete.next() && rsFecha.next()) {
                 Object[] fila = new Object[columnas.length];
 
@@ -299,8 +295,8 @@ public DefaultTableModel mostrarPaquetes() {
                 JOptionPane.showMessageDialog(null, "Error closing resources: " + ex.toString());
             }
         }
-
-        return model;
+    }
+    return model;
     }
 
     private void notificarCapacidadCompleta(){
@@ -312,7 +308,10 @@ public DefaultTableModel mostrarPaquetes() {
     }
 
     private String getHora(){
-        return LocalTime.now().toString();
+        LocalTime ahora = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String horaActual = ahora.format(formatter);
+        return horaActual;
     }
 
     private String getAgencia(){
@@ -322,7 +321,7 @@ public DefaultTableModel mostrarPaquetes() {
     public String[] getDatosPaquete(String idPaquete){
         String[] dato = null;
         ResultSet rs = null;   
-        String sql = "SELECT idPaquete, peso, tamnio, tipoEnvio, nombreRemitente, nombreDestinatario, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquete WHERE idPaquete = '" + idPaquete + "'";
+        String sql = "SELECT idPaquete, peso, tamanio, tipoEnvio, nombreRemitente, nombreDestinatario, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquetes WHERE idPaquete = " + idPaquete + "";
         try{
             rs = DataHelper.getInstancia().executeQueryRead(sql);
             ResultSetMetaData rsMd = rs.getMetaData();
