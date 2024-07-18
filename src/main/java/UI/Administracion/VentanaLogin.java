@@ -30,10 +30,10 @@ public class VentanaLogin extends javax.swing.JFrame {
      */
     public VentanaLogin() {
         initComponents();
+        //setIconImage(new ImageIcon(".src/main/java/UI/Administracion/images/Logo (2).png").getImage());
         InitStyles();
         SetDate();
         InitContent();
-        //setIconImage(new ImageIcon(getClass().getResource("./src/main/java/UI/Administracion/images/Logo (2).png")).getImage());
     }
 
     private void InitStyles() {
