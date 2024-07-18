@@ -97,7 +97,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBox2.setForeground(new java.awt.Color(255, 255, 255));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(
-                new String[] { "Administrador", "Recepcionista", "Bodeguero", "Transportista", "Cliente" }));
+                new String[] { "Administrador", "Recepcionista", "Bodeguero", "Transportista" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);

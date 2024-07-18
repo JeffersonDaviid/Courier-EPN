@@ -1,9 +1,6 @@
 package BL.GestionPaquete;
 
 import BL.BASEDEDATOS.DataHelper;
-import BL.Facturacion.Tarifa;
-import BL.Facturacion.TarifaDomicilio;
-import BL.Facturacion.TarifaEnvio;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.util.Random;
@@ -25,7 +22,6 @@ public class Paquete {
     private String sucursalParaRecoger;
     private String trackingNumber;
     private String estado;
-    private float precioEnvio;
     private String domicilio;
 
     public Paquete() {
@@ -51,16 +47,10 @@ public class Paquete {
         this.sucursalParaRecoger = sucursalParaRecoger;
         this.trackingNumber = trackingNumber;
         this.estado = estado;
-        this.precioEnvio = precioEnvio;
         this.domicilio = domicilio;
     }
 
     
-
-    public void setPrecioEnvio(float precioEnvio) {
-        this.precioEnvio = precioEnvio;
-    }
-
     public String getDomicilio() {
         return domicilio;
     }
@@ -68,10 +58,6 @@ public class Paquete {
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
-    
-    
-
-   
 
     public int getId_paquete() {
         return id_paquete;
