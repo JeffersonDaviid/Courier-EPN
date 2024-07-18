@@ -30,14 +30,14 @@ import javax.swing.UIManager;
  *
  * @author Antonio
  */
-public class TransMenuPrincipal extends javax.swing.JFrame {
+public class TransportistaMenuPrincipal extends javax.swing.JFrame {
 
     private VentanaLogin login;
     private Perfil perfil;
     /**
      * Creates new form Dashboard
      */
-    public TransMenuPrincipal(VentanaLogin login, Perfil perfil) {
+    public TransportistaMenuPrincipal(VentanaLogin login, Perfil perfil) {
         this.login = login;
         this.perfil = perfil;
         initComponents();
