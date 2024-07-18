@@ -149,4 +149,28 @@ public class Vehiculo {
             JOptionPane.showMessageDialog(null, "El vehículo no está disponible");
         }
     }
+
+    // Método para listar los vehículos según la disponibilidad en la BD
+    public List<Vehiculo> listarVehiculos(int disponibilidad) {
+        List<Vehiculo> vehiculos = new ArrayList<>();
+        String sql = "SELECT * FROM Camiones WHERE disponibilidad = " + disponibilidad;
+        try {
+            DataHelper dataHelper = DataHelper.getInstancia();
+            ResultSet rs = dataHelper.executeQueryRead(sql);
+
+            while (rs.next()) {
+                
+                String modelo = rs.getString("modelo");
+                String marca = rs.getString("marca");
+                int capacidadCarga = rs.getInt("capacidad_carga");
+                int rutaId = rs.getInt("ruta_id");
+
+                Vehiculo vehiculo = new Vehiculo(modelo, marca, capacidadCarga, disponibilidad, null,rutaId);
+                vehiculos.add(vehiculo);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return vehiculos;
+    }
 }
