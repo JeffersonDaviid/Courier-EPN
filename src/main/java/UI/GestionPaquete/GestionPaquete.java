@@ -5,6 +5,8 @@
 package UI.GestionPaquete;
 
 import BL.GestionPaquete.Paquete;
+import UI.Facturacion.Facturacion;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -352,6 +354,8 @@ public class GestionPaquete extends javax.swing.JFrame {
     private void jBaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBaceptarActionPerformed
         // TODO add your handling code here:
         guardarPaquete();
+        Facturacion facturacion = new Facturacion();
+        facturacion.setVisible(true);
     }//GEN-LAST:event_jBaceptarActionPerformed
 
     private void jComboTipoEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTipoEnvioActionPerformed
