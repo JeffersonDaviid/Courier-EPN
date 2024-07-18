@@ -21,19 +21,6 @@ public class Transportista extends Perfil {
         this.camion = null;
     }
 
-    public void registrarEntregasCompletas() {
-        // Logica para registrar entregas completas
-    }
-
-    public boolean verificarDisponibilidad() {
-        // Logica para verificar disponibilidad
-        return this.disponible;
-    }
-
-    public void actualizarEstadoPaquetes() {
-        // Logica para actualizar el estado de los paquetes
-    }
-
     public Vehiculo getCamion() {
         return camion;
     }
@@ -49,8 +36,7 @@ public class Transportista extends Perfil {
 
     @Override
     public void cerrarSesion(VentanaLogin login) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cerrarSesion'");
+        login.setVisible(true);
     }
 
 }
