@@ -207,10 +207,24 @@ public class Inventario {
         historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
         int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
         actualizar(-capacidadPaquete);
-        //Cambiar el estado del paquete a "Listo para cargar"
-        actualizarEstadoPaquete(idPaquete,"Listo para cargar");
+        //Cambiar el estado del paquete a "Listo para retiro"
+        actualizarEstadoPaquete(idPaquete,"Listo para retiro");
         return idPaquete;
     } 
+    
+    public String cargarPaquete(String idPaquete){
+        if(!idPaquetes.contains(Integer.parseInt(idPaquete))){
+            System.out.println("No contiene esta clave");
+            return null;
+        }
+        idPaquetes.removeIf(valor -> valor.equals(Integer.parseInt(idPaquete)));
+        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
+        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
+        actualizar(-capacidadPaquete);
+        //Cambiar el estado del paquete a "Listo para cargar"
+        actualizarEstadoPaquete(idPaquete,"Listo para Cargar");
+        return idPaquete;
+    }
 
     public String retirarPaqueteRetiro(String idPaquete){
         if(!idPaquetes.contains(Integer.parseInt(idPaquete))){

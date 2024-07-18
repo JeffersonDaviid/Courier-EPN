@@ -83,6 +83,29 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanel10 = new javax.swing.JPanel();
         jBAceptarRetiro = new javax.swing.JButton();
         jBCancelarRetiro = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jTFidCargar = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTFPesoCargar = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jTFTamanioCargar = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jTFRemitenteCargar = new javax.swing.JTextField();
+        jTFDestinatarioCargar = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jTFSucursalOrigenCargar = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jTFSucursalDestinoCargar = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jTFTipoEnvioCargar = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
+        jTFEstadoPaqueteCargar = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jButtonAceptarCargar = new javax.swing.JButton();
+        jButtonCancelarCargar = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(819, 491));
 
@@ -543,6 +566,201 @@ public class InventarioUI extends javax.swing.JPanel {
 
         jTabbedPanelMain.addTab("Retirar", jPanelRetirar);
 
+        jPanel2.setBackground(new java.awt.Color(254, 254, 254));
+
+        jPanel8.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paquetes"));
+
+        jTFidCargar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFidCargarKeyReleased(evt);
+            }
+        });
+
+        jLabel13.setText("idPaquete");
+
+        jTFPesoCargar.setEditable(false);
+        jTFPesoCargar.setFocusable(false);
+
+        jLabel19.setText("Peso");
+
+        jTFTamanioCargar.setEditable(false);
+        jTFTamanioCargar.setFocusable(false);
+
+        jLabel20.setText("Tamaño");
+
+        jLabel21.setText("Remitente");
+
+        jTFRemitenteCargar.setEditable(false);
+        jTFRemitenteCargar.setFocusable(false);
+
+        jTFDestinatarioCargar.setEditable(false);
+        jTFDestinatarioCargar.setFocusable(false);
+
+        jLabel22.setText("Destinatario");
+
+        jTFSucursalOrigenCargar.setEditable(false);
+        jTFSucursalOrigenCargar.setFocusable(false);
+
+        jLabel23.setText("Sucursal Origen");
+
+        jLabel24.setText("Sucursal Destino");
+
+        jTFSucursalDestinoCargar.setEditable(false);
+        jTFSucursalDestinoCargar.setFocusable(false);
+
+        jLabel25.setText("Tipo de Envio");
+
+        jTFTipoEnvioCargar.setEditable(false);
+        jTFTipoEnvioCargar.setFocusable(false);
+
+        jLabel30.setText("Estado");
+
+        jTFEstadoPaqueteCargar.setEditable(false);
+        jTFEstadoPaqueteCargar.setFocusable(false);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTFidCargar)
+                            .addComponent(jTFPesoCargar)
+                            .addComponent(jTFTipoEnvioCargar)
+                            .addComponent(jTFTamanioCargar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel21)
+                        .addComponent(jLabel22)
+                        .addComponent(jLabel23)
+                        .addGroup(jPanel8Layout.createSequentialGroup()
+                            .addComponent(jLabel24)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTFSucursalDestinoCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel8Layout.createSequentialGroup()
+                            .addComponent(jLabel30)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTFEstadoPaqueteCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTFDestinatarioCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFRemitenteCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFSucursalOrigenCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFidCargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFPesoCargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFTamanioCargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFTipoEnvioCargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFRemitenteCargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFDestinatarioCargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFSucursalOrigenCargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFSucursalDestinoCargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFEstadoPaqueteCargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBackground(new java.awt.Color(254, 254, 254));
+
+        jButtonAceptarCargar.setBackground(new java.awt.Color(37, 98, 234));
+        jButtonAceptarCargar.setText("Aceptar");
+        jButtonAceptarCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAceptarCargarActionPerformed(evt);
+            }
+        });
+
+        jButtonCancelarCargar.setBackground(new java.awt.Color(37, 98, 234));
+        jButtonCancelarCargar.setText("Cancelar");
+        jButtonCancelarCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarCargarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jButtonAceptarCargar)
+                .addGap(34, 34, 34)
+                .addComponent(jButtonCancelarCargar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAceptarCargar)
+                    .addComponent(jButtonCancelarCargar))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+
+        jTabbedPanelMain.addTab("Cargar", jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -667,16 +885,46 @@ public class InventarioUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTFidAniadirKeyReleased
 
+    private void jTFidCargarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidCargarKeyReleased
+        String id = jTFidCargar.getText();
+        if(!id.isEmpty()){
+            dato = inventario.getDatosPaquete(id);
+            jTFPesoCargar.setText(dato[0]);
+            jTFTamanioCargar.setText(dato[1]);
+            jTFTipoEnvioCargar.setText(dato[2]);
+            jTFRemitenteCargar.setText(dato[3]);
+            jTFDestinatarioCargar.setText(dato[4]);
+            jTFSucursalOrigenCargar.setText(dato[5]);
+            jTFSucursalDestinoCargar.setText(dato[6]);
+            jTFEstadoPaqueteCargar.setText(dato[7]);
+        }   
+    }//GEN-LAST:event_jTFidCargarKeyReleased
+
+    private void jButtonAceptarCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarCargarActionPerformed
+        inventario.cargarPaquete(jTFidCargar.getText());
+        jTablePaquetesBodega.setModel(inventario.mostrarPaquetes());
+    }//GEN-LAST:event_jButtonAceptarCargarActionPerformed
+
+    private void jButtonCancelarCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarCargarActionPerformed
+        jTFidCargar.setText("");
+        jTFPesoCargar.setText("");
+        jTFTamanioCargar.setText("");
+        jTFTipoEnvioCargar.setText("");
+        jTFRemitenteCargar.setText("");
+        jTFDestinatarioCargar.setText("");
+        jTFSucursalOrigenCargar.setText("");
+        jTFSucursalDestinoCargar.setText("");
+        jTFEstadoPaqueteCargar.setText("");
+    }//GEN-LAST:event_jButtonCancelarCargarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAceptarRetiro;
-    private javax.swing.JButton jBAceptarRetiro1;
-    private javax.swing.JButton jBAceptarRetiro2;
     private javax.swing.JButton jBCancelarRetiro;
-    private javax.swing.JButton jBCancelarRetiro1;
-    private javax.swing.JButton jBCancelarRetiro2;
+    private javax.swing.JButton jButtonAceptarCargar;
     private javax.swing.JButton jButtonAñadir;
     private javax.swing.JButton jButtonCancelarAñadir;
+    private javax.swing.JButton jButtonCancelarCargar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -695,28 +943,10 @@ public class InventarioUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -724,64 +954,44 @@ public class InventarioUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelAñadir;
     private javax.swing.JPanel jPanelRetirar;
     private javax.swing.JProgressBar jProgressBarCapacidad;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFDestinatarioAniadir;
+    private javax.swing.JTextField jTFDestinatarioCargar;
     private javax.swing.JTextField jTFDestinatarioRetirar;
-    private javax.swing.JTextField jTFDestinatarioRetirar1;
-    private javax.swing.JTextField jTFDestinatarioRetirar2;
-    private javax.swing.JTextField jTFDestinatarioRetirar3;
     private javax.swing.JTextField jTFEstadoPaqueteAñadir;
+    private javax.swing.JTextField jTFEstadoPaqueteCargar;
     private javax.swing.JTextField jTFEstadoPaqueteRetiro;
-    private javax.swing.JTextField jTFEstadoPaqueteRetiro1;
-    private javax.swing.JTextField jTFEstadoPaqueteRetiro2;
-    private javax.swing.JTextField jTFEstadoPaqueteRetiro3;
     private javax.swing.JTextField jTFPesoAniadir;
+    private javax.swing.JTextField jTFPesoCargar;
     private javax.swing.JTextField jTFPesoRetirar;
-    private javax.swing.JTextField jTFPesoRetirar1;
-    private javax.swing.JTextField jTFPesoRetirar2;
-    private javax.swing.JTextField jTFPesoRetirar3;
     private javax.swing.JTextField jTFRemitenteAniadir;
+    private javax.swing.JTextField jTFRemitenteCargar;
     private javax.swing.JTextField jTFRemitenteRetirar;
-    private javax.swing.JTextField jTFRemitenteRetirar1;
-    private javax.swing.JTextField jTFRemitenteRetirar2;
-    private javax.swing.JTextField jTFRemitenteRetirar3;
     private javax.swing.JTextField jTFSucursalDestinoAniadir;
+    private javax.swing.JTextField jTFSucursalDestinoCargar;
     private javax.swing.JTextField jTFSucursalDestinoRetirar;
-    private javax.swing.JTextField jTFSucursalDestinoRetirar1;
-    private javax.swing.JTextField jTFSucursalDestinoRetirar2;
-    private javax.swing.JTextField jTFSucursalDestinoRetirar3;
     private javax.swing.JTextField jTFSucursalOrigenAniadir;
+    private javax.swing.JTextField jTFSucursalOrigenCargar;
     private javax.swing.JTextField jTFSucursalOrigenRetirar;
-    private javax.swing.JTextField jTFSucursalOrigenRetirar1;
-    private javax.swing.JTextField jTFSucursalOrigenRetirar2;
-    private javax.swing.JTextField jTFSucursalOrigenRetirar3;
     private javax.swing.JTextField jTFTamanioAniadir;
+    private javax.swing.JTextField jTFTamanioCargar;
     private javax.swing.JTextField jTFTamanioRetirar;
-    private javax.swing.JTextField jTFTamanioRetirar1;
-    private javax.swing.JTextField jTFTamanioRetirar2;
-    private javax.swing.JTextField jTFTamanioRetirar3;
     private javax.swing.JTextField jTFTipoEnvioAnadir;
+    private javax.swing.JTextField jTFTipoEnvioCargar;
     private javax.swing.JTextField jTFTipoEnvioRetirar;
-    private javax.swing.JTextField jTFTipoEnvioRetirar1;
-    private javax.swing.JTextField jTFTipoEnvioRetirar2;
-    private javax.swing.JTextField jTFTipoEnvioRetirar3;
     private javax.swing.JTextField jTFidAniadir;
+    private javax.swing.JTextField jTFidCargar;
     private javax.swing.JTextField jTFidRetirar;
-    private javax.swing.JTextField jTFidRetirar1;
-    private javax.swing.JTextField jTFidRetirar2;
-    private javax.swing.JTextField jTFidRetirar3;
     private javax.swing.JTabbedPane jTabbedPanelMain;
     private javax.swing.JTable jTablePaquetesBodega;
     // End of variables declaration//GEN-END:variables
