@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import BL.GestionPaquete.Paquete;
 import BL.Transporte.Vehiculo;
+import BL.Transporte.CamionCarga;
 
 /**
  *

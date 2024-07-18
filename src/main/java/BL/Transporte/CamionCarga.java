@@ -1,7 +1,13 @@
 package BL.Transporte;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import BL.BASEDEDATOS.DataHelper;
 import BL.GestionPaquete.Paquete;
 
 public class CamionCarga extends Vehiculo {
@@ -16,32 +22,70 @@ public class CamionCarga extends Vehiculo {
         PaquetesInventario = paquetesInventario;
     }
 
-    // public void registrarCamion(CamionCarga camionCarga) {
-    // int rs = -1;
-    // String sql = "INSERT INTO Camiones (modelo, marca, capacidadCarga,
-    // disponibilidad, ruta_id) VALUES ('"
-    // + vehiculo.getModelo() + "', '" + vehiculo.getMarca() + "', '"
-    // + vehiculo.getCapacidadCarga() + "', '" + vehiculo.getDisponibilidad() + "',
-    // '"
-    // + vehiculo.getRuta() + "')";
+    // Método para listar los paquetes según el estado del paquete en BD
+    public List<Paquete> listarPaquetesCC(String estadoPaquete) {
+        List<Paquete> paquetes = new ArrayList<>();
+        String sql = "SELECT * FROM Paquetes WHERE estado = '" + estadoPaquete + "'";
+        try {
+            DataHelper dataHelper = DataHelper.getInstancia();
+            ResultSet rs = dataHelper.executeQueryRead(sql);
 
-    // try {
-    // rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+            while (rs.next()) {
+                int id_paquete = rs.getInt("idPaquete");
+                float peso = rs.getFloat("peso");
+                String tamanio = rs.getString("tamanio");
+                String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
+                String fechaHoraSalida = rs.getString("fechaHoraSalida");
+                String nombreRemitente = rs.getString("nombreRemitente");
+                String correoRemitente = rs.getString("correoRemitente");
+                String telefonoRemitente = rs.getString("telefonoRemitente");
+                String nombreDestinatario = rs.getString("nombreDestinatario");
+                String correoDestinatario = rs.getString("correoDestinatario");
+                String telefonoDestinatario = rs.getString("telefonoDestinatario");
+                String tipoEnvio = rs.getString("tipoEnvio");
+                String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
+                String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
+                String trackingNumber = rs.getString("trackingNumber");
+                String estado = rs.getString("estado");
+                float precioEnvio = 0;
+                String domicilio = rs.getString("domicilio");
 
-    // if (rs > 0) {
-    // JOptionPane.showMessageDialog(null, "Camión registrado con éxito",
-    // "Guardado",
-    // JOptionPane.INFORMATION_MESSAGE);
-    // } else {
-    // JOptionPane.showMessageDialog(null, "Error al registrar el camión", "Error",
-    // JOptionPane.ERROR_MESSAGE);
-    // }
+                Paquete paquete = new Paquete(id_paquete, peso, tamanio, fechaHoraLlegada, fechaHoraSalida,
+                        nombreRemitente,
+                        correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario,
+                        telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger,
+                        trackingNumber, estado, precioEnvio, domicilio);
 
-    // } catch (SQLException e) {
-    // JOptionPane.showMessageDialog(null, "Error al registrar el camión: " +
-    // e.getMessage(), "Error",
-    // JOptionPane.ERROR_MESSAGE);
-    // }
-    // }
+                paquetes.add(paquete);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return paquetes;
+    }
+
+
+
+    // Método para cambiar el estado del paquete en BD
+    public void cambiarEstadoPaqueteCC(String estadoInicial, String estadoFinal) {
+        int rs = -1;
+        String sql = "UPDATE Paquetes SET estado = '" + estadoFinal + "' WHERE estado = '" + estadoInicial + "'";
+
+        try {
+            rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+
+            if (rs > 0) {
+                JOptionPane.showMessageDialog(null, "Estado del paquete actualizado con éxito", "Guardado",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No existen paquetes para cargar a camión", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el estado del paquete: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 }
