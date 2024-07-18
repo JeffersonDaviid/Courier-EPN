@@ -195,6 +195,7 @@ public class UITransportePaquetes extends javax.swing.JPanel {
     private void btnEntregarPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarPaquetesActionPerformed
        // vehiculo.cambiarEstadoPaquete("En Transito", "Recibido");
         // listar tabla 1
+        
     }//GEN-LAST:event_btnEntregarPaquetesActionPerformed
 
 
