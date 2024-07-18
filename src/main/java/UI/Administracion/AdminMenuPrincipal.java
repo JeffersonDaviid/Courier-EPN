@@ -42,7 +42,7 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 // Mostrar la ventana de login al cerrar ClienteMenuPrincipal
-                login.setVisible(true);
+                perfil.cerrarSesion(login);
             }
         });
     }
@@ -220,7 +220,8 @@ public class AdminMenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarActionPerformed
-        // TODO add your handling code here:
+        perfil.cerrarSesion(login);  
+        this.dispose();
     }//GEN-LAST:event_CerrarActionPerformed
 
     private void btn_prinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_prinActionPerformed

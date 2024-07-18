@@ -48,6 +48,11 @@ public class Transportista extends Perfil {
         return new TransMenuPrincipal(login, this);
     }
 
+    @Override
+    public void cerrarSesion(VentanaLogin login) {
+        login.setVisible(true);
+    }
+
     
 }
 
