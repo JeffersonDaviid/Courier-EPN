@@ -326,6 +326,7 @@ public class UITransporte extends javax.swing.JPanel {
                 // cargar tabla 1(limpiar) y 2 (Cargar)
     }//GEN-LAST:event_BtnAgrergarActionPerformed
 
+
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
    // UITransportePaquetes uitp = new UITransportePaquetes();
     //AdminMenuPrincipal.ShowJPanel(uitp);

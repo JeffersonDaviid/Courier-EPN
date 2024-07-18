@@ -36,7 +36,6 @@ public class UITransportePaquetes extends javax.swing.JPanel {
         txtCamion = new javax.swing.JLabel();
         txtCamionTUIP = new javax.swing.JLabel();
         txtMarca = new javax.swing.JLabel();
-        txtCapacidad = new javax.swing.JLabel();
         txtModeloP = new javax.swing.JLabel();
         txtMarcaP = new javax.swing.JLabel();
         txtCapacidadP = new javax.swing.JLabel();
@@ -44,6 +43,7 @@ public class UITransportePaquetes extends javax.swing.JPanel {
         TablaEntregarPaquete = new javax.swing.JScrollPane();
         TablaListaInventarioCamion = new javax.swing.JTable();
         btnEntregarPaquetes = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JToggleButton();
 
         PanelFondoTUIP.setBackground(new java.awt.Color(37, 98, 234));
         PanelFondoTUIP.setForeground(new java.awt.Color(37, 98, 234));
@@ -61,10 +61,6 @@ public class UITransportePaquetes extends javax.swing.JPanel {
         txtMarca.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         txtMarca.setForeground(new java.awt.Color(255, 255, 255));
         txtMarca.setText("MARCA");
-
-        txtCapacidad.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        txtCapacidad.setForeground(new java.awt.Color(255, 255, 255));
-        txtCapacidad.setText("CAPACIDAD");
 
         txtModeloP.setBackground(new java.awt.Color(255, 255, 255));
         txtModeloP.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -84,14 +80,12 @@ public class UITransportePaquetes extends javax.swing.JPanel {
             PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
                 .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
-                            .addGap(67, 67, 67)
-                            .addComponent(txtMarca))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoTUIPLayout.createSequentialGroup()
-                            .addGap(57, 57, 57)
-                            .addComponent(txtCamion)))
-                    .addComponent(txtCapacidad, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(txtMarca))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoTUIPLayout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(txtCamion)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtModeloP, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,10 +118,8 @@ public class UITransportePaquetes extends javax.swing.JPanel {
                         .addGap(34, 34, 34)
                         .addComponent(txtMarca))
                     .addComponent(txtMarcaP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
-                .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCapacidad)
-                    .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
+                .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88))
         );
 
@@ -165,6 +157,15 @@ public class UITransportePaquetes extends javax.swing.JPanel {
             }
         });
 
+        btnRefresh.setBackground(new java.awt.Color(204, 255, 255));
+        btnRefresh.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -173,22 +174,28 @@ public class UITransportePaquetes extends javax.swing.JPanel {
                 .addComponent(PanelFondoTUIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCamionP)
-                    .addComponent(TablaEntregarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEntregarPaquetes))
+                    .addComponent(btnEntregarPaquetes)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtCamionP)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRefresh))
+                        .addComponent(TablaEntregarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelFondoTUIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(txtCamionP)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCamionP)
+                    .addComponent(btnRefresh))
                 .addGap(18, 18, 18)
                 .addComponent(TablaEntregarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnEntregarPaquetes)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(440, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -198,6 +205,10 @@ public class UITransportePaquetes extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnEntregarPaquetesActionPerformed
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ImgCamionTUIP;
@@ -205,10 +216,10 @@ public class UITransportePaquetes extends javax.swing.JPanel {
     private javax.swing.JScrollPane TablaEntregarPaquete;
     private javax.swing.JTable TablaListaInventarioCamion;
     private javax.swing.JButton btnEntregarPaquetes;
+    private javax.swing.JToggleButton btnRefresh;
     private javax.swing.JLabel txtCamion;
     private javax.swing.JLabel txtCamionP;
     private javax.swing.JLabel txtCamionTUIP;
-    private javax.swing.JLabel txtCapacidad;
     private javax.swing.JLabel txtCapacidadP;
     private javax.swing.JLabel txtMarca;
     private javax.swing.JLabel txtMarcaP;
