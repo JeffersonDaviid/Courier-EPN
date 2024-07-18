@@ -34,9 +34,9 @@ public class Inventario {
     private final int CAPACIDAD_PAQUETE_MEDIANO = 2;
     private final int CAPACIDAD_PAQUETE_GRANDE = 3;
 
-    public Inventario(int tiempoMaximo, int capacidadTotal){
-        this.tiempoMaximo = tiempoMaximo;
-        this.capacidadTotal = capacidadTotal;
+    public Inventario(){
+        this.tiempoMaximo = 15;
+        this.capacidadTotal = 500;
         this.idPaquetes = getIdPaquetesAlmacenados();
         this.capacidadOcupada = calcularCapacidadOcupada();
         this.historial = new Historial();
@@ -162,18 +162,20 @@ public class Inventario {
         this.capacidadTotal = nuevaCapacidad;
     }
 
-    public void calcularFechaLimite(String fechaIngreso){
+    public String calcularFechaLimite(String fechaIngreso){
         //Calcular fecha limite para cada paquete
+        long diasRestantes = 0;
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try{
         LocalDate fechaIngresoDate = LocalDate.parse(fechaIngreso, formato);
         LocalDate fechaLimite = fechaIngresoDate.plusDays(tiempoMaximo);
         LocalDate fechaActual = LocalDate.now();
-        long diasRestantes = ChronoUnit.DAYS.between(fechaActual, fechaLimite);
+        diasRestantes = ChronoUnit.DAYS.between(fechaActual, fechaLimite);
         }catch (DateTimeParseException e){
             System.out.println(e.getMessage());
         }
-        // mandar "dias restantes" a la celda del df       
+        // mandar "dias restantes" a la celda del df     
+        return String.valueOf(diasRestantes);  
     }
 
     public int getCapacidadTotal(){
