@@ -4,6 +4,10 @@
  */
 package UI.Almacenamiento;
 
+import BL.BASEDEDATOS.DataHelper;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,13 +35,13 @@ public class HistorialUI extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaHistorial = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        FiltrarHistorial = new javax.swing.JButton();
+        comboBoxFiltrarHistorial = new javax.swing.JComboBox<>();
+        escribirFiltro = new javax.swing.JTextField();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -48,22 +52,22 @@ public class HistorialUI extends javax.swing.JPanel {
                 "Id Paquete", "Fecha de ingreso", "Hora de ingreso", "Fecha de salida", "Hora de salida"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TablaHistorial);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Historial"));
 
-        jButton2.setText("Filtrar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        FiltrarHistorial.setText("Filtrar");
+        FiltrarHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                FiltrarHistorialActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id Paquete", "Fecha Ingreso", "Fecha Salida" }));
+        comboBoxFiltrarHistorial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id Paquete", "Fecha Ingreso", "Fecha Salida" }));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        escribirFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                escribirFiltroActionPerformed(evt);
             }
         });
 
@@ -74,25 +78,29 @@ public class HistorialUI extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1, 0, 202, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(comboBoxFiltrarHistorial, 0, 202, Short.MAX_VALUE)
+                    .addComponent(escribirFiltro))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(78, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(FiltrarHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(71, 71, 71))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxFiltrarHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(escribirFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(FiltrarHistorial)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
+
+        FiltrarHistorial.getAccessibleContext().setAccessibleName("");
+        comboBoxFiltrarHistorial.getAccessibleContext().setAccessibleName("");
+        escribirFiltro.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -140,17 +148,66 @@ public class HistorialUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void FiltrarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FiltrarHistorialActionPerformed
         // TODO add your handling code here:
+    // Obtener el tipo de filtro seleccionado
+    String filterType = (String) comboBoxFiltrarHistorial.getSelectedItem();
+    // Obtener el valor del filtro
+    String filterValue = escribirFiltro.getText();
+    
+    // Asegurarse de que el valor del filtro no esté vacío
+    if (!filterValue.isEmpty()) {
+        // Obtener el modelo de la tabla
+        DefaultTableModel model = (DefaultTableModel) TablaHistorial.getModel();
+        // Limpiar las filas existentes en la tabla
+        model.setRowCount(0);
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+        // Definir la consulta SQL según el tipo de filtro seleccionado
+        String query;
+        switch (filterType) {
+            case "Id Paquete":
+                query = "SELECT * FROM paquetes WHERE id_paquete = '" + filterValue + "'";
+                break;
+            case "Fecha Ingreso":
+                query = "SELECT * FROM paquetes WHERE fecha_ingreso = '" + filterValue + "'";
+                break;
+            case "Fecha Salida":
+                query = "SELECT * FROM paquetes WHERE fecha_salida = '" + filterValue + "'";
+                break;
+            default:
+                query = "";
+        }
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // Ejecutar la consulta y llenar la tabla con los resultados
+        try {
+            DataHelper dh = DataHelper.getInstancia();
+            ResultSet rs = dh.executeQueryRead(query);
+
+            while (rs.next()) {
+                Object[] row = {
+                        rs.getString("id_paquete"),
+                        rs.getString("fecha_ingreso"),
+                        rs.getString("hora_ingreso"),
+                        rs.getString("fecha_salida"),
+                        rs.getString("hora_salida")
+                };
+                model.addRow(row);
+            }
+            dh.closeConnection();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al acceder a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    }//GEN-LAST:event_FiltrarHistorialActionPerformed
+
+    private void escribirFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escribirFiltroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_escribirFiltroActionPerformed
 
     public void actualizarTabla(String[][] datosRegistro){
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) TablaHistorial.getModel();
         //Limpiamos la tabla
         model.setRowCount(0);
         for (int col = 0; col < datosRegistro.length; col++) {
@@ -193,13 +250,13 @@ public class HistorialUI extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton FiltrarHistorial;
+    private javax.swing.JTable TablaHistorial;
+    private javax.swing.JComboBox<String> comboBoxFiltrarHistorial;
+    private javax.swing.JTextField escribirFiltro;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

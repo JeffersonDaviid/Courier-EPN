@@ -94,26 +94,24 @@ public class Historial {
         return datosFiltroId; 
         }
 
-    private String[][] filtarPorFechaIngreso(String parametro) {
+    public String[][] filtarPorFechaIngreso(String parametro) {
         String[][] datos = new String[1][5];
-        String sql = "SELECT 
-                        ingreso.idPaquete,
-                        ingreso.fecha AS fechaIngreso,
-                        ingreso.hora AS horaIngreso,
-                        COALESCE(salida.fecha, '') AS fechaSalida,
-                        COALESCE(salida.hora, '') AS horaSalida
-                    FROM 
-                        Registro ingreso
-                    LEFT JOIN 
-                        Registro salida
-                    ON 
-                        ingreso.idPaquete = salida.idPaquete 
-                        AND salida.tipo = 'SALIDA'
-                    WHERE 
-                        ingreso.tipo = 'INGRESO'
-                        AND ingreso.fecha = '"+parametro+"'
-                    ORDER BY 
-                        ingreso.idPaquete;";
+        String sql = "SELECT "+
+                        "ingreso.idPaquete,\n"+
+                        "ingreso.fecha AS fechaIngreso,\n"+
+                        "ingreso.hora AS horaIngreso,\n"+
+                        "COALESCE(salida.fecha, '') AS fechaSalida,\n"+
+                        "COALESCE(salida.hora, '') AS horaSalida\n"+
+                    "FROM Registro ingreso\n"+
+                    "LEFT JOIN\n"+ 
+                        "Registro salida\n"+
+                    "ON\n"+ 
+                        "ingreso.idPaquete = salida.idPaquete\n"+ 
+                        "AND salida.tipo = 'SALIDA'\n"+
+                    "WHERE\n"+ 
+                        "ingreso.tipo = 'INGRESO'\n"+
+                        "AND ingreso.fecha = '"+parametro+"'"+
+                    "ORDER BY ingreso.idPaquete;";
 
         try {
         DataHelper dataHelper = DataHelper.getInstancia();
@@ -137,26 +135,25 @@ public class Historial {
         return datos;
     }
 
-    private String[][] filtarPorFechaSalida(String parametro) {
+    public String[][] filtarPorFechaSalida(String parametro) {
         String[][] datos = new String[1][5];
-        String sql = "SELECT 
-                        ingreso.idPaquete,
-                        ingreso.fecha AS fechaIngreso,
-                        ingreso.hora AS horaIngreso,
-                        COALESCE(salida.fecha, '') AS fechaSalida,
-                        COALESCE(salida.hora, '') AS horaSalida
-                    FROM 
-                        Registro ingreso
-                    LEFT JOIN 
-                        Registro salida
-                    ON 
-                        ingreso.idPaquete = salida.idPaquete 
-                        AND salida.tipo = 'SALIDA'
-                    WHERE 
-                        ingreso.tipo = 'INGRESO'
-                        AND salida.fecha = '"+parametro+"'
-                    ORDER BY 
-                        ingreso.idPaquete;";
+        String sql = "SELECT " +
+                        "ingreso.idPaquete, \n" +
+                        "ingreso.fecha AS fechaIngreso, \n"+
+                        "ingreso.hora AS horaIngreso, \n"+
+                        "COALESCE(salida.fecha, '') AS fechaSalida,\n"+
+                        "COALESCE(salida.hora, '') AS horaSalida \n"+
+                    "FROM Registro ingreso \n" +
+                    "LEFT JOIN \n " +
+                        "Registro salida \n" +
+                    "ON \n"+
+                        "ingreso.idPaquete = salida.idPaquete \n"+
+                        "AND salida.tipo = 'SALIDA'\n"+
+                    "WHERE \n"+
+                        "ingreso.tipo = 'INGRESO'\n"+
+                        "AND salida.fecha = '"+parametro+"'"+
+                    "ORDER BY \n" +
+                        "ingreso.idPaquete;";
 
         try {
         DataHelper dataHelper = DataHelper.getInstancia();
@@ -180,7 +177,7 @@ public class Historial {
         return datos;
     }
 
-    private String[][] filtrarPorId(String parametro) {
+    public String[][] filtrarPorId(String parametro) {
         String[][] datosFiltroId = new String[1][5];
         String sql = "SELECT idPaquete, fecha, hora, tipo FROM Registro WHERE idPaquete = '"+parametro+"'";
         try {

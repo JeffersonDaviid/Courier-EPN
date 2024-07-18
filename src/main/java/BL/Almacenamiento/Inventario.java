@@ -1,16 +1,16 @@
 package BL.Almacenamiento;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.time.temporal.ChronoUnit;
 
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import BL.GestionPaquete.Paquete;
 import BL.BASEDEDATOS.*;
@@ -37,7 +37,6 @@ public class Inventario {
     public Inventario(int tiempoMaximo, int capacidadTotal){
         this.tiempoMaximo = tiempoMaximo;
         this.capacidadTotal = capacidadTotal;
-        //this.paquetes = getPaquetesAlmacenados();
         this.idPaquetes = getIdPaquetesAlmacenados();
         this.capacidadOcupada = calcularCapacidadOcupada();
         this.historial = new Historial();
@@ -101,7 +100,7 @@ public class Inventario {
         idPaquetes.add(Integer.parseInt(idPaquete));
         historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.INGRESO));
         JOptionPane.showMessageDialog(null, "registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
-        actualizarBodega(capacidadPaquete);
+        actualizar(capacidadPaquete);
         //Cambiar estado del paquete a "En bodega"
         actualizarEstadoPaquete(idPaquete,"En Bodega");
     }
@@ -114,7 +113,7 @@ public class Inventario {
         idPaquetes.remove(Integer.parseInt(idPaquete));
         historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
         int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
-        actualizarBodega(-capacidadPaquete);
+        actualizar(-capacidadPaquete);
         //Cambiar el estado del paquete a "Transportandose"
         actualizarEstadoPaquete(idPaquete,"Transportandose");
         return idPaquete;
@@ -155,7 +154,7 @@ public class Inventario {
     
 
     //Metodo que actualiza la Capacidad Ocupada del Inventario
-    public void actualizarBodega(int cantidad){
+    public void actualizar(int cantidad){
         capacidadOcupada += cantidad;
     }
 
@@ -185,10 +184,51 @@ public class Inventario {
         return capacidadOcupada;
     }
 
-    public void mostrarPaquetes(){
-        //Devueve un tipo dataframe
-        //agregar una columna mas (Dias restantes) en la que este
+    public DefaultTableModel mostrarPaquetes(String idPaquete) {
+        String[] columnas = {"ID Paquete", "Origen Paquete", "Destino Paquete", "Fecha de Ingreso", "Hora Ingreso", "Fecha Limite"};
+        DefaultTableModel model = new DefaultTableModel();
+        ResultSet rsPaquete = null, rsFecha = null;
+
+        String sql_paquete = "SELECT idPaquete, sucursalAceptoPaquete, sucursalParaRecoger FROM Paquete WHERE idPaquete = '" + idPaquete + "'";
+        String sql_fecha = "SELECT fecha, hora FROM Registro WHERE idPaquete = '" + idPaquete + "'";
+
+        try {
+            rsPaquete = DataHelper.getInstancia().executeQueryRead(sql_paquete);
+            rsFecha = DataHelper.getInstancia().executeQueryRead(sql_fecha);
+
+            for (String columna : columnas) {
+                model.addColumn(columna);
+            }
+
+            if (rsPaquete.next() && rsFecha.next()) {
+                Object[] fila = new Object[columnas.length];
+
+                // Populate data from the first query
+                fila[0] = rsPaquete.getString("idPaquete");
+                fila[1] = rsPaquete.getString("sucursalAceptoPaquete");
+                fila[2] = rsPaquete.getString("sucursalParaRecoger");
+
+                // Populate data from the second query
+                fila[3] = rsFecha.getString("fecha");
+                fila[4] = rsFecha.getString("hora");
+                fila[5] = calcularFechaLimite(rsFecha.getString("fecha"));
+
+                model.addRow(fila);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        } finally {
+            // Close resources to prevent resource leaks
+            try {
+                if (rsPaquete != null) rsPaquete.close();
+                if (rsFecha != null) rsFecha.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error closing resources: " + ex.toString());
+            }
         }
+
+        return model;
+    }
 
     private void notificarCapacidadCompleta(){
         JOptionPane.showMessageDialog(null, "Capacidad de la bodega alcanzado", "Alerta",JOptionPane.INFORMATION_MESSAGE);
@@ -204,6 +244,28 @@ public class Inventario {
 
     private String getAgencia(){
         return "Quito";
+    }
+
+    public String[] getDatosPaquete(String idPaquete){
+        String[] dato = null;
+        ResultSet rs = null;   
+        String sql = "SELECT idPaquete, peso, tamnio, tipoEnvio, nombreRemitente, nombreDestinatario, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquete WHERE idPaquete = '" + idPaquete + "'";
+        try{
+            rs = DataHelper.getInstancia().executeQueryRead(sql);
+            ResultSetMetaData rsMd = rs.getMetaData();
+            
+            int cantidadDatos = rsMd.getColumnCount();
+            
+            dato = new String[cantidadDatos];   
+            for(int i = 0; i<cantidadDatos;i++){
+                dato[i]=rs.getString(i+1);
+            }
+            return dato;
+       
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+        return dato;
     }
 
 }
