@@ -79,6 +79,7 @@ public class Vehiculo {
         this.ruta = ruta;
     }
 
+    // Método para listar los paquetes según el estado del paquete en BD
     public List<Paquete> listarPaquetes(String estadoPaquete) {
         List<Paquete> paquetes = new ArrayList<>();
         String sql = "SELECT * FROM Paquetes WHERE estado = '" + estadoPaquete + "'";
@@ -118,6 +119,27 @@ public class Vehiculo {
             System.out.println(e.getMessage());
         }
         return paquetes;
+    }
+
+    public void cambiarEstadoPaquete(String estadoInicial, String estadoFinal) {
+        int rs = -1;
+        String sql = "UPDATE Paquetes SET estado = '" + estadoFinal + "' WHERE estado = '" + estadoInicial + "'";
+
+        try {
+            rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+
+            if (rs > 0) {
+                JOptionPane.showMessageDialog(null, "Estado del paquete actualizado con éxito", "Guardado",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar el estado del paquete", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el estado del paquete: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void registrarCamion(Vehiculo vehiculo) {
@@ -264,6 +286,7 @@ public class Vehiculo {
         // }
 
         // Obtener la lista de paquetes
+        vehiculo2.cambiarEstadoPaquete("en ruta", "recibido");
         List<Paquete> paquetes = vehiculo2.listarPaquetes("recibido");
 
         // Imprimir la información de los paquetes
