@@ -7,7 +7,7 @@ package UI.Administracion;
 
 import BL.Administracion.Perfil;
 import UI.Administracion.views.*;
-import UI.Almacenamiento.Almacenamiento;
+import UI.Almacenamiento.HistorialUI;
 import UI.SeguimientoPaquete.UIEnvio;
 import UI.SeguimientoPaquete.UISeguimiento;
 import UI.Transporte.UITransporte;
