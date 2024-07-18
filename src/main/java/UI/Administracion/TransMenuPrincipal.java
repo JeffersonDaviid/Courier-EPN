@@ -96,9 +96,7 @@ public class TransMenuPrincipal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         btn_prin = new javax.swing.JButton();
         btn_lends = new javax.swing.JButton();
-        btn_returns = new javax.swing.JButton();
-        btn_lends1 = new javax.swing.JButton();
-        btn_lends2 = new javax.swing.JButton();
+        Cerrar = new javax.swing.JButton();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -148,51 +146,19 @@ public class TransMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btn_returns.setBackground(new java.awt.Color(21, 101, 192));
-        btn_returns.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_returns.setForeground(new java.awt.Color(255, 255, 255));
-        btn_returns.setText("Paqueteria");
-        btn_returns.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_returns.setBorderPainted(false);
-        btn_returns.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_returns.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btn_returns.setIconTextGap(13);
-        btn_returns.setInheritsPopupMenu(true);
-        btn_returns.addActionListener(new java.awt.event.ActionListener() {
+        Cerrar.setBackground(new java.awt.Color(21, 101, 192));
+        Cerrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Cerrar.setForeground(new java.awt.Color(255, 255, 255));
+        Cerrar.setText("Cerrar Sesion");
+        Cerrar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        Cerrar.setBorderPainted(false);
+        Cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Cerrar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Cerrar.setIconTextGap(13);
+        Cerrar.setInheritsPopupMenu(true);
+        Cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_returnsActionPerformed(evt);
-            }
-        });
-
-        btn_lends1.setBackground(new java.awt.Color(21, 101, 192));
-        btn_lends1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_lends1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_lends1.setText("Almacenamiento");
-        btn_lends1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_lends1.setBorderPainted(false);
-        btn_lends1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_lends1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btn_lends1.setIconTextGap(13);
-        btn_lends1.setInheritsPopupMenu(true);
-        btn_lends1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_lends1ActionPerformed(evt);
-            }
-        });
-
-        btn_lends2.setBackground(new java.awt.Color(21, 101, 192));
-        btn_lends2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_lends2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_lends2.setText("Almacenamiento");
-        btn_lends2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_lends2.setBorderPainted(false);
-        btn_lends2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_lends2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btn_lends2.setIconTextGap(13);
-        btn_lends2.setInheritsPopupMenu(true);
-        btn_lends2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_lends2ActionPerformed(evt);
+                CerrarActionPerformed(evt);
             }
         });
 
@@ -208,9 +174,7 @@ public class TransMenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(btn_lends, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
             .addComponent(btn_prin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_returns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_lends1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-            .addComponent(btn_lends2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(Cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,16 +187,10 @@ public class TransMenuPrincipal extends javax.swing.JFrame {
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(menuLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(btn_lends, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(btn_lends1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(btn_lends2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_prin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(menuLayout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(btn_returns, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(407, Short.MAX_VALUE))
+                        .addComponent(btn_lends, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_prin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE)
+                .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         content.setBackground(new java.awt.Color(255, 255, 255));
@@ -268,6 +226,10 @@ public class TransMenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CerrarActionPerformed
+
     private void btn_prinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_prinActionPerformed
         ShowJPanel(new Principal());
     }// GEN-LAST:event_btn_prinActionPerformed
@@ -276,26 +238,14 @@ public class TransMenuPrincipal extends javax.swing.JFrame {
         ShowJPanel(new UISeguimiento());
     }// GEN-LAST:event_btn_lendsActionPerformed
 
-    private void btn_returnsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_returnsActionPerformed
-
-    }// GEN-LAST:event_btn_returnsActionPerformed
-
-    private void btn_lends1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btn_lends1ActionPerformed
-
-    private void btn_lends2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends2ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btn_lends2ActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cerrar;
     private javax.swing.JLabel appName;
     private javax.swing.JPanel background;
     private javax.swing.JButton btn_lends;
-    private javax.swing.JButton btn_lends1;
-    private javax.swing.JButton btn_lends2;
     private javax.swing.JButton btn_prin;
-    private javax.swing.JButton btn_returns;
     private static javax.swing.JPanel content;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel menu;
