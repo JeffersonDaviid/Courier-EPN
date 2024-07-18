@@ -1,79 +1,74 @@
 package BL.SeguimientoPaquete;
+
 import BL.GestionPaquete.Paquete;
-import BL.Transporte.CamionCarga;
-import BL.Transporte.CamionEntrega;
-import java.util.ArrayList;
+import BL.BASEDEDATOS.DataHelper;
+import java.sql.ResultSet;
+
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import java.util.List;
-/**
- *
- * @author TOMMY
- */
+
 public class Envio {
     private int id;
-    private List<Paquete> paquetesDomicilio;
-    private List<Paquete>paquetesAgencia;
-    private List<Paquete>paquetes;
-    private boolean isLocal;
-    private String fecha;
-    private String agenciaRemitente;
-    private String destino;
-    private boolean isComplete;
-    private Seguimiento seguimiento;
-    private CamionCarga camionCarga;
-    private CamionEntrega camionEntrega;
-    public Envio(int id, String fecha, String agenciaRemitente, String destino) {
+    private List<Paquete> paquetes;
+    public Envio() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.paquetes = new ArrayList<>();
-        this.fecha = fecha;
-        this.agenciaRemitente = agenciaRemitente;
-        this.destino = destino;
-        this.isComplete = false;
     }
-        // Métodos
-    public Seguimiento getSeguimiento() {
-        return seguimiento;
+    public void setPaquetes(List<Paquete> paquetes) {
+        this.paquetes = paquetes;
     }
-    public void setSeguimiento(Seguimiento seguimiento) {
-        this.seguimiento = seguimiento;
-    }
-    public void verificarTipoEnvio() {
-        for (Paquete paquete : paquetes) {
-            if (paquete.getEntrega().getTipoentrega().contentEquals("Domicilio")) {
-                destino="Domicilio";
+
+    public void guardarEnvio(int idPaquete) {
+        DataHelper dataHelper;
+        try {
+            dataHelper = DataHelper.getInstancia();
+            String sql = "INSERT INTO Envio (idPaquete) VALUES (" + idPaquete + ")";
+            int result = dataHelper.executeQueryInsertUpdateDelete(sql);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "Envio guardado exitosamente");
             } else {
-                destino="Agencia";
+                JOptionPane.showMessageDialog(null, "No se pudo guardar el envio");
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar el envio: " + e.getMessage());
         }
     }
-
-    public void asignarPaquetes(List<Paquete> paquetes) {
-        this.paquetes.addAll(paquetes);
-    }
-
-    public void registrarEnvio() {
-        // Implementación
-    }
-
-    public void asignarCamion() {
-        this.camionCarga = camionCarga;
-        this.camionEntrega = camionEntrega;
-        // Separar paquetes en dos listas según el destino
-        for (Paquete paquete : paquetes) {
-            if (paquete.getEntrega().getTipoentrega().equalsIgnoreCase("Domicilio")) {
-                paquetesDomicilio.add(paquete);
-            } else if (paquete.getEntrega().getTipoentrega().equalsIgnoreCase("Agencia")) {
-                paquetesAgencia.add(paquete);
+     public void actualizarEstadoPaquete(int idPaquete, String estado) {
+        DataHelper dataHelper;
+        try {
+            dataHelper = DataHelper.getInstancia();
+            String sql = "UPDATE Paquete SET estado = '" + estado + "' WHERE idPaquete = " + idPaquete;
+            int result = dataHelper.executeQueryInsertUpdateDelete(sql);
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "Estado del paquete actualizado a " + estado);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar el estado del paquete");
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el estado del paquete: " + e.getMessage());
         }
     }
-
-    public void verificarLlegada() {
-        if (seguimiento.getUbicacion().equalsIgnoreCase(destino)) {
-            this.isComplete = true;
-            System.out.println("El envío con ID " + this.id + " ha sido completado.");
-        } else {
-            this.isComplete = false;
-            System.out.println("El envío con ID " + this.id + " está en progreso.");
+      public int obtenerIdPaquete(String criterio) {
+        DataHelper dataHelper;
+        int idPaquete = -1;
+        try {
+            dataHelper = DataHelper.getInstancia();
+            String sql = "SELECT idPaquete FROM Paquete WHERE estado = '" + criterio + "'";
+            ResultSet rs = dataHelper.executeQueryRead(sql);
+            if (rs.next()) {
+                idPaquete = rs.getInt("idPaquete");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el id del paquete: " + e.getMessage());
         }
-    }  
+        return idPaquete;
+    }
+    
 }
