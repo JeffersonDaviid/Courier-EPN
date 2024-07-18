@@ -29,15 +29,8 @@ public class Cliente extends Perfil {
         return new ClienteMenuPrincipal(login, this);
     }
 
-    public void consultarEnvio() {
-        String nombre = this.nombre;
-        String apellido = this.apellido;
-        //Logica para consultar envio
-    }
-    
-    public void reportarReclamo() {
-        String nombre = this.nombre;
-        String apellido = this.apellido;
-        //Logica para reportar reclamo
+    @Override
+    public void cerrarSesion(VentanaLogin login) {
+        login.setVisible(true);
     }
 }

@@ -30,19 +30,19 @@ public class UITransporte extends javax.swing.JPanel {
         ImgCamion = new javax.swing.JLabel();
         TxtCamion = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        TxtFieldModelo = new javax.swing.JTextField();
         TxtMarca = new javax.swing.JLabel();
-        TxtFieldModelo1 = new javax.swing.JTextField();
         TxtDisponible = new javax.swing.JLabel();
-        TxtFieldModelo2 = new javax.swing.JTextField();
         TxtDisponible1 = new javax.swing.JLabel();
-        TxtFieldModelo3 = new javax.swing.JTextField();
+        txtMarca = new javax.swing.JLabel();
+        txtModelo1 = new javax.swing.JLabel();
+        txtDisponible = new javax.swing.JLabel();
+        txtCapacidad = new javax.swing.JLabel();
         BtnActualizar = new javax.swing.JButton();
         TxtInventario = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaInventario = new javax.swing.JScrollPane();
         TablaListaInventario = new javax.swing.JTable();
         TxtInventario1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaCargarPaquete = new javax.swing.JScrollPane();
         TablaListaInventarioCamion = new javax.swing.JTable();
         BtnAgrergar = new javax.swing.JButton();
         BtnGuardar = new javax.swing.JButton();
@@ -59,41 +59,33 @@ public class UITransporte extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Modelo");
 
-        TxtFieldModelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtFieldModeloActionPerformed(evt);
-            }
-        });
-
         TxtMarca.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         TxtMarca.setForeground(new java.awt.Color(255, 255, 255));
         TxtMarca.setText("Marca");
-
-        TxtFieldModelo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtFieldModelo1ActionPerformed(evt);
-            }
-        });
 
         TxtDisponible.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         TxtDisponible.setForeground(new java.awt.Color(255, 255, 255));
         TxtDisponible.setText("Disponible");
 
-        TxtFieldModelo2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtFieldModelo2ActionPerformed(evt);
-            }
-        });
-
         TxtDisponible1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         TxtDisponible1.setForeground(new java.awt.Color(255, 255, 255));
         TxtDisponible1.setText("Capacidad");
 
-        TxtFieldModelo3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtFieldModelo3ActionPerformed(evt);
-            }
-        });
+        txtMarca.setBackground(new java.awt.Color(255, 255, 255));
+        txtMarca.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtMarca.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtModelo1.setBackground(new java.awt.Color(255, 255, 255));
+        txtModelo1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtModelo1.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtDisponible.setBackground(new java.awt.Color(255, 255, 255));
+        txtDisponible.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtDisponible.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtCapacidad.setBackground(new java.awt.Color(255, 255, 255));
+        txtCapacidad.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtCapacidad.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout Panel_InfoCamionLayout = new javax.swing.GroupLayout(Panel_InfoCamion);
         Panel_InfoCamion.setLayout(Panel_InfoCamionLayout);
@@ -107,25 +99,30 @@ public class UITransporte extends javax.swing.JPanel {
                             .addComponent(TxtMarca)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
-                        .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TxtFieldModelo1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(TxtDisponible)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TxtFieldModelo2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(TxtDisponible1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TxtFieldModelo3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ImgCamion)
-                            .addComponent(TxtCamion))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(TxtCamion)))))
+                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_InfoCamionLayout.createSequentialGroup()
+                    .addContainerGap(125, Short.MAX_VALUE)
+                    .addComponent(txtModelo1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(52, 52, 52)))
         );
         Panel_InfoCamionLayout.setVerticalGroup(
             Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,23 +131,30 @@ public class UITransporte extends javax.swing.JPanel {
                 .addComponent(ImgCamion)
                 .addGap(28, 28, 28)
                 .addComponent(TxtCamion)
-                .addGap(33, 33, 33)
-                .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(TxtFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtMarca)
-                    .addComponent(TxtFieldModelo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtDisponible)
-                    .addComponent(TxtFieldModelo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtDisponible1)
-                    .addComponent(TxtFieldModelo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
+                .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel2)
+                        .addGap(34, 34, 34)
+                        .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
+                                .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(TxtMarca)
+                                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(49, 49, 49)
+                                .addComponent(TxtDisponible))
+                            .addComponent(txtDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TxtDisponible1))
+                    .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
+            .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
+                    .addGap(246, 246, 246)
+                    .addComponent(txtModelo1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(526, Short.MAX_VALUE)))
         );
 
         BtnActualizar.setBackground(new java.awt.Color(37, 101, 234));
@@ -181,7 +185,7 @@ public class UITransporte extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(TablaListaInventario);
+        TablaInventario.setViewportView(TablaListaInventario);
 
         TxtInventario1.setBackground(new java.awt.Color(37, 98, 234));
         TxtInventario1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
@@ -206,7 +210,7 @@ public class UITransporte extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(TablaListaInventarioCamion);
+        TablaCargarPaquete.setViewportView(TablaListaInventarioCamion);
 
         BtnAgrergar.setBackground(new java.awt.Color(37, 101, 234));
         BtnAgrergar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
@@ -236,15 +240,15 @@ public class UITransporte extends javax.swing.JPanel {
                 .addComponent(Panel_InfoCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BtnActualizar)
                             .addComponent(TxtInventario)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TablaInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TablaCargarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BtnAgrergar))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(12, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BtnGuardar)
                         .addGap(14, 14, 14))))
@@ -256,21 +260,21 @@ public class UITransporte extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_InfoCamion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(BtnActualizar)
                 .addGap(60, 60, 60)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TablaInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(TxtInventario)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TablaCargarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BtnAgrergar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addComponent(BtnGuardar)
                 .addGap(17, 17, 17))
+            .addComponent(Panel_InfoCamion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(68, 68, 68)
@@ -279,28 +283,13 @@ public class UITransporte extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TxtFieldModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtFieldModeloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtFieldModeloActionPerformed
-
-    private void TxtFieldModelo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtFieldModelo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtFieldModelo1ActionPerformed
-
-    private void TxtFieldModelo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtFieldModelo2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtFieldModelo2ActionPerformed
-
-    private void TxtFieldModelo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtFieldModelo3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtFieldModelo3ActionPerformed
-
     private void BtnAgrergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgrergarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnAgrergarActionPerformed
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
-        // TODO add your handling code here:
+    UITransportePaquetes uitp = new UITransportePaquetes();
+    AdminMenuPrincipal.ShowJPanel(uitp);
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
 
@@ -310,20 +299,20 @@ public class UITransporte extends javax.swing.JPanel {
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JLabel ImgCamion;
     private javax.swing.JPanel Panel_InfoCamion;
+    private javax.swing.JScrollPane TablaCargarPaquete;
+    private javax.swing.JScrollPane TablaInventario;
     private javax.swing.JTable TablaListaInventario;
     private javax.swing.JTable TablaListaInventarioCamion;
     private javax.swing.JLabel TxtCamion;
     private javax.swing.JLabel TxtDisponible;
     private javax.swing.JLabel TxtDisponible1;
-    private javax.swing.JTextField TxtFieldModelo;
-    private javax.swing.JTextField TxtFieldModelo1;
-    private javax.swing.JTextField TxtFieldModelo2;
-    private javax.swing.JTextField TxtFieldModelo3;
     private javax.swing.JLabel TxtInventario;
     private javax.swing.JLabel TxtInventario1;
     private javax.swing.JLabel TxtMarca;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel txtCapacidad;
+    private javax.swing.JLabel txtDisponible;
+    private javax.swing.JLabel txtMarca;
+    private javax.swing.JLabel txtModelo1;
     // End of variables declaration//GEN-END:variables
 }

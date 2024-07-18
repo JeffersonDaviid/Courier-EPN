@@ -22,5 +22,10 @@ public class Bodeguero extends Perfil {
         // Implementación específica para Cliente
         return new BodegueroMenuPrincipal(login, this);
     }
+    
+    @Override
+    public void cerrarSesion(VentanaLogin login) {
+        login.setVisible(true);
+    }
 
 }
