@@ -45,7 +45,7 @@ public class Inventario {
     //Método que obtiene los id's de los paquetes que estan en la base de datos
     private ArrayList<Integer> getIdPaquetesAlmacenados() {
         ArrayList<Integer> paquetes = new ArrayList<>();
-        String sql = "SELECT idPaquete FROM Paquete WHERE estado = 'En bodega'";
+        String sql = "SELECT idPaquete FROM Paquetes WHERE estado = 'En bodega'";
         try {
             DataHelper dataHelper = DataHelper.getInstancia();
             ResultSet rs = dataHelper.executeQueryRead(sql);
@@ -72,7 +72,7 @@ public class Inventario {
 
     private String obtenerTamanioPaquetesBase(String idPaquete) {
         //La consulta con el id
-        String sql = "SELECT tamanio FROM Paquete WHERE idPaquete= '"+idPaquete+"'";
+        String sql = "SELECT tamanio FROM Paquetes WHERE idPaquete= '"+idPaquete+"'";
         String tamanio = null;
         try {
         DataHelper dataHelper = DataHelper.getInstancia();
@@ -121,7 +121,7 @@ public class Inventario {
 
     private void actualizarEstadoPaquete(String idPaquete, String estado) {
         int rs = -1;
-        String sql = "UPDATE Paquete SET estado = '"+ estado +"' WHERE idPaquete = '" + idPaquete + "';"; 
+        String sql = "UPDATE Paquetes SET estado = '"+ estado +"' WHERE idPaquete = '" + idPaquete + "';"; 
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
 
@@ -152,7 +152,6 @@ public class Inventario {
         return CAPACIDAD_PAQUETE_GRANDE;
     }
     
-
     //Metodo que actualiza la Capacidad Ocupada del Inventario
     public void actualizar(int cantidad){
         capacidadOcupada += cantidad;
@@ -186,21 +185,18 @@ public class Inventario {
         return capacidadOcupada;
     }
 
-    public DefaultTableModel mostrarPaquetes(String idPaquete) {
-        String[] columnas = {"ID Paquete", "Origen Paquete", "Destino Paquete", "Fecha de Ingreso", "Hora Ingreso", "Fecha Limite"};
-        DefaultTableModel model = new DefaultTableModel();
-        ResultSet rsPaquete = null, rsFecha = null;
-
-        String sql_paquete = "SELECT idPaquete, sucursalAceptoPaquete, sucursalParaRecoger FROM Paquete WHERE idPaquete = '" + idPaquete + "'";
-        String sql_fecha = "SELECT fecha, hora FROM Registro WHERE idPaquete = '" + idPaquete + "'";
+public DefaultTableModel mostrarPaquetes() {
+    String[] columnas = {"ID Paquete", "Origen Paquete", "Destino Paquete", "Fecha de Ingreso", "Hora Ingreso", "Fecha Limite"};
+    DefaultTableModel model = new DefaultTableModel(columnas, 0);
+    ResultSet rsPaquete = null, rsFecha = null;
+    
+    for (int idPaquete : idPaquetes){
+        String sql_paquete = "SELECT idPaquete, sucursalAceptoPaquete, sucursalParaRecoger FROM Paquetes WHERE idPaquete = '" + idPaquete + "'";
+        String sql_fecha = "SELECT fecha, hora FROM Registros WHERE idPaquete = '" + idPaquete + "'";
 
         try {
             rsPaquete = DataHelper.getInstancia().executeQueryRead(sql_paquete);
             rsFecha = DataHelper.getInstancia().executeQueryRead(sql_fecha);
-
-            for (String columna : columnas) {
-                model.addColumn(columna);
-            }
 
             if (rsPaquete.next() && rsFecha.next()) {
                 Object[] fila = new Object[columnas.length];
@@ -218,7 +214,7 @@ public class Inventario {
                 model.addRow(fila);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString());
+            JOptionPane.showMessageDialog(null, "SQL Error: " + ex.toString());
         } finally {
             // Close resources to prevent resource leaks
             try {
@@ -228,9 +224,10 @@ public class Inventario {
                 JOptionPane.showMessageDialog(null, "Error closing resources: " + ex.toString());
             }
         }
-
-        return model;
     }
+
+    return model;
+}
 
     private void notificarCapacidadCompleta(){
         JOptionPane.showMessageDialog(null, "Capacidad de la bodega alcanzado", "Alerta",JOptionPane.INFORMATION_MESSAGE);
@@ -251,7 +248,7 @@ public class Inventario {
     public String[] getDatosPaquete(String idPaquete){
         String[] dato = null;
         ResultSet rs = null;   
-        String sql = "SELECT idPaquete, peso, tamnio, tipoEnvio, nombreRemitente, nombreDestinatario, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquete WHERE idPaquete = '" + idPaquete + "'";
+        String sql = "SELECT idPaquete, peso, tamnio, tipoEnvio, nombreRemitente, nombreDestinatario, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquetes WHERE idPaquete = '" + idPaquete + "'";
         try{
             rs = DataHelper.getInstancia().executeQueryRead(sql);
             ResultSetMetaData rsMd = rs.getMetaData();
