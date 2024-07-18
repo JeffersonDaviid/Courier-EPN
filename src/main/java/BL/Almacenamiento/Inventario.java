@@ -208,7 +208,7 @@ public class Inventario {
         int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
         actualizar(-capacidadPaquete);
         //Cambiar el estado del paquete a "Listo para retiro"
-        actualizarEstadoPaquete(idPaquete,"Listo para retiro");
+        actualizarEstadoPaquete(idPaquete,"Entregado");
         return idPaquete;
     } 
     
