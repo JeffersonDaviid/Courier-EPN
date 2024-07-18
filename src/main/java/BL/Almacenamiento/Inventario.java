@@ -203,10 +203,6 @@ public class Inventario {
             System.out.println("No contiene esta clave");
             return null;
         }
-        idPaquetes.removeIf(valor -> valor.equals(Integer.parseInt(idPaquete)));
-        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
-        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
-        actualizar(-capacidadPaquete);
         //Cambiar el estado del paquete a "Listo para retiro"
         actualizarEstadoPaquete(idPaquete,"Entregado");
         return idPaquete;
