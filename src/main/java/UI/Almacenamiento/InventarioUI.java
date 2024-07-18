@@ -1,20 +1,26 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package UI.Almacenamiento;
+
+import BL.Almacenamiento.Inventario;
 
 /**
  *
  * @author jg200
  */
-public class UIInventario extends javax.swing.JFrame {
+public class InventarioUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form Inventario
+     * Creates new form InventarioUI
      */
-    public UIInventario() {
+    Inventario inventario = new Inventario();
+    String[] dato = null;
+    public InventarioUI() {
         initComponents();
+        String idPaquete= null;
+        jTablePaquetesBodega.setModel(inventario.mostrarPaquetes(idPaquete));        
     }
 
     /**
@@ -40,7 +46,6 @@ public class UIInventario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTFTamanioAniadir = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTFRemitenteAniadir = new javax.swing.JTextField();
         jTFDestinatarioAniadir = new javax.swing.JTextField();
@@ -51,11 +56,8 @@ public class UIInventario extends javax.swing.JFrame {
         jTFSucursalDestinoAniadir = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTFTipoEnvioAnadir = new javax.swing.JTextField();
-        jCheckBFragilAniadir = new javax.swing.JCheckBox();
         jLabel28 = new javax.swing.JLabel();
         jTFEstadoPaqueteAñadir = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jTFFechaIngreso = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jButtonAñadir = new javax.swing.JButton();
         jButtonCancelarAñadir = new javax.swing.JButton();
@@ -67,7 +69,6 @@ public class UIInventario extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jTFTamanioRetirar = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jTFRemitenteRetirar = new javax.swing.JTextField();
         jTFDestinatarioRetirar = new javax.swing.JTextField();
@@ -78,15 +79,12 @@ public class UIInventario extends javax.swing.JFrame {
         jTFSucursalDestinoRetirar = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jTFTipoEnvioRetirar = new javax.swing.JTextField();
-        jCheckBFragilRetirar = new javax.swing.JCheckBox();
         jLabel29 = new javax.swing.JLabel();
         jTFEstadoPaqueteRetiro = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        jTFFechaRetiro = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         jBAceptarRetiro = new javax.swing.JButton();
         jBCancelarRetiro = new javax.swing.JButton();
-        Consultar = new javax.swing.JPanel();
+        jPanelConsultar = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jTFidCancelar = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
@@ -94,7 +92,6 @@ public class UIInventario extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jTFTamanioAniadir1 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jTFRemitenteConsultar = new javax.swing.JTextField();
         jTFDestinatarioConsultar = new javax.swing.JTextField();
@@ -105,7 +102,6 @@ public class UIInventario extends javax.swing.JFrame {
         jTFSucursalDestinoConsultar = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jTFTipoEnvioConsultar = new javax.swing.JTextField();
-        jCheckBConsultar = new javax.swing.JCheckBox();
         jLabel30 = new javax.swing.JLabel();
         jTFEstadoPaqueteConsulta = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
@@ -113,10 +109,7 @@ public class UIInventario extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jBFitrar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Bodega");
-        setBackground(new java.awt.Color(254, 254, 254));
-        setForeground(new java.awt.Color(254, 254, 254));
+        setMinimumSize(new java.awt.Dimension(819, 491));
 
         jTablePaquetesBodega.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -129,6 +122,11 @@ public class UIInventario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTablePaquetesBodega.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablePaquetesBodegaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablePaquetesBodega);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -137,7 +135,7 @@ public class UIInventario extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,11 +169,23 @@ public class UIInventario extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jTabbedPanelMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPanelMainMouseClicked(evt);
+            }
+        });
+
         jPanelAñadir.setBackground(new java.awt.Color(254, 254, 254));
 
         jPanel4.setBackground(new java.awt.Color(254, 254, 254));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paquetes"));
         jPanel4.setForeground(new java.awt.Color(35, 19, 21));
+
+        jTFidAniadir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFidAniadirKeyReleased(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(138, 121, 135));
         jLabel1.setText("idPaquete");
@@ -189,8 +199,6 @@ public class UIInventario extends javax.swing.JFrame {
         jTFTamanioAniadir.setFocusable(false);
 
         jLabel3.setText("Tamaño");
-
-        jLabel4.setText("Fragil");
 
         jLabel5.setText("Remitente");
 
@@ -217,9 +225,6 @@ public class UIInventario extends javax.swing.JFrame {
         jTFTipoEnvioAnadir.setEditable(false);
         jTFTipoEnvioAnadir.setFocusable(false);
 
-        jCheckBFragilAniadir.setEnabled(false);
-        jCheckBFragilAniadir.setFocusable(false);
-
         jLabel28.setText("Estado");
 
         jTFEstadoPaqueteAñadir.setEditable(false);
@@ -234,21 +239,15 @@ public class UIInventario extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(46, 46, 46))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTFTamanioAniadir)
                             .addComponent(jTFPesoAniadir)
                             .addComponent(jTFTipoEnvioAnadir)
-                            .addComponent(jCheckBFragilAniadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTFidAniadir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,10 +282,6 @@ public class UIInventario extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jCheckBFragilAniadir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFTipoEnvioAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -312,34 +307,6 @@ public class UIInventario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(254, 254, 254));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Registro de Fecha"));
-
-        jTFFechaIngreso.setEditable(false);
-        jTFFechaIngreso.setEnabled(false);
-        jTFFechaIngreso.setFocusable(false);
-        jTFFechaIngreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFFechaIngresoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTFFechaIngreso)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTFFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         jPanel6.setBackground(new java.awt.Color(254, 254, 254));
 
         jButtonAñadir.setBackground(new java.awt.Color(37, 98, 234));
@@ -347,6 +314,11 @@ public class UIInventario extends javax.swing.JFrame {
 
         jButtonCancelarAñadir.setBackground(new java.awt.Color(37, 98, 234));
         jButtonCancelarAñadir.setText("Cancelar");
+        jButtonCancelarAñadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarAñadirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -357,7 +329,7 @@ public class UIInventario extends javax.swing.JFrame {
                 .addComponent(jButtonAñadir)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonCancelarAñadir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,20 +346,21 @@ public class UIInventario extends javax.swing.JFrame {
         jPanelAñadirLayout.setHorizontalGroup(
             jPanelAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAñadirLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addGroup(jPanelAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAñadirLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelAñadirLayout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelAñadirLayout.setVerticalGroup(
             jPanelAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAñadirLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -398,6 +371,12 @@ public class UIInventario extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(254, 254, 254));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paquetes"));
+
+        jTFidRetirar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFidRetirarKeyReleased(evt);
+            }
+        });
 
         jLabel10.setText("idPaquete");
 
@@ -410,8 +389,6 @@ public class UIInventario extends javax.swing.JFrame {
         jTFTamanioRetirar.setFocusable(false);
 
         jLabel12.setText("Tamaño");
-
-        jLabel13.setText("Fragil");
 
         jLabel14.setText("Remitente");
 
@@ -438,9 +415,6 @@ public class UIInventario extends javax.swing.JFrame {
         jTFTipoEnvioRetirar.setEditable(false);
         jTFTipoEnvioRetirar.setFocusable(false);
 
-        jCheckBFragilRetirar.setEnabled(false);
-        jCheckBFragilRetirar.setFocusable(false);
-
         jLabel29.setText("Estado");
 
         jTFEstadoPaqueteRetiro.setEditable(false);
@@ -455,22 +429,16 @@ public class UIInventario extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(46, 46, 46))
                             .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel18))
-                        .addGap(34, 34, 34)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTFTamanioRetirar)
                             .addComponent(jTFidRetirar)
                             .addComponent(jTFPesoRetirar)
                             .addComponent(jTFTipoEnvioRetirar)
-                            .addComponent(jCheckBFragilRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTFTamanioRetirar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel14)
                         .addComponent(jLabel15)
@@ -505,10 +473,6 @@ public class UIInventario extends javax.swing.JFrame {
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jCheckBFragilRetirar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFTipoEnvioRetirar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -534,29 +498,6 @@ public class UIInventario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(254, 254, 254));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha de Salida"));
-
-        jTFFechaRetiro.setEditable(false);
-        jTFFechaRetiro.setEnabled(false);
-        jTFFechaRetiro.setFocusable(false);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTFFechaRetiro)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTFFechaRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         jPanel10.setBackground(new java.awt.Color(254, 254, 254));
 
         jBAceptarRetiro.setBackground(new java.awt.Color(37, 98, 234));
@@ -579,7 +520,7 @@ public class UIInventario extends javax.swing.JFrame {
                 .addComponent(jBAceptarRetiro)
                 .addGap(18, 18, 18)
                 .addComponent(jBCancelarRetiro)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,27 +537,28 @@ public class UIInventario extends javax.swing.JFrame {
         jPanelRetirarLayout.setHorizontalGroup(
             jPanelRetirarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRetirarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelRetirarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addGroup(jPanelRetirarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRetirarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelRetirarLayout.createSequentialGroup()
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelRetirarLayout.setVerticalGroup(
             jPanelRetirarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRetirarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(33, 33, 33)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jTabbedPanelMain.addTab("Retirar", jPanelRetirar);
 
-        Consultar.setBackground(new java.awt.Color(254, 254, 254));
+        jPanelConsultar.setBackground(new java.awt.Color(254, 254, 254));
 
         jPanel11.setBackground(new java.awt.Color(254, 254, 254));
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paquetes"));
@@ -636,8 +578,6 @@ public class UIInventario extends javax.swing.JFrame {
         jTFTamanioAniadir1.setFocusable(false);
 
         jLabel21.setText("Tamaño");
-
-        jLabel22.setText("Fragil");
 
         jLabel23.setText("Remitente");
 
@@ -664,9 +604,6 @@ public class UIInventario extends javax.swing.JFrame {
         jTFTipoEnvioConsultar.setEditable(false);
         jTFTipoEnvioConsultar.setFocusable(false);
 
-        jCheckBConsultar.setEnabled(false);
-        jCheckBConsultar.setFocusable(false);
-
         jLabel30.setText("Estado");
 
         jTFEstadoPaqueteConsulta.setEditable(false);
@@ -678,18 +615,18 @@ public class UIInventario extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                                .addComponent(jLabel19)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addGap(46, 46, 46))
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel27))
-                        .addGap(16, 16, 16))
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                            .addComponent(jLabel19)
+                            .addGap(34, 34, 34))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                            .addComponent(jLabel20)
+                            .addGap(62, 62, 62))
+                        .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel21)
+                                .addComponent(jLabel27))
+                            .addGap(16, 16, 16)))
                     .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel23)
                         .addComponent(jLabel24)
@@ -702,7 +639,6 @@ public class UIInventario extends javax.swing.JFrame {
                         .addComponent(jTFTamanioAniadir1)
                         .addComponent(jTFPesoCosultar)
                         .addComponent(jTFTipoEnvioConsultar)
-                        .addComponent(jCheckBConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTFidCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                     .addComponent(jTFSucursalDestinoConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFDestinatarioConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -724,10 +660,6 @@ public class UIInventario extends javax.swing.JFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFTamanioAniadir1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(jCheckBConsultar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFTipoEnvioConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -794,19 +726,19 @@ public class UIInventario extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout ConsultarLayout = new javax.swing.GroupLayout(Consultar);
-        Consultar.setLayout(ConsultarLayout);
-        ConsultarLayout.setHorizontalGroup(
-            ConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConsultarLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelConsultarLayout = new javax.swing.GroupLayout(jPanelConsultar);
+        jPanelConsultar.setLayout(jPanelConsultarLayout);
+        jPanelConsultarLayout.setHorizontalGroup(
+            jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConsultarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-        ConsultarLayout.setVerticalGroup(
-            ConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConsultarLayout.createSequentialGroup()
+        jPanelConsultarLayout.setVerticalGroup(
+            jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultarLayout.createSequentialGroup()
                 .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -814,119 +746,130 @@ public class UIInventario extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jTabbedPanelMain.addTab("Consultar", Consultar);
+        jTabbedPanelMain.addTab("Consultar", jPanelConsultar);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
+                        .addGap(118, 118, 118)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(44, 44, 44)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPanelMain)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTFidAniadirKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidAniadirKeyReleased
+        dato = inventario.getDatosPaquete(jTFidAniadir.getText());
+        jTFPesoAniadir.setText(dato[0]);
+        jTFTamanioAniadir.setText(dato[1]);
+        jTFTipoEnvioAnadir.setText(dato[2]);
+        jTFRemitenteAniadir.setText(dato[3]);
+        jTFDestinatarioAniadir.setText(dato[4]);
+        jTFSucursalOrigenAniadir.setText(dato[5]);
+        jTFSucursalDestinoAniadir.setText(dato[6]);
+        jTFEstadoPaqueteAñadir.setText(dato[7]);
+    }//GEN-LAST:event_jTFidAniadirKeyReleased
+
     private void jBCancelarRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarRetiroActionPerformed
-        // TODO add your handling code here:
+        jTFidRetirar.setText("");
+        jTFPesoRetirar.setText("");
+        jTFTamanioRetirar.setText("");
+        jTFTipoEnvioRetirar.setText("");
+        jTFRemitenteRetirar.setText("");
+        jTFDestinatarioRetirar.setText("");
+        jTFSucursalOrigenRetirar.setText("");
+        jTFSucursalDestinoRetirar.setText("");
+        jTFEstadoPaqueteRetiro.setText("");
     }//GEN-LAST:event_jBCancelarRetiroActionPerformed
 
     private void jComboBFiltroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBFiltroConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBFiltroConsultaActionPerformed
 
-    private void jTFFechaIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFFechaIngresoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFFechaIngresoActionPerformed
+    private void jTFidRetirarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidRetirarKeyReleased
+        dato = inventario.getDatosPaquete(jTFidRetirar.getText());
+        jTFPesoRetirar.setText(dato[0]);
+        jTFTamanioRetirar.setText(dato[1]);
+        jTFTipoEnvioRetirar.setText(dato[2]);
+        jTFRemitenteRetirar.setText(dato[3]);
+        jTFDestinatarioRetirar.setText(dato[4]);
+        jTFSucursalOrigenRetirar.setText(dato[5]);
+        jTFSucursalDestinoRetirar.setText(dato[6]);
+        jTFEstadoPaqueteRetiro.setText(dato[7]);
+    }//GEN-LAST:event_jTFidRetirarKeyReleased
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UIInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UIInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UIInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UIInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void jTablePaquetesBodegaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePaquetesBodegaMouseClicked
+        String id = jTablePaquetesBodega.getValueAt(jTablePaquetesBodega.getSelectedRow(), 0).toString();
+        jTFidRetirar.setText(id);
+        
+        dato = inventario.getDatosPaquete(id);
+        
+        jTFPesoRetirar.setText(dato[0]);
+        jTFTamanioRetirar.setText(dato[1]);
+        jTFTipoEnvioRetirar.setText(dato[2]);
+        jTFRemitenteRetirar.setText(dato[3]);
+        jTFDestinatarioRetirar.setText(dato[4]);
+        jTFSucursalOrigenRetirar.setText(dato[5]);
+        jTFSucursalDestinoRetirar.setText(dato[6]);
+        jTFEstadoPaqueteRetiro.setText(dato[7]);
+    }//GEN-LAST:event_jTablePaquetesBodegaMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UIInventario().setVisible(true);
-            }
-        });
-    }
+    private void jButtonCancelarAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarAñadirActionPerformed
+        jTFidAniadir.setText("");
+        jTFPesoAniadir.setText("");
+        jTFTamanioAniadir.setText("");
+        jTFTipoEnvioAnadir.setText("");
+        jTFRemitenteAniadir.setText("");
+        jTFDestinatarioAniadir.setText("");
+        jTFSucursalOrigenAniadir.setText("");
+        jTFSucursalDestinoAniadir.setText("");
+        jTFEstadoPaqueteAñadir.setText("");
+    }//GEN-LAST:event_jButtonCancelarAñadirActionPerformed
+
+    private void jTabbedPanelMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPanelMainMouseClicked
+        int butonIndex = evt.getButton();
+        
+        if(butonIndex == 1)
+            jTablePaquetesBodega.setFocusable(false);
+        if(butonIndex == 2)
+            jTablePaquetesBodega.setFocusable(true);
+        if(butonIndex == 3)
+            jTablePaquetesBodega.setFocusable(false);
+    }//GEN-LAST:event_jTabbedPanelMainMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Consultar;
     private javax.swing.JButton jBAceptarRetiro;
     private javax.swing.JButton jBCancelarRetiro;
     private javax.swing.JButton jBFitrar;
     private javax.swing.JButton jButtonAñadir;
     private javax.swing.JButton jButtonCancelarAñadir;
-    private javax.swing.JCheckBox jCheckBConsultar;
-    private javax.swing.JCheckBox jCheckBFragilAniadir;
-    private javax.swing.JCheckBox jCheckBFragilRetirar;
     private javax.swing.JComboBox<String> jComboBFiltroConsulta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -936,7 +879,6 @@ public class UIInventario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -946,7 +888,6 @@ public class UIInventario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -956,13 +897,12 @@ public class UIInventario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanelAñadir;
+    private javax.swing.JPanel jPanelConsultar;
     private javax.swing.JPanel jPanelRetirar;
     private javax.swing.JProgressBar jProgressBarCapacidad;
     private javax.swing.JScrollPane jScrollPane1;
@@ -972,8 +912,6 @@ public class UIInventario extends javax.swing.JFrame {
     private javax.swing.JTextField jTFEstadoPaqueteAñadir;
     private javax.swing.JTextField jTFEstadoPaqueteConsulta;
     private javax.swing.JTextField jTFEstadoPaqueteRetiro;
-    private javax.swing.JTextField jTFFechaIngreso;
-    private javax.swing.JTextField jTFFechaRetiro;
     private javax.swing.JTextField jTFPesoAniadir;
     private javax.swing.JTextField jTFPesoCosultar;
     private javax.swing.JTextField jTFPesoRetirar;
