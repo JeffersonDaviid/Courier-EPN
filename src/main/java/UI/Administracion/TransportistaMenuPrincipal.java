@@ -136,7 +136,7 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
         btn_lends.setBackground(new java.awt.Color(21, 101, 192));
         btn_lends.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_lends.setForeground(new java.awt.Color(255, 255, 255));
-        btn_lends.setText("Transporte");
+        btn_lends.setText("Paquetes a Camion");
         btn_lends.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         btn_lends.setBorderPainted(false);
         btn_lends.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -168,7 +168,7 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
         otro.setBackground(new java.awt.Color(21, 101, 192));
         otro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         otro.setForeground(new java.awt.Color(255, 255, 255));
-        otro.setText("Entregas Pendientes");
+        otro.setText("Paquetes a Sucursal");
         otro.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         otro.setBorderPainted(false);
         otro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
