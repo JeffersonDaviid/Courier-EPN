@@ -42,13 +42,13 @@ public class UISeguimiento extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id Paquete", "Origen", "Origen", "Destino", "Estado"
+                "Id Paquete", "Origen", "Destino", "Estado"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
