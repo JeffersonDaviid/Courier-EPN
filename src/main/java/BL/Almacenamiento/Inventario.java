@@ -114,8 +114,8 @@ public class Inventario {
         historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
         int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
         actualizar(-capacidadPaquete);
-        //Cambiar el estado del paquete a "Transportandose"
-        actualizarEstadoPaquete(idPaquete,"Transportandose");
+        //Cambiar el estado del paquete a "Retiro Transporte"
+        actualizarEstadoPaquete(idPaquete,"Retiro Transporte");
         return idPaquete;
     } 
 
@@ -189,7 +189,6 @@ public DefaultTableModel mostrarPaquetes() {
     String[] columnas = {"ID Paquete", "Origen Paquete", "Destino Paquete", "Fecha de Ingreso", "Hora Ingreso", "Fecha Limite"};
     DefaultTableModel model = new DefaultTableModel(columnas, 0);
     ResultSet rsPaquete = null, rsFecha = null;
-    
     for (int idPaquete : idPaquetes){
         String sql_paquete = "SELECT idPaquete, sucursalAceptoPaquete, sucursalParaRecoger FROM Paquetes WHERE idPaquete = '" + idPaquete + "'";
         String sql_fecha = "SELECT fecha, hora FROM Registros WHERE idPaquete = '" + idPaquete + "'";
@@ -248,7 +247,7 @@ public DefaultTableModel mostrarPaquetes() {
     public String[] getDatosPaquete(String idPaquete){
         String[] dato = null;
         ResultSet rs = null;   
-        String sql = "SELECT idPaquete, peso, tamnio, tipoEnvio, nombreRemitente, nombreDestinatario, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquetes WHERE idPaquete = '" + idPaquete + "'";
+        String sql = "SELECT idPaquete, peso, tamanio, tipoEnvio, nombreRemitente, nombreDestinatario, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquetes WHERE idPaquete = '" + idPaquete + "'";
         try{
             rs = DataHelper.getInstancia().executeQueryRead(sql);
             ResultSetMetaData rsMd = rs.getMetaData();
