@@ -22,7 +22,7 @@ public class Seguimiento {
         ResultSet rs = null;
         try {
             dataHelper = DataHelper.getInstancia();
-            String sql = "SELECT idPaquete,sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquetes WHERE numeroGuia = '" + numeroGuia + "'";
+            String sql = "SELECT idPaquete,sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquetes WHERE trackingNumber = '" + numeroGuia + "'";
             rs = dataHelper.executeQueryRead(sql);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener los datos del paquete: " + e.getMessage());
