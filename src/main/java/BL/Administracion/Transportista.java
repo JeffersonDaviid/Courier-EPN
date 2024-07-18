@@ -4,9 +4,8 @@ package BL.Administracion;
 import javax.swing.JFrame;
 
 import BL.Transporte.Vehiculo;
-import UI.Administracion.TransMenuPrincipal;
+import UI.Administracion.TransportistaMenuPrincipal;
 import UI.Administracion.VentanaLogin;
-
 
 public class Transportista extends Perfil {
     String cedula;
@@ -22,19 +21,6 @@ public class Transportista extends Perfil {
         this.camion = null;
     }
 
-    public void registrarEntregasCompletas() {
-        // Logica para registrar entregas completas
-    }
-
-    public boolean verificarDisponibilidad() {
-        // Logica para verificar disponibilidad
-        return this.disponible;
-    }
-
-    public void actualizarEstadoPaquetes() {
-        // Logica para actualizar el estado de los paquetes
-    }
-        
     public Vehiculo getCamion() {
         return camion;
     }
@@ -45,9 +31,12 @@ public class Transportista extends Perfil {
 
     @Override
     public JFrame verModulos(VentanaLogin login) {
-        return new TransMenuPrincipal(login, this);
+        return new TransportistaMenuPrincipal(login, this);
     }
 
-    
-}
+    @Override
+    public void cerrarSesion(VentanaLogin login) {
+        login.setVisible(true);
+    }
 
+}

@@ -11,6 +11,7 @@ import BL.Almacenamiento.Registro;
 import BL.Almacenamiento.TipoRegistro;
 import BL.BASEDEDATOS.DataHelper;
 import BL.GestionPaquete.Paquete;
+
 public class CamionCarga extends Vehiculo {
     public String ubicacion;
     List<Paquete> PaquetesInventario;
@@ -30,7 +31,7 @@ public class CamionCarga extends Vehiculo {
         try {
             DataHelper dataHelper = DataHelper.getInstancia();
             ResultSet rs = dataHelper.executeQueryRead(sql);
-    
+
             while (rs.next()) {
                 int idPaquete = rs.getInt("idPaquete");
                 float peso = rs.getFloat("peso");
@@ -78,7 +79,7 @@ public class CamionCarga extends Vehiculo {
         actualizarBodega(capacidadPaquete);
         //Cambiar estado del paquete a "En bodega"
         actualizarEstadoPaquete(idPaquete,"En Bodega");
-        }
+    }
 
 
     public  ArrayList<Paquete> getIdPaquetesCargados() {

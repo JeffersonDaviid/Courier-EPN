@@ -31,6 +31,8 @@ public abstract class Perfil {
     }
     
     public abstract JFrame verModulos(VentanaLogin login);
+    
+    public abstract void cerrarSesion(VentanaLogin login);
 
     public String getCedula(){
         return cedula;

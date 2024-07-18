@@ -132,7 +132,11 @@ public class Administrador extends Perfil {
     public JFrame verModulos(VentanaLogin login) {
         return new AdminMenuPrincipal(login, this);
     }
-
+    
+    @Override
+    public void cerrarSesion(VentanaLogin login) {
+        login.setVisible(true);
+    }
 }
 
 

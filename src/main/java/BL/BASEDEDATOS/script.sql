@@ -27,8 +27,11 @@ CREATE TABLE Vehiculo (
     --FOREIGN KEY (ruta) REFERENCES Ruta(id)
 );
 
-
-
+CREATE TABLE Ruta (
+    id_Ruta INTEGER PRIMARY KEY AUTOINCREMENT,
+    sector TEXT NOT NULL,
+    direccion TEXT NOT NULL
+);
 
 -- GESTION DE PAQUETES
 

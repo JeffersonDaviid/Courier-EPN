@@ -29,4 +29,9 @@ public class Recepcionista extends Perfil {
         // Implementación específica para Cliente
         return new RecepcionistaMenuPrincipal(login, this);
     }
+    
+    @Override
+    public void cerrarSesion(VentanaLogin login) {
+        login.setVisible(true);
+    }
 }
