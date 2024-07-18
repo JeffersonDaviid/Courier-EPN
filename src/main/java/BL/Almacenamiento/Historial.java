@@ -40,19 +40,13 @@ public class Historial {
     //Método para guardar los registros de cada paquete en la base de datos
     private void guardarRegistro(Registro registro) {
         int rs = -1;
-        String sql = "INSERT INTO Registro(fecha, hora, sucursal, idPaquete, tipo) VALUES('"+
-        registro.getFecha() + "', '" + registro.getHora() + "', '" + registro.getSucursal() + "',' " +
-        registro.getIdPaquete() + "', '" + registro.getTipo() +"';";
+        String sql = "INSERT INTO Registros(idPaquete, fecha, hora, sucursal,tipo) VALUES("+Integer.parseInt(registro.getIdPaquete())+",'"+
+        registro.getFecha()+"','"+registro.getHora()+"','"+registro.getSucursal()+"','"+registro.getTipo()+"')";
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
-
-            if (rs > 0) {
-                JOptionPane.showMessageDialog(null, "Registro guardado con éxito", "Guardado",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
+            if (!(rs > 0)) {
                 JOptionPane.showMessageDialog(null, "Error al guardar el registro", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar el registro: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -102,17 +96,16 @@ public class Historial {
                         "ingreso.hora AS horaIngreso,\n"+
                         "COALESCE(salida.fecha, '') AS fechaSalida,\n"+
                         "COALESCE(salida.hora, '') AS horaSalida\n"+
-                    "FROM Registro ingreso\n"+
+                    "FROM Registros ingreso\n"+
                     "LEFT JOIN\n"+ 
-                        "Registro salida\n"+
+                        "Registros salida\n"+
                     "ON\n"+ 
                         "ingreso.idPaquete = salida.idPaquete\n"+ 
                         "AND salida.tipo = 'SALIDA'\n"+
                     "WHERE\n"+ 
                         "ingreso.tipo = 'INGRESO'\n"+
                         "AND ingreso.fecha = '"+parametro+"'"+
-                    "ORDER BY ingreso.idPaquete;";
-
+                    "ORDER BY ingreso.idPaquete";
         try {
         DataHelper dataHelper = DataHelper.getInstancia();
         ResultSet rs = dataHelper.executeQueryRead(sql);
@@ -143,9 +136,9 @@ public class Historial {
                         "ingreso.hora AS horaIngreso, \n"+
                         "COALESCE(salida.fecha, '') AS fechaSalida,\n"+
                         "COALESCE(salida.hora, '') AS horaSalida \n"+
-                    "FROM Registro ingreso \n" +
+                    "FROM Registros ingreso \n" +
                     "LEFT JOIN \n " +
-                        "Registro salida \n" +
+                        "Registros salida \n" +
                     "ON \n"+
                         "ingreso.idPaquete = salida.idPaquete \n"+
                         "AND salida.tipo = 'SALIDA'\n"+
@@ -153,7 +146,7 @@ public class Historial {
                         "ingreso.tipo = 'INGRESO'\n"+
                         "AND salida.fecha = '"+parametro+"'"+
                     "ORDER BY \n" +
-                        "ingreso.idPaquete;";
+                        "ingreso.idPaquete";
 
         try {
         DataHelper dataHelper = DataHelper.getInstancia();
@@ -178,17 +171,18 @@ public class Historial {
     }
 
     public String[][] filtrarPorId(String parametro) {
+        System.out.println("Entro al metodo  + " + parametro);
         String[][] datosFiltroId = new String[1][5];
-        String sql = "SELECT idPaquete, fecha, hora, tipo FROM Registro WHERE idPaquete = '"+parametro+"'";
+        String sql = "SELECT idPaquete, fecha, hora, tipo FROM Registros WHERE idPaquete = "+parametro;
+        System.out.println(sql);
+        ResultSet rs = null;
         try {
-        DataHelper dataHelper = DataHelper.getInstancia();
-        ResultSet rs = dataHelper.executeQueryRead(sql);
+        rs = DataHelper.getInstancia().executeQueryRead(sql);
         if (rs.next()) {
-            String idPaquete = rs.getString("idPaquete");
             String fecha = rs.getString("fecha");
             String hora = rs.getString("hora");
             String tipo = rs.getString("tipo");
-            datosFiltroId[0][0] = idPaquete;
+            datosFiltroId[0][0] = parametro;
             if(tipo == "INGRESO"){
                 datosFiltroId[0][1] = fecha;
                 datosFiltroId[0][2] = hora;
@@ -202,4 +196,18 @@ public class Historial {
         }
         return datosFiltroId;
     }
+
+   /* public DefaultTableModel mostrarPaquetes(String[][] dato) {
+        String columnas = {"idPaquete", "Fecha Ingreso", "Hora Ingreso", "Fecha Salida"};
+        DefaultTableModel model = new DefaultTableModel(columnas, 0);
+        
+        for (String columna : columnas) {
+            model.addColumn(columna);
+        }
+        
+        for(String[] fila: dato){
+            model.addRow(fila);
+        }
+
+    }*/
 }

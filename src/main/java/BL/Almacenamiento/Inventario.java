@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.time.temporal.ChronoUnit;
 
 
@@ -26,6 +28,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Inventario {
     private ArrayList<Integer> idPaquetes;
+    private Map<String,Paquete> paquetes;
     private int capacidadTotal;
     private int capacidadOcupada;
     private Historial historial;
@@ -38,14 +41,51 @@ public class Inventario {
         this.tiempoMaximo = 15;
         this.capacidadTotal = 500;
         this.idPaquetes = getIdPaquetesAlmacenados();
+        this.paquetes = getPaquetesAlmacenados();
         this.capacidadOcupada = calcularCapacidadOcupada();
         this.historial = new Historial();
+    }
+
+    private Map<String, Paquete> getPaquetesAlmacenados() {
+        Map<String,Paquete> paquetes = new HashMap<>();
+        String sql = "SELECT * FROM Paquetes WHERE estado = 'recibido'";
+        try {
+            DataHelper dataHelper = DataHelper.getInstancia();
+            ResultSet rs = dataHelper.executeQueryRead(sql);
+
+            while (rs.next()) {
+                int idPaquete = rs.getInt("idPaquete");
+                String trackingNumber = rs.getString("trackingNumber");
+                float peso = rs.getFloat("peso");
+                String tamanio = rs.getString("tamanio");
+                String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
+                String fechaHoraSalida = rs.getString("fechaHoraSalida");
+                String nombreRemitente = rs.getString("nombreRemitente");
+                String correoRemitente = rs.getString("correoRemitente");
+                String telefonoRemitente = rs.getString("telefonoRemitente");
+                String nombreDestinatario = rs.getString("nombreDestinatario");
+                String correoDestinatario = rs.getString("correoDestinatario");
+                String telefonoDestinatario = rs.getString("telefonoDestinatario");
+                String tipoEnvio = rs.getString("tipoEnvio");
+                String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
+                String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
+                String estado = rs.getString("estado");
+                String domicilio = rs.getString("domicilio");
+                
+                paquetes.put(String.valueOf(idPaquete),new Paquete(idPaquete, peso, tamanio, fechaHoraLlegada, 
+                fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario,
+                correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger, trackingNumber, estado, 12, domicilio));
+            }   
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return paquetes;
     }
 
     //Método que obtiene los id's de los paquetes que estan en la base de datos
     private ArrayList<Integer> getIdPaquetesAlmacenados() {
         ArrayList<Integer> paquetes = new ArrayList<>();
-        String sql = "SELECT idPaquete FROM Paquete WHERE estado = 'En bodega'";
+        String sql = "SELECT idPaquete FROM Paquetes WHERE estado LIKE 'En bodega'";
         try {
             DataHelper dataHelper = DataHelper.getInstancia();
             ResultSet rs = dataHelper.executeQueryRead(sql);
@@ -72,7 +112,7 @@ public class Inventario {
 
     private String obtenerTamanioPaquetesBase(String idPaquete) {
         //La consulta con el id
-        String sql = "SELECT tamanio FROM Paquete WHERE idPaquete= '"+idPaquete+"'";
+        String sql = "SELECT tamanio FROM Paquetes WHERE idPaquete= "+idPaquete+"";
         String tamanio = null;
         try {
         DataHelper dataHelper = DataHelper.getInstancia();
@@ -86,7 +126,6 @@ public class Inventario {
     }
     return tamanio;
     }
-
 
     //Metodo que registra un paquete que se ha recibido la agencia
     public void registrarPaquete(String idPaquete){
@@ -105,12 +144,30 @@ public class Inventario {
         actualizarEstadoPaquete(idPaquete,"En Bodega");
     }
 
+    public void registrarPaquete(Paquete paquete){
+        int capacidadPaquete = clasificarCapacidad(paquete.getTamanio());
+        //Si no hay espacio para ingresar el paquete, se notifica y termina elmetodo
+        if(!hayEspacioSuficiente(capacidadPaquete)){
+            notificarCapacidadCompleta();
+            return;
+        }
+        //Si existe espacio suficiente, se ingresa a la bodega y se crea el registro
+        paquetes.put(String.valueOf(paquete.getId_paquete()), paquete);
+        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),String.valueOf(paquete.getId_paquete()),TipoRegistro.INGRESO));
+        JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
+        actualizar(capacidadPaquete);
+        //Cambiar estado del paquete a "En bodega"
+        paquete.setEstado("En bodega");
+        actualizarEstadoPaquete(String.valueOf(paquete.getId_paquete()),"En Bodega");
+    }
+
     //Método que retorna el id del paquete si se encuentra en bodega 
     public String retirarPaquete(String idPaquete){
-        if(!idPaquetes.contains(idPaquete)){
+        if(!idPaquetes.contains(Integer.parseInt(idPaquete))){
+            System.out.println("No contiene esta clave");
             return null;
         }
-        idPaquetes.remove(Integer.parseInt(idPaquete));
+        idPaquetes.removeIf(valor -> valor.equals(Integer.parseInt(idPaquete)));
         historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
         int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
         actualizar(-capacidadPaquete);
@@ -119,9 +176,24 @@ public class Inventario {
         return idPaquete;
     } 
 
+    /*Método que retorna el paquete si se encuentra en bodega 
+    public Paquete retirarPaquete(String idPaquete){
+        if(!paquetes.containsKey(Integer.parseInt(idPaquete))){
+            return null;
+        }
+        Paquete paquete = paquetes.remove(idPaquete);
+        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
+        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
+        actualizar(-capacidadPaquete);
+        //Cambiar el estado del paquete a "Retiro Transporte"
+        paquete.setEstado("Retiro Transporte");
+        actualizarEstadoPaquete(idPaquete,"Retiro Transporte");
+        return paquete;
+    } */
+
     private void actualizarEstadoPaquete(String idPaquete, String estado) {
         int rs = -1;
-        String sql = "UPDATE Paquete SET estado = '"+ estado +"' WHERE idPaquete = '" + idPaquete + "';"; 
+        String sql = "UPDATE Paquetes SET estado = '"+ estado +"' WHERE idPaquete = " + idPaquete + ""; 
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
 
@@ -144,9 +216,9 @@ public class Inventario {
 
     private int clasificarCapacidad(String tamanio) {
         switch (tamanio) {
-            case "GRANDE": 
+            case "grande": 
                 return CAPACIDAD_PAQUETE_GRANDE;
-            case "MEDIANO": 
+            case "mediano": 
                 return CAPACIDAD_PAQUETE_MEDIANO;
         }
         return CAPACIDAD_PAQUETE_GRANDE;
@@ -186,14 +258,13 @@ public class Inventario {
         return capacidadOcupada;
     }
 
-    public DefaultTableModel mostrarPaquetes(String idPaquete) {
-        String[] columnas = {"ID Paquete", "Origen Paquete", "Destino Paquete", "Fecha de Ingreso", "Hora Ingreso", "Fecha Limite"};
-        DefaultTableModel model = new DefaultTableModel();
-        ResultSet rsPaquete = null, rsFecha = null;
-
-        String sql_paquete = "SELECT idPaquete, sucursalAceptoPaquete, sucursalParaRecoger FROM Paquete WHERE idPaquete = '" + idPaquete + "'";
-        String sql_fecha = "SELECT fecha, hora FROM Registro WHERE idPaquete = '" + idPaquete + "'";
-
+public DefaultTableModel mostrarPaquetes() {
+    String[] columnas = {"ID Paquete", "Origen Paquete", "Destino Paquete", "Fecha de Ingreso", "Hora Ingreso", "Fecha Limite"};
+    DefaultTableModel model = new DefaultTableModel(columnas, 0);
+    ResultSet rsPaquete = null, rsFecha = null;
+    for (int idPaquete : idPaquetes){
+        String sql_paquete = "SELECT sucursalAceptoPaquete, sucursalParaRecoger FROM Paquetes WHERE idPaquete = " + idPaquete;
+        String sql_fecha = "SELECT fecha, hora FROM Registros WHERE idPaquete = " + idPaquete + " AND tipo = 'INGRESO'";
         try {
             rsPaquete = DataHelper.getInstancia().executeQueryRead(sql_paquete);
             rsFecha = DataHelper.getInstancia().executeQueryRead(sql_fecha);
@@ -206,7 +277,7 @@ public class Inventario {
                 Object[] fila = new Object[columnas.length];
 
                 // Populate data from the first query
-                fila[0] = rsPaquete.getString("idPaquete");
+                fila[0] = idPaquete;
                 fila[1] = rsPaquete.getString("sucursalAceptoPaquete");
                 fila[2] = rsPaquete.getString("sucursalParaRecoger");
 

@@ -19,8 +19,12 @@ public class InventarioUI extends javax.swing.JPanel {
     String[] dato = null;
     public InventarioUI() {
         initComponents();
+<<<<<<< HEAD
+        jTablePaquetesBodega.setModel(inventario.mostrarPaquetes());        
+=======
         String idPaquete= null;
         jTablePaquetesBodega.setModel(inventario.mostrarPaquetes(idPaquete));        
+>>>>>>> 6e8ecd846290a5d7303d7b120258c38e03a6d87d
     }
 
     /**
