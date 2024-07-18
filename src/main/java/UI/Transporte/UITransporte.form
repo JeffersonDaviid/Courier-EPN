@@ -157,10 +157,7 @@
                           </Group>
                           <EmptySpace min="0" pref="397" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtCapacidad" min="-2" pref="18" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="txtCapacidad" min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
