@@ -3,7 +3,6 @@ package BL.Administracion;
 import java.sql.ResultSet;
 
 //import UI.Administracion.VentanaPrincipal;
-
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
@@ -14,6 +13,7 @@ import BL.Transporte.Ruta;
 import BL.Transporte.Vehiculo;
 import UI.Administracion.AdminMenuPrincipal;
 import UI.Administracion.VentanaLogin;
+import javax.swing.table.DefaultTableModel;
 
 public class Administrador extends Perfil {
 
@@ -28,12 +28,11 @@ public class Administrador extends Perfil {
         super(cedula, correo, pass, nombre, apellido);
     }
 
-
     public void registrarUsuario(Perfil perfil) {
         int rs = -1;
 
         String sql = "INSERT INTO Usuarios (cedula, correo, contrasena, nombre, apellido, rol) VALUES ('"
-                + perfil.getCedula() + "', '" + perfil.getCorreo() + "', '" + perfil.getPass() + "', '" + perfil.getNombre() 
+                + perfil.getCedula() + "', '" + perfil.getCorreo() + "', '" + perfil.getPass() + "', '" + perfil.getNombre()
                 + "', '" + perfil.getApellido() + "', '" + perfil.getClass().getSimpleName() + "')";
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
@@ -51,35 +50,89 @@ public class Administrador extends Perfil {
         }
     }
 
-    public void consultarUsuario(String cedula) {
-        Perfil perfil = null;
-        String sql = String.format("SELECT * FROM Usuarios WHERE cedula = '" + cedula + "'");
+    public DefaultTableModel consultarUsuario(String cedula) {
+        String[] columnas = {"Cédula", "Correo", "Contraseña", "Nombre", "Apellido"};
+        DefaultTableModel model = new DefaultTableModel(columnas, 0);
+        ResultSet rsUsuario = null;
+        String sql = String.format("SELECT cedula, correo, contrasena, nombre, apellido FROM Usuarios WHERE cedula = '%s'", cedula);
 
         try {
-            ResultSet rs = DataHelper.getInstancia().executeQueryRead(sql);
-            while (rs.next()) {
-                perfil = PerfilFactory.crearPerfil(rs.getString("rol"),
-                        rs.getString("cedula"),
-                        rs.getString("correo"),
-                        rs.getString("contrasena"),
-                        rs.getString("nombre"),
-                        rs.getString("apellido"));
+            rsUsuario = DataHelper.getInstancia().executeQueryRead(sql);
+            if (rsUsuario.next()) {
+                Object[] fila = new Object[columnas.length];
+
+                // Populate data from the result set
+                fila[0] = rsUsuario.getString("cedula");
+                fila[1] = rsUsuario.getString("correo");
+                fila[2] = rsUsuario.getString("contrasena");
+                fila[3] = rsUsuario.getString("nombre");
+                fila[4] = rsUsuario.getString("apellido");
+                model.addRow(fila);
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar el cliente: " + e.getMessage(), "Error",
+            JOptionPane.showMessageDialog(null, "Error al consultar el usuario: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Close resources to prevent resource leaks
+            try {
+                if (rsUsuario != null) {
+                    rsUsuario.close();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar recursos: " + ex.toString());
+            }
         }
-
-        if (perfil != null) {
-            System.out.println("Cédula: " + perfil.getCedula());
-            System.out.println("Correo: " + perfil.getCorreo());
-            System.out.println("Contraseña: " + perfil.getPass());
-            System.out.println("Nombre: " + perfil.getNombre());
-            System.out.println("Apellido: " + perfil.getApellido());
-        }
+        return model;
     }
 
+    /*public DefaultTableModel mostrarPaquetes() {
+        String[] columnas = {"ID Paquete", "Origen Paquete", "Destino Paquete", "Fecha de Ingreso", "Hora Ingreso", "Fecha Limite"};
+        DefaultTableModel model = new DefaultTableModel(columnas, 0);
+        ResultSet rsPaquete = null, rsFecha = null;
+
+        for (int idPaquete : idPaquetes) {
+            String sql_paquete = "SELECT idPaquete, sucursalAceptoPaquete, sucursalParaRecoger FROM Paquetes WHERE idPaquete = '" + idPaquete + "'";
+            String sql_fecha = "SELECT fecha, hora FROM Registros WHERE idPaquete = '" + idPaquete + "'";
+
+            try {
+                rsPaquete = DataHelper.getInstancia().executeQueryRead(sql_paquete);
+                rsFecha = DataHelper.getInstancia().executeQueryRead(sql_fecha);
+
+                if (rsPaquete.next() && rsFecha.next()) {
+                    Object[] fila = new Object[columnas.length];
+
+                    // Populate data from the first query
+                    fila[0] = rsPaquete.getString("idPaquete");
+                    fila[1] = rsPaquete.getString("sucursalAceptoPaquete");
+                    fila[2] = rsPaquete.getString("sucursalParaRecoger");
+
+                    // Populate data from the second query
+                    fila[3] = rsFecha.getString("fecha");
+                    fila[4] = rsFecha.getString("hora");
+                    fila[5] = calcularFechaLimite(rsFecha.getString("fecha"));
+
+                    model.addRow(fila);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "SQL Error: " + ex.toString());
+            } finally {
+                // Close resources to prevent resource leaks
+                try {
+                    if (rsPaquete != null) {
+                        rsPaquete.close();
+                    }
+                    if (rsFecha != null) {
+                        rsFecha.close();
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error closing resources: " + ex.toString());
+                }
+            }
+        }
+
+        return model;
+    }*/
     public void actualizarEmpleado() {
         // Logica para modificar empleado
     }
@@ -132,11 +185,9 @@ public class Administrador extends Perfil {
     public JFrame verModulos(VentanaLogin login) {
         return new AdminMenuPrincipal(login, this);
     }
-    
+
     @Override
     public void cerrarSesion(VentanaLogin login) {
         login.setVisible(true);
     }
 }
-
-

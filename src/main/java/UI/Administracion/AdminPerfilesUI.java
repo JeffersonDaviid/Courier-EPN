@@ -13,13 +13,14 @@ import BL.Administracion.PerfilFactory;
  * @author PCM
  */
 public class AdminPerfilesUI extends javax.swing.JPanel {
-
-    private Administrador perfil;
+    
+    private final Administrador perfil;
     /**
      * Creates new form AdministracionUI
+     * @param perfil
      */
     public AdminPerfilesUI(Administrador perfil) {
-        this.perfil = perfil;
+        this.perfil = perfil;    
         initComponents();
     }
 
@@ -241,7 +242,8 @@ public class AdminPerfilesUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String cedula = jTextField1.getText();
+        jTable1.setModel(perfil.consultarUsuario(cedula));                // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
