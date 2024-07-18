@@ -201,7 +201,7 @@ public class Paquete {
 
     public void guardarPaquete(Paquete paquete) {
         int rs = -1;
-        String sql = "INSERT INTO Paquete (peso, tamanio, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger, trackingNumber, estado, domicilio) VALUES ("
+        String sql = "INSERT INTO Paquetes (peso, tamanio, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger, trackingNumber, estado, domicilio) VALUES ("
             + paquete.getPeso() + ", '" + paquete.getTamanio() + "', '" + paquete.getFechaHoraLlegada() + "', '"
             + paquete.getFechaHoraSalida() + "', '" + paquete.getNombreRemitente() + "', '"
             + paquete.getCorreoRemitente() + "', '" + paquete.getTelefonoRemitente() + "', '" + paquete.getNombreDestinatario() + "', '"
