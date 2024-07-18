@@ -4,21 +4,24 @@
  */
 package UI.Administracion;
 
+import javax.swing.JComboBox;
+
 import BL.Administracion.Administrador;
 import BL.Administracion.Perfil;
 import BL.Administracion.PerfilFactory;
+import BL.Transporte.Vehiculo;
 
 /**
  *
  * @author PCM
  */
-public class AdminPerfilesUI extends javax.swing.JPanel {
+public class AdminCamionesUI extends javax.swing.JPanel {
 
     private Administrador perfil;
     /**
      * Creates new form AdministracionUI
      */
-    public AdminPerfilesUI(Administrador perfil) {
+    public AdminCamionesUI(Administrador perfil) {
         this.perfil = perfil;
         initComponents();
     }
@@ -53,14 +56,15 @@ public class AdminPerfilesUI extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new JComboBox<>();
+
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Buscar usuarios");
+        jLabel1.setText("Buscar Camiones");
 
-        jLabel2.setText("Cédula:");
+        jLabel2.setText("Id Camión:");
 
-        jTextField1.setText("Cedula");
+        jTextField1.setText("idCamion");
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -83,42 +87,42 @@ public class AdminPerfilesUI extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setText("Crear usuario");
+        jLabel3.setText("Registrar Camiones");
 
-        jLabel4.setText("Cédula:");
+        jLabel4.setText("Modelo:");
 
-        jTextField2.setText("Cédula");
+        jTextField2.setText("Modelo");
 
-        jLabel5.setText("Nombre:");
+        jLabel5.setText("Marca:");
 
-        jTextField3.setText("Nombre");
+        jTextField3.setText("Marca");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
             }
         });
 
-        jLabel6.setText("Apellido:");
+        jLabel6.setText("Capacidad de carga:");
 
-        jTextField4.setText("Apellido");
+        jTextField4.setText("Capacidad");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("Correo:");
+        jLabel7.setText("Id Ruta:");
 
-        jTextField5.setText("Correo");
+        jTextField5.setText("Id Ruta");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
             }
         });
 
-        jLabel8.setText("Contraseña:");
+        //jLabel8.setText("Contraseña:");
 
-        jTextField6.setText("Contraseña");
+        //jTextField6.setText("Contraseña");
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
@@ -136,9 +140,9 @@ public class AdminPerfilesUI extends javax.swing.JPanel {
 
         jButton4.setText("Eliminar");
 
-        jLabel9.setText("Rol:");
+        //jLabel9.setText("Rol:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Recepcionista", "Bodeguero", "Transportista" }));
+        //jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Recepcionista", "Bodeguero", "Transportista" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -241,7 +245,7 @@ public class AdminPerfilesUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        perfil.consultarUsuario(jTextField1.getText());
+        perfil.consultarCamion(Integer.parseInt(jTextField1.getText()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -261,14 +265,12 @@ public class AdminPerfilesUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String rol = (String) jComboBox1.getSelectedItem();
-        String cedula = jTextField2.getText();
-        String nombre = jTextField3.getText();
-        String apellido = jTextField4.getText();
-        String correo = jTextField5.getText();
-        String pass = jTextField6.getText();
-        Perfil nuevoPerfil = PerfilFactory.crearPerfil(rol, cedula, correo, pass, nombre, apellido);
-        perfil.registrarUsuario(nuevoPerfil);  
+        String modelo = jTextField2.getText();
+        String marca = jTextField3.getText();
+        String capacidadCarga = jTextField4.getText();
+        String ruta = jTextField5.getText();
+        Vehiculo camion = new Vehiculo(modelo, marca, Integer.parseInt(capacidadCarga), 1, null, Integer.parseInt(ruta));
+        perfil.registrarCamion(camion);  
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

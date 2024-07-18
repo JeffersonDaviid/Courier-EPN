@@ -54,7 +54,7 @@ public class Administrador extends Perfil {
     public void consultarUsuario(String cedula) {
         Perfil perfil = null;
         String sql = String.format("SELECT * FROM Usuarios WHERE cedula = %s", cedula);
-
+        String out = "";
         try {
             ResultSet rs = DataHelper.getInstancia().executeQueryRead(sql);
             while (rs.next()) {
@@ -72,11 +72,9 @@ public class Administrador extends Perfil {
         }
 
         if (perfil != null) {
-            System.out.println("Cédula: " + perfil.getCedula());
-            System.out.println("Correo: " + perfil.getCorreo());
-            System.out.println("Contraseña: " + perfil.getPass());
-            System.out.println("Nombre: " + perfil.getNombre());
-            System.out.println("Apellido: " + perfil.getApellido());
+            out = "Cédula: " + perfil.getCedula() + "\nCorreo: " + perfil.getCorreo() + "\nContraseña: "
+                    + perfil.getPass() + "\nNombre: " + perfil.getNombre() + "\nApellido: " + perfil.getApellido() + "\nRol: " + perfil.getClass().getSimpleName();
+            JOptionPane.showMessageDialog(null, out, "Información del usuario", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -91,7 +89,9 @@ public class Administrador extends Perfil {
     public void registrarCamion(Vehiculo camion) {
         int rs = -1;
 
-        String sql = "INSERT INTO ";
+        String sql = "INSERT INTO Vehiculo(modelo, marca, capacidadCarga, disponibilidad, ruta) VALUES ('"
+                + camion.getModelo() + "', '" + camion.getMarca() + "', " + camion.getCapacidadCarga() + ", "
+                + camion.getDisponibilidad() + ", " + camion.getRuta() + ")";
         try {
             rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
 
@@ -106,6 +106,36 @@ public class Administrador extends Perfil {
             JOptionPane.showMessageDialog(null, "Error al registrar el camión: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void consultarCamion(int idCamion) {
+        Vehiculo camion = null;
+        String sql = String.format("SELECT * FROM Vehiculo WHERE id = %s", idCamion);
+        String out = "";
+        try {
+            ResultSet rs = DataHelper.getInstancia().executeQueryRead(sql);
+            while (rs.next()) {
+                camion = new Vehiculo(
+                    rs.getString("modelo"), 
+                    rs.getString("marca"), 
+                    rs.getInt("capacidadCarga"),
+                    rs.getInt("disponibilidad"),
+                    null, 
+                    rs.getInt("ruta"));
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar el camión: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (camion != null) {
+            out = "Modelo: " + camion.getModelo() + "\nMarca: " + camion.getMarca() + "\nCapacidad de carga: "
+                    + camion.getCapacidadCarga() + "\nDisponibilidad: " + camion.getDisponibilidad() + "\nRuta: "
+                    + camion.getRuta();
+            JOptionPane.showMessageDialog(null, out, "Información del camión", JOptionPane.INFORMATION_MESSAGE);
+        }
+    
     }
 
     public void registrarRuta(Ruta ruta) {
