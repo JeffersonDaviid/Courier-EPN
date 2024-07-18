@@ -133,7 +133,7 @@ public class Vehiculo {
                 JOptionPane.showMessageDialog(null, "Estado del paquete actualizado con éxito", "Guardado",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar el estado del paquete", "Error",
+                JOptionPane.showMessageDialog(null, "No existen paquetes para cargar a camión", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
 
