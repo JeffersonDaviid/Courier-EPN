@@ -6,8 +6,8 @@
 package UI.Administracion;
 
 import UI.Administracion.views.*;
-import UI.Almacenamiento.Almacenamiento;
-import UI.GestionPaquete.GestionPaqueteUI;
+import UI.GestionPaquete.GestionPaquete;
+import UI.GestionPaquete.GestionPaquete;
 import UI.SeguimientoPaquete.UIEnvio;
 import UI.SeguimientoPaquete.UISeguimiento;
 
@@ -235,7 +235,7 @@ public class RecepcionistaMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_CerrarActionPerformed
 
     private void btn_prinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_prinActionPerformed
-        ShowJPanel(new GestionPaqueteUI());
+        ShowJPanel(new GestionPaquete());
     }// GEN-LAST:event_btn_prinActionPerformed
 
     private void btn_lendsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lendsActionPerformed
