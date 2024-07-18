@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.time.LocalDate;
 import java.util.Locale;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -32,6 +33,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         InitStyles();
         SetDate();
         InitContent();
+        //setIconImage(new ImageIcon(getClass().getResource("./src/main/java/UI/Administracion/images/Logo (2).png")).getImage());
     }
 
     private void InitStyles() {
