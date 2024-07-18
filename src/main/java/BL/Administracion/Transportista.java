@@ -4,10 +4,8 @@ package BL.Administracion;
 import javax.swing.JFrame;
 
 import BL.Transporte.Vehiculo;
-import UI.Administracion.TransMenuPrincipal;
 import UI.Administracion.TransportistaMenuPrincipal;
 import UI.Administracion.VentanaLogin;
-
 
 public class Transportista extends Perfil {
     String cedula;
@@ -35,7 +33,7 @@ public class Transportista extends Perfil {
     public void actualizarEstadoPaquetes() {
         // Logica para actualizar el estado de los paquetes
     }
-        
+
     public Vehiculo getCamion() {
         return camion;
     }
@@ -55,6 +53,4 @@ public class Transportista extends Perfil {
         throw new UnsupportedOperationException("Unimplemented method 'cerrarSesion'");
     }
 
-    
 }
-
