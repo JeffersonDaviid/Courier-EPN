@@ -11,6 +11,7 @@ import UI.Almacenamiento.Almacenamiento;
 import UI.SeguimientoPaquete.UIEnvio;
 import UI.SeguimientoPaquete.UISeguimiento;
 import UI.Transporte.UITransporte;
+import UI.Transporte.UITransportePaquetes;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import java.awt.BorderLayout;
@@ -98,10 +99,11 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
         btn_prin = new javax.swing.JButton();
         btn_lends = new javax.swing.JButton();
         Cerrar = new javax.swing.JButton();
+        otro = new javax.swing.JButton();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1080, 793));
+        setMinimumSize(new java.awt.Dimension(1036, 793));
 
         background.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -163,6 +165,22 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        otro.setBackground(new java.awt.Color(21, 101, 192));
+        otro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        otro.setForeground(new java.awt.Color(255, 255, 255));
+        otro.setText("Entregar Pendientes");
+        otro.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        otro.setBorderPainted(false);
+        otro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        otro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        otro.setIconTextGap(13);
+        otro.setInheritsPopupMenu(true);
+        otro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                otroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
@@ -176,6 +194,7 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
             .addComponent(btn_lends, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
             .addComponent(btn_prin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(otro, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +207,11 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(menuLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(btn_lends, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_lends, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(otro, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_prin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
                 .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -232,6 +253,10 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_CerrarActionPerformed
 
+    private void otroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otroActionPerformed
+        ShowJPanel(new UITransportePaquetes());
+    }//GEN-LAST:event_otroActionPerformed
+
     private void btn_prinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_prinActionPerformed
         ShowJPanel(new Principal());
     }// GEN-LAST:event_btn_prinActionPerformed
@@ -251,5 +276,6 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
     private static javax.swing.JPanel content;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel menu;
+    private javax.swing.JButton otro;
     // End of variables declaration//GEN-END:variables
 }
