@@ -53,7 +53,7 @@ public class Administrador extends Perfil {
 
     public void consultarUsuario(String cedula) {
         Perfil perfil = null;
-        String sql = String.format("SELECT * FROM Usuarios WHERE cedula = %s", cedula);
+        String sql = String.format("SELECT * FROM Usuarios WHERE cedula = '" + cedula + "'");
 
         try {
             ResultSet rs = DataHelper.getInstancia().executeQueryRead(sql);
