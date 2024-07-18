@@ -6,7 +6,7 @@ import BL.GestionPaquete.Paquete;
 
 public class CamionEntrega extends Vehiculo {
 
-    public CamionEntrega(String modelo, String marca, int capacidadCarga, boolean disponibilidad,
+    public CamionEntrega(String modelo, String marca, int capacidadCarga, int disponibilidad,
             List<Paquete> paquetes, Ruta ruta) {
         super(modelo, marca, capacidadCarga, disponibilidad, paquetes, ruta);
     }
