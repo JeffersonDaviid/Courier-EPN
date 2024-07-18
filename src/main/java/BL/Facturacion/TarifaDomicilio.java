@@ -15,10 +15,7 @@ public class TarifaDomicilio extends TarifaDecorador {
         tarifaDecorada.calcularPrecioEnvio();
         float subtotal = tarifaDecorada.getSubtotal();
         // valor quemado
-        System.out.println(subtotal);
-        System.out.println(getTotal());
         super.setSubtotal(subtotal + valorDomicilio);
-        System.out.println(getTotal());
         super.setTotal(getSubtotal() + (getSubtotal() * (super.getIvaPorcentaje() / 100)));
 
         setDescripcionTarifa(
