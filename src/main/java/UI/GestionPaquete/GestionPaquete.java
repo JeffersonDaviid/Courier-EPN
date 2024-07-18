@@ -3,10 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package UI.GestionPaquete;
-import javax.swing.JFrame;
-
-import BL.Facturacion.Tarifa;
-import BL.Facturacion.TarifaEnvio;
 import BL.GestionPaquete.Paquete;
 import UI.Facturacion.Facturacion;
 /**
@@ -360,14 +356,11 @@ public class GestionPaquete extends javax.swing.JPanel {
         // TODO add your handling code here:
         guardarPaquete();
         Facturacion facturacion = new Facturacion();
-        facturacion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         facturacion.setVisible(true);
     }//GEN-LAST:event_jBaceptarActionPerformed
 
     private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
-        Tarifa tarifa = new TarifaEnvio(Float.parseFloat(jTpeso.getText()), jComboTamanio.getSelectedItem().toString(), jTsucursalRecibe.getText(), jTsucursalAcepto.getText());    
-        tarifa.calcularPrecioEnvio();
-        tarifa.mostrarCostoEnvio();
+        // TODO add your handling code here:
     }//GEN-LAST:event_jBCalcularActionPerformed
 
     private void guardarPaquete() {

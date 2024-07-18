@@ -7,9 +7,6 @@ package UI.Administracion;
 
 import BL.Administracion.Perfil;
 import UI.Administracion.views.*;
-import UI.Almacenamiento.HistorialUI;
-import UI.Almacenamiento.InventarioUI;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
@@ -46,7 +43,7 @@ public class BodegueroMenuPrincipal extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 // Mostrar la ventana de login al cerrar ClienteMenuPrincipal
-                perfil.cerrarSesion(login);
+                perfil.cerrarSesion(login);  
             }
         });
     }
@@ -85,9 +82,7 @@ public class BodegueroMenuPrincipal extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         background = new javax.swing.JPanel();
@@ -97,7 +92,6 @@ public class BodegueroMenuPrincipal extends javax.swing.JFrame {
         btn_prin = new javax.swing.JButton();
         btn_lends = new javax.swing.JButton();
         Cerrar = new javax.swing.JButton();
-        btn_lends1 = new javax.swing.JButton();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -134,7 +128,7 @@ public class BodegueroMenuPrincipal extends javax.swing.JFrame {
         btn_lends.setBackground(new java.awt.Color(21, 101, 192));
         btn_lends.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_lends.setForeground(new java.awt.Color(255, 255, 255));
-        btn_lends.setText("Historial");
+        btn_lends.setText("Almacenamiento");
         btn_lends.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         btn_lends.setBorderPainted(false);
         btn_lends.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -163,63 +157,36 @@ public class BodegueroMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btn_lends1.setBackground(new java.awt.Color(21, 101, 192));
-        btn_lends1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_lends1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_lends1.setText("Inventario");
-        btn_lends1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_lends1.setBorderPainted(false);
-        btn_lends1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_lends1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btn_lends1.setIconTextGap(13);
-        btn_lends1.setInheritsPopupMenu(true);
-        btn_lends1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_lends1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
-                menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(menuLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(appName, javax.swing.GroupLayout.PREFERRED_SIZE, 250,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(menuLayout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 190,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(btn_lends, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                        .addComponent(btn_prin, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                        .addComponent(btn_lends1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE));
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(appName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(menuLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(btn_lends, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(btn_prin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+        );
         menuLayout.setVerticalGroup(
-                menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(menuLayout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(appName, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)
-                                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(menuLayout.createSequentialGroup()
-                                                .addGap(50, 50, 50)
-                                                .addComponent(btn_lends, javax.swing.GroupLayout.PREFERRED_SIZE, 52,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(btn_prin, javax.swing.GroupLayout.PREFERRED_SIZE, 52,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, 0)
-                                .addComponent(btn_lends1, javax.swing.GroupLayout.PREFERRED_SIZE, 52,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457,
-                                        Short.MAX_VALUE)
-                                .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 52,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(appName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(btn_lends, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_prin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE)
+                .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         content.setBackground(new java.awt.Color(255, 255, 255));
         content.setLayout(new java.awt.BorderLayout());
@@ -227,54 +194,53 @@ public class BodegueroMenuPrincipal extends javax.swing.JFrame {
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
-                backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(backgroundLayout.createSequentialGroup()
-                                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)));
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE))
+        );
         backgroundLayout.setVerticalGroup(
-                backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
-                        .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_lends1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends1ActionPerformed
-        ShowJPanel(new InventarioUI());
-    }// GEN-LAST:event_btn_lends1ActionPerformed
-
-    private void CerrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_CerrarActionPerformed
-        perfil.cerrarSesion(login);
-        this.dispose(); // TODO add your handling code here:
-    }// GEN-LAST:event_CerrarActionPerformed
+    private void CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarActionPerformed
+        perfil.cerrarSesion(login);  
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_CerrarActionPerformed
 
     private void btn_prinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_prinActionPerformed
         ShowJPanel(new Principal());
     }// GEN-LAST:event_btn_prinActionPerformed
 
-    private void btn_lendsActionPerformed(java.awt.event.ActionEvent evt) {
-        ShowJPanel(new HistorialUI());
+    private void btn_lendsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lendsActionPerformed
 
     }// GEN-LAST:event_btn_lendsActionPerformed
 
     private void btn_returnsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_returnsActionPerformed
 
     }// GEN-LAST:event_btn_returnsActionPerformed
+
+    private void btn_lends1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends1ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_btn_lends1ActionPerformed
 
     private void btn_lends2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lends2ActionPerformed
         // TODO add your handling code here:
@@ -285,7 +251,6 @@ public class BodegueroMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel appName;
     private javax.swing.JPanel background;
     private javax.swing.JButton btn_lends;
-    private javax.swing.JButton btn_lends1;
     private javax.swing.JButton btn_prin;
     private static javax.swing.JPanel content;
     private javax.swing.JSeparator jSeparator1;

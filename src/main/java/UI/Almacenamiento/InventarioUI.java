@@ -20,7 +20,7 @@ public class InventarioUI extends javax.swing.JPanel {
     public InventarioUI() {
         initComponents();
         String idPaquete= null;
-        jTablePaquetesBodega.setModel(inventario.mostrarPaquetes());        
+        jTablePaquetesBodega.setModel(inventario.mostrarPaquetes(idPaquete));        
     }
 
     /**
@@ -84,6 +84,30 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanel10 = new javax.swing.JPanel();
         jBAceptarRetiro = new javax.swing.JButton();
         jBCancelarRetiro = new javax.swing.JButton();
+        jPanelConsultar = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jTFidCancelar = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jTFPesoCosultar = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jTFTamanioAniadir1 = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jTFRemitenteConsultar = new javax.swing.JTextField();
+        jTFDestinatarioConsultar = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jTFSucursalOrigenConsultar = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jTFSucursalDestinoConsultar = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jTFTipoEnvioConsultar = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
+        jTFEstadoPaqueteConsulta = new javax.swing.JTextField();
+        jPanel12 = new javax.swing.JPanel();
+        jComboBFiltroConsulta = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        jBFitrar = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(819, 491));
 
@@ -287,11 +311,6 @@ public class InventarioUI extends javax.swing.JPanel {
 
         jButtonAñadir.setBackground(new java.awt.Color(37, 98, 234));
         jButtonAñadir.setText("Aceptar");
-        jButtonAñadir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAñadirActionPerformed(evt);
-            }
-        });
 
         jButtonCancelarAñadir.setBackground(new java.awt.Color(37, 98, 234));
         jButtonCancelarAñadir.setText("Cancelar");
@@ -483,11 +502,6 @@ public class InventarioUI extends javax.swing.JPanel {
 
         jBAceptarRetiro.setBackground(new java.awt.Color(37, 98, 234));
         jBAceptarRetiro.setText("Aceptar");
-        jBAceptarRetiro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAceptarRetiroActionPerformed(evt);
-            }
-        });
 
         jBCancelarRetiro.setBackground(new java.awt.Color(37, 98, 234));
         jBCancelarRetiro.setText("Cancelar");
@@ -544,6 +558,196 @@ public class InventarioUI extends javax.swing.JPanel {
 
         jTabbedPanelMain.addTab("Retirar", jPanelRetirar);
 
+        jPanelConsultar.setBackground(new java.awt.Color(254, 254, 254));
+
+        jPanel11.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paquetes"));
+
+        jTFidCancelar.setEditable(false);
+        jTFidCancelar.setEnabled(false);
+        jTFidCancelar.setFocusable(false);
+
+        jLabel19.setText("idPaquete");
+
+        jTFPesoCosultar.setEditable(false);
+        jTFPesoCosultar.setFocusable(false);
+
+        jLabel20.setText("Peso");
+
+        jTFTamanioAniadir1.setEditable(false);
+        jTFTamanioAniadir1.setFocusable(false);
+
+        jLabel21.setText("Tamaño");
+
+        jLabel23.setText("Remitente");
+
+        jTFRemitenteConsultar.setEditable(false);
+        jTFRemitenteConsultar.setFocusable(false);
+
+        jTFDestinatarioConsultar.setEditable(false);
+        jTFDestinatarioConsultar.setFocusable(false);
+
+        jLabel24.setText("Destinatario");
+
+        jTFSucursalOrigenConsultar.setEditable(false);
+        jTFSucursalOrigenConsultar.setFocusable(false);
+
+        jLabel25.setText("Sucursal Origen");
+
+        jLabel26.setText("Sucursal Destino");
+
+        jTFSucursalDestinoConsultar.setEditable(false);
+        jTFSucursalDestinoConsultar.setFocusable(false);
+
+        jLabel27.setText("Tipo de Envio");
+
+        jTFTipoEnvioConsultar.setEditable(false);
+        jTFTipoEnvioConsultar.setFocusable(false);
+
+        jLabel30.setText("Estado");
+
+        jTFEstadoPaqueteConsulta.setEditable(false);
+        jTFEstadoPaqueteConsulta.setFocusable(false);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                            .addComponent(jLabel19)
+                            .addGap(34, 34, 34))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                            .addComponent(jLabel20)
+                            .addGap(62, 62, 62))
+                        .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel21)
+                                .addComponent(jLabel27))
+                            .addGap(16, 16, 16)))
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel23)
+                        .addComponent(jLabel24)
+                        .addComponent(jLabel25)
+                        .addComponent(jLabel26)
+                        .addComponent(jLabel30)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTFTamanioAniadir1)
+                        .addComponent(jTFPesoCosultar)
+                        .addComponent(jTFTipoEnvioConsultar)
+                        .addComponent(jTFidCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                    .addComponent(jTFSucursalDestinoConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFDestinatarioConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFRemitenteConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFSucursalOrigenConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFEstadoPaqueteConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFidCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFPesoCosultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFTamanioAniadir1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFTipoEnvioConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFRemitenteConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFDestinatarioConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFSucursalOrigenConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFSucursalDestinoConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFEstadoPaqueteConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30)))
+        );
+
+        jPanel12.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar Tabla"));
+
+        jComboBFiltroConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "idPaquete", "Fecha Ingreso", "Fecha Limite", "Destino", "Origen", " " }));
+        jComboBFiltroConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBFiltroConsultaActionPerformed(evt);
+            }
+        });
+
+        jBFitrar.setBackground(new java.awt.Color(37, 98, 234));
+        jBFitrar.setText("Filtrar");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBFiltroConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(jBFitrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBFiltroConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBFitrar)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanelConsultarLayout = new javax.swing.GroupLayout(jPanelConsultar);
+        jPanelConsultar.setLayout(jPanelConsultarLayout);
+        jPanelConsultarLayout.setHorizontalGroup(
+            jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConsultarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanelConsultarLayout.setVerticalGroup(
+            jPanelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultarLayout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+        );
+
+        jTabbedPanelMain.addTab("Consultar", jPanelConsultar);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -598,7 +802,11 @@ public class InventarioUI extends javax.swing.JPanel {
         jTFSucursalDestinoRetirar.setText("");
         jTFEstadoPaqueteRetiro.setText("");
     }//GEN-LAST:event_jBCancelarRetiroActionPerformed
-    
+
+    private void jComboBFiltroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBFiltroConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBFiltroConsultaActionPerformed
+
     private void jTFidRetirarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidRetirarKeyReleased
         dato = inventario.getDatosPaquete(jTFidRetirar.getText());
         jTFPesoRetirar.setText(dato[0]);
@@ -650,24 +858,14 @@ public class InventarioUI extends javax.swing.JPanel {
             jTablePaquetesBodega.setFocusable(false);
     }//GEN-LAST:event_jTabbedPanelMainMouseClicked
 
-    private void jBAceptarRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarRetiroActionPerformed
-        // TODO add your handling code here:
-        inventario.retirarPaquete(jTFidRetirar.getText());
-        jTablePaquetesBodega.setModel(inventario.mostrarPaquetes());
-    }//GEN-LAST:event_jBAceptarRetiroActionPerformed
-
-    private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
-        // TODO add your handling code here:
-        inventario.registrarPaquete(jTFidAniadir.getText());
-        jTablePaquetesBodega.setModel(inventario.mostrarPaquetes());
-    }//GEN-LAST:event_jButtonAñadirActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAceptarRetiro;
     private javax.swing.JButton jBCancelarRetiro;
+    private javax.swing.JButton jBFitrar;
     private javax.swing.JButton jButtonAñadir;
     private javax.swing.JButton jButtonCancelarAñadir;
+    private javax.swing.JComboBox<String> jComboBFiltroConsulta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -677,10 +875,19 @@ public class InventarioUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -688,33 +895,46 @@ public class InventarioUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanelAñadir;
+    private javax.swing.JPanel jPanelConsultar;
     private javax.swing.JPanel jPanelRetirar;
     private javax.swing.JProgressBar jProgressBarCapacidad;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFDestinatarioAniadir;
+    private javax.swing.JTextField jTFDestinatarioConsultar;
     private javax.swing.JTextField jTFDestinatarioRetirar;
     private javax.swing.JTextField jTFEstadoPaqueteAñadir;
+    private javax.swing.JTextField jTFEstadoPaqueteConsulta;
     private javax.swing.JTextField jTFEstadoPaqueteRetiro;
     private javax.swing.JTextField jTFPesoAniadir;
+    private javax.swing.JTextField jTFPesoCosultar;
     private javax.swing.JTextField jTFPesoRetirar;
     private javax.swing.JTextField jTFRemitenteAniadir;
+    private javax.swing.JTextField jTFRemitenteConsultar;
     private javax.swing.JTextField jTFRemitenteRetirar;
     private javax.swing.JTextField jTFSucursalDestinoAniadir;
+    private javax.swing.JTextField jTFSucursalDestinoConsultar;
     private javax.swing.JTextField jTFSucursalDestinoRetirar;
     private javax.swing.JTextField jTFSucursalOrigenAniadir;
+    private javax.swing.JTextField jTFSucursalOrigenConsultar;
     private javax.swing.JTextField jTFSucursalOrigenRetirar;
     private javax.swing.JTextField jTFTamanioAniadir;
+    private javax.swing.JTextField jTFTamanioAniadir1;
     private javax.swing.JTextField jTFTamanioRetirar;
     private javax.swing.JTextField jTFTipoEnvioAnadir;
+    private javax.swing.JTextField jTFTipoEnvioConsultar;
     private javax.swing.JTextField jTFTipoEnvioRetirar;
     private javax.swing.JTextField jTFidAniadir;
+    private javax.swing.JTextField jTFidCancelar;
     private javax.swing.JTextField jTFidRetirar;
     private javax.swing.JTabbedPane jTabbedPanelMain;
     private javax.swing.JTable jTablePaquetesBodega;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
