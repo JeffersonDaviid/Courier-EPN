@@ -147,7 +147,7 @@ public class TarifaEnvio extends Tarifa {
                 float precioDistancia = distancia * 0.01f; // 1ctv por km
                 super.setSubtotal(precioPeso + precioTamano + precioDistancia);
 
-                super.setTotal(super.getSubtotal() + (super.getSubtotal() * (super.getIva() / 100)));
+                super.setTotal(super.getSubtotal() + (super.getSubtotal() * (super.getIvaPorcentaje() / 100)));
         }
 
 }

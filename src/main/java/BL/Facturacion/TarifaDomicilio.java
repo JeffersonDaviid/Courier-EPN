@@ -12,12 +12,18 @@ public class TarifaDomicilio extends TarifaDecorador {
 
     public void calcularPrecioEnvio() {
         super.cargarIvar();
+        float subtotal = super.getSubtotal();
+
         // valor quemado
-        super.setSubtotal(super.getSubtotal() + valorDomicilio);
-        super.setTotal(super.getSubtotal() + (super.getSubtotal() * (super.getIva() / 100)));
+        System.out.println(subtotal);
+        super.setSubtotal(subtotal + valorDomicilio);
+        System.out.println(subtotal);
+        super.setTotal(subtotal + (subtotal * (super.getIvaPorcentaje() / 100)));
 
         setDescripcionTarifa(
-                getDescripcionTarifa() != null ? getDescripcionTarifa() + ", " + nombreDescripcion + " " + valorDomicilio : nombreDescripcion + " " + valorDomicilio);
+                getDescripcionTarifa() != null
+                        ? getDescripcionTarifa() + ", " + nombreDescripcion + " " + valorDomicilio
+                        : nombreDescripcion + " " + valorDomicilio);
 
     }
 

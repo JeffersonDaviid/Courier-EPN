@@ -12,6 +12,6 @@ public abstract class TarifaDecorador extends Tarifa {
 
     }
 
-    public abstract void calcularPrecioEnvio();
+    // public abstract void calcularPrecioEnvio();
 
 }

@@ -51,6 +51,24 @@ public class DataHelper {
         return rs;
     }
 
+    public int executeQueryReadLastId() throws SQLException {
+        Statement stmt;
+        ResultSet rs = null;
+
+        try {
+            stmt = conexion.createStatement();
+            rs = stmt.executeQuery("SELECT last_insert_rowid()");
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al obtener respuesta en : executeQueryReadLastId() " + e.getMessage());
+        }
+        return -1;
+    }
+
     /***
      * Método ESTÁTICO que realiza una solicitud INSERT, PUT y DELETE a la base de
      * datos
