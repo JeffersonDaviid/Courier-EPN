@@ -1,15 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package UI.SeguimientoPaquete;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import BL.BASEDEDATOS.DataHelper;
+import BL.SeguimientoPaquete.Envio;
 
 /**
  *
@@ -17,46 +13,40 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UIEnvio extends javax.swing.JPanel {
 
-    /**
-     * Creates new form UIEnvio
-     */
+    private DataHelper dataHelper;
+
     public UIEnvio() {
         initComponents();
+         try {
+            dataHelper = DataHelper.getInstancia();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al conectar a la base de datos: " + e.getMessage());
+        }
     }
-    public void mostrar(String tabla){
-        String sql="Select IdPaquete,nombreRemitente, nombreDestinatario,"
-                + "tipoEnvio,estado from "+tabla;
-     /*   Statement st;
-        conexion con= new conexion();
-        Connection conexion =con.conectar();
-        System.out.println(sql);*/
-        DefaultTableModel model=new DefaultTableModel();
+    public void mostrar(String tabla){     
+    String sql = "SELECT IdPaquete, nombreRemitente, nombreDestinatario, tipoEnvio, estado FROM " + tabla;
+        DefaultTableModel model = new DefaultTableModel();
         model.addColumn("IdPaquete");
         model.addColumn("Nombre Remitente");
         model.addColumn("Nombre Destinatario");
         model.addColumn("Tipo Envio");
         model.addColumn("Estado");
         jTable1.setModel(model);
-        String []datos=new String [5];
-    /*    try {
-           st=conexion.CreateStatement();
-            ResultSet rs =st.executeQuery(sql);
-      
-            while (rs.next()){
-                datos[0]=rs.getString(1);
-                datos[1]=rs.getString(2);
-                datos[2]=rs.getString(3);
-                datos[3]=rs.getString(4);
-                datos[4]=rs.getString(5);
-                model.addRow(datos);
+        String[] datos = new String[5];
 
-               
+        try {
+            ResultSet rs = dataHelper.executeQueryRead(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                model.addRow(datos);
             }
         } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null,"Error"+e.toString() );
+            JOptionPane.showMessageDialog(this, "Error: " + e.toString());
         }
-        */
-        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -137,7 +127,25 @@ public class UIEnvio extends javax.swing.JPanel {
         // TODO add your handling code here:
         mostrar("Paquete");
     }//GEN-LAST:event_jButton2ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+       // Criterio para obtener el id del paquete (esto debe basarse en tu lógica de negocio)
+        String estadoPaquete = "recibido"; // Reemplaza con el valor real
 
+        // Crea una instancia de Envio y obtiene el idPaquete
+        Envio envio = new Envio();
+        int idPaquete = envio.obtenerIdPaquete(estadoPaquete);
+
+        // Comprueba que se haya obtenido un idPaquete válido
+        if (idPaquete != -1) {
+            // Guarda el envio en la base de datos
+            envio.guardarEnvio(idPaquete);
+
+            // Actualiza el estado del paquete a "enviado"
+            envio.actualizarEstadoPaquete(idPaquete, "enviado");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró un paquete con el criterio especificado");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
