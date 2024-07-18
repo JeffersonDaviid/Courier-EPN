@@ -48,7 +48,7 @@ public class UISeguimiento extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Id Paquete", "Origen", "Destino", "Estado"
+                "idPaquete", "sucursalAceptoPaquete", "sucursalParaRecoger", "estado"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -140,8 +140,6 @@ public class UISeguimiento extends javax.swing.JPanel {
                 while (rs.next()) {
                     Object[] row = {
                         rs.getInt("idPaquete"),
-                        rs.getString("Origen"),
-                        rs.getString("Destino"),
                         rs.getString("sucursalAceptoPaquete"),
                         rs.getString("sucursalParaRecoger"),
                         rs.getString("estado")
