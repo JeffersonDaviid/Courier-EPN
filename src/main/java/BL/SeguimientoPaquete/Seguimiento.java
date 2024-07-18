@@ -1,45 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BL.SeguimientoPaquete;
 
+import BL.BASEDEDATOS.DataHelper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Alex
  */
 public class Seguimiento {
-    private String ubicacion;
-    private int id;
+     Envio envios; 
 
-    // Constructor
-    public Seguimiento(int id,String ubicacion) {
-        this.id = id;
-        this.ubicacion = ubicacion;
+    public Seguimiento() {
     }
 
     // Métodos
-    public void generarCodigoSeguimiento() {
-            this.id = id+1;
-    }
-
-    public void consultarUbicacion() {
-        // Implementación
-    }
-
-    public void actualizarUbicacion(String nuevaUbicacion) {
-        this.ubicacion = nuevaUbicacion;
-    }
-
     // Getters y Setters según sea necesario
-
-    public String getUbicacion() {
-        return ubicacion;
+    public ResultSet obtenerDatosPaquete(String numeroGuia) {
+        DataHelper dataHelper;
+        ResultSet rs = null;
+        try {
+            dataHelper = DataHelper.getInstancia();
+            String sql = "SELECT idPaquete, Origen, Destino, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquete WHERE numeroGuia = '" + numeroGuia + "'";
+            rs = dataHelper.executeQueryRead(sql);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del paquete: " + e.getMessage());
+        }
+        return rs;
     }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-    
 
 }
