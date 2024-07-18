@@ -79,6 +79,47 @@ public class Vehiculo {
         this.ruta = ruta;
     }
 
+    public List<Paquete> listarPaquetes(String estadoPaquete) {
+        List<Paquete> paquetes = new ArrayList<>();
+        String sql = "SELECT * FROM Paquetes WHERE estado = '" + estadoPaquete + "'";
+        try {
+            DataHelper dataHelper = DataHelper.getInstancia();
+            ResultSet rs = dataHelper.executeQueryRead(sql);
+
+            while (rs.next()) {
+                int id_paquete = rs.getInt("idPaquete");
+                float peso = rs.getFloat("peso");
+                String tamanio = rs.getString("tamanio");
+                String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
+                String fechaHoraSalida = rs.getString("fechaHoraSalida");
+                String nombreRemitente = rs.getString("nombreRemitente");
+                String correoRemitente = rs.getString("correoRemitente");
+                String telefonoRemitente = rs.getString("telefonoRemitente");
+                String nombreDestinatario = rs.getString("nombreDestinatario");
+                String correoDestinatario = rs.getString("correoDestinatario");
+                String telefonoDestinatario = rs.getString("telefonoDestinatario");
+                String tipoEnvio = rs.getString("tipoEnvio");
+                String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
+                String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
+                String trackingNumber = rs.getString("trackingNumber");
+                String estado = rs.getString("estado");
+                float precioEnvio = 0;
+                String domicilio = rs.getString("domicilio");
+
+                Paquete paquete = new Paquete(id_paquete, peso, tamanio, fechaHoraLlegada, fechaHoraSalida,
+                        nombreRemitente,
+                        correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario,
+                        telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger,
+                        trackingNumber, estado, precioEnvio, domicilio);
+
+                paquetes.add(paquete);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return paquetes;
+    }
+
     public void registrarCamion(Vehiculo vehiculo) {
         int rs = -1;
         String sql = "INSERT INTO Camiones (modelo, marca, capacidadCarga, disponibilidad, ruta_id) VALUES ('"
@@ -136,46 +177,46 @@ public class Vehiculo {
     }
 
     // Método para obtener información del paquete
-    public List<Paquete> obtenerInformacionPaquetes() {
-        List<Paquete> paquetes = new ArrayList<>();
-        String sql = "SELECT * FROM Paquetes WHERE estado = 'recibido'";
-        try {
-            DataHelper dataHelper = DataHelper.getInstancia();
-            ResultSet rs = dataHelper.executeQueryRead(sql);
+    // public List<Paquete> obtenerInformacionPaquetes() {
+    //     List<Paquete> paquetes = new ArrayList<>();
+    //     String sql = "SELECT * FROM Paquetes WHERE estado = 'recibido'";
+    //     try {
+    //         DataHelper dataHelper = DataHelper.getInstancia();
+    //         ResultSet rs = dataHelper.executeQueryRead(sql);
 
-            while (rs.next()) {
-                int id_paquete = rs.getInt("idPaquete");
-                float peso = rs.getFloat("peso");
-                String tamanio = rs.getString("tamanio");
-                String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
-                String fechaHoraSalida = rs.getString("fechaHoraSalida");
-                String nombreRemitente = rs.getString("nombreRemitente");
-                String correoRemitente = rs.getString("correoRemitente");
-                String telefonoRemitente = rs.getString("telefonoRemitente");
-                String nombreDestinatario = rs.getString("nombreDestinatario");
-                String correoDestinatario = rs.getString("correoDestinatario");
-                String telefonoDestinatario = rs.getString("telefonoDestinatario");
-                String tipoEnvio = rs.getString("tipoEnvio");
-                String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
-                String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
-                String trackingNumber = rs.getString("trackingNumber");
-                String estado = rs.getString("estado");
-                float precioEnvio = 0;
-                String domicilio = rs.getString("domicilio");
+    //         while (rs.next()) {
+    //             int id_paquete = rs.getInt("idPaquete");
+    //             float peso = rs.getFloat("peso");
+    //             String tamanio = rs.getString("tamanio");
+    //             String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
+    //             String fechaHoraSalida = rs.getString("fechaHoraSalida");
+    //             String nombreRemitente = rs.getString("nombreRemitente");
+    //             String correoRemitente = rs.getString("correoRemitente");
+    //             String telefonoRemitente = rs.getString("telefonoRemitente");
+    //             String nombreDestinatario = rs.getString("nombreDestinatario");
+    //             String correoDestinatario = rs.getString("correoDestinatario");
+    //             String telefonoDestinatario = rs.getString("telefonoDestinatario");
+    //             String tipoEnvio = rs.getString("tipoEnvio");
+    //             String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
+    //             String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
+    //             String trackingNumber = rs.getString("trackingNumber");
+    //             String estado = rs.getString("estado");
+    //             float precioEnvio = 0;
+    //             String domicilio = rs.getString("domicilio");
 
-                Paquete paquete = new Paquete(id_paquete, peso, tamanio, fechaHoraLlegada, fechaHoraSalida,
-                        nombreRemitente,
-                        correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario,
-                        telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger,
-                        trackingNumber, estado, precioEnvio, domicilio);
+    //             Paquete paquete = new Paquete(id_paquete, peso, tamanio, fechaHoraLlegada, fechaHoraSalida,
+    //                     nombreRemitente,
+    //                     correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario,
+    //                     telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger,
+    //                     trackingNumber, estado, precioEnvio, domicilio);
 
-                paquetes.add(paquete);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return paquetes;
-    }
+    //             paquetes.add(paquete);
+    //         }
+    //     } catch (SQLException e) {
+    //         System.out.println(e.getMessage());
+    //     }
+    //     return paquetes;
+    // }
 
     public boolean verificarTablaPaquete() {
         boolean tablaExiste = false;
@@ -210,19 +251,20 @@ public class Vehiculo {
     public static void main(String[] args) {
 
         // Crear un vehículo de ejemplo con una lista vacía de paquetes
-        Vehiculo vehiculo = new Vehiculo("Mack Anthem", "Hyundai", 100, 1, null, 1);
+       // Vehiculo vehiculo = new Vehiculo("Mack Anthem", "Hyundai", 100, 1, null, 1);
 
-        vehiculo.registrarCamion(vehiculo);
+        Vehiculo vehiculo2 = new Vehiculo();
+        //vehiculo.registrarCamion(vehiculo);
         // Verificar si la tabla Paquete existe
-        if (!vehiculo.verificarTablaPaquete()) {
-            System.out.println("La tabla 'Paquete' no existe en la base de datos.");
-            return;
-        } else {
-            System.out.println("La tabla 'Paquete' existe en la base de datos.");
-        }
+        // if (!vehiculo.verificarTablaPaquete()) {
+        //     System.out.println("La tabla 'Paquete' no existe en la base de datos.");
+        //     return;
+        // } else {
+        //     System.out.println("La tabla 'Paquete' existe en la base de datos.");
+        // }
 
         // Obtener la lista de paquetes
-        List<Paquete> paquetes = vehiculo.obtenerInformacionPaquetes();
+        List<Paquete> paquetes = vehiculo2.listarPaquetes("recibido");
 
         // Imprimir la información de los paquetes
         for (Paquete paquete : paquetes) {
