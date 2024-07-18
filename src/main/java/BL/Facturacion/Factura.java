@@ -11,10 +11,13 @@ import BL.BASEDEDATOS.DataHelper;
 
 public class Factura {
     private int idFactura;
-    private String cedulaCliente;
-    private String nombreCliente;
-    private String apellidoCliente;
     private int idPaquete;
+    private String nombreRemitente;
+    private String correoRemitente;
+    private String telefonoRemitente;
+    private String nombreDestinatario;
+    private String correoDestinatario;
+    private String telefonoDestinatario;
     private static String fecha = String.format("%tF %tT", new java.util.Date(), new java.util.Date());;
     private float subtotal;
     private static float iva;
@@ -34,13 +37,15 @@ public class Factura {
      * @param total
      * @param descripcionTarifa
      */
-    public Factura(int idFactura, int idPaquete, String cedulaCliente, String nombreCliente, String apellidoCliente,
-            String fecha, float subtotal, float iva, float ivaPorcentaje, double total, String descripcionTarifa) {
+    public Factura(int idFactura, int idPaquete,String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String fecha, float subtotal,float iva, float ivaPorcentaje, double total, String descripcionTarifa) {
         this.idFactura = idFactura;
         this.idPaquete = idPaquete;
-        this.cedulaCliente = cedulaCliente;
-        this.nombreCliente = nombreCliente;
-        this.apellidoCliente = apellidoCliente;
+        this.telefonoDestinatario = nombreRemitente;
+        this.nombreRemitente = correoRemitente;
+        this.telefonoRemitente = telefonoRemitente;
+        this.nombreDestinatario = nombreDestinatario;
+        this.correoDestinatario = correoDestinatario;
+        this.telefonoDestinatario = telefonoDestinatario;
         Factura.fecha = fecha;
         this.subtotal = subtotal;
         Factura.iva = iva;
@@ -49,13 +54,13 @@ public class Factura {
         this.descripcionTarifa = descripcionTarifa;
     }
 
-    public static void guardarFactura(String correoCliente, int idPaquete, float subtotal, double total,
+    public static void guardarFactura( int idPaquete, float subtotal, double total,
             String descripcionTarifa) {
         cargarIva();
         int rs = -1;
 
-        String sql = "INSERT INTO FACTURAS (correoCliente, idPaquete, fecha, subtotal, iva, ivaPorcentaje, total, descripcionTarifa) VALUES ("
-                + correoCliente + ", " + idPaquete + ", '" + fecha + "', " + subtotal + ", " + (subtotal * iva) + ", "
+        String sql = "INSERT INTO FACTURAS ( idPaquete, fecha, subtotal, iva, ivaPorcentaje, total, descripcionTarifa) VALUES ("
+                  + idPaquete + ", '" + fecha + "', " + subtotal + ", " + (subtotal * iva) + ", "
                 + iva + ", " + total + ", '" + descripcionTarifa + "')";
 
         try {
@@ -86,9 +91,12 @@ public class Factura {
                 factura = new Factura(
                         rs.getInt("idFactura"),
                         rs.getInt("idPaquete"),
-                        rs.getString("cl.correoCliente"),
-                        rs.getString("nombreCliente"),
-                        rs.getString("apellidoCliente"),
+                        rs.getString("nombreRemitente"),
+                        rs.getString("correoRemitente"),
+                        rs.getString("telefonoRemitente"),
+                        rs.getString("nombreDestinatario"),
+                        rs.getString("correoDestinatario"),
+                        rs.getString("telefonoDestinatario"),
                         rs.getString("fecha"),
                         rs.getFloat("subtotal"),
                         rs.getFloat("iva"),
@@ -107,9 +115,6 @@ public class Factura {
             String message = "<html><body>"
                     + "ID Factura: " + factura.idFactura + "<br>"
                     + "ID Paquete: " + factura.idPaquete + "<br>"
-                    + "ID Cliente: " + factura.cedulaCliente + "<br>"
-                    + "ID Cliente: " + factura.nombreCliente + "<br>"
-                    + "ID Cliente: " + factura.apellidoCliente + "<br>"
                     + "Fecha: " + Factura.fecha + "<br>"
                     + "Subtotal: " + factura.subtotal + "<br>"
                     + "IVA (" + factura.ivaPorcentaje + "%): " + Factura.iva + "<br>"
@@ -138,17 +143,6 @@ public class Factura {
         return idFactura;
     }
 
-    public String getCedulaCliente() {
-        return cedulaCliente;
-    }
-
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
-
-    public String getApellidoCliente() {
-        return apellidoCliente;
-    }
 
     public int getIdPaquete() {
         return idPaquete;
@@ -176,6 +170,30 @@ public class Factura {
 
     public String getDescripcionTarifa() {
         return descripcionTarifa;
+    }
+    
+    public String getNombreRemitente() {
+        return nombreRemitente;
+    }
+
+    public String getCorreoRemitente() {
+        return correoRemitente;
+    }
+
+    public String getTelefonoRemitente() {
+        return telefonoRemitente;
+    }
+
+    public String getNombreDestinatario() {
+        return nombreDestinatario;
+    }
+
+    public String getCorreoDestinatario() {
+        return correoDestinatario;
+    }
+
+    public String getTelefonoDestinatario() {
+        return telefonoDestinatario;
     }
 
 }

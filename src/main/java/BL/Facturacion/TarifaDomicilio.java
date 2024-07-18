@@ -17,7 +17,7 @@ public class TarifaDomicilio extends TarifaDecorador {
         super.setTotal(super.getSubtotal() + (super.getSubtotal() * (super.getIva() / 100)));
 
         setDescripcionTarifa(
-                getDescripcionTarifa() != null ? getDescripcionTarifa() + ", " + nombreDescripcion : nombreDescripcion);
+                getDescripcionTarifa() != null ? getDescripcionTarifa() + ", " + nombreDescripcion + " " + valorDomicilio : nombreDescripcion + " " + valorDomicilio);
 
     }
 
