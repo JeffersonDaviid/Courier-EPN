@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package UI.GestionPaquete;
+import BL.Facturacion.Tarifa;
+import BL.Facturacion.TarifaEnvio;
 import BL.GestionPaquete.Paquete;
 /**
  *
@@ -152,6 +154,11 @@ public class GestionPaqueteUI extends javax.swing.JPanel {
         jldomicilio.setText("Direccion de domicilio");
 
         jBCalcular.setText("Calcular");
+        jBCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCalcularActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -350,6 +357,13 @@ public class GestionPaqueteUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         guardarPaquete();
     }//GEN-LAST:event_jBaceptarActionPerformed
+
+    private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
+        // TODO add your handling code here:
+        Tarifa tarifa = new TarifaEnvio(Float.parseFloat(jTpeso.getText()), jComboTamanio.getSelectedItem().toString(), jTsucursalRecibe.getText(), jTsucursalAcepto.getText());
+        tarifa.calcularPrecioEnvio();;
+        tarifa.mostrarCostoEnvio();
+    }//GEN-LAST:event_jBCalcularActionPerformed
 private void guardarPaquete() {
     String nombreRemitente = jtNombreRemitente.getText();
     String correoRemitente = jtCorreoRemitente.getText();
