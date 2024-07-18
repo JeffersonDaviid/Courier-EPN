@@ -5,12 +5,13 @@ import BL.BASEDEDATOS.DataHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Alex
  */
 public class Seguimiento {
-     Envio envios; 
+    Envio envios;
 
     public Seguimiento() {
     }
@@ -22,7 +23,8 @@ public class Seguimiento {
         ResultSet rs = null;
         try {
             dataHelper = DataHelper.getInstancia();
-            String sql = "SELECT idPaquete, Origen, Destino, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquete WHERE numeroGuia = '" + numeroGuia + "'";
+            String sql = "SELECT idPaquete,trackingNumber, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM PAQUETES WHERE trackingNumber = '"
+                    + numeroGuia + "'";
             rs = dataHelper.executeQueryRead(sql);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener los datos del paquete: " + e.getMessage());

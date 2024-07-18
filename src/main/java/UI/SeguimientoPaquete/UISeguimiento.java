@@ -48,7 +48,7 @@ public class UISeguimiento extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Id Paquete", "Origen", "Origen", "Destino", "Estado"
+                "Id Paquete", "Tracking Number", "Origen", "Destino", "Estado"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -72,9 +72,9 @@ public class UISeguimiento extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jLabel2)
-                        .addGap(34, 34, 34)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
@@ -140,8 +140,7 @@ public class UISeguimiento extends javax.swing.JPanel {
                 while (rs.next()) {
                     Object[] row = {
                         rs.getInt("idPaquete"),
-                        rs.getString("Origen"),
-                        rs.getString("Destino"),
+                        rs.getInt("trackingNumber"),
                         rs.getString("sucursalAceptoPaquete"),
                         rs.getString("sucursalParaRecoger"),
                         rs.getString("estado")

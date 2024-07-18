@@ -44,7 +44,7 @@ public class Envio {
         DataHelper dataHelper;
         try {
             dataHelper = DataHelper.getInstancia();
-            String sql = "UPDATE Paquete SET estado = '" + estado + "' WHERE idPaquete = " + idPaquete;
+            String sql = "UPDATE PAQUETES SET estado = '" + estado + "' WHERE idPaquete = " + idPaquete;
             int result = dataHelper.executeQueryInsertUpdateDelete(sql);
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Estado del paquete actualizado a " + estado);
@@ -60,7 +60,7 @@ public class Envio {
         int idPaquete = -1;
         try {
             dataHelper = DataHelper.getInstancia();
-            String sql = "SELECT idPaquete FROM Paquete WHERE estado = '" + criterio + "'";
+            String sql = "SELECT idPaquete FROM PAQUETES WHERE estado = '" + criterio + "'";
             ResultSet rs = dataHelper.executeQueryRead(sql);
             if (rs.next()) {
                 idPaquete = rs.getInt("idPaquete");

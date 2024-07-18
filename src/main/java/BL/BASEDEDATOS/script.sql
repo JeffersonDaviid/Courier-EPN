@@ -27,7 +27,7 @@ CREATE TABLE Vehiculo (
     --FOREIGN KEY (ruta) REFERENCES Ruta(id)
 );
 
-CREATE TABLE Ruta (
+CREATE TABLE Rutas (
     id_Ruta INTEGER PRIMARY KEY AUTOINCREMENT,
     sector TEXT NOT NULL,
     direccion TEXT NOT NULL
