@@ -12,13 +12,19 @@ import BL.BASEDEDATOS.DataHelper;
 public class Factura {
     private int idFactura;
     private int idPaquete;
+    private String trackingNumber;
     private String nombreRemitente;
     private String correoRemitente;
     private String telefonoRemitente;
     private String nombreDestinatario;
     private String correoDestinatario;
     private String telefonoDestinatario;
-    private static String fecha = String.format("%tF %tT", new java.util.Date(), new java.util.Date());;
+    private static String fecha = String.format("%tF %tT", new java.util.Date(), new java.util.Date());
+    private String sucursalAceptoPaquete;
+    private String sucursalParaRecoger;
+    private String domicilio;
+    private Float peso;
+    private String tamanio;
     private float subtotal;
     private static float iva;
     private float ivaPorcentaje;
@@ -37,9 +43,13 @@ public class Factura {
      * @param total
      * @param descripcionTarifa
      */
-    public Factura(int idFactura, int idPaquete,String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String fecha, float subtotal,float iva, float ivaPorcentaje, double total, String descripcionTarifa) {
+    public Factura(int idFactura, int idPaquete, String trackingNumber, String nombreRemitente, String correoRemitente,
+            String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario,
+            String fecha, String sucursalAceptoPaquete, String sucursalParaRecoger, String domicilio, float peso,
+            String tamanio, float subtotal, float iva, float ivaPorcentaje, double total, String descripcionTarifa) {
         this.idFactura = idFactura;
         this.idPaquete = idPaquete;
+        this.trackingNumber = trackingNumber;
         this.telefonoDestinatario = nombreRemitente;
         this.nombreRemitente = correoRemitente;
         this.telefonoRemitente = telefonoRemitente;
@@ -47,6 +57,11 @@ public class Factura {
         this.correoDestinatario = correoDestinatario;
         this.telefonoDestinatario = telefonoDestinatario;
         Factura.fecha = fecha;
+        this.sucursalAceptoPaquete = sucursalAceptoPaquete;
+        this.sucursalParaRecoger = sucursalParaRecoger;
+        this.domicilio = domicilio;
+        this.peso = peso;
+        this.tamanio = tamanio;
         this.subtotal = subtotal;
         Factura.iva = iva;
         this.ivaPorcentaje = ivaPorcentaje;
@@ -54,13 +69,12 @@ public class Factura {
         this.descripcionTarifa = descripcionTarifa;
     }
 
-    public static void guardarFactura( int idPaquete, float subtotal, double total,
-            String descripcionTarifa) {
+    public static void guardarFactura(int idPaquete, float subtotal, double total, String descripcionTarifa) {
         cargarIva();
         int rs = -1;
 
         String sql = "INSERT INTO FACTURAS ( idPaquete, fecha, subtotal, iva, ivaPorcentaje, total, descripcionTarifa) VALUES ("
-                  + idPaquete + ", '" + fecha + "', " + subtotal + ", " + (subtotal * iva) + ", "
+                + idPaquete + ", '" + fecha + "', " + subtotal + ", " + (subtotal * iva) + ", "
                 + iva + ", " + total + ", '" + descripcionTarifa + "')";
 
         try {
@@ -82,7 +96,7 @@ public class Factura {
     public static Factura obtenerFactura(int idFactura, String idPaquete) {
         Factura factura = null;
         String sql = String.format(
-                "SELECT * FROM FACTURAS fa JOIN CLIENTES cl on fa.correoCliente = cl.correoCliente WHERE idFactura = %d OR idPaquete = %d",
+                "SELECT * FROM FACTURAS fa JOIN PAQUETES pa on fa.idPaquete = pa.idPaquete WHERE fa.idFactura = %d OR fa.idPaquete = %d",
                 idFactura, idPaquete);
 
         try {
@@ -91,6 +105,7 @@ public class Factura {
                 factura = new Factura(
                         rs.getInt("idFactura"),
                         rs.getInt("idPaquete"),
+                        rs.getString("trackingNumber"),
                         rs.getString("nombreRemitente"),
                         rs.getString("correoRemitente"),
                         rs.getString("telefonoRemitente"),
@@ -98,6 +113,11 @@ public class Factura {
                         rs.getString("correoDestinatario"),
                         rs.getString("telefonoDestinatario"),
                         rs.getString("fecha"),
+                        rs.getString("sucursalAceptoPaquete"),
+                        rs.getString("sucursalParaRecoger"),
+                        rs.getString("domicilio"),
+                        rs.getFloat("peso"),
+                        rs.getString("tamanio"),
                         rs.getFloat("subtotal"),
                         rs.getFloat("iva"),
                         rs.getFloat("ivaPorcentaje"),
@@ -110,19 +130,20 @@ public class Factura {
                     JOptionPane.ERROR_MESSAGE);
         }
 
-        // mostrar factura en pantalla
-        if (factura != null) {
-            String message = "<html><body>"
-                    + "ID Factura: " + factura.idFactura + "<br>"
-                    + "ID Paquete: " + factura.idPaquete + "<br>"
-                    + "Fecha: " + Factura.fecha + "<br>"
-                    + "Subtotal: " + factura.subtotal + "<br>"
-                    + "IVA (" + factura.ivaPorcentaje + "%): " + Factura.iva + "<br>"
-                    + "Total: " + factura.total + "<br>"
-                    + "Descripcion de la tarifa: " + factura.descripcionTarifa + "<br>"
-                    + "</body></html>";
-            JOptionPane.showMessageDialog(null, message, "Factura", JOptionPane.INFORMATION_MESSAGE);
-        }
+        // // mostrar factura en pantalla
+        // if (factura != null) {
+        // String message = "<html><body>"
+        // + "ID Factura: " + factura.idFactura + "<br>"
+        // + "ID Paquete: " + factura.idPaquete + "<br>"
+        // + "Fecha: " + Factura.fecha + "<br>"
+        // + "Subtotal: " + factura.subtotal + "<br>"
+        // + "IVA (" + factura.ivaPorcentaje + "%): " + Factura.iva + "<br>"
+        // + "Total: " + factura.total + "<br>"
+        // + "Descripcion de la tarifa: " + factura.descripcionTarifa + "<br>"
+        // + "</body></html>";
+        // JOptionPane.showMessageDialog(null, message, "Factura",
+        // JOptionPane.INFORMATION_MESSAGE);
+        // }
 
         return factura;
     }
@@ -142,7 +163,6 @@ public class Factura {
     public int getIdFactura() {
         return idFactura;
     }
-
 
     public int getIdPaquete() {
         return idPaquete;
@@ -171,7 +191,7 @@ public class Factura {
     public String getDescripcionTarifa() {
         return descripcionTarifa;
     }
-    
+
     public String getNombreRemitente() {
         return nombreRemitente;
     }
@@ -194,6 +214,30 @@ public class Factura {
 
     public String getTelefonoDestinatario() {
         return telefonoDestinatario;
+    }
+
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public String getSucursalAceptoPaquete() {
+        return sucursalAceptoPaquete;
+    }
+
+    public String getSucursalParaRecoger() {
+        return sucursalParaRecoger;
+    }
+
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public Float getPeso() {
+        return peso;
+    }
+
+    public String getTamanio() {
+        return tamanio;
     }
 
 }

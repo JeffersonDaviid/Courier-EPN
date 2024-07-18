@@ -10,15 +10,16 @@ public abstract class Tarifa {
 
     private float subtotal;
     private float total;
-    private float iva;
+    private float ivaPorcentaje;
 
     private String descripcionTarifa;
 
     public abstract void calcularPrecioEnvio();
 
     public void mostrarCostoEnvio() {
+        String total = String.format("%.2f", getTotal());
         String message = "<html><body>"
-                + "Costo de envio total: " + getTotal() + "<br>"
+                + "Costo de envio total: " + total + "<br>"
                 + "</body></html>";
         JOptionPane.showMessageDialog(null, message, "Descripcion del envio", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -33,11 +34,11 @@ public abstract class Tarifa {
                     "Error al cargar el archivo de propiedades: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        iva = Float.parseFloat(props.getProperty("IVA"));
+        ivaPorcentaje = Float.parseFloat(props.getProperty("IVA"));
     }
 
-    public float getIva() {
-        return iva;
+    public float getIvaPorcentaje() {
+        return ivaPorcentaje;
     }
 
     public float getSubtotal() {
