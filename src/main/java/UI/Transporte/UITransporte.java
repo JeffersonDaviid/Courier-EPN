@@ -37,8 +37,6 @@ public class UITransporte extends javax.swing.JPanel {
         Panel_InfoCamion = new javax.swing.JPanel();
         ImgCamion = new javax.swing.JLabel();
         TxtCamion = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TablaInfoCamionTransporte = new javax.swing.JTable();
         BtnActualizar = new javax.swing.JButton();
         TxtInventario = new javax.swing.JLabel();
         TablaInventario = new javax.swing.JScrollPane();
@@ -57,36 +55,18 @@ public class UITransporte extends javax.swing.JPanel {
         TxtCamion.setForeground(new java.awt.Color(255, 255, 255));
         TxtCamion.setText("CAMIÓN");
 
-        TablaInfoCamionTransporte.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID_Camion", "Modelo", "Marca", "Disponible"
-            }
-        ));
-        jScrollPane1.setViewportView(TablaInfoCamionTransporte);
-
         javax.swing.GroupLayout Panel_InfoCamionLayout = new javax.swing.GroupLayout(Panel_InfoCamion);
         Panel_InfoCamion.setLayout(Panel_InfoCamionLayout);
         Panel_InfoCamionLayout.setHorizontalGroup(
             Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
                 .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImgCamion)
                     .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ImgCamion)
-                            .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(TxtCamion))))
-                    .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addGap(15, 15, 15)
+                        .addComponent(TxtCamion)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         Panel_InfoCamionLayout.setVerticalGroup(
             Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,8 +75,6 @@ public class UITransporte extends javax.swing.JPanel {
                 .addComponent(ImgCamion)
                 .addGap(28, 28, 28)
                 .addComponent(TxtCamion)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -300,13 +278,11 @@ public class UITransporte extends javax.swing.JPanel {
     private javax.swing.JLabel ImgCamion;
     private javax.swing.JPanel Panel_InfoCamion;
     private javax.swing.JScrollPane TablaCargarPaquete;
-    private javax.swing.JTable TablaInfoCamionTransporte;
     private javax.swing.JScrollPane TablaInventario;
     private javax.swing.JTable TablaListaInventario;
     private javax.swing.JTable TablaListaInventarioCamion;
     private javax.swing.JLabel TxtCamion;
     private javax.swing.JLabel TxtInventario;
     private javax.swing.JLabel TxtInventario1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

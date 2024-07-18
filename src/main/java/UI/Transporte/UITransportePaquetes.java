@@ -42,8 +42,6 @@ public class UITransportePaquetes extends javax.swing.JPanel {
         ImgCamionTUIP = new javax.swing.JLabel();
         txtCamionTUIP = new javax.swing.JLabel();
         txtCapacidadP = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TablaInfoCamionTransportePaquete = new javax.swing.JTable();
         txtCamionP = new javax.swing.JLabel();
         TablaEntregarPaquete = new javax.swing.JScrollPane();
         TablaListaInventarioCamion = new javax.swing.JTable();
@@ -63,19 +61,6 @@ public class UITransportePaquetes extends javax.swing.JPanel {
         txtCapacidadP.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         txtCapacidadP.setForeground(new java.awt.Color(255, 255, 255));
 
-        TablaInfoCamionTransportePaquete.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID_Camion", "Modelo", "Marca", "Disponible"
-            }
-        ));
-        jScrollPane1.setViewportView(TablaInfoCamionTransportePaquete);
-
         javax.swing.GroupLayout PanelFondoTUIPLayout = new javax.swing.GroupLayout(PanelFondoTUIP);
         PanelFondoTUIP.setLayout(PanelFondoTUIPLayout);
         PanelFondoTUIPLayout.setHorizontalGroup(
@@ -93,10 +78,6 @@ public class UITransportePaquetes extends javax.swing.JPanel {
                 .addGap(137, 137, 137)
                 .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoTUIPLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
         );
         PanelFondoTUIPLayout.setVerticalGroup(
             PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,8 +86,6 @@ public class UITransportePaquetes extends javax.swing.JPanel {
                 .addComponent(ImgCamionTUIP)
                 .addGap(39, 39, 39)
                 .addComponent(txtCamionTUIP)
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88))
@@ -246,11 +225,9 @@ public class UITransportePaquetes extends javax.swing.JPanel {
     private javax.swing.JLabel ImgCamionTUIP;
     private javax.swing.JPanel PanelFondoTUIP;
     private javax.swing.JScrollPane TablaEntregarPaquete;
-    private javax.swing.JTable TablaInfoCamionTransportePaquete;
     private javax.swing.JTable TablaListaInventarioCamion;
     private javax.swing.JButton btnEntregarPaquetes;
     private javax.swing.JToggleButton btnRefresh;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel txtCamionP;
     private javax.swing.JLabel txtCamionTUIP;
     private javax.swing.JLabel txtCapacidadP;

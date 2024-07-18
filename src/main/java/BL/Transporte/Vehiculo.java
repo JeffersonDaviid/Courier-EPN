@@ -144,11 +144,11 @@ public class Vehiculo {
     }
 
     // Método para verificar la disponibilidad del vehículo
-    public void verificarDisponibilidad() {
+    /*public void verificarDisponibilidad() {
         if (disponibilidad == 0) {
             JOptionPane.showMessageDialog(null, "El vehículo no está disponible");
         }
-    }
+    }*/
 
     // Método para listar los vehículos según la disponibilidad en la BD
     public List<Vehiculo> listarVehiculos(int disponibilidad) {
