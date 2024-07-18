@@ -40,12 +40,14 @@ public class UITransportePaquetes extends javax.swing.JPanel {
 
         PanelFondoTUIP = new javax.swing.JPanel();
         ImgCamionTUIP = new javax.swing.JLabel();
-        txtCamion = new javax.swing.JLabel();
+        txtModelo = new javax.swing.JLabel();
         txtCamionTUIP = new javax.swing.JLabel();
         txtMarca = new javax.swing.JLabel();
-        txtModeloP = new javax.swing.JLabel();
-        txtMarcaP = new javax.swing.JLabel();
+        txtModeloPaquete = new javax.swing.JLabel();
+        txtMarcaPaquete = new javax.swing.JLabel();
         txtCapacidadP = new javax.swing.JLabel();
+        TxtDisponible = new javax.swing.JLabel();
+        txtDisponiblePaquete = new javax.swing.JLabel();
         txtCamionP = new javax.swing.JLabel();
         TablaEntregarPaquete = new javax.swing.JScrollPane();
         TablaListaInventarioCamion = new javax.swing.JTable();
@@ -57,9 +59,9 @@ public class UITransportePaquetes extends javax.swing.JPanel {
 
         ImgCamionTUIP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Transporte/Imagenes/camion.jpg"))); // NOI18N
 
-        txtCamion.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        txtCamion.setForeground(new java.awt.Color(255, 255, 255));
-        txtCamion.setText("MODELO");
+        txtModelo.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        txtModelo.setForeground(new java.awt.Color(255, 255, 255));
+        txtModelo.setText("MODELO");
 
         txtCamionTUIP.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
         txtCamionTUIP.setForeground(new java.awt.Color(255, 255, 255));
@@ -69,36 +71,30 @@ public class UITransportePaquetes extends javax.swing.JPanel {
         txtMarca.setForeground(new java.awt.Color(255, 255, 255));
         txtMarca.setText("MARCA");
 
-        txtModeloP.setBackground(new java.awt.Color(255, 255, 255));
-        txtModeloP.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        txtModeloP.setForeground(new java.awt.Color(255, 255, 255));
+        txtModeloPaquete.setBackground(new java.awt.Color(255, 255, 255));
+        txtModeloPaquete.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtModeloPaquete.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtMarcaP.setBackground(new java.awt.Color(255, 255, 255));
-        txtMarcaP.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        txtMarcaP.setForeground(new java.awt.Color(255, 255, 255));
+        txtMarcaPaquete.setBackground(new java.awt.Color(255, 255, 255));
+        txtMarcaPaquete.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtMarcaPaquete.setForeground(new java.awt.Color(255, 255, 255));
 
         txtCapacidadP.setBackground(new java.awt.Color(255, 255, 255));
         txtCapacidadP.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         txtCapacidadP.setForeground(new java.awt.Color(255, 255, 255));
 
+        TxtDisponible.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        TxtDisponible.setForeground(new java.awt.Color(255, 255, 255));
+        TxtDisponible.setText("Disponible");
+
+        txtDisponiblePaquete.setBackground(new java.awt.Color(255, 255, 255));
+        txtDisponiblePaquete.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtDisponiblePaquete.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout PanelFondoTUIPLayout = new javax.swing.GroupLayout(PanelFondoTUIP);
         PanelFondoTUIP.setLayout(PanelFondoTUIPLayout);
         PanelFondoTUIPLayout.setHorizontalGroup(
             PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
-                .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(txtMarca))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoTUIPLayout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(txtCamion)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtModeloP, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMarcaP, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoTUIPLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,6 +104,23 @@ public class UITransportePaquetes extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoTUIPLayout.createSequentialGroup()
                         .addComponent(ImgCamionTUIP)
                         .addGap(70, 70, 70))))
+            .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
+                .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TxtDisponible)
+                    .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
+                            .addGap(67, 67, 67)
+                            .addComponent(txtMarca))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoTUIPLayout.createSequentialGroup()
+                            .addGap(57, 57, 57)
+                            .addComponent(txtModelo))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtModeloPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMarcaPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDisponiblePaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         PanelFondoTUIPLayout.setVerticalGroup(
             PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,12 +133,16 @@ public class UITransportePaquetes extends javax.swing.JPanel {
                         .addComponent(txtCamionTUIP)
                         .addGap(34, 34, 34)
                         .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCamion)
-                            .addComponent(txtModeloP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtModelo)
+                            .addComponent(txtModeloPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addComponent(txtMarca))
-                    .addComponent(txtMarcaP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
+                    .addComponent(txtMarcaPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TxtDisponible)
+                    .addComponent(txtDisponiblePaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88))
         );
@@ -265,14 +282,16 @@ public class UITransportePaquetes extends javax.swing.JPanel {
     private javax.swing.JPanel PanelFondoTUIP;
     private javax.swing.JScrollPane TablaEntregarPaquete;
     private javax.swing.JTable TablaListaInventarioCamion;
+    private javax.swing.JLabel TxtDisponible;
     private javax.swing.JButton btnEntregarPaquetes;
     private javax.swing.JToggleButton btnRefresh;
-    private javax.swing.JLabel txtCamion;
     private javax.swing.JLabel txtCamionP;
     private javax.swing.JLabel txtCamionTUIP;
     private javax.swing.JLabel txtCapacidadP;
+    private javax.swing.JLabel txtDisponiblePaquete;
     private javax.swing.JLabel txtMarca;
-    private javax.swing.JLabel txtMarcaP;
-    private javax.swing.JLabel txtModeloP;
+    private javax.swing.JLabel txtMarcaPaquete;
+    private javax.swing.JLabel txtModelo;
+    private javax.swing.JLabel txtModeloPaquete;
     // End of variables declaration//GEN-END:variables
 }
