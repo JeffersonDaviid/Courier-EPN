@@ -5,6 +5,7 @@
  */
 package UI.Administracion;
 
+import BL.Administracion.Administrador;
 import BL.Administracion.Perfil;
 import UI.Administracion.views.*;
 import java.awt.BorderLayout;
@@ -23,13 +24,13 @@ import javax.swing.JPanel;
 public class AdminMenuPrincipal extends javax.swing.JFrame {
 
     private VentanaLogin login;
-    private Perfil perfil;
+    private Administrador perfil;
     /**
      * Creates new form Dashboard
      * @param ventanaLogin
      * @param perfil
      */
-    public AdminMenuPrincipal(VentanaLogin ventanaLogin, Perfil perfil) {
+    public AdminMenuPrincipal(VentanaLogin ventanaLogin, Administrador perfil) {
         this.login = ventanaLogin;
         this.perfil = perfil;
         initComponents();
