@@ -9,14 +9,16 @@ import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Estado;
 import BL.GestionPaquete.Paquete;
 
-public class CamionEntrega {
+public class CamionEntrega extends Camion {
 
-    private ArrayList<Paquete> paquetesCamion = new ArrayList<>();
-
-    public CamionEntrega() {
+    public CamionEntrega(String placa, String modelo, String marca, int capacidadCarga, int disponibilidad,
+            String agencia) {
+        super(placa, modelo, marca, capacidadCarga, disponibilidad, agencia);
     }
 
     public void cargarPaquete(String id) {
+        ArrayList<Paquete> paquetesCamion = new ArrayList<>();
+        paquetesCamion = super.getPaquetesCamion();
         Inventario inventario = Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario();
         for (Paquete p : inventario.getPaquetesParaEnvioDomicilio()) {
             if (p.getId().equals(id)) {
@@ -27,9 +29,12 @@ public class CamionEntrega {
                 return;
             }
         }
+        super.setPaquetesCamion(paquetesCamion);
     }
 
     public void entregarPaquete(String id) {
+        ArrayList<Paquete> paquetesCamion = new ArrayList<>();
+        paquetesCamion = super.getPaquetesCamion();
         for (Paquete p : paquetesCamion) {
             if (p.getId().equals(id)) {
                 Estado estado = new Estado("Entregado");
@@ -40,10 +45,6 @@ public class CamionEntrega {
                 return;
             }
         }
+        super.setPaquetesCamion(paquetesCamion);
     }
-
-    public ArrayList<Paquete> getPaquetesCamion() {
-        return paquetesCamion;
-    }
-
 }

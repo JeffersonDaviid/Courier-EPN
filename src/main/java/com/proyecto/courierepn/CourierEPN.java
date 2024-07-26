@@ -16,6 +16,7 @@ public class CourierEPN {
 
         int opcion = 0;
         String idPaquete = "";
+        int indexCamion = 0;
 
         while (login()) {
 
@@ -78,42 +79,46 @@ public class CourierEPN {
 
                     case 6:
                         idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
+                        indexCamion = Integer.parseInt(JOptionPane.showInputDialog("ingrese indice del camion"));
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesCarga().get(indexCamion)
                                 .cargarPaquete(idPaquete);
 
                         mostrarPaquetes(
-                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
+                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesCarga().get(indexCamion)
                                         .getPaquetesCamion(),
                                 "Camion de carga");
                         break;
 
                     case 7:
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga().descargarPaquete();
+                        indexCamion = Integer.parseInt(JOptionPane.showInputDialog("ingrese indice del camion"));
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesCarga().get(indexCamion).descargarPaquete();
 
                         mostrarPaquetes(
-                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
+                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesCarga().get(indexCamion)
                                         .getPaquetesCamion(),
                                 "Camion de carga");
                         break;
 
                     case 8:
+                        indexCamion = Integer.parseInt(JOptionPane.showInputDialog("ingrese indice del camion"));
                         idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesEntrega().get(indexCamion)
                                 .cargarPaquete(idPaquete);
 
                         mostrarPaquetes(
-                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
+                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesEntrega().get(indexCamion)
                                         .getPaquetesCamion(),
                                 "Camion de entrega");
                         break;
 
                     case 9:
                         idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
+                        indexCamion = Integer.parseInt(JOptionPane.showInputDialog("ingrese indice del camion"));
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesEntrega().get(indexCamion)
                                 .entregarPaquete(idPaquete);
 
                         mostrarPaquetes(
-                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
+                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesEntrega().get(indexCamion)
                                         .getPaquetesCamion(),
                                 "Camion de entrega");
                         break;
@@ -133,7 +138,7 @@ public class CourierEPN {
                         idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
                         String destino = JOptionPane.showInputDialog("ingrese agencia destino del paquete");
                         Seguimiento s = new Seguimiento();
-                        s.verEstadoPaquete(idPaquete, destino);
+                        s.verEstadoPaquete(idPaquete, destino, indexCamion);
                         break;
                     case 12:
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarHistorial();

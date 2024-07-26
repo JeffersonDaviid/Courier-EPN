@@ -10,7 +10,7 @@ public class Seguimiento {
     public Seguimiento() {
     }
 
-    public void verEstadoPaquete(String id, String destino) {
+    public void verEstadoPaquete(String id, String destino, int indiceCamion) {
         Paquete paquete = null;
         // BUSQUEDA EN DESTINO
 
@@ -35,7 +35,7 @@ public class Seguimiento {
         }
 
         // buscar en camion carga
-        for (Paquete p : Global.getInstancia().buscarAgencia(destino).getCamionCarga()
+        for (Paquete p : Global.getInstancia().buscarAgencia(destino).getCamionesCarga().get(indiceCamion)
                 .getPaquetesCamion()) {
 
             if (p.getId().equals(id)) {
@@ -45,7 +45,7 @@ public class Seguimiento {
         }
 
         // buscar en camion entrega
-        for (Paquete p : Global.getInstancia().buscarAgencia(destino).getCamionEntrega()
+        for (Paquete p : Global.getInstancia().buscarAgencia(destino).getCamionesEntrega().get(indiceCamion)
                 .getPaquetesCamion()) {
             if (p.getId().equals(id)) {
                 paquete = p;
@@ -77,7 +77,7 @@ public class Seguimiento {
             }
 
             // buscar en camion carga
-            for (Paquete p : Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
+            for (Paquete p : Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesCarga().get(indiceCamion)
                     .getPaquetesCamion()) {
 
                 if (p.getId().equals(id)) {
@@ -87,7 +87,7 @@ public class Seguimiento {
             }
 
             // buscar en camion entrega
-            for (Paquete p : Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
+            for (Paquete p : Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionesEntrega().get(indiceCamion)
                     .getPaquetesCamion()) {
                 if (p.getId().equals(id)) {
                     paquete = p;
