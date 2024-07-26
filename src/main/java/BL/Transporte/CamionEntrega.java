@@ -1,13 +1,49 @@
 package BL.Transporte;
 
-import java.util.List;
+import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import BL.Administracion.Global;
+import BL.Almacenamiento.Inventario;
+import BL.GestionPaquete.Estado;
 import BL.GestionPaquete.Paquete;
 
-public class CamionEntrega extends Vehiculo {
+public class CamionEntrega {
 
-    public CamionEntrega(String modelo, String marca, int capacidadCarga, int disponibilidad,
-            List<Paquete> paquetes, int ruta) {
-        super(modelo, marca, capacidadCarga, disponibilidad, paquetes, ruta);
+    private ArrayList<Paquete> paquetesCamion = new ArrayList<>();
+
+    public CamionEntrega() {
     }
+
+    public void cargarPaquete(String id) {
+        Inventario inventario = Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario();
+        for (Paquete p : inventario.getPaquetesParaEnvioDomicilio()) {
+            if (p.getId().equals(id)) {
+                paquetesCamion.add(inventario.retirarPaquete(id));
+                p.agregarEstado(new Estado("En camino a domicilio"));
+                JOptionPane.showMessageDialog(null,
+                        "El paquete " + p.getId() + " ha sido cargado al camion de entregas");
+                return;
+            }
+        }
+    }
+
+    public void entregarPaquete(String id) {
+        for (Paquete p : paquetesCamion) {
+            if (p.getId().equals(id)) {
+                Estado estado = new Estado("Entregado");
+                p.agregarEstado(estado);// tambien en la base de datos
+
+                // paquetesCamion.remove(p); // COMENTADO PARA PRUEBAS
+                JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " ha sido entregado");
+                return;
+            }
+        }
+    }
+
+    public ArrayList<Paquete> getPaquetesCamion() {
+        return paquetesCamion;
+    }
+
 }

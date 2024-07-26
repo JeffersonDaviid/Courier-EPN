@@ -1,35 +1,24 @@
 package BL.Almacenamiento;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
-import java.time.temporal.ChronoUnit;
-
+import java.util.Map;
 
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
+import BL.Administracion.Global;
+import BL.GestionPaquete.Estado;
 import BL.GestionPaquete.Paquete;
-import BL.BASEDEDATOS.*;
+import BL.GestionPaquete.Recepcion;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.time.format.DateTimeParseException;
-
-/**
- *
- * @author BugsBusters
- */
 public class Inventario {
-    private ArrayList<Integer> idPaquetes;
-    private ArrayList<Integer> idPaquetesRetiros;
-    private Map<String,Paquete> paquetes;
+    private Recepcion recepcion;
+    private Map<String, Paquete> paquetesAlmacenados;
+    private Map<String, Paquete> paquetesParaCargaSucursal;
+    private Map<String, Paquete> paquetesParaCargaDomicilio;
     private int capacidadTotal;
     private int capacidadOcupada;
     private Historial historial;
@@ -38,366 +27,211 @@ public class Inventario {
     private final int CAPACIDAD_PAQUETE_MEDIANO = 2;
     private final int CAPACIDAD_PAQUETE_GRANDE = 3;
 
-    public Inventario(){
+    public Inventario() {
         this.tiempoMaximo = 15;
-        this.capacidadTotal = 500;
-        this.idPaquetes = getIdPaquetesAlmacenados();
-        this.paquetes = getPaquetesAlmacenados();
-        this.idPaquetesRetiros = getPaquetesParaRetiro();
+        this.capacidadTotal = 100;
+        this.paquetesAlmacenados = new HashMap<String, Paquete>();
+        this.paquetesParaCargaSucursal = new HashMap<String, Paquete>();
+        this.paquetesParaCargaDomicilio = new HashMap<String, Paquete>();
         this.capacidadOcupada = calcularCapacidadOcupada();
         this.historial = new Historial();
     }
 
-    private ArrayList<Integer> getPaquetesParaRetiro() {
-        ArrayList<Integer> paquetes = new ArrayList<>();
-        String sql = "SELECT idPaquete FROM Paquetes WHERE estado LIKE 'Listo para retiro'";
-        try {
-            DataHelper dataHelper = DataHelper.getInstancia();
-            ResultSet rs = dataHelper.executeQueryRead(sql);
-    
-            while (rs.next()) {
-                int idPaquete = rs.getInt("idPaquete");
-                paquetes.add(idPaquete);
+    //
+    public void agregarPaqueteDeRecepcion(String id) {
+        recepcion = Global.getInstancia().buscarAgencia(Global.agenciaActual).getRecepcion();
+        for (Paquete p : recepcion.getPaquetesRecepcion()) {
+            if (p.getId().equals(id)) {
+                int capacidadPaquete = clasificarCapacidad(p.getTamanio());
+                // Verifica que hay espacio suficiente en el inventario
+                if (!hayEspacioSuficiente(capacidadPaquete)) {
+                    notificarCapacidadCompleta();
+                    return;
+                }
+                p.agregarEstado(new Estado("En bodega agencia remitente"));
+                paquetesAlmacenados.put(p.getId(), p);
+                ingresarRegistro(p, capacidadPaquete);
+                recepcion.eliminarPaquete(p);
+                return;
             }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
-        return paquetes;
+        JOptionPane.showMessageDialog(null, "El paquete no existe o no esta en recepcion");
+
     }
 
-    private Map<String, Paquete> getPaquetesAlmacenados() {
-        Map<String,Paquete> paquetes = new HashMap<>();
-        String sql = "SELECT * FROM Paquetes WHERE estado = 'recibido'";
-        try {
-            DataHelper dataHelper = DataHelper.getInstancia();
-            ResultSet rs = dataHelper.executeQueryRead(sql);
-
-            while (rs.next()) {
-                int idPaquete = rs.getInt("idPaquete");
-                String trackingNumber = rs.getString("trackingNumber");
-                float peso = rs.getFloat("peso");
-                String tamanio = rs.getString("tamanio");
-                String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
-                String fechaHoraSalida = rs.getString("fechaHoraSalida");
-                String nombreRemitente = rs.getString("nombreRemitente");
-                String correoRemitente = rs.getString("correoRemitente");
-                String telefonoRemitente = rs.getString("telefonoRemitente");
-                String nombreDestinatario = rs.getString("nombreDestinatario");
-                String correoDestinatario = rs.getString("correoDestinatario");
-                String telefonoDestinatario = rs.getString("telefonoDestinatario");
-                String tipoEnvio = rs.getString("tipoEnvio");
-                String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
-                String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
-                String estado = rs.getString("estado");
-                String domicilio = rs.getString("domicilio");
-                
-                paquetes.put(String.valueOf(idPaquete),new Paquete(idPaquete, peso, tamanio, fechaHoraLlegada, 
-                fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario,
-                correoDestinatario, telefonoDestinatario, tipoEnvio, sucursalAceptoPaquete, sucursalParaRecoger, trackingNumber, estado, 12, domicilio));
-            }   
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return paquetes;
-    }
-
-    //Método que obtiene los id's de los paquetes que estan en la base de datos
-    private ArrayList<Integer> getIdPaquetesAlmacenados() {
-        ArrayList<Integer> paquetes = new ArrayList<>();
-        String sql = "SELECT idPaquete FROM Paquetes WHERE estado LIKE 'En bodega'";
-        try {
-            DataHelper dataHelper = DataHelper.getInstancia();
-            ResultSet rs = dataHelper.executeQueryRead(sql);
-    
-            while (rs.next()) {
-                int idPaquete = rs.getInt("idPaquete");
-                paquetes.add(idPaquete);
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return paquetes;
-    }
-
-    //Método que calcula la capacidad ocupada por los paquetes ya almacenados en la bodega
-    private int calcularCapacidadOcupada() {
-        int capacidad = 0;
-        for (Integer id : idPaquetes) {
-            capacidad += clasificarCapacidad(obtenerTamanioPaquetesBase(String.valueOf(id)));
-        }
-        return capacidad;
-    }
-
-    private String obtenerTamanioPaquetesBase(String idPaquete) {
-        //La consulta con el id
-        String sql = "SELECT tamanio FROM Paquetes WHERE idPaquete= "+idPaquete+"";
-        String tamanio = null;
-        try {
-        DataHelper dataHelper = DataHelper.getInstancia();
-        ResultSet rs = dataHelper.executeQueryRead(sql);
-
-        if (rs.next()) {
-            tamanio = rs.getString("tamanio");
-        }
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
-    }
-    return tamanio;
-    }
-
-    //Metodo que registra un paquete que se ha recibido la agencia
-    public void registrarPaquete(String idPaquete){
-        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
-        //Si no hay espacio para ingresar el paquete, se notifica y termina elmetodo
-        if(!hayEspacioSuficiente(capacidadPaquete)){
-            notificarCapacidadCompleta();
-            return;
-        }
-        //Si existe espacio suficiente, se ingresa a la bodega y se crea el registro
-        idPaquetes.add(Integer.parseInt(idPaquete));
-        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.INGRESO));
-        JOptionPane.showMessageDialog(null, "registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
-        actualizar(capacidadPaquete);
-        //Cambiar estado del paquete a "En bodega"
-        actualizarEstadoPaquete(idPaquete,"En Bodega");
-    }
-
-    public void registrarPaquete(Paquete paquete){
+    public void agregarPaqueteDeCamionCarga(Paquete paquete) {
         int capacidadPaquete = clasificarCapacidad(paquete.getTamanio());
-        //Si no hay espacio para ingresar el paquete, se notifica y termina elmetodo
-        if(!hayEspacioSuficiente(capacidadPaquete)){
+        // Verifica que hay espacio suficiente en el inventario
+        if (!hayEspacioSuficiente(capacidadPaquete)) {
             notificarCapacidadCompleta();
             return;
         }
-        //Si existe espacio suficiente, se ingresa a la bodega y se crea el registro
-        paquetes.put(String.valueOf(paquete.getId_paquete()), paquete);
-        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),String.valueOf(paquete.getId_paquete()),TipoRegistro.INGRESO));
-        JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
+        paquetesAlmacenados.put(paquete.getId(), paquete);
+        paquete.agregarEstado(new Estado("En bodega agencia destino"));
+        ingresarRegistro(paquete, capacidadPaquete);
+    }
+
+    private void ingresarRegistro(Paquete paquete, int capacidadPaquete) {
+        historial.registrarRegistro(new Registro(getFecha(), "Quito", paquete.getId()));
+        JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro",
+                JOptionPane.INFORMATION_MESSAGE);
         actualizar(capacidadPaquete);
-        //Cambiar estado del paquete a "En bodega"
-        paquete.setEstado("En bodega");
-        actualizarEstadoPaquete(String.valueOf(paquete.getId_paquete()),"En Bodega");
     }
 
-    public void registrarPaqueteRetiro(String idPaquete){
-        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
-        //Si no hay espacio para ingresar el paquete, se notifica y termina elmetodo
-        if(!hayEspacioSuficiente(capacidadPaquete)){
-            notificarCapacidadCompleta();
-            return;
-        }
-        //Si existe espacio suficiente, se ingresa a la bodega y se crea el registro
-        idPaquetesRetiros.add(Integer.parseInt(idPaquete));
-        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.INGRESO));
-        JOptionPane.showMessageDialog(null, "registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
-        actualizar(capacidadPaquete);
-        //Cambiar estado del paquete a "Listo para retiro"
-        actualizarEstadoPaquete(idPaquete,"Listo para retiro");
-    }
-
-    //Método que retorna el id del paquete si se encuentra en bodega 
-    public String retirarPaquete(String idPaquete){
-        if(!idPaquetes.contains(Integer.parseInt(idPaquete))){
-            System.out.println("No contiene esta clave");
-            return null;
-        }
-        //Cambiar el estado del paquete a "Listo para retiro"
-        actualizarEstadoPaquete(idPaquete,"Entregado");
-        return idPaquete;
-    } 
-    
-    public String cargarPaquete(String idPaquete){
-        if(!idPaquetes.contains(Integer.parseInt(idPaquete))){
-            System.out.println("No contiene esta clave");
-            return null;
-        }
-        idPaquetes.removeIf(valor -> valor.equals(Integer.parseInt(idPaquete)));
-        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
-        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
-        actualizar(-capacidadPaquete);
-        //Cambiar el estado del paquete a "Listo para cargar"
-        actualizarEstadoPaquete(idPaquete,"Listo para Cargar");
-        return idPaquete;
-    }
-
-    public String retirarPaqueteRetiro(String idPaquete){
-        if(!idPaquetes.contains(Integer.parseInt(idPaquete))){
-            System.out.println("No contiene esta clave");
-            return null;
-        }
-        idPaquetes.removeIf(valor -> valor.equals(Integer.parseInt(idPaquete)));
-        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),idPaquete,TipoRegistro.SALIDA));
-        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(idPaquete));
-        actualizar(-capacidadPaquete);
-        //Cambiar el estado del paquete a "Entregado"
-        actualizarEstadoPaquete(idPaquete,"Entregado");
-        return idPaquete;
-    } 
-
-    //Método que retorna el paquete si se encuentra en bodega 
-    public Paquete retirarPaquete(int idPaquete){
-        if(!paquetes.containsKey(idPaquete)){
-            return null;
-        }
-        Paquete paquete = paquetes.remove(idPaquete);
-        historial.registrarRegistro(new Registro(getFecha(),getHora(),getAgencia(),String.valueOf(idPaquete),TipoRegistro.SALIDA));
-        int capacidadPaquete = clasificarCapacidad(obtenerTamanioPaquetesBase(String.valueOf(idPaquete)));
-        actualizar(-capacidadPaquete);
-        //Cambiar el estado del paquete a "Listo para cargar"
-        paquete.setEstado("Listo para cargar");
-        actualizarEstadoPaquete(String.valueOf(idPaquete),"Listo para cargar");
-        return paquete;
-    }
-
-    private void actualizarEstadoPaquete(String idPaquete, String estado) {
-        int rs = -1;
-        String sql = "UPDATE Paquetes SET estado = '"+ estado +"' WHERE idPaquete = " + idPaquete + ""; 
-        try {
-            rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
-
-            if (rs > 0) {
-                JOptionPane.showMessageDialog(null, "Estado actualizado con éxito", "Guardado",
-                        JOptionPane.INFORMATION_MESSAGE);
+    public void organizarPaquetes(String idPaquete) {
+        for (Paquete paquete : paquetesAlmacenados.values()) {
+            // Verifica que el paquete es para envio a otra sucursal
+            if (paquete.getId().equals(idPaquete) && !paquete.getAgenciaDestino().equals(Global.agenciaActual)) {
+                Estado estado = new Estado("Listo para envio agencia destino");
+                paquete.agregarEstado(estado);
+                paquetesParaCargaSucursal.put(paquete.getId(), paquetesAlmacenados.remove(idPaquete));
+                return;
             } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar el estado", "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println(paquete.getDomicilio());
+                // Si el paquete ya se encuentra en la sucursal de destino entonces verificamos
+                // si tiene entrega a domicilio
+                if (paquete.getDomicilio() == null) {
+                    Estado estado = new Estado("Listo para retiro de bodega");
+                    paquete.agregarEstado(estado);
+                } else {
+                    // si lo tiene se lo coloca como listo para enviar
+                    Estado estado = new Estado("Listo para envio a domicilio");
+                    paquete.agregarEstado(estado);
+                    paquetesParaCargaDomicilio.put(paquete.getId(), paquetesAlmacenados.remove(paquete.getId()));
+                }
             }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el estado: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
         }
+        mostrarInventario();
+    }
+
+    // Metodo para entregar al cliente - Llama el bodeguero
+    public void entregarPaquete(String id) {
+        if (!paquetesAlmacenados.containsKey(id)) {
+            System.out.println("Paquete no encontrado");
+            return;
+        }
+
+        Paquete paquete = paquetesAlmacenados.remove(id);
+        paquete.agregarEstado(new Estado("Entregado"));
+    }
+
+    public ArrayList<Paquete> getPaquetesInventario() {
+        ArrayList<Paquete> paquetes = new ArrayList<>();
+        paquetes.addAll(paquetesAlmacenados.values());
+        paquetes.addAll(paquetesParaCargaSucursal.values());
+        paquetes.addAll(paquetesParaCargaDomicilio.values());
+        return paquetes;
+    }
+
+    private int calcularCapacidadOcupada() {
+        int cantidadOcupada = 0;
+        for (Paquete paquete : paquetesAlmacenados.values()) {
+            cantidadOcupada += clasificarCapacidad(paquete.getTamanio());
+        }
+        return cantidadOcupada;
+    }
+
+    private int clasificarCapacidad(String tamanio) {
+        switch (tamanio) {
+            case "grande":
+                return CAPACIDAD_PAQUETE_GRANDE;
+            case "mediano":
+                return CAPACIDAD_PAQUETE_MEDIANO;
+        }
+        return CAPACIDAD_PAQUETE_PEQUENIO;
+    }
+
+    private String getFecha() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return now.format(formatter);
+    }
+
+    public void actualizar(int cantidad) {
+        capacidadOcupada += cantidad;
+    }
+
+    private void notificarCapacidadCompleta() {
+        JOptionPane.showMessageDialog(null, "Capacidad de la bodega alcanzado", "Alerta",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private boolean hayEspacioSuficiente(int capacidadPaquete) {
         return (capacidadOcupada + capacidadPaquete) < capacidadTotal;
     }
 
-    private int clasificarCapacidad(String tamanio) {
-        switch (tamanio) {
-            case "grande": 
-                return CAPACIDAD_PAQUETE_GRANDE;
-            case "mediano": 
-                return CAPACIDAD_PAQUETE_MEDIANO;
-        }
-        return CAPACIDAD_PAQUETE_GRANDE;
-    }
-    
-
-    //Metodo que actualiza la Capacidad Ocupada del Inventario
-    public void actualizar(int cantidad){
-        capacidadOcupada += cantidad;
+    public void actualizarCapacidadTotal(int capacidad) {
+        this.capacidadTotal = capacidad;
     }
 
-    public void actualizarCapacidadTotal(int nuevaCapacidad){
-        this.capacidadTotal = nuevaCapacidad;
-    }
-
-    public String calcularFechaLimite(String fechaIngreso){
-        //Calcular fecha limite para cada paquete
-        long diasRestantes = 0;
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        try{
-        LocalDate fechaIngresoDate = LocalDate.parse(fechaIngreso, formato);
-        LocalDate fechaLimite = fechaIngresoDate.plusDays(tiempoMaximo);
-        LocalDate fechaActual = LocalDate.now();
-        diasRestantes = ChronoUnit.DAYS.between(fechaActual, fechaLimite);
-        }catch (DateTimeParseException e){
+    private String calcularFechaLimite(String fechaIngreso) {
+        // Calcular fecha limite para cada paquete
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        try {
+            LocalDateTime fechaHoraActual = LocalDateTime.parse(fechaIngreso, formatter);
+            LocalDateTime fechaHoraFutura = fechaHoraActual.plusDays(15);
+            return fechaHoraFutura.format(formatter);
+        } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
-        // mandar "dias restantes" a la celda del df     
-        return String.valueOf(diasRestantes);  
+        return null;
     }
 
-    public int getCapacidadTotal(){
+    public int getCapacidadTotal() {
         return capacidadTotal;
     }
 
-    public int getCapacidadOcupada(){
+    public int getCapacidadOcupada() {
         return capacidadOcupada;
     }
 
-public DefaultTableModel mostrarPaquetes() {
-    String[] columnas = {"ID Paquete", "Origen Paquete", "Destino Paquete", "Fecha de Ingreso", "Hora Ingreso", "Fecha Limite"};
-    DefaultTableModel model = new DefaultTableModel(columnas, 0);
-    ResultSet rsPaquete = null, rsFecha = null;
-    for (int idPaquete : idPaquetes){
-        String sql_paquete = "SELECT sucursalAceptoPaquete, sucursalParaRecoger FROM Paquetes WHERE idPaquete = " + idPaquete;
-        String sql_fecha = "SELECT fecha, hora FROM Registros WHERE idPaquete = " + idPaquete + " AND tipo = 'INGRESO'";
-        try {
-            rsPaquete = DataHelper.getInstancia().executeQueryRead(sql_paquete);
-            rsFecha = DataHelper.getInstancia().executeQueryRead(sql_fecha);
+    public void consultarHistorial() {
+        historial.consultarHoy();
+    }
 
-            if (rsPaquete.next() && rsFecha.next()) {
-                Object[] fila = new Object[columnas.length];
+    public Paquete retirarPaquete(String idPaquete) {
+        Paquete paquete = null;
+        // Verifica que el paquete este en el inventario para poder retirarlo
+        if (paquetesParaCargaDomicilio.containsKey(idPaquete)) {
+            paquete = paquetesParaCargaDomicilio.remove(idPaquete);
+        } else if (paquetesParaCargaSucursal.containsKey(idPaquete)) {
+            paquete = paquetesParaCargaSucursal.remove(idPaquete);
+        } else if (paquetesAlmacenados.containsKey(idPaquete)) {
+            paquete = paquetesAlmacenados.remove(idPaquete);
+        } else {
+            System.out.println("Paquete no encontrado");
+            return null;
+        }
+        // Se guarda la fecha de salida del paquete en el registro
+        historial.getRegistro(idPaquete).setFechaSalida(getFecha());
+        actualizar(-clasificarCapacidad(paquete.getTamanio())); // Se actualiza la capacidad ocupada del inventario
+        return paquete;
+    }
 
-                // Populate data from the first query
-                fila[0] = idPaquete;
-                fila[1] = rsPaquete.getString("sucursalAceptoPaquete");
-                fila[2] = rsPaquete.getString("sucursalParaRecoger");
-
-                // Populate data from the second query
-                fila[3] = rsFecha.getString("fecha");
-                fila[4] = rsFecha.getString("hora");
-                fila[5] = calcularFechaLimite(rsFecha.getString("fecha"));
-
-                model.addRow(fila);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString());
-        } finally {
-            // Close resources to prevent resource leaks
-            try {
-                if (rsPaquete != null) rsPaquete.close();
-                if (rsFecha != null) rsFecha.close();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error closing resources: " + ex.toString());
-            }
+    public void mostrarInventario() {
+        System.out.println("------\nPaquetes Almacenados - Retiro Agencia");
+        for (Paquete paquete : paquetesAlmacenados.values()) {
+            System.out.println(paquete);
+        }
+        System.out.println("------\nPaquetes para Camion a Sucursal");
+        for (Paquete paquete : paquetesParaCargaSucursal.values()) {
+            System.out.println(paquete);
+        }
+        System.out.println("------\nPaquetes para Camion a Domicilio");
+        for (Paquete paquete : paquetesParaCargaDomicilio.values()) {
+            System.out.println(paquete);
         }
     }
-    return model;
+
+    public void mostrarPaquetes() {
+        // Algoritmo para mostrar todos los paquetes
     }
 
-    private void notificarCapacidadCompleta(){
-        JOptionPane.showMessageDialog(null, "Capacidad de la bodega alcanzado", "Alerta",JOptionPane.INFORMATION_MESSAGE);
-    } 
-
-    private String getFecha(){
-        return LocalDate.now().toString();
+    public ArrayList<Paquete> getPaquetesParaCarga() {
+        return new ArrayList<>(paquetesParaCargaSucursal.values());
     }
 
-    private String getHora(){
-        LocalTime ahora = LocalTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String horaActual = ahora.format(formatter);
-        return horaActual;
+    public ArrayList<Paquete> getPaquetesParaEnvioDomicilio() {
+        return new ArrayList<>(paquetesParaCargaDomicilio.values());
     }
-
-    private String getAgencia(){
-        return "Quito";
-    }
-
-    public String[] getDatosPaquete(String idPaquete){
-        String[] dato = null;
-        ResultSet rs = null;   
-        String sql = "SELECT peso, tamanio, tipoEnvio, nombreRemitente, nombreDestinatario, sucursalAceptoPaquete, sucursalParaRecoger, estado FROM Paquetes WHERE idPaquete = " + idPaquete + "";
-        try{
-            rs = DataHelper.getInstancia().executeQueryRead(sql);
-            ResultSetMetaData rsMd = rs.getMetaData();
-            
-            int cantidadDatos = rsMd.getColumnCount();
-            
-            dato = new String[cantidadDatos];   
-            for(int i = 0; i<cantidadDatos;i++){
-                dato[i]=rs.getString(i+1);
-            }
-            return dato;
-       
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.toString());
-        }
-        return dato;
-    }
-
 }

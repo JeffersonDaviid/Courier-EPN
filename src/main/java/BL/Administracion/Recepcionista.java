@@ -1,37 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BL.Administracion;
 
-import UI.Administracion.ClienteMenuPrincipal;
-import UI.Administracion.RecepcionistaMenuPrincipal;
-import UI.Administracion.VentanaLogin;
-import javax.swing.JFrame;
+public class Recepcionista {
 
-/**
- *
- * @author PCM
- */
-public class Recepcionista extends Perfil {
-    String cedula;
-    String correo;
-    String pass;
-    String nombre;
-    String apellido;
+    private String nombre;
+    private String contrasena;
+    private String agencia;
 
-    public Recepcionista(String cedula, String correo, String pass, String nombre, String apellido) {
-        super(cedula, correo, pass, nombre, apellido);
+    public Recepcionista(String nombre, String contrasena, String agencia) {
+        this.nombre = nombre;
+        this.contrasena = contrasena;
+        this.agencia = agencia;
     }
-    
-    @Override
-    public JFrame verModulos(VentanaLogin login) {
-        // Implementación específica para Cliente
-        return new RecepcionistaMenuPrincipal(login, this);
+
+    public String getNombre() {
+        return nombre;
     }
-    
-    @Override
-    public void cerrarSesion(VentanaLogin login) {
-        login.setVisible(true);
+
+    public String getContrasena() {
+        return contrasena;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public void setAgencia(String agencia) {
+        this.agencia = agencia;
+    }
+
+    public String getAgencia() {
+        return agencia;
+    }
+
 }

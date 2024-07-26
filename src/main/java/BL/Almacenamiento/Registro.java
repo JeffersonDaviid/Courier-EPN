@@ -1,55 +1,56 @@
 package BL.Almacenamiento;
 
 public class Registro {
-    private String fecha;
-    private String hora;
+    private String fechaIngreso;
+    private String fechaSalida;
     private String sucursal;
     private String idPaquete;
-    private TipoRegistro tipo;
 
-    /**
-    *
-    * @author BugsBusters
-    */
-    public Registro(String fecha, String hora, String sucursal, String idPaquete, TipoRegistro tipoRegistro ){
-        this.fecha = fecha;
-        this.hora = hora;
+    public Registro(String fechaIngreso, String sucursal, String idPaquete) {
+        this.fechaIngreso = fechaIngreso;
         this.sucursal = sucursal;
         this.idPaquete = idPaquete;
-        this.tipo = tipoRegistro;
     }
 
-    public String obtenerInformacion() {
-        // Algoritmo
-        return "";
+    public String getFechaIngreso() {
+        return fechaIngreso;
     }
 
-    public String getIdPaquete() {
-        return String.valueOf(idPaquete);
+    public void setFechaIngreso(String fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
     }
 
-    public String getFecha(){
-        return fecha;
+    public String getFechaSalida() {
+        return fechaSalida;
     }
 
-    public String getHora(){
-        return hora;
+    public void setFechaSalida(String fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
 
-    public String getSucursal(){
+    public String getSucursal() {
         return sucursal;
     }
 
-    public String getTipo(){
-        return String.valueOf(tipo);
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
+    }
+
+    public String getIdPaquete() {
+        return idPaquete;
+    }
+
+    public void setIdPaquete(String idPaquete) {
+        this.idPaquete = idPaquete;
     }
 
     @Override
     public String toString() {
-        return "Registro -> " +
-                "fecha='" + fecha + '\'' +
-                ", hora='" + hora + '\'' +
+        return "Registro{" +
+                "fechaIngreso='" + fechaIngreso + '\'' +
+                ", fechaSalida='" + fechaSalida + '\'' +
                 ", sucursal='" + sucursal + '\'' +
+                ", idPaquete=" + idPaquete +
                 '}';
     }
 }
