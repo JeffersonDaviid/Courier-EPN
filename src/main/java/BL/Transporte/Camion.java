@@ -77,4 +77,11 @@ public abstract class Camion implements Cloneable {
         this.paquetesCamion = paquetesCamion;
     }
 
+    @Override
+    public String toString() {
+        return String.format(
+                "Camión [Placa: %s, Modelo: %s, Marca: %s, Capacidad de Carga: %d, Disponibilidad: %d, Agencia: %s]",
+                placa, modelo, marca, capacidadCarga, disponibilidad, agencia);
+    }
+
 }

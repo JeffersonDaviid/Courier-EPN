@@ -1,47 +1,73 @@
 package BL.Administracion;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-// import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Recepcion;
 import BL.Transporte.CamionCarga;
 import BL.Transporte.CamionEntrega;
+import BL.Transporte.Camion;
+import BL.Transporte.CamionFactory;
+import BL.Transporte.FlotaCamiones;
 
 public class Agencia {
     private String nombre;
     private Recepcion recepcion = new Recepcion();
     private Inventario inventario = new Inventario();
-    private ArrayList<CamionCarga> camionesCarga = new ArrayList<CamionCarga>();
-    private ArrayList<CamionEntrega> camionesEntrega = new ArrayList<CamionEntrega>();
-    // ArrayList<CamionEntrega>();
-    // private CamionCarga camionCarga = new CamionCarga();
-    // private CamionEntrega camionEntrega = new CamionEntrega();
+    private List<CamionCarga> camionesCarga;
+    private List<CamionEntrega> camionesEntrega;
 
     public Agencia(String nombre) {
         this.nombre = nombre;
-        this.camionesCarga = agregarFlotaCarga(nombre);
-        this.camionesEntrega = agregarFlotaEntrega(nombre);
+        this.camionesCarga = new ArrayList<>();
+        this.camionesEntrega = new ArrayList<>();
+        agregarFlotaInicial();
     }
 
-    public ArrayList<CamionCarga> agregarFlotaCarga(String nombre) {
-        ArrayList<CamionCarga> camionesCarga = new ArrayList<>();
-        CamionCarga camionCarga1 = new CamionCarga("ABC-123", "Volvo", "Tuti", 50, 1, nombre);
-        CamionCarga camionCarga2 = new CamionCarga("DEF-456", "IDK", "Toyota", 100, 1, nombre);
-        camionesCarga.add(camionCarga1);
-        camionesCarga.add(camionCarga2);
-        return camionesCarga;
+    private void agregarFlotaInicial() {
+        for (int i = 0; i < 3; i++) {
+            agregarCamion("carga", generarPlaca(), "Volvo", "Tuti", 50, 1);
+            agregarCamion("entrega", generarPlaca(), "Mercedes", "Sprinter", 30, 1);
+        }
     }
 
-    public ArrayList<CamionEntrega> agregarFlotaEntrega(String nombre) {
-        ArrayList<CamionEntrega> camionesEntrega = new ArrayList<>();
-        CamionEntrega camionEntrega1 = new CamionEntrega("ABC-123", "Volvo", "Tuti", 50, 1, nombre);
-        // CamionEntrega camionEntrega2 = new CamionEntrega("DEF-456", "IDK",
-        // "Toyota", 100, 1);
-        camionesEntrega.add(camionEntrega1);
-        // camionesEntrega.add(camionEntrega2);
-        return camionesEntrega;
+    private String generarPlaca() {
+        Random random = new Random();
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder placa = new StringBuilder();
+
+        for (int i = 0; i < 3; i++) {
+            placa.append(letras.charAt(random.nextInt(letras.length())));
+        }
+
+        placa.append("-");
+        for (int i = 0; i < 4; i++) {
+            placa.append(random.nextInt(10));
+        }
+
+        return placa.toString();
+    }
+
+    public void agregarCamion(String tipo, String placa, String modelo, String marca, int capacidadCarga,
+            int disponibilidad) {
+        if (tipo.equals("carga")) {
+            CamionCarga camionCarga = new CamionCarga(placa, modelo, marca, capacidadCarga, disponibilidad, nombre);
+            camionesCarga.add(camionCarga);
+        } else if (tipo.equals("entrega")) {
+            CamionEntrega camionEntrega = new CamionEntrega(placa, modelo, marca, capacidadCarga, disponibilidad,
+                    nombre);
+            camionesEntrega.add(camionEntrega);
+        }
+        Camion camion = CamionFactory.crearCamion(tipo, placa, modelo, marca, capacidadCarga, disponibilidad, nombre);
+        FlotaCamiones.getInstance().agregarCamion(nombre, camion);
+    }
+
+    public Camion obtenerCamion(String placa) {
+        return FlotaCamiones.getInstance().obtenerCamion(nombre, placa);
     }
 
     public String getNombre() {
@@ -56,16 +82,36 @@ public class Agencia {
         return inventario;
     }
 
-    public ArrayList<CamionCarga> getCamionesCarga() {
+    public List<CamionCarga> getCamionesCarga() {
         return camionesCarga;
     }
 
-    public ArrayList<CamionEntrega> getCamionesEntrega() {
+    public List<CamionEntrega> getCamionesEntrega() {
         return camionesEntrega;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+
+     public void mostrarCamionesPorTipo() {
+        StringBuilder cargaInfo = new StringBuilder("Camiones de Carga:\n");
+        for (CamionCarga camion : camionesCarga) {
+            cargaInfo.append(camion).append("\n");
+        }
+
+        StringBuilder entregaInfo = new StringBuilder("Camiones de Entrega:\n");
+        for (CamionEntrega camion : camionesEntrega) {
+            entregaInfo.append(camion).append("\n");
+        }
+
+        JOptionPane.showMessageDialog(null, cargaInfo.toString(), "Camiones de Carga", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, entregaInfo.toString(), "Camiones de Entrega", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void mostrarCamiones() {
+        FlotaCamiones.getInstance().mostrarCamiones(nombre);
     }
 
 }
