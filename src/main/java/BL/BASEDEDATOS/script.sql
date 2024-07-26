@@ -13,6 +13,7 @@ CREATE TABLE Usuarios (
     correo TEXT NOT NULL UNIQUE,
     contrasena TEXT NOT NULL,
     rol TEXT NOT NULL
+    agencia TEXT NOT NULL
 );
 
 
@@ -24,13 +25,14 @@ CREATE TABLE Vehiculo (
     capacidadCarga INTEGER,
     disponibilidad INTEGER, -- Usaremos 0 para FALSE y 1 para TRUE
     ruta INTEGER
-    --FOREIGN KEY (ruta) REFERENCES Ruta(id)
+    agencia TEXT NOT NULL
 );
 
 CREATE TABLE Rutas (
     id_Ruta INTEGER PRIMARY KEY AUTOINCREMENT,
     sector TEXT NOT NULL,
     direccion TEXT NOT NULL
+    agencia TEXT NOT NULL
 );
 
 -- GESTION DE PAQUETES
@@ -51,10 +53,17 @@ CREATE TABLE Paquete (
     sucursalAceptoPaquete TEXT,
     sucursalParaRecoger TEXT,
     trackingNumber TEXT,
-    estado TEXT DEFAULT 'recibido',
     domicilio TEXT DEFAULT 'NO'
+    agencia TEXT NOT NULL
 );
 
+CREATE TABLE Estado (
+    idEstado INTEGER PRIMARY KEY AUTOINCREMENT,
+    idPaquete INTEGER NOT NULL,
+    estado TEXT NOT NULL,
+    fecha TEXT NOT NULL, /* Fecha y hora */
+    FOREIGN KEY (idPaquete) REFERENCES Paquete(idPaquete)
+);
 
 
 
@@ -72,8 +81,10 @@ CREATE TABLE Facturas (
     ivaPorcentaje REAL NOT NULL,
     total REAL NOT NULL,
     descripcionTarifa TEXT NOT NULL, 
+    agencia TEXT NOT NULL
     FOREIGN KEY (cedulaCliente) REFERENCES Cliente(cedulaCliente),
     FOREIGN KEY (idPaquete) REFERENCES Paquete(idPaquete)
+    
 );
 
 
