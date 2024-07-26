@@ -54,7 +54,6 @@ CREATE TABLE Paquete (
     sucursalParaRecoger TEXT,
     trackingNumber TEXT,
     domicilio TEXT DEFAULT 'NO'
-    agencia TEXT NOT NULL
 );
 
 CREATE TABLE Estado (

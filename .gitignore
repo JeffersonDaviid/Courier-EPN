@@ -25,3 +25,9 @@
 *.war
 *.ear
 src/main/java/UI/GestionPaquete/GestionPaqueteUI.java
+
+
+.vscode/
+bin/
+.idea
+

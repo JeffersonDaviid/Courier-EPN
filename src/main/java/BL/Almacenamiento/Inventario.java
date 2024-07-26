@@ -110,7 +110,6 @@ public class Inventario {
             System.out.println("Paquete no encontrado");
             return;
         }
-
         Paquete paquete = paquetesAlmacenados.remove(id);
         paquete.agregarEstado(new Estado("Entregado"));
     }
