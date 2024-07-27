@@ -17,6 +17,17 @@ public class Recepcion {
     public void eliminarPaquete(Paquete paquete) {
         paquetesRecepcion.remove(paquete);
     }
+    
+    public Paquete buscarPaquete(String id) {
+        for (Paquete paquete : paquetesRecepcion) {
+            if (paquete.getId().equals(id)) {
+                return paquete;
+            }
+        }
+        return null;
+    }
+    
+    
 
     public ArrayList<Paquete> getPaquetesRecepcion() {
         return paquetesRecepcion;
