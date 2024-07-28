@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import BL.Administracion.Global;
 import BL.Facturacion.Factura;
 import BL.Facturacion.Tarifa;
+import BL.Facturacion.TarifaEnvio;
 import BL.GestionPaquete.Paquete;
 import BL.Seguimiento.Seguimiento;
 
@@ -45,13 +46,17 @@ public class CourierEPN {
                         Paquete p = new Paquete(id, ciudadOrigen, ciudadDestino, domicilio, peso, tamanio);
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getRecepcion().agregarPaquete(p);
 
-                        Tarifa t = new Tarifa();
+                        Tarifa t = new TarifaEnvio();
                         t.calcularPrecio(p);
+
+                        if (p.getDomicilio() != null) {
+                            t = new TarifaEnvio();
+                            t.calcularPrecio(p);
+                        }
 
                         Factura f = new Factura();
                         f.guardarFactura(p, t);
 
-                        f.mostrarFactura();
                         break;
 
                     case 2:

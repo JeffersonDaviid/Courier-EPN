@@ -1,46 +1,75 @@
 package BL.Facturacion;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Properties;
+
+import javax.swing.JOptionPane;
+
 import BL.GestionPaquete.Paquete;
 
-public class Tarifa {
+public abstract class Tarifa {
     private float subtotal;
     private float total;
-    private float iva = 0.15f;
+    private float iva;
+    private String descripcionTarifa;
 
-    public void calcularPrecio(Paquete paquete) {
+    public Tarifa() {
+    }
 
-        // Calcula el precio del paquete
-        switch (paquete.getTamanio()) {
-            case "Pequeño":
-                subtotal = 5;
-                break;
-            case "Mediano":
-                subtotal = 10;
-                break;
-            case "Grande":
-                subtotal = 15;
-                break;
-            default:
-                subtotal = 0;
-                break;
+    public abstract void calcularPrecio(Paquete paquete);
+
+    public void mostrarCostoEnvio() {
+        String total = String.format("%.2f", getTotal());
+        String message = "<html><body>"
+                + "Costo de envio total: " + total + "<br>"
+                + "</body></html>";
+        JOptionPane.showMessageDialog(null, message, "Descripcion del envio", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void cargarIvar() {
+        Properties props = new Properties();
+        try {
+            var in = Files.newInputStream(Paths.get("opciones.properties"));
+            props.load(in);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al cargar el archivo de propiedades: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-
-        total = subtotal + (subtotal * iva);
+        iva = Float.parseFloat(props.getProperty("IVA"));
     }
 
     public float getSubtotal() {
         return subtotal;
     }
 
+    public void setSubtotal(float subtotal) {
+        this.subtotal = subtotal;
+    }
+
     public float getTotal() {
         return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
     }
 
     public float getIva() {
         return iva;
     }
 
-    public Tarifa() {
+    public void setIva(float iva) {
+        this.iva = iva;
+    }
+
+    public String getDescripcionTarifa() {
+        return descripcionTarifa;
+    }
+
+    public void setDescripcionTarifa(String descripcionTarifa) {
+        this.descripcionTarifa = descripcionTarifa;
     }
 
 }
