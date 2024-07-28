@@ -1,6 +1,5 @@
 package BL.Almacenamiento;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -102,11 +101,25 @@ public class Inventario {
                 actualizarEstadoPaqueteBase(id,"En bodega agencia remitente");
                 ingresarRegistro(p, capacidadPaquete);
                 recepcion.eliminarPaquete(p);
+                guardarPaqueteEnBD(p.getId(),getSucursal());
                 return;
             }
         }
         JOptionPane.showMessageDialog(null, "El paquete no existe o no esta en recepcion");
+    }
 
+    //Método para guardar la información de un paquete en el inventario
+    private void guardarPaqueteEnBD(String id, String sucursal) {
+        String sql = "INSERT INTO InventarioPaquetes (idPaquete, sucursal) VALUES (" + id + ", '" + sucursal + "')";
+        try {
+            int rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+            if (!(rs > 0)) {
+                JOptionPane.showMessageDialog(null, "Error al guardar el registro", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar el registro: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void actualizarEstadoPaqueteBase(String id, String string) {
@@ -126,13 +139,18 @@ public class Inventario {
         paquete.agregarEstado(new Estado("En bodega agencia destino"));
         actualizarEstadoPaqueteBase(paquete.getId(), "En bodega agencia destino");
         ingresarRegistro(paquete,capacidadPaquete);
+        guardarPaqueteEnBD(paquete.getId(),getSucursal());
     }
 
     //Metodo que guarda el ingreso de un paquete al invetario 
     private void ingresarRegistro(Paquete paquete, int capacidadPaquete) {
-        historial.registrarRegistro(new Registro(getFecha(),"Quito",paquete.getId()));
+        historial.registrarRegistro(new Registro(getFecha(),getSucursal(),paquete.getId()));
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
         actualizarCapacidadOcupada(capacidadPaquete);
+    }
+
+    private String getSucursal() {
+        return (Global.getInstancia().agenciaActual).toUpperCase();
     }
 
     //Metodo que clasifica un paquete en las diferentes listas (Para envio a Sucursal - Para envio a domicilio - Para retiro de bodega)
@@ -168,20 +186,34 @@ public class Inventario {
             paquete = paquetesAlmacenados.remove(id);
         //Si no esta verifica si esta en la lista para entregar a domicilio
         }else if(paquetesParaCargaDomicilio.containsKey(id)){
-            System.out.println("Paquete no encontrado");
-            paquete = paquetesAlmacenados.remove(id);
+            paquete = paquetesParaCargaDomicilio.remove(id);
         //Si no esta en niguna es porque el paquete aun no ha llegado
         }else{
-            System.out.println("Paquete no encontrado");
+            JOptionPane.showMessageDialog(null, "Paquete no encontrado");
             return;
         }
         //Si esta actualiza el estado del paquete
         paquete.agregarEstado(new Estado("Entregado"));
         //Se guarda la fecha de salida del paquete en el registro y se actualiza en la base
         historial.getRegistro(id).setFechaSalida(getFecha());
-        historial.actualizarFechaDeSalida(id);
+        historial.actualizarFechaDeSalida(id,getFecha());
         actualizarCapacidadOcupada(-clasificarCapacidad(paquete.getTamanio()));
         actualizarEstadoPaqueteBase(id, "Entregado");
+        retirarPaqueteDeBD(id);
+    }
+
+    //Metodo para retirar la informacion del paquete del inventario en la BD
+    private void retirarPaqueteDeBD(String id) {
+        String sql = "DELETE FROM InventarioPaquetes WHERE idPaquete = "+id;
+        try {
+            int rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+            if (!(rs > 0)) {
+                JOptionPane.showMessageDialog(null, "Error al guardar el registro", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar el registro: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     //Metodo que devuelve toda la lsita de paquetes del invetario
@@ -285,8 +317,9 @@ public class Inventario {
         }
         //Se guarda la fecha de salida del paquete en el registro y actualizar en la base
         historial.getRegistro(idPaquete).setFechaSalida(getFecha());
-        historial.actualizarFechaDeSalida(idPaquete);
+        historial.actualizarFechaDeSalida(idPaquete,getFecha());
         actualizarCapacidadOcupada(-clasificarCapacidad(paquete.getTamanio()));      // Se actualiza la capacidad ocupada del inventario
+        retirarPaqueteDeBD(idPaquete);
         return paquete;
     }
 

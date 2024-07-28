@@ -43,7 +43,10 @@ public class CourierEPN {
                             domicilio = null;
                         }
 
-                        Paquete p = new Paquete(id, ciudadOrigen, ciudadDestino, domicilio, peso, tamanio);
+                        //Paquete p = new Paquete(id, ciudadOrigen, ciudadDestino, domicilio, peso, tamanio);
+                        Paquete p = new Paquete(id, peso, tamanio, ciudadOrigen, ciudadDestino,"Pepe","correo@epn","099",
+                        "Juan","juan@gmail","09952",domicilio,"12/05/52");
+
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getRecepcion().agregarPaquete(p);
 
                         Tarifa t = new TarifaEnvio();

@@ -92,14 +92,20 @@ CREATE TABLE Facturas (
 
 -- ALMACENAMIENTO
 
-CREATE TABLE Registro (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    idPaquete TEXT NOT NULL,
-    fecha TEXT NOT NULL,
-    hora TEXT NOT NULL,
-    sucursal TEXT NOT NULL,
-    tipo TEXT NOT NULL
-    FOREIGN KEY (idPaquete) REFERENCES Paquete(idPaquete)
+CREATE TABLE InventarioPaquetes (
+	idPaquete	INTEGER NOT NULL,
+	sucursal	TEXT NOT NULL,
+	FOREIGN KEY(idPaquete) REFERENCES Paquetes(idPaquete)
+);
+
+CREATE TABLE Registros(
+	id	INTEGER NOT NULL,
+	idPaquete	INTEGER NOT NULL,
+	fechaIngreso	TEXT NOT NULL,
+	fechaSalida	TEXT NOT NULL,
+	sucursal	TEXT NOT NULL,
+	FOREIGN KEY(idPaquete) REFERENCES Paquetes(idPaquete),
+	PRIMARY KEY(id AUTOINCREMENT)
 );
 
 
