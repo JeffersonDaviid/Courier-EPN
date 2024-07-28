@@ -1,5 +1,7 @@
 package BL.Almacenamiento;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -10,6 +12,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import BL.Administracion.Global;
+import BL.BASEDEDATOS.DataHelper;
 import BL.GestionPaquete.Estado;
 import BL.GestionPaquete.Paquete;
 import BL.GestionPaquete.Recepcion;
@@ -30,14 +33,59 @@ public class Inventario {
     public Inventario() {
         this.tiempoMaximo = 15;
         this.capacidadTotal = 100;
+        //this.paquetesAlmacenados = cargarPaquetesAlmacenados();
         this.paquetesAlmacenados = new HashMap<String, Paquete>();
         this.paquetesParaCargaSucursal = new HashMap<String, Paquete>();
         this.paquetesParaCargaDomicilio = new HashMap<String, Paquete>();
         this.capacidadOcupada = calcularCapacidadOcupada();
         this.historial = new Historial();
+        //ordenarPaquetesAlmacenados();
     }
 
-    //
+    /*Método que carga todos los paquetes almacenados cuando se enciende el sistema
+    private HashMap<String,Paquete> cargarPaquetesAlmacenados(){
+        HashMap<String,Paquete> paquetes = new HashMap<String,Paquete>();
+        String sql = "SELECT * FROM Inventario";
+        try {
+            DataHelper dataHelper = DataHelper.getInstancia();
+            ResultSet rs = dataHelper.executeQueryRead(sql);
+
+            while (rs.next()) {
+                String idPaquete = rs.getString("idPaquete");
+                String trackingNumber = rs.getString("trackingNumber");
+                float peso = rs.getFloat("peso");
+                String tamanio = rs.getString("tamanio");
+                String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
+                String fechaHoraSalida = rs.getString("fechaHoraSalida");
+                String nombreRemitente = rs.getString("nombreRemitente");
+                String correoRemitente = rs.getString("correoRemitente");
+                String telefonoRemitente = rs.getString("telefonoRemitente");
+                String nombreDestinatario = rs.getString("nombreDestinatario");
+                String correoDestinatario = rs.getString("correoDestinatario");
+                String telefonoDestinatario = rs.getString("telefonoDestinatario");
+                String tipoEnvio = rs.getString("tipoEnvio");
+                String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
+                String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
+                String estado = rs.getString("estado");
+                String domicilio = rs.getString("domicilio");
+                //Se crea el objeto y se lo coloca en el hashmap
+                paquetes.put(idPaquete,new Paquete(idPaquete, sucursalAceptoPaquete,sucursalParaRecoger,domicilio,peso,tamanio));
+                //Controlar como guardamos los estados
+            } 
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+            }
+        return paquetes;
+    }*/
+
+    /*Método que ordena todos los paqutes cargados al sistema al encenderse
+    private void ordenarPaquetesAlmacenados() {
+        for (Paquete paquete : paquetesAlmacenados.values()) {
+            organizarPaquetes(paquete.getId());
+        }  
+    }*/
+
+    //Método que agrega paquetes al inventario desde la recepcion
     public void agregarPaqueteDeRecepcion(String id) {
         recepcion = Global.getInstancia().buscarAgencia(Global.agenciaActual).getRecepcion();
         for (Paquete p : recepcion.getPaquetesRecepcion()) {
@@ -48,8 +96,10 @@ public class Inventario {
                     notificarCapacidadCompleta();
                     return;
                 }
+                //si hay espacio entonces lo guarda y actualiza su estado
                 p.agregarEstado(new Estado("En bodega agencia remitente"));
                 paquetesAlmacenados.put(p.getId(), p);
+                actualizarEstadoPaqueteBase(id,"En bodega agencia remitente");
                 ingresarRegistro(p, capacidadPaquete);
                 recepcion.eliminarPaquete(p);
                 return;
@@ -59,25 +109,33 @@ public class Inventario {
 
     }
 
+    private void actualizarEstadoPaqueteBase(String id, String string) {
+        //Algoritmo para registrar un nuevo estado en la tabla de estados
+    }
+
+    //Metodo que ingresar paquetes desde el camnio de carga
     public void agregarPaqueteDeCamionCarga(Paquete paquete) {
         int capacidadPaquete = clasificarCapacidad(paquete.getTamanio());
-        // Verifica que hay espacio suficiente en el inventario
-        if (!hayEspacioSuficiente(capacidadPaquete)) {
+        //Verifica que hay espacio suficiente en el inventario
+        if(!hayEspacioSuficiente(capacidadPaquete)){
             notificarCapacidadCompleta();
             return;
         }
-        paquetesAlmacenados.put(paquete.getId(), paquete);
+        //si hay espacio, lo guarda y actualiza su estado
+        paquetesAlmacenados.put(paquete.getId(),paquete);
         paquete.agregarEstado(new Estado("En bodega agencia destino"));
-        ingresarRegistro(paquete, capacidadPaquete);
+        actualizarEstadoPaqueteBase(paquete.getId(), "En bodega agencia destino");
+        ingresarRegistro(paquete,capacidadPaquete);
     }
 
+    //Metodo que guarda el ingreso de un paquete al invetario 
     private void ingresarRegistro(Paquete paquete, int capacidadPaquete) {
-        historial.registrarRegistro(new Registro(getFecha(), "Quito", paquete.getId()));
-        JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro",
-                JOptionPane.INFORMATION_MESSAGE);
-        actualizar(capacidadPaquete);
+        historial.registrarRegistro(new Registro(getFecha(),"Quito",paquete.getId()));
+        JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
+        actualizarCapacidadOcupada(capacidadPaquete);
     }
 
+    //Metodo que clasifica un paquete en las diferentes listas (Para envio a Sucursal - Para envio a domicilio - Para retiro de bodega)
     public void organizarPaquetes(String idPaquete) {
         for (Paquete paquete : paquetesAlmacenados.values()) {
             // Verifica que el paquete es para envio a otra sucursal
@@ -86,34 +144,47 @@ public class Inventario {
                 paquete.agregarEstado(estado);
                 paquetesParaCargaSucursal.put(paquete.getId(), paquetesAlmacenados.remove(idPaquete));
                 return;
-            } else {
+            }else{
                 System.out.println(paquete.getDomicilio());
-                // Si el paquete ya se encuentra en la sucursal de destino entonces verificamos
-                // si tiene entrega a domicilio
-                if (paquete.getDomicilio() == null) {
+                //Si el paquete ya se encuentra en la sucursal de destino entonces verificamos si tiene entrega a domicilio
+                if(paquete.getDomicilio() == null){
                     Estado estado = new Estado("Listo para retiro de bodega");
                     paquete.agregarEstado(estado);
-                } else {
-                    // si lo tiene se lo coloca como listo para enviar
+                }else{
+                    //si lo tiene se lo coloca como listo para enviar
                     Estado estado = new Estado("Listo para envio a domicilio");
                     paquete.agregarEstado(estado);
                     paquetesParaCargaDomicilio.put(paquete.getId(), paquetesAlmacenados.remove(paquete.getId()));
                 }
             }
         }
-        mostrarInventario();
     }
 
-    // Metodo para entregar al cliente - Llama el bodeguero
+    //Metodo para entregar el paquete al cliente desde la bodega/recepcion - La llama el bodeguero
     public void entregarPaquete(String id) {
-        if (!paquetesAlmacenados.containsKey(id)) {
+        Paquete paquete = null;
+        //Verifica si esta el paquete como retiro en bodega/recepcion
+        if(paquetesAlmacenados.containsKey(id)){
+            paquete = paquetesAlmacenados.remove(id);
+        //Si no esta verifica si esta en la lista para entregar a domicilio
+        }else if(paquetesParaCargaDomicilio.containsKey(id)){
+            System.out.println("Paquete no encontrado");
+            paquete = paquetesAlmacenados.remove(id);
+        //Si no esta en niguna es porque el paquete aun no ha llegado
+        }else{
             System.out.println("Paquete no encontrado");
             return;
         }
-        Paquete paquete = paquetesAlmacenados.remove(id);
+        //Si esta actualiza el estado del paquete
         paquete.agregarEstado(new Estado("Entregado"));
+        //Se guarda la fecha de salida del paquete en el registro y se actualiza en la base
+        historial.getRegistro(id).setFechaSalida(getFecha());
+        historial.actualizarFechaDeSalida(id);
+        actualizarCapacidadOcupada(-clasificarCapacidad(paquete.getTamanio()));
+        actualizarEstadoPaqueteBase(id, "Entregado");
     }
 
+    //Metodo que devuelve toda la lsita de paquetes del invetario
     public ArrayList<Paquete> getPaquetesInventario() {
         ArrayList<Paquete> paquetes = new ArrayList<>();
         paquetes.addAll(paquetesAlmacenados.values());
@@ -122,14 +193,16 @@ public class Inventario {
         return paquetes;
     }
 
+    //Metodo que calcula la capcidad ocupada de los paquetes que ya han estado almacenados
     private int calcularCapacidadOcupada() {
         int cantidadOcupada = 0;
-        for (Paquete paquete : paquetesAlmacenados.values()) {
-            cantidadOcupada += clasificarCapacidad(paquete.getTamanio());
+        for(Paquete paquete :paquetesAlmacenados.values()){
+            cantidadOcupada+= clasificarCapacidad(paquete.getTamanio());
         }
-        return cantidadOcupada;
+        return  cantidadOcupada;
     }
 
+    //Método que clasifica y obtiene cuanto espacio ocupa cada paquete
     private int clasificarCapacidad(String tamanio) {
         switch (tamanio) {
             case "grande":
@@ -140,39 +213,44 @@ public class Inventario {
         return CAPACIDAD_PAQUETE_PEQUENIO;
     }
 
+    //Metodo que obtiene la fecha para el registro de ingreso o salida
     private String getFecha() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return now.format(formatter);
     }
 
-    public void actualizar(int cantidad) {
+    //Metodo que actualiza la capacidad del inventario
+    public void actualizarCapacidadOcupada(int cantidad){
         capacidadOcupada += cantidad;
     }
 
-    private void notificarCapacidadCompleta() {
-        JOptionPane.showMessageDialog(null, "Capacidad de la bodega alcanzado", "Alerta",
-                JOptionPane.INFORMATION_MESSAGE);
+    //Metodo que notifica que el invetario ha llenado su capacidad
+    private void notificarCapacidadCompleta(){
+        JOptionPane.showMessageDialog(null, "Capacidad de la bodega alcanzado", "Alerta",JOptionPane.INFORMATION_MESSAGE);
     }
 
+    //Metodo que verifica si hay espacio suficiente en el invetario para otro paquete
     private boolean hayEspacioSuficiente(int capacidadPaquete) {
         return (capacidadOcupada + capacidadPaquete) < capacidadTotal;
     }
 
-    public void actualizarCapacidadTotal(int capacidad) {
+    //Metodo que actualiza la capacidad total del inventario
+    public void actualizarCapacidadTotal(int capacidad){
         this.capacidadTotal = capacidad;
     }
 
-    private String calcularFechaLimite(String fechaIngreso) {
-        // Calcular fecha limite para cada paquete
+    //Metodo que calcula la fecha o dias que le faltan a un paquete, sin ser reclamado
+    private String calcularFechaLimite(String fechaIngreso){
+        //Calcular fecha limite para cada paquete
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        try {
+        try{
             LocalDateTime fechaHoraActual = LocalDateTime.parse(fechaIngreso, formatter);
             LocalDateTime fechaHoraFutura = fechaHoraActual.plusDays(15);
             return fechaHoraFutura.format(formatter);
-        } catch (DateTimeParseException e) {
+        }catch (DateTimeParseException e){
             System.out.println(e.getMessage());
-        }
+        } 
         return null;
     }
 
@@ -184,52 +262,45 @@ public class Inventario {
         return capacidadOcupada;
     }
 
+    //Metodo que consulta el historial de ingresos y salidas de los paquetes el dia ejecutado
     public void consultarHistorial() {
         historial.consultarHoy();
     }
 
-    public Paquete retirarPaquete(String idPaquete) {
+    //Metodo que retira  los paquetes desde la lista correspondiente para cargarlos a los camiones
+    public Paquete retirarPaquete(String idPaquete){
         Paquete paquete = null;
-        // Verifica que el paquete este en el inventario para poder retirarlo
+        //Verifica que el paquete este en el inventario para poder retirarlo
         if (paquetesParaCargaDomicilio.containsKey(idPaquete)) {
             paquete = paquetesParaCargaDomicilio.remove(idPaquete);
-        } else if (paquetesParaCargaSucursal.containsKey(idPaquete)) {
+        }
+        else if (paquetesParaCargaSucursal.containsKey(idPaquete)) {
             paquete = paquetesParaCargaSucursal.remove(idPaquete);
-        } else if (paquetesAlmacenados.containsKey(idPaquete)) {
+        }
+        else if (paquetesAlmacenados.containsKey(idPaquete)) {
             paquete = paquetesAlmacenados.remove(idPaquete);
-        } else {
+        }else{
             System.out.println("Paquete no encontrado");
             return null;
         }
-        // Se guarda la fecha de salida del paquete en el registro
+        //Se guarda la fecha de salida del paquete en el registro y actualizar en la base
         historial.getRegistro(idPaquete).setFechaSalida(getFecha());
-        actualizar(-clasificarCapacidad(paquete.getTamanio())); // Se actualiza la capacidad ocupada del inventario
+        historial.actualizarFechaDeSalida(idPaquete);
+        actualizarCapacidadOcupada(-clasificarCapacidad(paquete.getTamanio()));      // Se actualiza la capacidad ocupada del inventario
         return paquete;
     }
 
-    public void mostrarInventario() {
-        System.out.println("------\nPaquetes Almacenados - Retiro Agencia");
-        for (Paquete paquete : paquetesAlmacenados.values()) {
-            System.out.println(paquete);
-        }
-        System.out.println("------\nPaquetes para Camion a Sucursal");
-        for (Paquete paquete : paquetesParaCargaSucursal.values()) {
-            System.out.println(paquete);
-        }
-        System.out.println("------\nPaquetes para Camion a Domicilio");
-        for (Paquete paquete : paquetesParaCargaDomicilio.values()) {
-            System.out.println(paquete);
-        }
+    //Metodo que muestra todos los paquetes del inventario
+    public void mostrarPaquetes(){
+        //Algoritmo para mostrar todos los paquetes
     }
 
-    public void mostrarPaquetes() {
-        // Algoritmo para mostrar todos los paquetes
-    }
-
+    //Metodo que devuelve todos los paquetes listos para enviar a otra sucursal
     public ArrayList<Paquete> getPaquetesParaCarga() {
         return new ArrayList<>(paquetesParaCargaSucursal.values());
     }
 
+    //Metodo que devuleve todoso los paquetes listos para envio a domicilio
     public ArrayList<Paquete> getPaquetesParaEnvioDomicilio() {
         return new ArrayList<>(paquetesParaCargaDomicilio.values());
     }
