@@ -32,57 +32,12 @@ public class Inventario {
     public Inventario() {
         this.tiempoMaximo = 15;
         this.capacidadTotal = 100;
-        //this.paquetesAlmacenados = cargarPaquetesAlmacenados();
         this.paquetesAlmacenados = new HashMap<String, Paquete>();
         this.paquetesParaCargaSucursal = new HashMap<String, Paquete>();
         this.paquetesParaCargaDomicilio = new HashMap<String, Paquete>();
         this.capacidadOcupada = calcularCapacidadOcupada();
         this.historial = new Historial();
-        //ordenarPaquetesAlmacenados();
     }
-
-    /*Método que carga todos los paquetes almacenados cuando se enciende el sistema
-    private HashMap<String,Paquete> cargarPaquetesAlmacenados(){
-        HashMap<String,Paquete> paquetes = new HashMap<String,Paquete>();
-        String sql = "SELECT * FROM Inventario";
-        try {
-            DataHelper dataHelper = DataHelper.getInstancia();
-            ResultSet rs = dataHelper.executeQueryRead(sql);
-
-            while (rs.next()) {
-                String idPaquete = rs.getString("idPaquete");
-                String trackingNumber = rs.getString("trackingNumber");
-                float peso = rs.getFloat("peso");
-                String tamanio = rs.getString("tamanio");
-                String fechaHoraLlegada = rs.getString("fechaHoraLlegada");
-                String fechaHoraSalida = rs.getString("fechaHoraSalida");
-                String nombreRemitente = rs.getString("nombreRemitente");
-                String correoRemitente = rs.getString("correoRemitente");
-                String telefonoRemitente = rs.getString("telefonoRemitente");
-                String nombreDestinatario = rs.getString("nombreDestinatario");
-                String correoDestinatario = rs.getString("correoDestinatario");
-                String telefonoDestinatario = rs.getString("telefonoDestinatario");
-                String tipoEnvio = rs.getString("tipoEnvio");
-                String sucursalAceptoPaquete = rs.getString("sucursalAceptoPaquete");
-                String sucursalParaRecoger = rs.getString("sucursalParaRecoger");
-                String estado = rs.getString("estado");
-                String domicilio = rs.getString("domicilio");
-                //Se crea el objeto y se lo coloca en el hashmap
-                paquetes.put(idPaquete,new Paquete(idPaquete, sucursalAceptoPaquete,sucursalParaRecoger,domicilio,peso,tamanio));
-                //Controlar como guardamos los estados
-            } 
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-            }
-        return paquetes;
-    }*/
-
-    /*Método que ordena todos los paqutes cargados al sistema al encenderse
-    private void ordenarPaquetesAlmacenados() {
-        for (Paquete paquete : paquetesAlmacenados.values()) {
-            organizarPaquetes(paquete.getId());
-        }  
-    }*/
 
     //Método que agrega paquetes al inventario desde la recepcion
     public void agregarPaqueteDeRecepcion(String id) {
@@ -98,32 +53,28 @@ public class Inventario {
                 //si hay espacio entonces lo guarda y actualiza su estado
                 p.agregarEstado(new Estado("En bodega agencia remitente"));
                 paquetesAlmacenados.put(p.getId(), p);
-                actualizarEstadoPaqueteBase(id,"En bodega agencia remitente");
+                actualizarEstadoPaqueteBD(id,"En bodega agencia remitente");
                 ingresarRegistro(p, capacidadPaquete);
                 recepcion.eliminarPaquete(p);
-                guardarPaqueteEnBD(p.getId(),getSucursal());
                 return;
             }
         }
         JOptionPane.showMessageDialog(null, "El paquete no existe o no esta en recepcion");
     }
 
-    //Método para guardar la información de un paquete en el inventario
-    private void guardarPaqueteEnBD(String id, String sucursal) {
-        String sql = "INSERT INTO InventarioPaquetes (idPaquete, sucursal) VALUES (" + id + ", '" + sucursal + "')";
+// Método para guardar el nuevo estado del paquete en la BD
+    private void actualizarEstadoPaqueteBD(String id, String estado) {
+        String sql = "INSERT INTO PaqueteEstados (idPaquete, estado, fecha) VALUES ("
+        + id + ", '" + estado + "', '" + getFecha() +"')";
         try {
             int rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
             if (!(rs > 0)) {
-                JOptionPane.showMessageDialog(null, "Error al guardar el registro", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error al guardar el nuevo estado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar el registro: " + e.getMessage(), "Error",
+            JOptionPane.showMessageDialog(null, "Error al guardar el nuevo registro: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    private void actualizarEstadoPaqueteBase(String id, String string) {
-        //Algoritmo para registrar un nuevo estado en la tabla de estados
     }
 
     //Metodo que ingresar paquetes desde el camnio de carga
@@ -137,19 +88,18 @@ public class Inventario {
         //si hay espacio, lo guarda y actualiza su estado
         paquetesAlmacenados.put(paquete.getId(),paquete);
         paquete.agregarEstado(new Estado("En bodega agencia destino"));
-        actualizarEstadoPaqueteBase(paquete.getId(), "En bodega agencia destino");
+        actualizarEstadoPaqueteBD(paquete.getId(), "En bodega agencia destino");
         ingresarRegistro(paquete,capacidadPaquete);
-        guardarPaqueteEnBD(paquete.getId(),getSucursal());
     }
 
     //Metodo que guarda el ingreso de un paquete al invetario 
     private void ingresarRegistro(Paquete paquete, int capacidadPaquete) {
-        historial.registrarRegistro(new Registro(getFecha(),getSucursal(),paquete.getId()));
+        historial.registrarRegistro(new Registro(getFecha(),getAgencia(),paquete.getId()));
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
         actualizarCapacidadOcupada(capacidadPaquete);
     }
 
-    private String getSucursal() {
+    private String getAgencia() {
         return (Global.getInstancia().agenciaActual).toUpperCase();
     }
 
@@ -160,6 +110,7 @@ public class Inventario {
             if (paquete.getId().equals(idPaquete) && !paquete.getAgenciaDestino().equals(Global.agenciaActual)) {
                 Estado estado = new Estado("Listo para envio agencia destino");
                 paquete.agregarEstado(estado);
+                actualizarEstadoPaqueteBD(idPaquete, "Listo para envio agencia destino");
                 paquetesParaCargaSucursal.put(paquete.getId(), paquetesAlmacenados.remove(idPaquete));
                 return;
             }else{
@@ -168,10 +119,12 @@ public class Inventario {
                 if(paquete.getDomicilio() == null){
                     Estado estado = new Estado("Listo para retiro de bodega");
                     paquete.agregarEstado(estado);
+                    actualizarEstadoPaqueteBD(idPaquete, "Listo para retiro de bodega");
                 }else{
                     //si lo tiene se lo coloca como listo para enviar
                     Estado estado = new Estado("Listo para envio a domicilio");
                     paquete.agregarEstado(estado);
+                    actualizarEstadoPaqueteBD(idPaquete, "Listo para envio a domicilio");
                     paquetesParaCargaDomicilio.put(paquete.getId(), paquetesAlmacenados.remove(paquete.getId()));
                 }
             }
@@ -198,22 +151,7 @@ public class Inventario {
         historial.getRegistro(id).setFechaSalida(getFecha());
         historial.actualizarFechaDeSalida(id,getFecha());
         actualizarCapacidadOcupada(-clasificarCapacidad(paquete.getTamanio()));
-        actualizarEstadoPaqueteBase(id, "Entregado");
-        retirarPaqueteDeBD(id);
-    }
-
-    //Metodo para retirar la informacion del paquete del inventario en la BD
-    private void retirarPaqueteDeBD(String id) {
-        String sql = "DELETE FROM InventarioPaquetes WHERE idPaquete = "+id;
-        try {
-            int rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
-            if (!(rs > 0)) {
-                JOptionPane.showMessageDialog(null, "Error al guardar el registro", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar el registro: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+        actualizarEstadoPaqueteBD(id, "Entregado");
     }
 
     //Metodo que devuelve toda la lsita de paquetes del invetario
@@ -296,7 +234,7 @@ public class Inventario {
 
     //Metodo que consulta el historial de ingresos y salidas de los paquetes el dia ejecutado
     public void consultarHistorial() {
-        historial.consultarHoy();
+        historial.consultar();
     }
 
     //Metodo que retira  los paquetes desde la lista correspondiente para cargarlos a los camiones
@@ -319,7 +257,6 @@ public class Inventario {
         historial.getRegistro(idPaquete).setFechaSalida(getFecha());
         historial.actualizarFechaDeSalida(idPaquete,getFecha());
         actualizarCapacidadOcupada(-clasificarCapacidad(paquete.getTamanio()));      // Se actualiza la capacidad ocupada del inventario
-        retirarPaqueteDeBD(idPaquete);
         return paquete;
     }
 
@@ -336,5 +273,17 @@ public class Inventario {
     //Metodo que devuleve todoso los paquetes listos para envio a domicilio
     public ArrayList<Paquete> getPaquetesParaEnvioDomicilio() {
         return new ArrayList<>(paquetesParaCargaDomicilio.values());
+    }
+
+    public void consultarPorID(String valor) {
+        historial.filtrarPorId(valor);
+    }
+
+    public void consultarPorFechaIngreso(String valor) {
+        historial.filtrarPorFechaIngreso(valor);    
+    }
+
+    public void consultarPorFechaSalida(String valor) {
+        historial.filtrarPorFechaSalida(valor);
     }
 }

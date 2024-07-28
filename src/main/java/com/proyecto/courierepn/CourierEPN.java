@@ -23,7 +23,7 @@ public class CourierEPN {
             while (opcion != -1) {
 
                 String mensaje = "Bienvenid@, AGENCIA " + (Global.agenciaActual).toUpperCase()
-                        + "\n\n1. Registrar paquete en recepcion\n2. Mostrar paquetes en recepción\n3. Registrar paquetes en inventario\n4. Mostrar paquetes en inventario\n5. Organizar paquetes\n6. Cargar paquetes a camion de carga\n7. Descargar paquetes en bodega agencia destino\n8. Cargar paquetes en camion de entrega\n9. Entregar paquete desde camion\n10. Entregar paquete desde recepcion\n11. Seguimiento del paquete\n12. Mostrar Historial \n0. Salir\nIngrese una opción: ";
+                        + "\n\n1. Registrar paquete en recepcion\n2. Mostrar paquetes en recepción\n3. Registrar paquetes en inventario\n4. Mostrar paquetes en inventario\n5. Organizar paquetes\n6. Cargar paquetes a camion de carga\n7. Descargar paquetes en bodega agencia destino\n8. Cargar paquetes en camion de entrega\n9. Entregar paquete desde camion\n10. Entregar paquete desde recepcion\n11. Seguimiento del paquete\n12. Mostrar Historial \n13. Consultar Historial por ID \n14. Consultar Historial por Fingreso\n15. Consultar Historial por FSalida\n0. Salir\nIngrese una opción: ";
 
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(null, mensaje));
                 switch (opcion) {
@@ -145,6 +145,19 @@ public class CourierEPN {
                         break;
                     case 12:
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarHistorial();
+                        break;
+                    case 13:
+                        String idParaHistorial = JOptionPane.showInputDialog("ingrese id del paquete");
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarPorID(idParaHistorial);
+                        break;
+                    case 14:
+                        String fechaIng = JOptionPane.showInputDialog("ingrese la fecha de ingreso");
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarPorFechaIngreso(fechaIng);
+                        break;
+                    case 15:
+                    String fechaSal = JOptionPane.showInputDialog("ingrese la fecha de salida");
+
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarPorFechaSalida(fechaSal);
                         break;
                     default:
                         System.out.println("Opción no válida");

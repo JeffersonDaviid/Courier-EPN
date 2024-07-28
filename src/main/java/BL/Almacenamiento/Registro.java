@@ -3,12 +3,12 @@ package BL.Almacenamiento;
 public class Registro {
     private String fechaIngreso;
     private String fechaSalida;
-    private String sucursal;
+    private String agencia;
     private String idPaquete;
 
     public Registro(String fechaIngreso, String sucursal, String idPaquete) {
         this.fechaIngreso = fechaIngreso;
-        this.sucursal = sucursal;
+        this.agencia = sucursal;
         this.idPaquete = idPaquete;
     }
 
@@ -28,12 +28,12 @@ public class Registro {
         this.fechaSalida = fechaSalida;
     }
 
-    public String getSucursal() {
-        return sucursal;
+    public String getAgencia() {
+        return agencia;
     }
 
-    public void setSucursal(String sucursal) {
-        this.sucursal = sucursal;
+    public void setAgencia(String sucursal) {
+        this.agencia = sucursal;
     }
 
     public String getIdPaquete() {
@@ -49,7 +49,7 @@ public class Registro {
         return "Registro{" +
                 "fechaIngreso='" + fechaIngreso + '\'' +
                 ", fechaSalida='" + fechaSalida + '\'' +
-                ", sucursal='" + sucursal + '\'' +
+                ", sucursal='" + agencia + '\'' +
                 ", idPaquete=" + idPaquete +
                 '}';
     }
