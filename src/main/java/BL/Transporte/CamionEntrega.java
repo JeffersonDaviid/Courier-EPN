@@ -1,9 +1,7 @@
 package BL.Transporte;
 
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import BL.Administracion.Global;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Estado;
@@ -17,7 +15,6 @@ public class CamionEntrega extends Camion {
         super(placa, modelo, marca, capacidadCarga, disponibilidad, agencia);
     }
 
-
     // Métodos
     // Método para cargar paquete al camión
     public void cargarPaquete(String id) {
@@ -25,12 +22,16 @@ public class CamionEntrega extends Camion {
         paquetesCamion = super.getPaquetesCamion();
         Inventario inventario = Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario();
         for (Paquete p : inventario.getPaquetesParaEnvioDomicilio()) {
-            if (p.getId().equals(id)) {
+            if (p.getId().equals(id) && p.getDomicilio() != null) {
                 paquetesCamion.add(inventario.retirarPaquete(id));
                 p.agregarEstado(new Estado("En camino a domicilio"));
                 JOptionPane.showMessageDialog(null,
-                        "El paquete " + p.getId() + " ha sido cargado al camion de entregas");
+                        "El paquete " + p.getId() + " ha sido cargado al camión de entregas");
                 super.cambiarEstadoPaquetePorId(p.getId(), "En camino a domicilio");
+                return;
+            } else if (p.getId().equals(id) && p.getDomicilio() == null) {
+                JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " no tiene un domicilio válido", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
