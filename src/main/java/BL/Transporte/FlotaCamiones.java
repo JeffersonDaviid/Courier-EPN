@@ -28,7 +28,7 @@ public class FlotaCamiones {
         return camiones.get(sucursal + "-" + placa);
     }
 
-     public void mostrarCamiones(String sucursal) {
+    public void mostrarCamiones(String sucursal) {
         StringBuilder info = new StringBuilder("Camiones de la sucursal " + sucursal + ":\n");
         for (Map.Entry<String, Camion> entry : camiones.entrySet()) {
             if (entry.getKey().startsWith(sucursal)) {

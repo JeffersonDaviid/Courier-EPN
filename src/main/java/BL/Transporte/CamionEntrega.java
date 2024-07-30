@@ -11,11 +11,15 @@ import BL.GestionPaquete.Paquete;
 
 public class CamionEntrega extends Camion {
 
+    // constructor
     public CamionEntrega(String placa, String modelo, String marca, int capacidadCarga, int disponibilidad,
             String agencia) {
         super(placa, modelo, marca, capacidadCarga, disponibilidad, agencia);
     }
 
+
+    // Métodos
+    // Método para cargar paquete al camión
     public void cargarPaquete(String id) {
         ArrayList<Paquete> paquetesCamion = new ArrayList<>();
         paquetesCamion = super.getPaquetesCamion();
@@ -26,12 +30,14 @@ public class CamionEntrega extends Camion {
                 p.agregarEstado(new Estado("En camino a domicilio"));
                 JOptionPane.showMessageDialog(null,
                         "El paquete " + p.getId() + " ha sido cargado al camion de entregas");
+                super.cambiarEstadoPaquetePorId(p.getId(), "En camino a domicilio");
                 return;
             }
         }
         super.setPaquetesCamion(paquetesCamion);
     }
 
+    // Método para descargar paquete del camión
     public void entregarPaquete(String id) {
         ArrayList<Paquete> paquetesCamion = new ArrayList<>();
         paquetesCamion = super.getPaquetesCamion();
@@ -42,6 +48,7 @@ public class CamionEntrega extends Camion {
 
                 // paquetesCamion.remove(p); // COMENTADO PARA PRUEBAS
                 JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " ha sido entregado");
+                super.cambiarEstadoPaquetePorId(p.getId(), "Entregado a domicilio");
                 return;
             }
         }
