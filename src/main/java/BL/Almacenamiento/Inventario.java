@@ -10,7 +10,7 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import BL.Administracion.Global;
+import BL.Agencia.Global;
 import BL.BASEDEDATOS.DataHelper;
 import BL.GestionPaquete.Estado;
 import BL.GestionPaquete.Paquete;

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import BL.Administracion.Global;
+import BL.Agencia.Global;
+import BL.Administracion.GlobalPerfil;
+import BL.Administracion.Usuario;
 import BL.Facturacion.Factura;
 import BL.Facturacion.Tarifa;
 import BL.Facturacion.TarifaEnvio;
@@ -13,6 +15,7 @@ import BL.Seguimiento.Seguimiento;
 
 public class CourierEPN {
 
+    static Usuario usuario = null;
     public static void main(String[] args) throws Exception {
 
         int opcion = 0;
@@ -181,15 +184,16 @@ public class CourierEPN {
     }
 
     public static boolean login() {
-        String agencia;
+        String agencia, user, pass, rol;
         agencia = JOptionPane.showInputDialog("Ingrese su agencia");
-        Global.agenciaActual = agencia;
-
-        if (agencia.equals("") || agencia.equals(null)) {
-            return false;
+        user = JOptionPane.showInputDialog("Ingrese su usuario");
+        pass = JOptionPane.showInputDialog("Ingrese su contraseña");
+        rol = JOptionPane.showInputDialog("Ingrese su rol");
+        if(Usuario.login(agencia, user, pass, rol)){
+            Global.agenciaActual = agencia;
+            return true;
         }
-
-        return true;
-
+        else
+            return false;
     }
 }

@@ -1,6 +1,4 @@
-package BL.Administracion;
-
-// import java.util.ArrayList;
+package BL.Agencia;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Recepcion;

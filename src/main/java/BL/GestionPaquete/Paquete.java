@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import BL.Administracion.Global;
+import BL.Agencia.Global;
 import BL.BASEDEDATOS.DataHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
