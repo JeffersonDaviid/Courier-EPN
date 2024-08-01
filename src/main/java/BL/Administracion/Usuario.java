@@ -38,21 +38,21 @@ public class Usuario {
         return agencia;
     }
 
-    public static boolean login(String agencia, String user, String pass, String rol){
+    public static Usuario login(String agencia, String user, String pass, String rol){
          if (agencia.equals("") || agencia.equals(null) || agencia == null || user.equals("") || user.equals(null)
                 || user == null || pass.equals("") || pass.equals(null) || pass == null || rol.equals("")
                 || rol.equals(null) || rol == null) {
-            return false;
+            return null;
         }
         Usuario usuario = null;
         usuario = GlobalPerfil.getInstancia().loginPerfil(user, pass, rol);
         
         if (usuario == null) {
             JOptionPane.showMessageDialog(null, "Usuario no encontrado");
-            return false;
+            return null;
         }
 
-        return true;
+        return usuario;
     }
 
 }
