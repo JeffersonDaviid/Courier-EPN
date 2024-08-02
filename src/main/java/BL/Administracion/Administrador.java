@@ -14,7 +14,7 @@ public class Administrador extends Usuario {
         String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nombre del nuevo usuario:");
         String nuevaContrasena = JOptionPane.showInputDialog(null, "Ingrese la contraseña del nuevo usuario:");
         String nuevaAgencia = JOptionPane.showInputDialog(null, "Ingrese la agencia del nuevo usuario:");
-        String nuevoRol = JOptionPane.showInputDialog(null, "Ingrese el rol del nuevo usuario (Administrador o Recepcionista):");
+        String nuevoRol = JOptionPane.showInputDialog(null, "Ingrese el rol del nuevo usuario (Administrador, Recepcionista, Bodeguero o Transportista):");
 
         // Crear y agregar el nuevo usuario
         Usuario nuevoUsuario;
@@ -22,6 +22,10 @@ public class Administrador extends Usuario {
             nuevoUsuario = new Administrador(nuevoNombre, nuevaContrasena, nuevaAgencia);
         } else if (nuevoRol.equalsIgnoreCase("Recepcionista")) {
             nuevoUsuario = new Recepcionista(nuevoNombre, nuevaContrasena, nuevaAgencia);
+        } else if (nuevoRol.equalsIgnoreCase("Bodeguero")) {
+            nuevoUsuario = new Bodeguero(nuevoNombre, nuevaContrasena, nuevaAgencia);
+        } else if (nuevoRol.equalsIgnoreCase("Transportista")) {
+            nuevoUsuario = new Transportista(nuevoNombre, nuevaContrasena, nuevaAgencia);
         } else {
             JOptionPane.showMessageDialog(null, "Rol desconocido. No se pudo agregar el usuario.");
             return;
