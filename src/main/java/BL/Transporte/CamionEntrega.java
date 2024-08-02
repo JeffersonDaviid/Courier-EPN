@@ -10,7 +10,6 @@ import BL.GestionPaquete.Estado;
 import BL.GestionPaquete.Paquete;
 
 public class CamionEntrega {
-    private String tipo;
     private String placa;
     private String modelo;
     private String marca;
@@ -19,23 +18,14 @@ public class CamionEntrega {
     private String agencia;
     private ArrayList<Paquete> paquetesCamion = new ArrayList<>();
 
-    public CamionEntrega(String tipo, String placa, String modelo, String marca, int capacidadCarga, int disponibilidad,
+    public CamionEntrega(String placa, String modelo, String marca, int capacidadCarga, int disponibilidad,
             String agencia) {
-        this.tipo = tipo;
         this.placa = placa;
         this.modelo = modelo;
         this.marca = marca;
         this.capacidadCarga = capacidadCarga;
         this.disponibilidad = disponibilidad;
         this.agencia = agencia;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getPlaca() {

@@ -38,8 +38,28 @@ public class Administrador extends Usuario {
     }
 
     // Método para agregar un nuevo camión
-    public void agregarCamion() {
-        String tipoCamion = JOptionPane.showInputDialog("Ingrese el tipo de camión (carga/entrega):").trim();
+    public void agregarCamionCarga() {
+        String placa = JOptionPane.showInputDialog("Ingrese la placa:").trim();
+        String modelo = JOptionPane.showInputDialog("Ingrese el modelo:").trim();
+        String marca = JOptionPane.showInputDialog("Ingrese la marca:").trim();
+        int capacidadCarga = 0;
+        int disponibilidad = 0;
+
+        try {
+            capacidadCarga = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la capacidad de carga:").trim());
+            disponibilidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la disponibilidad:").trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Capacidad de carga y disponibilidad deben ser números.");
+            return;
+        }
+        CamionCarga nuevoCamion = new CamionCarga(placa, modelo, marca, capacidadCarga, disponibilidad,
+                Global.agenciaActual);
+        Global.getInstancia().buscarAgencia(Global.agenciaActual).agregarCamionCarga(nuevoCamion);
+        JOptionPane.showMessageDialog(null, "Camión de carga agregado exitosamente.");
+    }
+
+    // Método para agregar un nuevo camión
+    public void agregarCamionEntrega() {
         String placa = JOptionPane.showInputDialog("Ingrese la placa:").trim();
         String modelo = JOptionPane.showInputDialog("Ingrese el modelo:").trim();
         String marca = JOptionPane.showInputDialog("Ingrese la marca:").trim();
@@ -54,18 +74,9 @@ public class Administrador extends Usuario {
             return;
         }
 
-        if (tipoCamion.equalsIgnoreCase("carga")) {
-            CamionCarga nuevoCamion = new CamionCarga(tipoCamion, placa, modelo, marca, capacidadCarga, disponibilidad,
-                    Global.agenciaActual);
-            Global.getInstancia().buscarAgencia(Global.agenciaActual).agregarCamionCarga(nuevoCamion);
-            JOptionPane.showMessageDialog(null, "Camión de carga agregado exitosamente.");
-        } else if (tipoCamion.equalsIgnoreCase("entrega")) {
-            CamionEntrega nuevoCamion = new CamionEntrega(tipoCamion, placa, modelo, marca, capacidadCarga,
-                    disponibilidad, Global.agenciaActual);
-            Global.getInstancia().buscarAgencia(Global.agenciaActual).agregarCamionEntrega(nuevoCamion);
-            JOptionPane.showMessageDialog(null, "Camión de entrega agregado exitosamente.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Tipo de camión no reconocido.");
-        }
+        CamionEntrega nuevoCamion = new CamionEntrega(placa, modelo, marca, capacidadCarga,
+                disponibilidad, Global.agenciaActual);
+        Global.getInstancia().buscarAgencia(Global.agenciaActual).agregarCamionEntrega(nuevoCamion);
+        JOptionPane.showMessageDialog(null, "Camión de entrega agregado exitosamente.");
     }
 }
