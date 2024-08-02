@@ -16,24 +16,22 @@ CREATE TABLE Usuarios (
     agencia TEXT NOT NULL
 );
 
+DROP TABLE VEHICULOS;
 
 -- TRANSPORTE
-CREATE TABLE Vehiculo (
+CREATE TABLE Camiones (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     modelo TEXT,
     marca TEXT,
     capacidadCarga INTEGER,
     disponibilidad INTEGER, -- Usaremos 0 para FALSE y 1 para TRUE
-    ruta INTEGER
     agencia TEXT NOT NULL
 );
 
-CREATE TABLE Rutas (
-    id_Ruta INTEGER PRIMARY KEY AUTOINCREMENT,
-    sector TEXT NOT NULL,
-    direccion TEXT NOT NULL
-    agencia TEXT NOT NULL
-);
+INSERT INTO Camiones (modelo, marca, capacidadCarga, disponibilidad, agencia) VALUES ('Camioneta', 'Toyota', 1000, 1, 'San Jose');
+INSERT INTO Camiones (modelo, marca, capacidadCarga, disponibilidad, agencia) VALUES ('Carro', 'Toyota', 2000, 2, 'San Jose');
+DROP TABLE RUTAS;
+
 
 -- GESTION DE PAQUETES
 
