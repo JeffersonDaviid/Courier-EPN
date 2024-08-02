@@ -1,5 +1,7 @@
 package BL.Agencia;
 
+import java.util.ArrayList;
+
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Recepcion;
 import BL.Transporte.CamionCarga;
@@ -9,14 +11,13 @@ public class Agencia {
     private String nombre;
     private Recepcion recepcion = new Recepcion();
     private Inventario inventario = new Inventario();
-    // private ArrayList<CamionCarga> camionesCarga = new ArrayList<CamionCarga>();
-    // private ArrayList<CamionEntrega> camionesEntrega = new
-    // ArrayList<CamionEntrega>();
-    private CamionCarga camionCarga = new CamionCarga();
-    private CamionEntrega camionEntrega = new CamionEntrega();
+    private ArrayList<CamionCarga> camionesCarga;
+    private ArrayList<CamionEntrega> camionesEntrega;
 
     public Agencia(String nombre) {
         this.nombre = nombre;
+        this.camionesCarga = new ArrayList<>(); // Inicialización de la lista
+        this.camionesEntrega = new ArrayList<>(); // Inicialización de la lista
     }
 
     public String getNombre() {
@@ -31,20 +32,29 @@ public class Agencia {
         return inventario;
     }
 
-    // public ArrayList<CamionCarga> getCamionesCarga() {
-    // return camionesCarga;
-    // }
-
-    // public ArrayList<CamionEntrega> getCamionesEntrega() {
-    // return camionesEntrega;
-    // }
-
-    public CamionCarga getCamionCarga() {
-        return camionCarga;
+    public ArrayList<CamionCarga> getCamionesCarga() {
+        return camionesCarga;
     }
 
-    public CamionEntrega getCamionEntrega() {
-        return camionEntrega;
+    public ArrayList<CamionEntrega> getCamionesEntrega() {
+        return camionesEntrega;
+    }
+
+    public void agregarCamionCarga(CamionCarga camion) {
+        this.camionesCarga.add(camion);
+    }
+
+    public void agregarCamionEntrega(CamionEntrega camion) {
+        this.camionesEntrega.add(camion);
+    }
+
+    // Métodos para obtener un solo camión por algún criterio si es necesario
+    public CamionCarga getCamionCarga(int index) {
+        return camionesCarga.get(index);
+    }
+
+    public CamionEntrega getCamionEntrega(int index) {
+        return camionesEntrega.get(index);
     }
 
     public void setNombre(String nombre) {
