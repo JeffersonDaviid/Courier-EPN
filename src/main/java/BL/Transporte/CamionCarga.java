@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import BL.Agencia.Global;
+import BL.Administracion.Global;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Estado;
 import BL.GestionPaquete.Paquete;

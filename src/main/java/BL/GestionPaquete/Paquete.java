@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import BL.Agencia.Global;
+import BL.Administracion.Global;
 import BL.BASEDEDATOS.DataHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ public class Paquete {
     private ArrayList<Estado> historialEstado = new ArrayList<>();
     private String agenciaOrigen;
     private String agenciaDestino;
-   // private String domicilio;
+    // private String domicilio;
     private String nombreRemitente;
     private String correoRemitente;
     private String telefonoRemitente;
@@ -28,9 +28,11 @@ public class Paquete {
     private String Domicilio;
     private String fechaLlegada;
     Estado estado;
-    //private String trackingNumber;
+    // private String trackingNumber;
 
-    public Paquete(String id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada) {
+    public Paquete(String id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino,
+            String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario,
+            String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada) {
         this.id = id;
         this.peso = peso;
         this.tamanio = tamanio;
@@ -46,8 +48,6 @@ public class Paquete {
         this.fechaLlegada = fechaLlegada;
     }
 
-   
-    
     public String getFechaLlegada() {
         return fechaLlegada;
     }
@@ -112,9 +112,7 @@ public class Paquete {
     public void setDomicilio(String Domicilio) {
         this.Domicilio = Domicilio;
     }
-    
 
-   
     public void agregarEstado(Estado estado) {
         historialEstado.add(estado);
     }
@@ -146,24 +144,24 @@ public class Paquete {
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public void registrarPaquete(Paquete paquete) {
         Recepcion recepcion = Global.getInstancia().buscarAgencia(paquete.getAgenciaOrigen()).getRecepcion();
         recepcion.agregarPaquete(paquete);
         JOptionPane.showMessageDialog(null, "El paquete: " + paquete.getId() + " ha sido registrado");
     }
-    
-    //guardar en la base
+
+    // guardar en la base
     private void guardarPaquete() {
-        String fechaHoraSalida = estado.getFecha();  // Usa la fecha del último estado
-        String estadoPaquete = estado.getEstado();  // Usa el estado del último estado
+        String fechaHoraSalida = estado.getFecha(); // Usa la fecha del último estado
+        String estadoPaquete = estado.getEstado(); // Usa el estado del último estado
 
         String sql = "INSERT INTO Paquete (peso, tamanio, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio, estado) VALUES ("
-            + peso + ", '" + tamanio + "', '" + fechaLlegada + "', '"
-            + fechaHoraSalida + "', '" + nombreRemitente + "', '"
-            + correoRemitente + "', '" + telefonoRemitente + "', '" + nombreDestinatario + "', '"
-            + correoDestinatario + "', '" + telefonoDestinatario + "', '"
-            + Domicilio + "', '" + estadoPaquete + "')";
+                + peso + ", '" + tamanio + "', '" + fechaLlegada + "', '"
+                + fechaHoraSalida + "', '" + nombreRemitente + "', '"
+                + correoRemitente + "', '" + telefonoRemitente + "', '" + nombreDestinatario + "', '"
+                + correoDestinatario + "', '" + telefonoDestinatario + "', '"
+                + Domicilio + "', '" + estadoPaquete + "')";
 
         try {
             int rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
@@ -180,5 +178,5 @@ public class Paquete {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
 }

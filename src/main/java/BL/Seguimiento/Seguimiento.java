@@ -5,8 +5,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import BL.Agencia.Global;
 import BL.GestionPaquete.Paquete;
+import BL.Administracion.Global;
 import BL.BASEDEDATOS.DataHelper;
 
 public class Seguimiento {

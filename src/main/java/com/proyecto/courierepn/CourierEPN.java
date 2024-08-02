@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import BL.Agencia.Global;
 import BL.Administracion.Administrador;
+import BL.Administracion.Global;
 import BL.Administracion.GlobalPerfil;
 import BL.Administracion.Usuario;
 import BL.Facturacion.Factura;

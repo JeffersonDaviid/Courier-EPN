@@ -2,7 +2,6 @@ package BL.Administracion;
 
 import javax.swing.JOptionPane;
 
-import BL.Agencia.Global;
 import BL.Transporte.CamionCarga;
 import BL.Transporte.CamionEntrega;
 
