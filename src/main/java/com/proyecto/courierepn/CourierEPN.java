@@ -4,14 +4,21 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import BL.Administracion.Administrador;
 import BL.Administracion.Global;
+import BL.Administracion.GlobalPerfil;
+import BL.Administracion.Usuario;
 import BL.Facturacion.Factura;
 import BL.Facturacion.Tarifa;
 import BL.Facturacion.TarifaEnvio;
 import BL.GestionPaquete.Paquete;
 import BL.Seguimiento.Seguimiento;
+import BL.Transporte.CamionCarga;
+import BL.Transporte.CamionEntrega;
 
 public class CourierEPN {
+
+    static Usuario usuario = null;
 
     public static void main(String[] args) throws Exception {
 
@@ -23,7 +30,26 @@ public class CourierEPN {
             while (opcion != -1) {
 
                 String mensaje = "Bienvenid@, AGENCIA " + (Global.agenciaActual).toUpperCase()
-                        + "\n\n1. Registrar paquete en recepcion\n2. Mostrar paquetes en recepción\n3. Registrar paquetes en inventario\n4. Mostrar paquetes en inventario\n5. Organizar paquetes\n6. Cargar paquetes a camion de carga\n7. Descargar paquetes en bodega agencia destino\n8. Cargar paquetes en camion de entrega\n9. Entregar paquete desde camion\n10. Entregar paquete desde recepcion\n11. Seguimiento del paquete\n12. Mostrar Historial \n13. Consultar Historial por ID \n14. Consultar Historial por Fingreso\n15. Consultar Historial por FSalida\n0. Salir\nIngrese una opción: ";
+                        + "\n\n1. Registrar paquete en recepcion"
+                        + "\n2. Mostrar paquetes en recepción"
+                        + "\n3. Registrar paquetes en inventario"
+                        + "\n4. Mostrar paquetes en inventario"
+                        + "\n5. Organizar paquetes"
+                        + "\n6. Cargar paquetes a camion de carga"
+                        + "\n7. Descargar paquetes en bodega agencia destino"
+                        + "\n8. Cargar paquetes en camion de entrega"
+                        + "\n9. Entregar paquete desde camion"
+                        + "\n10. Entregar paquete desde recepcion"
+                        + "\n11. Seguimiento del paquete"
+                        + "\n12. Mostrar Historial"
+                        + "\n13. Consultar Historial por ID"
+                        + "\n14. Consultar Historial por Fingreso"
+                        + "\n15. Consultar Historial por FSalida"
+                        + "\n16. Ingresar nuevo usuario"
+                        + "\n17. Agregar nuevo camión"
+                        + "\n18. Mostrar camiones registrados"
+                        + "\n0. Salir"
+                        + "\nIngrese una opción: ";
 
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(null, mensaje));
                 switch (opcion) {
@@ -43,9 +69,11 @@ public class CourierEPN {
                             domicilio = null;
                         }
 
-                        //Paquete p = new Paquete(id, ciudadOrigen, ciudadDestino, domicilio, peso, tamanio);
-                        Paquete p = new Paquete(id, peso, tamanio, ciudadOrigen, ciudadDestino,"Pepe","correo@epn","099",
-                        "Juan","juan@gmail","09952",domicilio,"12/05/52");
+                        // Paquete p = new Paquete(id, ciudadOrigen, ciudadDestino, domicilio, peso,
+                        // tamanio);
+                        Paquete p = new Paquete(id, peso, tamanio, ciudadOrigen, ciudadDestino, "Pepe", "correo@epn",
+                                "099",
+                                "Juan", "juan@gmail", "09952", domicilio, "12/05/52");
 
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getRecepcion().agregarPaquete(p);
 
@@ -85,46 +113,55 @@ public class CourierEPN {
                         break;
 
                     case 6:
-                        idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
-                                .cargarPaquete(idPaquete);
-
-                        mostrarPaquetes(
-                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
-                                        .getPaquetesCamion(),
-                                "Camion de carga");
-                        break;
+                        /*
+                         * idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
+                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
+                         * .cargarPaquete(idPaquete);
+                         * 
+                         * mostrarPaquetes(
+                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
+                         * .getPaquetesCamion(),
+                         * "Camion de carga");
+                         * break;
+                         */
 
                     case 7:
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga().descargarPaquete();
-
-                        mostrarPaquetes(
-                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
-                                        .getPaquetesCamion(),
-                                "Camion de carga");
-                        break;
+                        /*
+                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga().
+                         * descargarPaquete();
+                         * 
+                         * mostrarPaquetes(
+                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
+                         * .getPaquetesCamion(),
+                         * "Camion de carga");
+                         * break;
+                         */
 
                     case 8:
-                        idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
-                                .cargarPaquete(idPaquete);
-
-                        mostrarPaquetes(
-                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
-                                        .getPaquetesCamion(),
-                                "Camion de entrega");
-                        break;
+                        /*
+                         * idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
+                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
+                         * .cargarPaquete(idPaquete);
+                         * 
+                         * mostrarPaquetes(
+                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
+                         * .getPaquetesCamion(),
+                         * "Camion de entrega");
+                         * break;
+                         */
 
                     case 9:
-                        idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
-                                .entregarPaquete(idPaquete);
-
-                        mostrarPaquetes(
-                                Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
-                                        .getPaquetesCamion(),
-                                "Camion de entrega");
-                        break;
+                        /*
+                         * idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
+                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
+                         * .entregarPaquete(idPaquete);
+                         * 
+                         * mostrarPaquetes(
+                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
+                         * .getPaquetesCamion(),
+                         * "Camion de entrega");
+                         * break;
+                         */
 
                     case 10:
                         idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
@@ -148,17 +185,43 @@ public class CourierEPN {
                         break;
                     case 13:
                         String idParaHistorial = JOptionPane.showInputDialog("ingrese id del paquete");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarPorID(idParaHistorial);
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
+                                .consultarPorID(idParaHistorial);
                         break;
                     case 14:
                         String fechaIng = JOptionPane.showInputDialog("ingrese la fecha de ingreso");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarPorFechaIngreso(fechaIng);
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
+                                .consultarPorFechaIngreso(fechaIng);
                         break;
                     case 15:
-                    String fechaSal = JOptionPane.showInputDialog("ingrese la fecha de salida");
+                        String fechaSal = JOptionPane.showInputDialog("ingrese la fecha de salida");
 
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarPorFechaSalida(fechaSal);
+                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
+                                .consultarPorFechaSalida(fechaSal);
                         break;
+
+                    case 16: // Nueva opción para ingresar un nuevo usuario
+                        if (usuario instanceof Administrador) {
+                            ((Administrador) usuario).agregarNuevoUsuario();
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Solo los administradores pueden agregar nuevos usuarios.");
+                        }
+                        break;
+
+                    case 17:
+                        if (usuario instanceof Administrador) {
+                            ((Administrador) usuario).agregarCamion();
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Solo los administradores pueden agregar nuevos usuarios.");
+                        }
+                        break;
+
+                    case 18:
+                        mostrarCamiones();
+                        break;
+
                     default:
                         System.out.println("Opción no válida");
                         break;
@@ -181,15 +244,50 @@ public class CourierEPN {
     }
 
     public static boolean login() {
-        String agencia;
+        String agencia, user, pass, rol;
         agencia = JOptionPane.showInputDialog("Ingrese su agencia");
-        Global.agenciaActual = agencia;
-
-        if (agencia.equals("") || agencia.equals(null)) {
+        user = JOptionPane.showInputDialog("Ingrese su usuario");
+        pass = JOptionPane.showInputDialog("Ingrese su contraseña");
+        rol = JOptionPane.showInputDialog("Ingrese su rol");
+        usuario = Usuario.login(agencia, user, pass, rol);
+        if (usuario != null) {
+            Global.agenciaActual = agencia;
+            return true;
+        } else {
             return false;
         }
-
-        return true;
-
     }
+
+    public static void mostrarCamiones() {
+        String mensajeCarga = "Camiones de carga registrados:\n";
+        String mensajeEntrega = "Camiones de entrega registrados:\n";
+
+        ArrayList<CamionCarga> camionesCarga = Global.getInstancia().buscarAgencia(Global.agenciaActual)
+                .getCamionesCarga();
+        ArrayList<CamionEntrega> camionesEntrega = Global.getInstancia().buscarAgencia(Global.agenciaActual)
+                .getCamionesEntrega();
+
+        if (camionesCarga.isEmpty()) {
+            mensajeCarga += "No hay camiones de carga registrados.\n";
+        } else {
+            for (CamionCarga camion : camionesCarga) {
+                mensajeCarga += "Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo() + ", Marca: "
+                        + camion.getMarca() + ", Capacidad: " + camion.getCapacidadCarga() + ", Disponibilidad: "
+                        + camion.getDisponibilidad() + "\n";
+            }
+        }
+
+        if (camionesEntrega.isEmpty()) {
+            mensajeEntrega += "No hay camiones de entrega registrados.\n";
+        } else {
+            for (CamionEntrega camion : camionesEntrega) {
+                mensajeEntrega += "Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo() + ", Marca: "
+                        + camion.getMarca() + ", Capacidad: " + camion.getCapacidadCarga() + ", Disponibilidad: "
+                        + camion.getDisponibilidad() + "\n";
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, mensajeCarga + "\n" + mensajeEntrega);
+    }
+
 }
