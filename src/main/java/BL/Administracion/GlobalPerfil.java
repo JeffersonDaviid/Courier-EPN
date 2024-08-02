@@ -31,6 +31,10 @@ public class GlobalPerfil {
         perfiles.add(perfil2);
         perfiles.add(perfil3);
     }
+       // Nuevo método para agregar usuarios
+       public void agregarUsuario(Usuario nuevoUsuario) {
+        perfiles.add(nuevoUsuario);
+    }
 
     public Usuario loginPerfil(String nombre, String contrasena, String rol) {
         for (Usuario perfil : perfiles) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import BL.Agencia.Global;
+import BL.Administracion.Administrador;
 import BL.Administracion.GlobalPerfil;
 import BL.Administracion.Usuario;
 import BL.Facturacion.Factura;
@@ -26,8 +27,25 @@ public class CourierEPN {
             while (opcion != -1) {
 
                 String mensaje = "Bienvenid@, AGENCIA " + (Global.agenciaActual).toUpperCase()
-                        + "\n\n1. Registrar paquete en recepcion\n2. Mostrar paquetes en recepción\n3. Registrar paquetes en inventario\n4. Mostrar paquetes en inventario\n5. Organizar paquetes\n6. Cargar paquetes a camion de carga\n7. Descargar paquetes en bodega agencia destino\n8. Cargar paquetes en camion de entrega\n9. Entregar paquete desde camion\n10. Entregar paquete desde recepcion\n11. Seguimiento del paquete\n12. Mostrar Historial \n13. Consultar Historial por ID \n14. Consultar Historial por Fingreso\n15. Consultar Historial por FSalida\n0. Salir\nIngrese una opción: ";
-
+                + "\n\n1. Registrar paquete en recepcion"
+                + "\n2. Mostrar paquetes en recepción"
+                + "\n3. Registrar paquetes en inventario"
+                + "\n4. Mostrar paquetes en inventario"
+                + "\n5. Organizar paquetes"
+                + "\n6. Cargar paquetes a camion de carga"
+                + "\n7. Descargar paquetes en bodega agencia destino"
+                + "\n8. Cargar paquetes en camion de entrega"
+                + "\n9. Entregar paquete desde camion"
+                + "\n10. Entregar paquete desde recepcion"
+                + "\n11. Seguimiento del paquete"
+                + "\n12. Mostrar Historial"
+                + "\n13. Consultar Historial por ID"
+                + "\n14. Consultar Historial por Fingreso"
+                + "\n15. Consultar Historial por FSalida"
+                + "\n16. Ingresar nuevo usuario" // Asegúrate de que esto esté incluido
+                + "\n0. Salir"
+                + "\nIngrese una opción: ";
+                
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(null, mensaje));
                 switch (opcion) {
                     case 0:
@@ -162,6 +180,14 @@ public class CourierEPN {
 
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarPorFechaSalida(fechaSal);
                         break;
+                    case 16: // Nueva opción para ingresar un nuevo usuario
+                        if (usuario instanceof Administrador) {
+                            ((Administrador) usuario).agregarNuevoUsuario();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Solo los administradores pueden agregar nuevos usuarios.");
+                        }
+                        break;
+
                     default:
                         System.out.println("Opción no válida");
                         break;
@@ -190,11 +216,11 @@ public class CourierEPN {
         pass = JOptionPane.showInputDialog("Ingrese su contraseña");
         rol = JOptionPane.showInputDialog("Ingrese su rol");
         usuario = Usuario.login(agencia, user, pass, rol);
-        if(usuario != null){
+        if (usuario != null) {
             Global.agenciaActual = agencia;
             return true;
-        }
-        else
+        } else {
             return false;
+        }
     }
 }
