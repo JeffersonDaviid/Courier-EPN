@@ -1,116 +1,56 @@
 package BL.Transporte;
 
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import BL.Administracion.Global;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Estado;
 import BL.GestionPaquete.Paquete;
 
-public class CamionCarga {
-    private String tipo;
-    private String placa;
-    private String modelo;
-    private String marca;
-    private int capacidadCarga;
-    private int disponibilidad;
-    private String agencia;
-    private ArrayList<Paquete> paquetesCamion = new ArrayList<>();
+public class CamionCarga extends Camion {
 
-    public CamionCarga(String tipo, String placa, String modelo, String marca, int capacidadCarga, int disponibilidad,
+    // Constructor
+    public CamionCarga(String placa, String modelo, String marca, int capacidadCarga, int disponibilidad,
             String agencia) {
-        this.tipo = tipo;
-        this.placa = placa;
-        this.modelo = modelo;
-        this.marca = marca;
-        this.capacidadCarga = capacidadCarga;
-        this.disponibilidad = disponibilidad;
-        this.agencia = agencia;
+        super(placa, modelo, marca, capacidadCarga, disponibilidad, agencia);
     }
 
-    public String getTipo() {
-        return tipo;
-    }
+    // Métodos
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public int getCapacidadCarga() {
-        return capacidadCarga;
-    }
-
-    public void setCapacidadCarga(int capacidadCarga) {
-        this.capacidadCarga = capacidadCarga;
-    }
-
-    public int getDisponibilidad() {
-        return disponibilidad;
-    }
-
-    public void setDisponibilidad(int disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
-
-    public String getAgencia() {
-        return agencia;
-    }
-
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
-    }
-
+    // Método para cargar paquete al camión
     public void cargarPaquete(String id) {
+        ArrayList<Paquete> paquetesCamion = new ArrayList<>();
+        paquetesCamion = super.getPaquetesCamion();
         Inventario inventario = Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario();
         for (Paquete p : inventario.getPaquetesParaCarga()) {
-            if (p.getId().equals(id)) {
+            if (p.getId().equals(id) && p.getDomicilio() == null) {
                 paquetesCamion.add(inventario.retirarPaquete(id));
                 p.agregarEstado(new Estado("En camino agencia destino"));
-                JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " ha sido cargado al camion de carga");
+                JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " ha sido cargado al camión de carga");
+                super.cambiarEstadoPaquetePorId(p.getId(), "En camino agencia destino");
+                return;
+            } else if (p.getId().equals(id) && p.getDomicilio() != null) {
+                JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " tiene un domicilio asignado y no puede ser cargado al camión de carga", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
+        super.setPaquetesCamion(paquetesCamion);
     }
 
+    // Método para descargar paquete del camión
     public void descargarPaquete() {
+        ArrayList<Paquete> paquetesCamion = new ArrayList<>();
+        paquetesCamion = super.getPaquetesCamion();
         Inventario inventario = Global.getInstancia().buscarAgencia(paquetesCamion.get(0).getAgenciaDestino())
                 .getInventario();
         for (Paquete p : paquetesCamion) {
             inventario.agregarPaqueteDeCamionCarga(p);
             paquetesCamion.remove(p);
-            JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " ha sido descargado del camion");
+            JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " ha sido descargado del camión");
+            super.cambiarEstadoPaquetePorId(p.getId(), "En agencia destino");
             return;
         }
+        super.setPaquetesCamion(paquetesCamion);
     }
-
-    public ArrayList<Paquete> getPaquetesCamion() {
-        return paquetesCamion;
-    }
-
 }
