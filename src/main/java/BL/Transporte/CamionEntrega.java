@@ -2,6 +2,8 @@ package BL.Transporte;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
+import BL.Administracion.Agencia;
 import BL.Administracion.Global;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Estado;
@@ -55,4 +57,15 @@ public class CamionEntrega extends Camion {
         }
         super.setPaquetesCamion(paquetesCamion);
     }
+
+    public void mostrarListaCamionesEntrega() {
+        Agencia agencia = Global.getInstancia().buscarAgencia(Global.agenciaActual);
+        ArrayList<CamionEntrega> camionesEntrega = agencia.getCamionesEntrega();
+
+        // Iterar sobre la lista y mostrar la información de los camiones
+        for (CamionEntrega camion : camionesEntrega) {
+            System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo());
+        }
+}
+
 }
