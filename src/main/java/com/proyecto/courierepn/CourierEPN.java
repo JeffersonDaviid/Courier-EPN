@@ -46,8 +46,9 @@ public class CourierEPN {
                         + "\n14. Consultar Historial por Fingreso"
                         + "\n15. Consultar Historial por FSalida"
                         + "\n16. Ingresar nuevo usuario"
-                        + "\n17. Agregar nuevo camión"
-                        + "\n18. Mostrar camiones registrados"
+                        + "\n17. Agregar nuevo camión de carga"
+                        + "\n18. Agregar nuevo camión de entrega"
+                        + "\n19. Mostrar camiones registrados"
                         + "\n0. Salir"
                         + "\nIngrese una opción: ";
 
@@ -211,14 +212,23 @@ public class CourierEPN {
 
                     case 17:
                         if (usuario instanceof Administrador) {
-                            ((Administrador) usuario).agregarCamion();
+                            ((Administrador) usuario).agregarCamionCarga();
                         } else {
                             JOptionPane.showMessageDialog(null,
-                                    "Solo los administradores pueden agregar nuevos usuarios.");
+                                    "Solo los administradores pueden agregar nuevos camiones de carga.");
                         }
                         break;
 
                     case 18:
+                        if (usuario instanceof Administrador) {
+                            ((Administrador) usuario).agregarCamionEntrega();
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Solo los administradores pueden agregar nuevos camiones de entrega.");
+                        }
+                        break;
+
+                    case 19:
                         mostrarCamiones();
                         break;
 
