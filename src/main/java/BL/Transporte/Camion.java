@@ -1,7 +1,9 @@
 package BL.Transporte;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -101,6 +103,11 @@ public abstract class Camion implements Cloneable {
         this.modelo = modelo;
     }
 
+    public String getFecha() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date());
+    }
+
     // Método para tranformar a string 
     @Override
     public String toString() {
@@ -109,26 +116,29 @@ public abstract class Camion implements Cloneable {
                 placa, modelo, marca, capacidadCarga, disponibilidad, agencia);
     }
 
-    // Método para cambiar el estado del paquete en BD utilizando el ID del paquete
-    public void cambiarEstadoPaquetePorId(String id, String estadoFinal) {
-        int rs = -1;
-        String sql = "UPDATE Paquetes SET estado = '" + estadoFinal + "' WHERE id = '" + id + "'";
+   // Método para cambiar el estado del paquete en BD utilizando el ID del paquete
+   public void cambiarEstadoPaquetePorId(String idPaquete, String estado) {
+    int rs = -1;
+    String sql = "INSERT INTO PaqueteEstados (idPaquete, estado, fecha) VALUES ('"
+        + idPaquete + "', '" + estado + "', '" + getFecha() + "')"; // 'getFecha()' debe retornar la fecha actual
 
-        try {
-            rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+    try {
+        rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
 
-            if (rs > 0) {
-                JOptionPane.showMessageDialog(null, "Estado del paquete actualizado con éxito", "Guardado",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el paquete con el ID especificado", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el estado del paquete: " + e.getMessage(), "Error",
+        if (rs > 0) {
+            JOptionPane.showMessageDialog(null, "Estado del paquete insertado con éxito", "Guardado",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo insertar el estado del paquete", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al insertar el estado del paquete: " + e.getMessage(), "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
+}
+
+
 
 }
