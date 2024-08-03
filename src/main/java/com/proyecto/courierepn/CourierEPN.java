@@ -113,56 +113,49 @@ public class CourierEPN {
                                 .organizarPaquetes(idPaquete);
                         break;
 
-                    case 6:
-                        /*
-                         * idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
-                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
-                         * .cargarPaquete(idPaquete);
-                         * 
-                         * mostrarPaquetes(
-                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
-                         * .getPaquetesCamion(),
-                         * "Camion de carga");
-                         * break;
-                         */
-
+                        case 6:
+                        idPaquete = JOptionPane.showInputDialog("Ingrese id del paquete");
+                        CamionCarga camionCarga = Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga();
+                        if (camionCarga != null) {
+                            camionCarga.cargarPaquete(idPaquete);
+                            mostrarPaquetes(camionCarga.getPaquetesCamion(), "Camión de carga");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No hay camiones de carga disponibles.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
+                    
                     case 7:
-                        /*
-                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga().
-                         * descargarPaquete();
-                         * 
-                         * mostrarPaquetes(
-                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga()
-                         * .getPaquetesCamion(),
-                         * "Camion de carga");
-                         * break;
-                         */
-
+                        camionCarga = Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga();
+                        if (camionCarga != null) {
+                            camionCarga.descargarPaquete();
+                            mostrarPaquetes(camionCarga.getPaquetesCamion(), "Camión de carga");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No hay camiones de carga disponibles.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
+                    
                     case 8:
-                        /*
-                         * idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
-                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
-                         * .cargarPaquete(idPaquete);
-                         * 
-                         * mostrarPaquetes(
-                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
-                         * .getPaquetesCamion(),
-                         * "Camion de entrega");
-                         * break;
-                         */
-
+                        idPaquete = JOptionPane.showInputDialog("Ingrese id del paquete");
+                        CamionEntrega camionEntrega = Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega();
+                        if (camionEntrega != null) {
+                            camionEntrega.cargarPaquete(idPaquete);
+                            mostrarPaquetes(camionEntrega.getPaquetesCamion(), "Camión de entrega");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No hay camiones de entrega disponibles.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
+                    
                     case 9:
-                        /*
-                         * idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
-                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
-                         * .entregarPaquete(idPaquete);
-                         * 
-                         * mostrarPaquetes(
-                         * Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega()
-                         * .getPaquetesCamion(),
-                         * "Camion de entrega");
-                         * break;
-                         */
+                        idPaquete = JOptionPane.showInputDialog("Ingrese id del paquete");
+                        camionEntrega = Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionEntrega();
+                        if (camionEntrega != null) {
+                            camionEntrega.entregarPaquete(idPaquete);
+                            mostrarPaquetes(camionEntrega.getPaquetesCamion(), "Camión de entrega");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No hay camiones de entrega disponibles.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
+                    
 
                     case 10:
                         idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");

@@ -61,4 +61,19 @@ public class Agencia {
         this.nombre = nombre;
     }
 
+    // Métodos para obtener el primer camión de cada tipo
+    public CamionCarga getCamionCarga() {
+        if (!camionesCarga.isEmpty()) {
+            return camionesCarga.get(0); // Asumiendo que quieres el primer camión
+        }
+        return null; // O lanza una excepción si prefieres
+    }
+
+    public CamionEntrega getCamionEntrega() {
+        if (!camionesEntrega.isEmpty()) {
+            return camionesEntrega.get(0); // Asumiendo que quieres el primer camión
+        }
+        return null; // O lanza una excepción si prefieres
+    }
+
 }
