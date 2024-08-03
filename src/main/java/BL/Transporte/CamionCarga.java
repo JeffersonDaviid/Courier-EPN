@@ -47,10 +47,11 @@ public class CamionCarga extends Camion {
         Inventario inventario = Global.getInstancia().buscarAgencia(paquetesCamion.get(0).getAgenciaDestino())
                 .getInventario();
         for (Paquete p : paquetesCamion) {
+            p.agregarEstado(new Estado("En agencia destino"));
+            super.cambiarEstadoPaquetePorId(p.getId(), "En agencia destino");
             inventario.agregarPaqueteDeCamionCarga(p);
             paquetesCamion.remove(p);
             JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " ha sido descargado del camión");
-            super.cambiarEstadoPaquetePorId(p.getId(), "En agencia destino");
             return;
         }
         super.setPaquetesCamion(paquetesCamion);
