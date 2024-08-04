@@ -54,7 +54,7 @@ public class Inventario {
                 p.agregarEstado(new Estado("En bodega agencia remitente"));
                 paquetesAlmacenados.put(p.getId(), p);
                 actualizarEstadoPaqueteBD(id,"En bodega agencia remitente");
-                ingresarRegistro(p, capacidadPaquete);
+                ingresarRegistro(p, capacidadPaquete,Global.getInstancia().agenciaActual);
                 recepcion.eliminarPaquete(p);
                 return;
             }
@@ -89,18 +89,15 @@ public class Inventario {
         paquetesAlmacenados.put(paquete.getId(),paquete);
         paquete.agregarEstado(new Estado("En bodega agencia destino"));
         actualizarEstadoPaqueteBD(paquete.getId(), "En bodega agencia destino");
-        ingresarRegistro(paquete,capacidadPaquete);
+        ingresarRegistro(paquete,capacidadPaquete,paquete.getAgenciaDestino());
     }
 
     //Metodo que guarda el ingreso de un paquete al invetario 
-    private void ingresarRegistro(Paquete paquete, int capacidadPaquete) {
-        historial.registrarRegistro(new Registro(getFecha(),getAgencia(),paquete.getId()));
+    private void ingresarRegistro(Paquete paquete, int capacidadPaquete, String agencia) {
+        //historial.registrarRegistro(new Registro(getFecha(),getAgencia(paquete),paquete.getId()));
+        historial.registrarRegistro(new Registro(getFecha(),agencia,paquete.getId()));
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro",JOptionPane.INFORMATION_MESSAGE);
         actualizarCapacidadOcupada(capacidadPaquete);
-    }
-
-    private String getAgencia() {
-        return (Global.getInstancia().agenciaActual).toUpperCase();
     }
 
     //Metodo que clasifica un paquete en las diferentes listas (Para envio a Sucursal - Para envio a domicilio - Para retiro de bodega)

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import BL.Administracion.Global;
 import BL.BASEDEDATOS.DataHelper;
 import BL.GestionPaquete.Paquete;
 
@@ -26,6 +27,7 @@ public class Historial {
 
     //Metodo que muestra el historial de ingresos y salidas del dia que se lo llame
     public void consultar() {
+        System.out.print("Agencia: " + Global.getInstancia().agenciaActual.toUpperCase());
         for (Registro registro: registros) {
             System.out.println("\n" + registro.toString());
         }
