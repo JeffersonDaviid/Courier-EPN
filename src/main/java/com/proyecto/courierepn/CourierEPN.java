@@ -15,6 +15,7 @@ import BL.GestionPaquete.Paquete;
 import BL.Seguimiento.Seguimiento;
 import BL.Transporte.CamionCarga;
 import BL.Transporte.CamionEntrega;
+import UI.Administracion.VentanaLogin;
 
 public class CourierEPN {
 
@@ -22,6 +23,14 @@ public class CourierEPN {
 
     public static void main(String[] args) throws Exception {
 
+        VentanaLogin ventana = new VentanaLogin();
+        ventana.setVisible(true);
+
+        loginConsola();
+
+    }
+
+    public static void loginConsola() {
         int opcion = 0;
         String idPaquete = "";
 
@@ -235,6 +244,7 @@ public class CourierEPN {
 
             opcion = 0;
         }
+
     }
 
     public static void mostrarPaquetes(ArrayList<Paquete> paquetes, String lugar) {
