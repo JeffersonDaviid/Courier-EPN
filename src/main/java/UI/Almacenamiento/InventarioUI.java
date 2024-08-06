@@ -1,7 +1,7 @@
-package UI.Almacenamiento;
+package BL.Almacenamiento;
 
 import BL.Administracion.Global;
-import BL.Almacenamiento.Inventario;
+
 
 /**
  *
@@ -14,7 +14,7 @@ public class InventarioUI extends javax.swing.JPanel {
      */
     public InventarioUI() {
         initComponents();
-        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(0);
+        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(0);  
     }
         
     /**
@@ -55,6 +55,29 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanel14 = new javax.swing.JPanel();
         jBAceptarcargaRecepcion = new javax.swing.JButton();
         jBCancelarcargaRecepcion = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jTFidOrdenar = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jTFOrdenar = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        jTFTamanioOrdenar = new javax.swing.JTextField();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jTFRemitenteOrdenar = new javax.swing.JTextField();
+        jTFDestinatarioOrdenar = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        jTFSucursalOrigenOrdenar = new javax.swing.JTextField();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jTFSucursalDestinoOrdenar = new javax.swing.JTextField();
+        jLabel41 = new javax.swing.JLabel();
+        jTFTipoEnvioOrdenar = new javax.swing.JTextField();
+        jLabel42 = new javax.swing.JLabel();
+        jTFestadoOrdenar = new javax.swing.JTextField();
+        jPanel15 = new javax.swing.JPanel();
+        jBAceptarOrdenar = new javax.swing.JButton();
+        jBCancelarOrdenar = new javax.swing.JButton();
         jPanelEntrega = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jTFidEntrega = new javax.swing.JTextField();
@@ -100,7 +123,7 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanel12.setBackground(new java.awt.Color(254, 254, 254));
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccionar Tabla"));
 
-        jComboBFiltroConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tdos los paquetes en inventario", "Paquetes en recepcion", "Paquetes almacenados", "Paquetes listos para envio a sucursal", "Paquetes listos para entregar" }));
+        jComboBFiltroConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paquetes en recepcion", "Paquetes en bodega", "Paquetes listos para entregar" }));
         jComboBFiltroConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBFiltroConsultaActionPerformed(evt);
@@ -306,7 +329,7 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(71, Short.MAX_VALUE)
                 .addComponent(jBAceptarcargaRecepcion)
                 .addGap(29, 29, 29)
                 .addComponent(jBCancelarcargaRecepcion)
@@ -327,11 +350,14 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,6 +370,212 @@ public class InventarioUI extends javax.swing.JPanel {
         );
 
         jTabbedPanelMain.addTab("Cargar de Recepción", jPanel2);
+
+        jPanel10.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paquetes"));
+
+        jTFidOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFidOrdenarActionPerformed(evt);
+            }
+        });
+        jTFidOrdenar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFidOrdenarKeyReleased(evt);
+            }
+        });
+
+        jLabel15.setText("idPaquete");
+
+        jTFOrdenar.setEditable(false);
+        jTFOrdenar.setFocusable(false);
+
+        jLabel35.setText("Peso");
+
+        jTFTamanioOrdenar.setEditable(false);
+        jTFTamanioOrdenar.setFocusable(false);
+
+        jLabel36.setText("Tamaño");
+
+        jLabel37.setText("Remitente");
+
+        jTFRemitenteOrdenar.setEditable(false);
+        jTFRemitenteOrdenar.setFocusable(false);
+
+        jTFDestinatarioOrdenar.setEditable(false);
+        jTFDestinatarioOrdenar.setFocusable(false);
+
+        jLabel38.setText("Destinatario");
+
+        jTFSucursalOrigenOrdenar.setEditable(false);
+        jTFSucursalOrigenOrdenar.setFocusable(false);
+
+        jLabel39.setText("Sucursal Origen");
+
+        jLabel40.setText("Sucursal Destino");
+
+        jTFSucursalDestinoOrdenar.setEditable(false);
+        jTFSucursalDestinoOrdenar.setFocusable(false);
+
+        jLabel41.setText("Tipo de Envio");
+
+        jTFTipoEnvioOrdenar.setEditable(false);
+        jTFTipoEnvioOrdenar.setFocusable(false);
+
+        jLabel42.setText("Estado");
+
+        jTFestadoOrdenar.setEditable(false);
+        jTFestadoOrdenar.setFocusable(false);
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel37)
+                                    .addComponent(jLabel38)
+                                    .addComponent(jLabel39)
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addComponent(jLabel40)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTFSucursalDestinoOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTFDestinatarioOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTFRemitenteOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTFSucursalOrigenOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                                        .addComponent(jLabel15)
+                                        .addGap(52, 52, 52))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                                        .addComponent(jLabel35)
+                                        .addGap(80, 80, 80))
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel36)
+                                            .addComponent(jLabel41))
+                                        .addGap(34, 34, 34)))
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTFTamanioOrdenar)
+                                    .addComponent(jTFidOrdenar)
+                                    .addComponent(jTFOrdenar)
+                                    .addComponent(jTFTipoEnvioOrdenar, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTFestadoOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFidOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel35))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFTamanioOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel36))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFTipoEnvioOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel41))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFRemitenteOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFDestinatarioOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel38))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFSucursalOrigenOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel39))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFSucursalDestinoOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFestadoOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel42))
+                .addGap(53, 53, 53))
+        );
+
+        jPanel15.setBackground(new java.awt.Color(254, 254, 254));
+
+        jBAceptarOrdenar.setBackground(new java.awt.Color(37, 98, 234));
+        jBAceptarOrdenar.setText("Aceptar");
+        jBAceptarOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAceptarOrdenarActionPerformed(evt);
+            }
+        });
+
+        jBCancelarOrdenar.setBackground(new java.awt.Color(37, 98, 234));
+        jBCancelarOrdenar.setText("Cancelar");
+        jBCancelarOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarOrdenarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jBAceptarOrdenar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBCancelarOrdenar)
+                .addGap(31, 31, 31))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBAceptarOrdenar)
+                    .addComponent(jBCancelarOrdenar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(144, Short.MAX_VALUE))
+        );
+
+        jTabbedPanelMain.addTab("Ordenar Paquetes", jPanel3);
 
         jPanel8.setBackground(new java.awt.Color(254, 254, 254));
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paquetes"));
@@ -512,11 +744,11 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
                 .addComponent(jBAceptarEntrega)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jBCancelarEntrega)
-                .addGap(39, 39, 39))
+                .addGap(31, 31, 31))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,21 +765,20 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanelEntregaLayout.setHorizontalGroup(
             jPanelEntregaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelEntregaLayout.createSequentialGroup()
-                .addGroup(jPanelEntregaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelEntregaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanelEntregaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanelEntregaLayout.setVerticalGroup(
             jPanelEntregaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelEntregaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         jTabbedPanelMain.addTab("Entrega", jPanelEntrega);
@@ -560,8 +791,8 @@ public class InventarioUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPanelMain, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(jTabbedPanelMain)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -604,7 +835,7 @@ public class InventarioUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jTablePaquetesMouseClicked
 
     private void jComboBFiltroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBFiltroConsultaActionPerformed
-        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(this.jComboBFiltroConsulta.getSelectedIndex());        
+        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(this.jComboBFiltroConsulta.getSelectedIndex());                
     }//GEN-LAST:event_jComboBFiltroConsultaActionPerformed
 
     private void jBCancelarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarEntregaActionPerformed
@@ -639,15 +870,35 @@ public class InventarioUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBCancelarcargaRecepcionActionPerformed
 
+    private void jTFidOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFidOrdenarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFidOrdenarActionPerformed
+
+    private void jTFidOrdenarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidOrdenarKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFidOrdenarKeyReleased
+
+    private void jBAceptarOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarOrdenarActionPerformed
+        // TODO add your handling code here:
+        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().organizarPaquetes(this.jTFidOrdenar.getText());
+    }//GEN-LAST:event_jBAceptarOrdenarActionPerformed
+
+    private void jBCancelarOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarOrdenarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBCancelarOrdenarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAceptarEntrega;
+    private javax.swing.JButton jBAceptarOrdenar;
     private javax.swing.JButton jBAceptarcargaRecepcion;
     private javax.swing.JButton jBCancelarEntrega;
+    private javax.swing.JButton jBCancelarOrdenar;
     private javax.swing.JButton jBCancelarcargaRecepcion;
     private javax.swing.JComboBox<String> jComboBFiltroConsulta;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -664,31 +915,51 @@ public class InventarioUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelEntrega;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFDestinatarioEntrega;
+    private javax.swing.JTextField jTFDestinatarioOrdenar;
     private javax.swing.JTextField jTFDestinatariocargaRecepcion;
     private javax.swing.JTextField jTFEntrega;
+    private javax.swing.JTextField jTFOrdenar;
     private javax.swing.JTextField jTFRemitenteEntrega;
+    private javax.swing.JTextField jTFRemitenteOrdenar;
     private javax.swing.JTextField jTFRemitentecargaRecepcion;
     private javax.swing.JTextField jTFSucursalDestinoEntrega;
+    private javax.swing.JTextField jTFSucursalDestinoOrdenar;
     private javax.swing.JTextField jTFSucursalDestinocargaRecepcion;
     private javax.swing.JTextField jTFSucursalOrigenEntrega;
+    private javax.swing.JTextField jTFSucursalOrigenOrdenar;
     private javax.swing.JTextField jTFSucursalOrigencargaRecepcion;
     private javax.swing.JTextField jTFTamanioEntrega;
+    private javax.swing.JTextField jTFTamanioOrdenar;
     private javax.swing.JTextField jTFTamaniocargaRecepcion;
     private javax.swing.JTextField jTFTipoEnvioEntrega;
+    private javax.swing.JTextField jTFTipoEnvioOrdenar;
     private javax.swing.JTextField jTFTipoEnviocargaRecepcion;
     private javax.swing.JTextField jTFestadoEntrega;
+    private javax.swing.JTextField jTFestadoOrdenar;
     private javax.swing.JTextField jTFestadoRecepcion;
     private javax.swing.JTextField jTFidEntrega;
+    private javax.swing.JTextField jTFidOrdenar;
     private javax.swing.JTextField jTFidcargaRecepcion;
     private javax.swing.JTextField jTFpesocargaRecepcion;
     private javax.swing.JTabbedPane jTabbedPanelMain;
