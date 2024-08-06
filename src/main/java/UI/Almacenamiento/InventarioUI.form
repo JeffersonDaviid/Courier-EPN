@@ -126,10 +126,12 @@
             <Component class="javax.swing.JComboBox" name="jComboBFiltroConsulta">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Paquetes en recepcion"/>
-                    <StringItem index="1" value="Paquetes en bodega"/>
-                    <StringItem index="2" value="Paquetes listos para entregar"/>
+                  <StringArray count="5">
+                    <StringItem index="0" value="Tdos los paquetes en inventario"/>
+                    <StringItem index="1" value="Paquetes en recepcion"/>
+                    <StringItem index="2" value="Paquetes almacenados"/>
+                    <StringItem index="3" value="Paquetes listos para envio a sucursal"/>
+                    <StringItem index="4" value="Paquetes listos para entregar"/>
                   </StringArray>
                 </Property>
               </Properties>

@@ -4,6 +4,8 @@
  */
 package BL.Almacenamiento;
 
+import BL.Administracion.Global;
+
 /**
  *
  * @author user
@@ -15,6 +17,7 @@ public class HistorialnewUI extends javax.swing.JPanel {
      */
     public HistorialnewUI() {
         initComponents();
+        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().getHistorial().consultar(-1);
     }
 
     /**
@@ -62,6 +65,11 @@ public class HistorialnewUI extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jButton1.setText("Filtrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,6 +126,11 @@ public class HistorialnewUI extends javax.swing.JPanel {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().getHistorial().consultar(-1);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

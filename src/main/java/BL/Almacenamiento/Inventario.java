@@ -232,7 +232,11 @@ public class Inventario {
 
     //Metodo que consulta el historial de ingresos y salidas de los paquetes el dia ejecutado
     public void consultarHistorial() {
-        historial.consultar();
+        historial.consultar(0);
+    }
+    
+    public Historial getHistorial(){
+        return historial;
     }
 
     //Metodo que retira  los paquetes desde la lista correspondiente para cargarlos a los camiones

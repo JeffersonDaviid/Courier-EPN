@@ -100,7 +100,7 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanel12.setBackground(new java.awt.Color(254, 254, 254));
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccionar Tabla"));
 
-        jComboBFiltroConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paquetes en recepcion", "Paquetes en bodega", "Paquetes listos para entregar" }));
+        jComboBFiltroConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tdos los paquetes en inventario", "Paquetes en recepcion", "Paquetes almacenados", "Paquetes listos para envio a sucursal", "Paquetes listos para entregar" }));
         jComboBFiltroConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBFiltroConsultaActionPerformed(evt);
@@ -641,10 +641,8 @@ public class InventarioUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAceptarCarga1;
     private javax.swing.JButton jBAceptarEntrega;
     private javax.swing.JButton jBAceptarcargaRecepcion;
-    private javax.swing.JButton jBCancelarCarga1;
     private javax.swing.JButton jBCancelarEntrega;
     private javax.swing.JButton jBCancelarcargaRecepcion;
     private javax.swing.JComboBox<String> jComboBFiltroConsulta;
@@ -667,7 +665,6 @@ public class InventarioUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
