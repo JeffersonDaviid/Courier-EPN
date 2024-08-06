@@ -16,7 +16,7 @@ import BL.GestionPaquete.Paquete;
 import BL.Seguimiento.Seguimiento;
 import BL.Transporte.CamionCarga;
 import BL.Transporte.CamionEntrega;
-import UI.Administracion.VentanaLogin;
+import UI.Administracion.LoginUI;
 import UI.Almacenamiento.InventarioUI;
 
 public class CourierEPN {
@@ -25,10 +25,8 @@ public class CourierEPN {
 
     public static void main(String[] args) throws Exception {
 
-        VentanaLogin ventana = new VentanaLogin();
-        ventana.setVisible(true);
-
-        loginConsola();
+        new LoginUI();
+        //loginConsola();
 
     }
 
@@ -36,7 +34,7 @@ public class CourierEPN {
         int opcion = 0;
         String idPaquete = "";
 
-        while (login()) {
+        while (/*login()*/ true) {
 
             while (opcion != -1) {
 
@@ -141,7 +139,7 @@ public class CourierEPN {
                     case 7:
                         camionCarga = Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga();
                         if (camionCarga != null) {
-                            camionCarga.descargarPaquete();
+                            //camionCarga.descargarPaquete();
                             mostrarPaquetes(camionCarga.getPaquetesCamion(), "Camión de carga");
                         } else {
                             JOptionPane.showMessageDialog(null, "No hay camiones de carga disponibles.", "Error",
@@ -263,12 +261,12 @@ public class CourierEPN {
         JOptionPane.showMessageDialog(null, mensaje);
     }
 
-    public static boolean login() {
-        String agencia, user, pass, rol;
-        agencia = JOptionPane.showInputDialog("Ingrese su agencia");
-        user = JOptionPane.showInputDialog("Ingrese su usuario");
-        pass = JOptionPane.showInputDialog("Ingrese su contraseña");
-        rol = JOptionPane.showInputDialog("Ingrese su rol");
+    public static boolean login(String agencia, String user, String pass, String rol) {
+        // String agencia, user, pass, rol;
+        // agencia = JOptionPane.showInputDialog("Ingrese su agencia");
+        // user = JOptionPane.showInputDialog("Ingrese su usuario");
+        // pass = JOptionPane.showInputDialog("Ingrese su contraseña");
+        // rol = JOptionPane.showInputDialog("Ingrese su rol");
         usuario = Usuario.login(agencia, user, pass, rol);
         if (usuario != null) {
             Global.agenciaActual = agencia;

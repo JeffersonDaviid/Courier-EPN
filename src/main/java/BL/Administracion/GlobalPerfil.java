@@ -38,8 +38,8 @@ public class GlobalPerfil {
 
     public Usuario loginPerfil(String nombre, String contrasena, String rol) {
         for (Usuario perfil : perfiles) {
-            JOptionPane.showMessageDialog(null, "Perfil: " + perfil.getNombre() + " " + perfil.getContrasena() + " " + perfil.getClass().toString());
-            JOptionPane.showMessageDialog(null, "Datos: " + nombre + " " + contrasena + " " + rol);
+            //JOptionPane.showMessageDialog(null, "Perfil: " + perfil.getNombre() + " " + perfil.getContrasena() + " " + perfil.getClass().toString());
+            //JOptionPane.showMessageDialog(null, "Datos: " + nombre + " " + contrasena + " " + rol);
             if (perfil.getNombre().equals(nombre) && perfil.getContrasena().equals(contrasena) && perfil.getClass().toString().equals("class BL.Administracion."+rol)) {
                 return perfil;
             }
