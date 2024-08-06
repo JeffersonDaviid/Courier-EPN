@@ -4,6 +4,8 @@
  */
 package UI.Administracion;
 
+import com.proyecto.courierepn.CourierEPN;
+
 /**
  *
  * @author Emilio
@@ -26,7 +28,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -37,13 +38,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         comboBox_agencia = new javax.swing.JComboBox<>();
         btn_regUsuario = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        field_usuarioConsultar = new javax.swing.JTextField();
-        btn_regUsuario1 = new javax.swing.JButton();
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(13, 71, 161));
-        jLabel1.setText("Consultar Usuario");
 
         jLabel2.setText("Usuario:");
 
@@ -83,24 +77,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(13, 71, 161));
         jLabel6.setText("Registro Usuarios");
 
-        jLabel7.setText("Usuario:");
-
-        field_usuarioConsultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                field_usuarioConsultarActionPerformed(evt);
-            }
-        });
-
-        btn_regUsuario1.setBackground(new java.awt.Color(13, 71, 161));
-        btn_regUsuario1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btn_regUsuario1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_regUsuario1.setText("Consultar Usuario");
-        btn_regUsuario1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_regUsuario1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,19 +105,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addComponent(btn_regUsuario)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(field_usuarioConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(107, 107, 107))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_regUsuario1)
-                        .addGap(180, 180, 180))))
+                .addContainerGap(601, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(56, 56, 56)
@@ -151,16 +115,11 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel1)
-                .addGap(49, 49, 49)
+                .addGap(112, 112, 112)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel7)
-                            .addComponent(field_usuarioConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                        .addComponent(jLabel2)
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(field_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -173,9 +132,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(comboBox_agencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(86, 86, 86)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_regUsuario)
-                            .addComponent(btn_regUsuario1)))
+                        .addComponent(btn_regUsuario))
                     .addComponent(field_usuarioReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(307, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,32 +152,24 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
     }//GEN-LAST:event_field_usuarioRegActionPerformed
 
     private void btn_regUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regUsuarioActionPerformed
-        // TODO add your handling code here:
+        String usuario = field_usuarioReg.getText();
+        String pass = field_pass.getText();
+        String rol = comboBox_rol.getSelectedItem().toString();
+        String agencia = comboBox_agencia.getSelectedItem().toString();
+        CourierEPN.registrarUsuario(agencia, usuario, pass, rol);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
-
-    private void field_usuarioConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_usuarioConsultarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_field_usuarioConsultarActionPerformed
-
-    private void btn_regUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regUsuario1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_regUsuario1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_regUsuario;
-    private javax.swing.JButton btn_regUsuario1;
     private javax.swing.JComboBox<String> comboBox_agencia;
     private javax.swing.JComboBox<String> comboBox_rol;
     private javax.swing.JTextField field_pass;
-    private javax.swing.JTextField field_usuarioConsultar;
     private javax.swing.JTextField field_usuarioReg;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }
