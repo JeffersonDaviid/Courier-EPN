@@ -10,12 +10,14 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 import BL.Administracion.Administrador;
 import BL.Administracion.Usuario;
 import UI.GestionPaquete.GestionPaquete;
+import UI.SeguimientoPaquete.UISeguimiento;
 import UI.Transporte.UICamionCarga;
 import UI.Transporte.UICamionCargaDespachar;
 import UI.Transporte.UICamionEntrega;
 import UI.Transporte.UICamionEntregaDespachar;
 import UI.Almacenamiento.HistorialnewUI;
 import UI.Almacenamiento.InventarioUI;
+import UI.Facturacion.FacturaUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -358,7 +360,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_factActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_factActionPerformed
-        // TODO add your handling code here:
+        showPanel(new FacturaUI(null));
     }//GEN-LAST:event_btn_factActionPerformed
 
     private void btn_entregaDespacharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entregaDespacharActionPerformed
@@ -402,11 +404,11 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_invActionPerformed
 
     private void btn_envActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_envActionPerformed
-        // TODO add your handling code here:
+        showPanel(new );
     }//GEN-LAST:event_btn_envActionPerformed
 
     private void btn_seguimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_seguimientoActionPerformed
-        // TODO add your handling code here:
+        showPanel(new UISeguimiento());
     }//GEN-LAST:event_btn_seguimientoActionPerformed
 
     private void btn_regCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamionActionPerformed

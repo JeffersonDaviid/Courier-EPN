@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 public class MenuUI extends javax.swing.JFrame {
 
     LoginUI loginUI;
+    Usuario usuario;
 
     /**
      * Creates new form Dashboard
@@ -460,7 +461,7 @@ public class MenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_op15ActionPerformed
 
     private void btn_op16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_op16ActionPerformed
-        showPanel(new RegistroUsuariosUI());
+        showPanel(new RegistroUsuariosUI(usuario));
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_op16ActionPerformed
 

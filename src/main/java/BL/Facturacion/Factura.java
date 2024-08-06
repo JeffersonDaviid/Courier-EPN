@@ -83,7 +83,7 @@ public class Factura {
                         rs.getString("correoDestinatario"),
                         rs.getString("telefonoDestinatario"),
                         rs.getString("domicilio"),
-                        rs.getString("fecha"));
+                        rs.getString("fechaHoraLlegada"), rs.getString("fechaHoraSalida"));
 
                 tarifa.setSubtotal(rs.getFloat("subtotal"));
                 tarifa.setIva(rs.getFloat("ivaPorcentaje"));

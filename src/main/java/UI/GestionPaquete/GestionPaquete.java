@@ -18,6 +18,8 @@ import BL.GestionPaquete.Paquete;
 import UI.Facturacion.FacturaUI;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Random;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -540,7 +542,7 @@ public class GestionPaquete extends javax.swing.JPanel {
 				jTsucursalRecibe.getText(), jtNombreRemitente.getText(), jtCorreoRemitente.getText(),
 				jtTelefonoRemitente.getText(), jtNombreDestinatario.getText(),
 				jtCorreoDestinatario.getText(), jtTelefonoDestinatario.getText(), jTdomicilio.getText(),
-				jTFechaLlegada.getText());
+				jTFechaLlegada.getText(), jTFechasalida.getText());
 
 		tarifa = new TarifaEnvio();
 		tarifa.calcularPrecio(paquete);
@@ -569,20 +571,19 @@ public class GestionPaquete extends javax.swing.JPanel {
 		String telefonoDestinatario = jtTelefonoDestinatario.getText();
 		float peso = Float.parseFloat(jTpeso.getText());
 		String tamanio = (String) jComboTamanio.getSelectedItem();
-		// String fechaSalida = jTFechasalida.getText();
+		String fechaSalida = jTFechasalida.getText();
 		String fechaLlegada = jTFechaLlegada.getText();
 		String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem();
 		String sucursalAceptoPaquete = jTsucursalAcepto.getText();
 		String sucursalParaRecoger = jTsucursalRecibe.getText();
 		String domicilio = jTdomicilio.getText();
-		String fechaSalida;
-		fechaSalida = estado.getFecha();
-		jTFechasalida.setText(fechaSalida);
+		
 
+		paquete.setId(generateId());
 		paquete.setPeso(peso);
 		paquete.setTamanio(tamanio);
 		paquete.setFechaLlegada(fechaLlegada);
-		paquete.setFechaLlegada(fechaSalida);
+		paquete.setFechaSalida(fechaSalida);
 		paquete.setNombreRemitente(nombreRemitente);
 		paquete.setCorreoRemitente(correoRemitente);
 		paquete.setTelefonoRemitente(telefonoRemitente);
@@ -594,11 +595,28 @@ public class GestionPaquete extends javax.swing.JPanel {
 		paquete.setAgenciaDestino(sucursalParaRecoger);
 		paquete.setDomicilio(domicilio);
 
+		
+
 		paquete.registrarPaquete(paquete);
 		// paquete.guardarPaquete(paquete);
 
 		paquete.guardarPaquete(paquete);
 
+	}
+
+	private String generateId() {
+		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		int length = 10; // desired length of the generated string
+
+		for (int i = 0; i < length; i++) {
+			int index = random.nextInt(characters.length());
+			char randomChar = characters.charAt(index);
+			sb.append(randomChar);
+		}
+
+		return sb.toString();
 	}
 
 	public static void main(String args[]) {
