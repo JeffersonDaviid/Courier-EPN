@@ -1,6 +1,7 @@
 package BL.Transporte;
 
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import BL.Administracion.Agencia;
@@ -15,6 +16,10 @@ public class CamionEntrega extends Camion {
     public CamionEntrega(String placa, String modelo, String marca, int capacidadCarga, int disponibilidad,
             String agencia) {
         super(placa, modelo, marca, capacidadCarga, disponibilidad, agencia);
+    }
+
+    public CamionEntrega() {
+        super("", "", "", 0, 0, "");
     }
 
     // Métodos
@@ -48,8 +53,7 @@ public class CamionEntrega extends Camion {
             if (p.getId().equals(id)) {
                 Estado estado = new Estado("Entregado");
                 p.agregarEstado(estado);// tambien en la base de datos
-
-                // paquetesCamion.remove(p); // COMENTADO PARA PRUEBAS
+                paquetesCamion.remove(p); // COMENTADO PARA PRUEBAS
                 JOptionPane.showMessageDialog(null, "El paquete " + p.getId() + " ha sido entregado");
                 super.cambiarEstadoPaquetePorId(p.getId(), "Entregado a domicilio");
                 return;
@@ -66,6 +70,6 @@ public class CamionEntrega extends Camion {
         for (CamionEntrega camion : camionesEntrega) {
             System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo());
         }
-}
+    }
 
 }

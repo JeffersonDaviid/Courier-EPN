@@ -35,9 +35,8 @@ public abstract class Camion implements Cloneable {
         this.paquetesCamion = new ArrayList<>();
         this.agencia = agencia;
     }
-    
-    //metodos
 
+    //metodos
     // Método para obtener la placa del camión
     public String getPlaca() {
         return placa;
@@ -116,29 +115,27 @@ public abstract class Camion implements Cloneable {
                 placa, modelo, marca, capacidadCarga, disponibilidad, agencia);
     }
 
-   // Método para cambiar el estado del paquete en BD utilizando el ID del paquete
-   public void cambiarEstadoPaquetePorId(String idPaquete, String estado) {
-    int rs = -1;
-    String sql = "INSERT INTO PaqueteEstados (idPaquete, estado, fecha) VALUES ('"
-        + idPaquete + "', '" + estado + "', '" + getFecha() + "')"; // 'getFecha()' debe retornar la fecha actual
+    // Método para cambiar el estado del paquete en BD utilizando el ID del paquete
+    public void cambiarEstadoPaquetePorId(String idPaquete, String estado) {
+        int rs = -1;
+        String sql = "INSERT INTO PaqueteEstados (idPaquete, estado, fecha) VALUES ('"
+                + idPaquete + "', '" + estado + "', '" + getFecha() + "')"; // 'getFecha()' debe retornar la fecha actual
 
-    try {
-        rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+        try {
+            rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
 
-        if (rs > 0) {
-            JOptionPane.showMessageDialog(null, "Estado del paquete insertado con éxito", "Guardado",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo insertar el estado del paquete", "Error",
+            if (rs > 0) {
+                JOptionPane.showMessageDialog(null, "Estado del paquete insertado con éxito", "Guardado",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo insertar el estado del paquete", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al insertar el estado del paquete: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al insertar el estado del paquete: " + e.getMessage(), "Error",
-                JOptionPane.ERROR_MESSAGE);
     }
-}
-
-
 
 }

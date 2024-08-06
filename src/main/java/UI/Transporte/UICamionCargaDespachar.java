@@ -6,27 +6,28 @@ package UI.Transporte;
 
 import java.util.List;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import BL.GestionPaquete.Paquete;
-import BL.Transporte.Vehiculo;
+import BL.Transporte.CamionCarga;
 
 //import BL.Transporte.Vehiculo;
-
 /**
  *
  * @author dell
  */
 public class UICamionCargaDespachar extends javax.swing.JPanel {
 
-    Vehiculo vehiculo = new Vehiculo();
+    CamionCarga camionCarga = new CamionCarga();
+
     /**
      * Creates new form UITransportePaquetes
      */
     public UICamionCargaDespachar() {
         initComponents();
-       // List paquete =    vehiculo.listarPaquetes("En Transito")       
-    // obtener la lista de "En transito" y cargar en tabla 1
+        // List paquete =    vehiculo.listarPaquetes("En Transito")       
+        // obtener la lista de "En transito" y cargar en tabla 1
     }
 
     /**
@@ -64,50 +65,50 @@ public class UICamionCargaDespachar extends javax.swing.JPanel {
         javax.swing.GroupLayout PanelFondoTUIPLayout = new javax.swing.GroupLayout(PanelFondoTUIP);
         PanelFondoTUIP.setLayout(PanelFondoTUIPLayout);
         PanelFondoTUIPLayout.setHorizontalGroup(
-            PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoTUIPLayout.createSequentialGroup()
-                .addGap(0, 84, Short.MAX_VALUE)
-                .addComponent(ImgCamionTUIP)
-                .addGap(70, 70, 70))
-            .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TxtCamion)
-                    .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoTUIPLayout.createSequentialGroup()
+                                .addGap(0, 84, Short.MAX_VALUE)
+                                .addComponent(ImgCamionTUIP)
+                                .addGap(70, 70, 70))
+                        .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addGroup(PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(TxtCamion)
+                                        .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(38, Short.MAX_VALUE))
         );
         PanelFondoTUIPLayout.setVerticalGroup(
-            PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(ImgCamionTUIP)
-                .addGap(40, 40, 40)
-                .addComponent(TxtCamion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                PanelFondoTUIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PanelFondoTUIPLayout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(ImgCamionTUIP)
+                                .addGap(40, 40, 40)
+                                .addComponent(TxtCamion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCapacidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(88, 88, 88))
         );
 
         txtCamionP.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         txtCamionP.setText("CAMIÓN");
 
         TablaListaInventarioCamionC.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID_Paquete", "Peso", "Tamanio", "Remitente", "Agencia Origen", "Agencia Destino"
-            }
+                new Object[][]{
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null}
+                },
+                new String[]{
+                    "ID_Paquete", "Peso", "Tamanio", "Remitente", "Agencia Origen", "Agencia Destino"
+                }
         ) {
-            Class[] types = new Class [] {
+            Class[] types = new Class[]{
                 java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
         });
         TablaEntregarPaquete.setViewportView(TablaListaInventarioCamionC);
@@ -134,89 +135,64 @@ public class UICamionCargaDespachar extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelFondoTUIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEntregarPaquetesCC)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(txtCamionP)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRefreshCC))
-                        .addComponent(TablaEntregarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 19, Short.MAX_VALUE))
+                                .addComponent(PanelFondoTUIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnEntregarPaquetesCC)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(txtCamionP)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btnRefreshCC))
+                                                .addComponent(TablaEntregarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCamionP)
-                    .addComponent(btnRefreshCC))
-                .addGap(18, 18, 18)
-                .addComponent(TablaEntregarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnEntregarPaquetesCC)
-                .addContainerGap(440, Short.MAX_VALUE))
-            .addComponent(PanelFondoTUIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtCamionP)
+                                        .addComponent(btnRefreshCC))
+                                .addGap(18, 18, 18)
+                                .addComponent(TablaEntregarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnEntregarPaquetesCC)
+                                .addContainerGap(440, Short.MAX_VALUE))
+                        .addComponent(PanelFondoTUIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEntregarPaquetesCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarPaquetesCCActionPerformed
-            //vehiculo.cambiarEstadoPaquete("recibido", "En Transito");
-            vehiculo.cambiarEstadoPaquete("En Transito", "Listo para retiro");
-            List<Paquete> paquetes = vehiculo.listarPaquetes("En Transito");
-    
-            // Obtener el modelo de la tabla de inventario del camión
-            DefaultTableModel camionModel = (DefaultTableModel) TablaListaInventarioCamionC.getModel();
-            camionModel.setRowCount(0); // Limpiar la tabla de inventario del camión
-    
-            // Obtener el modelo de la tabla de inventario principal
-            DefaultTableModel inventarioModel = (DefaultTableModel) TablaListaInventarioCamionC.getModel();
-            inventarioModel.setRowCount(0); // Limpiar la tabla de inventario principal
-    
-            // Agregar las filas correspondientes a TablaListaInventarioCamion
-            for (Paquete paquete : paquetes) {
-                Object[] row = new Object[7]; 
-                row[0] = paquete.getId_paquete();
-                row[1] = paquete.getTrackingNumber();
-                row[2] = paquete.getPeso();
-                row[3] = paquete.getTamanio();
-                row[4] = paquete.getTipoEnvio();
-                row[5] = paquete.getSucursalParaRecoger();
-                row[6] = paquete.getSucursalAceptoPaquete();
-                camionModel.addRow(row);
-            }   
-       // vehiculo.cambiarEstadoPaquete("En Transito", "Recibido");
-        // listar tabla 1
-        
-    }//GEN-LAST:event_btnEntregarPaquetesCCActionPerformed
+    private void btnEntregarPaquetesCCActionPerformed(java.awt.event.ActionEvent evt) {
+        camionCarga.descargarPaquetes();
+        // Aquí puedes agregar lógica adicional si es necesario para después de entregar los paquetes
+    }
 
-    private void btnRefreshCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshCCActionPerformed
-                Vehiculo vehiculo = new Vehiculo(); 
-        // Obtener la lista de paquetes con el estado "recibido"
-        List<Paquete> paquetes = vehiculo.listarPaquetes("En Transito");
+    private void btnRefreshCCActionPerformed(java.awt.event.ActionEvent evt) {
+        // Obtener la lista de paquetes con el estado "En Transito"
+        List<Paquete> paquetes = camionCarga.getPaquetesCamion();
+        actualizarTabla(paquetes, TablaListaInventarioCamionC);
+    }
 
+    private void actualizarTabla(List<Paquete> paquetes, JTable tabla) {
         // Crear el modelo de la tabla
-        DefaultTableModel model = (DefaultTableModel) TablaListaInventarioCamionC.getModel();
+        DefaultTableModel model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0); // Limpiar la tabla
 
         // Llenar la tabla con la información de los paquetes
         for (Paquete paquete : paquetes) {
             Object[] row = new Object[7]; // Ajusta este tamaño según el número de columnas en tu tabla
-            row[0] = paquete.getId_paquete();
-            row[1] = paquete.getTrackingNumber();
-            row[2] = paquete.getPeso();
-            row[3] = paquete.getTamanio();
-            row[4] = paquete.getTipoEnvio();
-            row[5] = paquete.getSucursalParaRecoger();
-            row[6] = paquete.getSucursalAceptoPaquete();
+            row[0] = paquete.getId();
+            row[1] = paquete.getPeso();
+            row[2] = paquete.getTamanio();
+            row[3] = paquete.getNombreRemitente();
+            row[4] = paquete.getAgenciaOrigen();
+            row[5] = paquete.getAgenciaDestino();
             model.addRow(row);
         }
-    }//GEN-LAST:event_btnRefreshCCActionPerformed
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ImgCamionTUIP;
