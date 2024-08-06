@@ -18,9 +18,9 @@ public class Recepcion {
         paquetesRecepcion.remove(paquete);
     }
     
-    public Paquete buscarPaquete(int id) {
+    public Paquete buscarPaquete(String id) {
         for (Paquete paquete : paquetesRecepcion) {
-            if (paquete.getId()== id) {
+            if (paquete.getId().equals(id)) {
                 return paquete;
             }
         }

@@ -535,7 +535,7 @@ public class GestionPaquete extends javax.swing.JPanel {
 	private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCalcularActionPerformed
 		// TODO: CREAR/CARGAR DATOS DEL OBJETO PAQUETE
 
-		paquete = new Paquete(0, Float.parseFloat(jTpeso.getText()),
+		paquete = new Paquete("0", Float.parseFloat(jTpeso.getText()),
 				jComboTamanio.getSelectedItem().toString(), jTsucursalAcepto.getText(),
 				jTsucursalRecibe.getText(), jtNombreRemitente.getText(), jtCorreoRemitente.getText(),
 				jtTelefonoRemitente.getText(), jtNombreDestinatario.getText(),
@@ -614,7 +614,7 @@ public class GestionPaquete extends javax.swing.JPanel {
 
 			int ultimoId = obtenerUltimoId();
 
-			paquete.setId(ultimoId);
+			paquete.setId(String.valueOf(ultimoId));
 
 			System.out.println("ID del paquete establecido: " + paquete.getId());
 
