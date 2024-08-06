@@ -126,10 +126,12 @@
             <Component class="javax.swing.JComboBox" name="jComboBFiltroConsulta">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Paquetes en recepcion"/>
-                    <StringItem index="1" value="Paquetes en bodega"/>
-                    <StringItem index="2" value="Paquetes listos para entregar"/>
+                  <StringArray count="5">
+                    <StringItem index="0" value="Todos los paquetes en el almacen"/>
+                    <StringItem index="1" value="Paquetes en recepcion"/>
+                    <StringItem index="2" value="Paquetes en bodega"/>
+                    <StringItem index="3" value="Paquetes para carga sucursal"/>
+                    <StringItem index="4" value="Paquetes listos para entregar"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -238,18 +240,14 @@
                                           <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel33" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                          <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jTFTamaniocargaRecepcion" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTFTamaniocargaRecepcion" alignment="0" pref="150" max="32767" attributes="0"/>
                                       <Component id="jTFidcargaRecepcion" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jTFpesocargaRecepcion" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTFTipoEnviocargaRecepcion" alignment="0" pref="150" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -277,11 +275,6 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTFTipoEnviocargaRecepcion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTFRemitentecargaRecepcion" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -305,7 +298,7 @@
                               <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
                               <Component id="jTFestadoRecepcion" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -383,17 +376,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTFSucursalDestinocargaRecepcion">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="focusable" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel33">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Tipo de Envio"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTFTipoEnviocargaRecepcion">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -521,53 +503,44 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel38" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel39" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jTFSucursalDestinoOrdenar" min="-2" pref="150" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="jTFDestinatarioOrdenar" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <Component id="jTFRemitenteOrdenar" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <Component id="jTFSucursalOrigenOrdenar" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel36" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel41" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jTFTamanioOrdenar" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTFidOrdenar" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTFOrdenar" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTFTipoEnvioOrdenar" alignment="0" pref="150" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTFidOrdenar" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTFpesoOrdenar" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTFTamanioOrdenar" alignment="0" pref="150" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel38" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel39" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jTFSucursalDestinoOrdenar" min="-2" pref="150" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jTFDestinatarioOrdenar" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="jTFRemitenteOrdenar" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="jTFSucursalOrigenOrdenar" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
@@ -589,18 +562,13 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTFOrdenar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTFpesoOrdenar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTFTamanioOrdenar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTFTipoEnvioOrdenar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -627,7 +595,7 @@
                               <Component id="jTFestadoOrdenar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -644,7 +612,7 @@
                     <Property name="text" type="java.lang.String" value="idPaquete"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTFOrdenar">
+                <Component class="javax.swing.JTextField" name="jTFpesoOrdenar">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -705,17 +673,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTFSucursalDestinoOrdenar">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="focusable" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel41">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Tipo de Envio"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTFTipoEnvioOrdenar">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -822,7 +779,7 @@
                       <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="150" max="32767" attributes="0"/>
+                      <EmptySpace pref="225" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -846,8 +803,34 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jTFestadoEntrega" min="-2" pref="150" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jTFTamanioEntrega" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jTFpesoEntrega" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jTFidEntrega" alignment="0" pref="150" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                               <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -863,38 +846,8 @@
                                           <Component id="jTFRemitenteEntrega" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                                           <Component id="jTFSucursalOrigenEntrega" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jTFTamanioEntrega" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTFidEntrega" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTFEntrega" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jTFTipoEnvioEntrega" alignment="0" pref="150" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jTFestadoEntrega" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -911,18 +864,13 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTFEntrega" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTFpesoEntrega" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTFTamanioEntrega" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTFTipoEnvioEntrega" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -949,7 +897,7 @@
                               <Component id="jTFestadoEntrega" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -966,7 +914,7 @@
                     <Property name="text" type="java.lang.String" value="idPaquete"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTFEntrega">
+                <Component class="javax.swing.JTextField" name="jTFpesoEntrega">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -1027,17 +975,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTFSucursalDestinoEntrega">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="focusable" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel25">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Tipo de Envio"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTFTipoEnvioEntrega">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="focusable" type="boolean" value="false"/>
