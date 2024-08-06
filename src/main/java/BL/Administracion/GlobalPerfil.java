@@ -58,7 +58,7 @@ public class GlobalPerfil {
             // " + rol);
             if (perfil.getNombre().equals(nombre) && perfil.getContrasena().equals(contrasena)
                     && perfil.getClass().toString().equals("class BL.Administracion." + rol)
-                    && perfil.getAgencia().equals(rol)) {
+                    && perfil.getAgencia().equals(agencia)) {
                 return perfil;
             }
         }
