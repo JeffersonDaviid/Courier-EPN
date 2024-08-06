@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import BL.BASEDEDATOS.DataHelper;
 import BL.GestionPaquete.Paquete;
 
-public abstract class Camion implements Cloneable {
+public abstract class Camion{
 
     //atributos
     private String placa;

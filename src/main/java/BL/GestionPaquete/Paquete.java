@@ -18,7 +18,7 @@ public class Paquete {
     private ArrayList<Estado> historialEstado = new ArrayList<>();
     private String agenciaOrigen;
     private String agenciaDestino;
-   // private String domicilio;
+    private String domicilio;
     private String nombreRemitente;
     private String correoRemitente;
     private String telefonoRemitente;
