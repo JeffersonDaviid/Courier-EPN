@@ -333,16 +333,4 @@ public class Inventario {
     public ArrayList<Paquete> getPaquetesParaEnvioDomicilio() {
         return new ArrayList<>(paquetesParaCargaDomicilio.values());
     }
-
-    public void consultarPorID(String valor) {
-        historial.filtrarPorId(valor);
-    }
-
-    public void consultarPorFechaIngreso(String valor) {
-        historial.filtrarPorFechaIngreso(valor);
-    }
-
-    public void consultarPorFechaSalida(String valor) {
-        historial.filtrarPorFechaSalida(valor);
-    }
 }
