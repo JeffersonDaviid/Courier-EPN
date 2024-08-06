@@ -558,20 +558,7 @@ public class GestionPaquete extends javax.swing.JPanel {
 		tarifa.mostrarCostoEnvio();
 	}// GEN-LAST:event_jBCalcularActionPerformed
 
-	public int obtenerUltimoId() throws SQLException {
-		int ultimoId = -1;
-		String query = "SELECT last_insert_rowid()";
-
-		try (ResultSet rs = DataHelper.getInstancia().executeQueryRead(query)) {
-			if (rs.next()) {
-				ultimoId = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"Error al obtener el último ID: " + e.getMessage());
-		}
-		return ultimoId;
-	}
+	
 
 	private void guardarPaquete() {
 		String nombreRemitente = jtNombreRemitente.getText();
@@ -610,17 +597,6 @@ public class GestionPaquete extends javax.swing.JPanel {
 		paquete.registrarPaquete(paquete);
 		// paquete.guardarPaquete(paquete);
 
-		try {
-
-			int ultimoId = obtenerUltimoId();
-
-			paquete.setId(String.valueOf(ultimoId));
-
-			System.out.println("ID del paquete establecido: " + paquete.getId());
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		paquete.guardarPaquete(paquete);
 
 	}

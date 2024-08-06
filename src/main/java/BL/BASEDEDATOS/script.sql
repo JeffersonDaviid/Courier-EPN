@@ -33,9 +33,11 @@ DROP TABLE RUTAS;
 -- GESTION DE PAQUETES
 
 CREATE TABLE Paquete (
-    idPaquete INTEGER PRIMARY KEY AUTOINCREMENT,
+    idPaquete TEXT PRIMARY KEY,
     peso REAL,
     tamanio TEXT,
+    sucursalAceptoPaquete TEXT,
+    sucursalParaRecoger TEXT,
     fechaHoraLlegada TEXT,
     fechaHoraSalida TEXT,
     nombreRemitente TEXT,
@@ -45,8 +47,6 @@ CREATE TABLE Paquete (
     correoDestinatario TEXT,
     telefonoDestinatario TEXT,
     tipoEnvio TEXT,
-    sucursalAceptoPaquete TEXT,
-    sucursalParaRecoger TEXT,
     domicilio TEXT DEFAULT 'NO'
 );
 
