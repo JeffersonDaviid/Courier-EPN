@@ -65,8 +65,8 @@ public class Inventario {
 
     // Método para guardar el nuevo estado del paquete en la BD
     private void actualizarEstadoPaqueteBD(String id, String estado) {
-        String sql = "INSERT INTO PaqueteEstados (idPaquete, estado, fecha) VALUES ("
-                + id + ", '" + estado + "', '" + getFecha() + "')";
+        String sql = "INSERT INTO PaqueteEstados (idPaquete, estado, fecha) VALUES ('"
+                + id + "', '" + estado + "', '" + getFecha() + "')";
         try {
             int rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
             if (!(rs > 0)) {
