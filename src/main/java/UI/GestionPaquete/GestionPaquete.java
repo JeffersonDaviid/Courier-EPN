@@ -528,10 +528,12 @@ public class GestionPaquete extends javax.swing.JPanel {
         private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCalcularActionPerformed
                 // TODO: CREAR/CARGAR DATOS DEL OBJETO PAQUETE
 
-                // paquete = new Paquete(TOOL_TIP_TEXT_KEY, ABORT, TOOL_TIP_TEXT_KEY,
-                // TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY,
-                // TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY,
-                // TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY)
+                paquete = new Paquete(null, Float.parseFloat(jTpeso.getText()),
+                                jComboTamanio.getSelectedItem().toString(), jTsucursalAcepto.getText(),
+                                jTsucursalRecibe.getText(), jtNombreRemitente.getText(), jtCorreoRemitente.getText(),
+                                jtTelefonoRemitente.getText(), jtNombreDestinatario.getText(),
+                                jtCorreoDestinatario.getText(), jtTelefonoDestinatario.getText(), jTdomicilio.getText(),
+                                jTFechaLlegada.getText());
 
                 tarifa = new TarifaEnvio();
                 tarifa.calcularPrecio(paquete);
