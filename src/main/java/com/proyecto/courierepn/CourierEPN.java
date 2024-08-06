@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+
 import BL.Administracion.Administrador;
 import BL.Administracion.Global;
 import BL.Administracion.GlobalPerfil;
@@ -24,8 +26,8 @@ public class CourierEPN {
     static Usuario usuario = null;
 
     public static void main(String[] args) throws Exception {
-
-        new LoginUI();
+        FlatMaterialLighterIJTheme.setup();
+        new LoginUI().setVisible(true);
         //loginConsola();
 
     }
