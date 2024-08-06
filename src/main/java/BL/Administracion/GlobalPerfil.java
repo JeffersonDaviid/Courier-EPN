@@ -31,14 +31,22 @@ public class GlobalPerfil {
 
     public void cargarPerfiles() {
         Administrador perfil1 = new Administrador("Damaris", "123", "Quito");
-        Recepcionista perfil2 = new Recepcionista("Juan", "123", "Guayaquil");
-        Bodeguero perfil3 = new Bodeguero("Pedro", "123", "Cuenca");
         Transportista perfil4 = new Transportista("Maria", "123", "Quito");
+        Recepcionista perfil2 = new Recepcionista("David", "123", "Quito");
+        Bodeguero perfil3 = new Bodeguero("Pedro", "123", "Quito");
+        Administrador perfil34 = new Administrador("Juan", "123", "Guayaquil");
+        Recepcionista perfil234 = new Recepcionista("Jose", "123", "Guayaquil");
+        Transportista perfil2234 = new Transportista("Luis", "123", "Guayaquil");
+        Bodeguero perfil321 = new Bodeguero("Said", "123", "Guayaquil");
 
         perfiles.add(perfil1);
         perfiles.add(perfil2);
         perfiles.add(perfil3);
         perfiles.add(perfil4);
+        perfiles.add(perfil34);
+        perfiles.add(perfil234);
+        perfiles.add(perfil2234);
+        perfiles.add(perfil321);
     }
 
     // Nuevo método para agregar usuarios
