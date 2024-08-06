@@ -270,8 +270,8 @@ public class CourierEPN {
         // pass = JOptionPane.showInputDialog("Ingrese su contraseña");
         // rol = JOptionPane.showInputDialog("Ingrese su rol");
         usuario = Usuario.login(agencia, user, pass, rol);
-        agencia = usuario.getAgencia();
         if (usuario != null) {
+            // agencia = usuario.getAgencia();
             Global.agenciaActual = agencia;
             return true;
         } else {

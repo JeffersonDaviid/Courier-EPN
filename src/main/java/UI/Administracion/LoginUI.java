@@ -8,6 +8,9 @@ package UI.Administracion;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.proyecto.courierepn.CourierEPN;
 
+import BL.Administracion.Global;
+import BL.Administracion.Usuario;
+
 import java.awt.Color;
 
 import javax.swing.JComboBox;
@@ -19,7 +22,8 @@ import javax.swing.JOptionPane;
  */
 public class LoginUI extends javax.swing.JFrame {
 
-    MenuUI menuUI = new MenuUI();
+    MenuModulosUI menuUI;
+    Usuario usuario;
 
     /**
      * Creates new form Dashboard
@@ -240,15 +244,22 @@ public class LoginUI extends javax.swing.JFrame {
         String user = jTextField1.getText();
         String pass = jPasswordField1.getText();
         String rol = jComboBox2.getSelectedItem().toString();
-        if(CourierEPN.login(agencia, user, pass, rol)){
+
+        usuario = Usuario.login(agencia, user, pass, rol);
+
+        if (usuario != null) {
+            Global.agenciaActual = agencia;
             JOptionPane.showMessageDialog(null,"Bienvenido "+user);
             this.setVisible(false);
             this.jTextField1.setText("");
             this.jPasswordField1.setText("");
+            menuUI = new MenuModulosUI(usuario);
             menuUI.setLoginUI(this);
             menuUI.setVisible(true);
+        } else {
 
-        };
+        }
+
         //this.setVisible();
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -1,5 +1,9 @@
 package BL.Administracion;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -28,11 +32,13 @@ public class GlobalPerfil {
     public void cargarPerfiles() {
         Administrador perfil1 = new Administrador("Damaris", "123", "Quito");
         Recepcionista perfil2 = new Recepcionista("Juan", "123", "Guayaquil");
-        Recepcionista perfil3 = new Recepcionista("Pedro", "123", "Cuenca");
+        Bodeguero perfil3 = new Bodeguero("Pedro", "123", "Cuenca");
+        Transportista perfil4 = new Transportista("Maria", "123", "Quito");
 
         perfiles.add(perfil1);
         perfiles.add(perfil2);
         perfiles.add(perfil3);
+        perfiles.add(perfil4);
     }
        // Nuevo método para agregar usuarios
        public void agregarUsuario(Usuario nuevoUsuario) {
@@ -56,8 +62,33 @@ public class GlobalPerfil {
     }
 
     public void guardarPerfiles() {
+        try {
+            FileWriter writer = new FileWriter("perfiles.txt");
+            for (Usuario perfil : perfiles) {
+                writer.write(perfil.toString() + "\n");
+            }
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Perfiles guardados exitosamente.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar los perfiles.");
+            e.printStackTrace();
+        }
+    }
 
-
+    public void leerPerfiles(){
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("perfiles.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Parse the line and create a new Usuario object
+                // Add the Usuario object to the perfiles list
+            }
+            reader.close();
+            JOptionPane.showMessageDialog(null, "Perfiles cargados exitosamente.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los perfiles.");
+            e.printStackTrace();
+        }
     }
 
     private boolean usuarioExistente(String usuario) {

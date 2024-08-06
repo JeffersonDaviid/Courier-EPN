@@ -6,6 +6,7 @@
 package UI.Administracion;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import com.proyecto.courierepn.CourierEPN;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -485,7 +486,7 @@ public class MenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_op18ActionPerformed
 
     private void btn_op19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_op19ActionPerformed
-        // TODO add your handling code here:
+        CourierEPN.mostrarCamiones();
     }//GEN-LAST:event_btn_op19ActionPerformed
 
     private void btn_op20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_op20ActionPerformed
