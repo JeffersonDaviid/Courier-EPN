@@ -183,18 +183,17 @@ public class Paquete {
         recepcion.agregarPaquete(paquete);
         JOptionPane.showMessageDialog(null, "El paquete: " + paquete.getId() + " ha sido registrado");
     }
-    
+
     //guardar en la base
     public void guardarPaquete(Paquete paquete) {
         String fechaHoraSalida = estado.getFecha();  // Usa la fecha del último estado
-       
 
-        String sql = "INSERT INTO Paquete (peso, tamanio, sucursalAceptoPaquete,sucursalParaRecoger,fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio) VALUES ("
-            + peso + ", '" + tamanio + "', '" + agenciaOrigen + "', '"+ agenciaDestino + "', '"+ fechaLlegada + "', '"
-            + fechaHoraSalida + "', '" + nombreRemitente + "', '"
-            + correoRemitente + "', '" + telefonoRemitente + "', '" + nombreDestinatario + "', '"
-            + correoDestinatario + "', '" + telefonoDestinatario + "', '"
-            + Domicilio +  "')";
+        String sql = "INSERT INTO Paquete (idPaquete, peso, tamanio, sucursalAceptoPaquete, sucursalParaRecoger, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio) VALUES ('"
+            + paquete.getId() + "', " + paquete.getPeso() + ", '" + paquete.getTamanio() + "', '" + paquete.getAgenciaOrigen() + "', '" + paquete.getAgenciaDestino() + "', '"
+            + paquete.getFechaLlegada() + "', '" + fechaHoraSalida + "', '" + paquete.getNombreRemitente() + "', '"
+            + paquete.getCorreoRemitente() + "', '" + paquete.getTelefonoRemitente() + "', '" + paquete.getNombreDestinatario() + "', '"
+            + paquete.getCorreoDestinatario() + "', '" + paquete.getTelefonoDestinatario() + "', '"
+            + paquete.getDomicilio() + "')";
 
         try {
             int rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
