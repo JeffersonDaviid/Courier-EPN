@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 public class Paquete {
-    private String id;
+    private int id;
     private float peso;
     private String tamanio;
     private ArrayList<Estado> historialEstado = new ArrayList<>();
@@ -30,7 +30,7 @@ public class Paquete {
     Estado estado;
     //private String trackingNumber;
 
-    public Paquete(String id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada) {
+    public Paquete(int id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada) {
         this.id = id;
         this.peso = peso;
         this.tamanio = tamanio;
@@ -46,15 +46,49 @@ public class Paquete {
         this.fechaLlegada = fechaLlegada;
     }
 
-   
+    public Paquete() {
+    }
     
-    public String getFechaLlegada() {
-        return fechaLlegada;
+    
+
+    public int getId() {
+        return id;
     }
 
-    /// getters and sets
-    public void setFechaLlegada(String fechaLlegada) {
-        this.fechaLlegada = fechaLlegada;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    public String getTamanio() {
+        return tamanio;
+    }
+
+    public void setTamanio(String tamanio) {
+        this.tamanio = tamanio;
+    }
+
+    public String getAgenciaOrigen() {
+        return agenciaOrigen;
+    }
+
+    public void setAgenciaOrigen(String agenciaOrigen) {
+        this.agenciaOrigen = agenciaOrigen;
+    }
+
+    public String getAgenciaDestino() {
+        return agenciaDestino;
+    }
+
+    public void setAgenciaDestino(String agenciaDestino) {
+        this.agenciaDestino = agenciaDestino;
     }
 
     public String getNombreRemitente() {
@@ -112,39 +146,31 @@ public class Paquete {
     public void setDomicilio(String Domicilio) {
         this.Domicilio = Domicilio;
     }
-    
 
+    public String getFechaLlegada() {
+        return fechaLlegada;
+    }
+
+    public void setFechaLlegada(String fechaLlegada) {
+        this.fechaLlegada = fechaLlegada;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
    
-    public void agregarEstado(Estado estado) {
-        historialEstado.add(estado);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getAgenciaOrigen() {
-        return agenciaOrigen;
-    }
-
-    public String getAgenciaDestino() {
-        return agenciaDestino;
-    }
-
-    public float getPeso() {
-        return peso;
-    }
-
-    public String getTamanio() {
-        return tamanio;
-    }
+   
 
     public ArrayList<Estado> getHistorialEstado() {
         return historialEstado;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void agregarEstado(Estado estado) {
+        historialEstado.add(estado);
     }
     
     public void registrarPaquete(Paquete paquete) {
@@ -154,16 +180,16 @@ public class Paquete {
     }
     
     //guardar en la base
-    private void guardarPaquete() {
+    public void guardarPaquete(Paquete paquete) {
         String fechaHoraSalida = estado.getFecha();  // Usa la fecha del último estado
-        String estadoPaquete = estado.getEstado();  // Usa el estado del último estado
+       
 
-        String sql = "INSERT INTO Paquete (peso, tamanio, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio, estado) VALUES ("
-            + peso + ", '" + tamanio + "', '" + fechaLlegada + "', '"
+        String sql = "INSERT INTO Paquete (peso, tamanio, sucursalAceptoPaquete,sucursalParaRecoger,fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio) VALUES ("
+            + peso + ", '" + tamanio + "', '" + agenciaOrigen + "', '"+ agenciaDestino + "', '"+ fechaLlegada + "', '"
             + fechaHoraSalida + "', '" + nombreRemitente + "', '"
             + correoRemitente + "', '" + telefonoRemitente + "', '" + nombreDestinatario + "', '"
             + correoDestinatario + "', '" + telefonoDestinatario + "', '"
-            + Domicilio + "', '" + estadoPaquete + "')";
+            + Domicilio +  "')";
 
         try {
             int rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);

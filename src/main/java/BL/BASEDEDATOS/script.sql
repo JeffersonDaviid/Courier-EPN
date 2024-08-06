@@ -47,7 +47,6 @@ CREATE TABLE Paquete (
     tipoEnvio TEXT,
     sucursalAceptoPaquete TEXT,
     sucursalParaRecoger TEXT,
-    trackingNumber TEXT,
     domicilio TEXT DEFAULT 'NO'
 );
 
