@@ -16,7 +16,7 @@ public class InventarioUI extends javax.swing.JPanel {
      */
     public InventarioUI() {
         initComponents();
-        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(0);  
+        this.jTablePaquetes.setModel(Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(0));  
     }
         
     /**
@@ -816,7 +816,7 @@ public class InventarioUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jTablePaquetesMouseClicked
 
     private void jComboBFiltroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBFiltroConsultaActionPerformed
-        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(this.jComboBFiltroConsulta.getSelectedIndex());                
+        this.jTablePaquetes.setModel(Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(this.jComboBFiltroConsulta.getSelectedIndex()));                
     }//GEN-LAST:event_jComboBFiltroConsultaActionPerformed
 
     private void jBCancelarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarEntregaActionPerformed

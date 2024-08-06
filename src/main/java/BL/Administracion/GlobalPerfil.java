@@ -40,21 +40,25 @@ public class GlobalPerfil {
         perfiles.add(perfil3);
         perfiles.add(perfil4);
     }
-       // Nuevo método para agregar usuarios
-       public void agregarUsuario(Usuario nuevoUsuario) {
-        if(!usuarioExistente(nuevoUsuario.getNombre())) {
-            perfiles.add(nuevoUsuario);        
+
+    // Nuevo método para agregar usuarios
+    public void agregarUsuario(Usuario nuevoUsuario) {
+        if (!usuarioExistente(nuevoUsuario.getNombre())) {
+            perfiles.add(nuevoUsuario);
             JOptionPane.showMessageDialog(null, "Nuevo usuario agregado exitosamente: " + nuevoUsuario.getNombre());
-        }
-        else
+        } else
             JOptionPane.showMessageDialog(null, "El usuario ya existe.");
     }
 
-    public Usuario loginPerfil(String nombre, String contrasena, String rol) {
+    public Usuario loginPerfil(String nombre, String contrasena, String rol, String agencia) {
         for (Usuario perfil : perfiles) {
-            //JOptionPane.showMessageDialog(null, "Perfil: " + perfil.getNombre() + " " + perfil.getContrasena() + " " + perfil.getClass().toString());
-            //JOptionPane.showMessageDialog(null, "Datos: " + nombre + " " + contrasena + " " + rol);
-            if (perfil.getNombre().equals(nombre) && perfil.getContrasena().equals(contrasena) && perfil.getClass().toString().equals("class BL.Administracion."+rol)) {
+            // JOptionPane.showMessageDialog(null, "Perfil: " + perfil.getNombre() + " " +
+            // perfil.getContrasena() + " " + perfil.getClass().toString());
+            // JOptionPane.showMessageDialog(null, "Datos: " + nombre + " " + contrasena + "
+            // " + rol);
+            if (perfil.getNombre().equals(nombre) && perfil.getContrasena().equals(contrasena)
+                    && perfil.getClass().toString().equals("class BL.Administracion." + rol)
+                    && perfil.getAgencia().equals(agencia)) {
                 return perfil;
             }
         }
@@ -75,7 +79,7 @@ public class GlobalPerfil {
         }
     }
 
-    public void leerPerfiles(){
+    public void leerPerfiles() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("perfiles.txt"));
             String line;
