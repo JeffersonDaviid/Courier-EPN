@@ -71,7 +71,7 @@ public class Factura {
 
             while (rs.next()) {
                 paquete = new Paquete(
-                        rs.getInt("pa.idPaquete"),
+                        rs.getString("pa.idPaquete"),
                         rs.getFloat("peso"),
                         rs.getString("tamanio"),
                         rs.getString("agenciaOrigen"),
