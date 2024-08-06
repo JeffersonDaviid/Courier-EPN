@@ -7,7 +7,13 @@ package UI.Administracion;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
+import BL.Administracion.Administrador;
 import BL.Administracion.Usuario;
+import UI.GestionPaquete.GestionPaquete;
+import UI.Transporte.UICamionCarga;
+import UI.Transporte.UICamionCargaDespachar;
+import UI.Transporte.UICamionEntrega;
+import UI.Transporte.UICamionEntregaDespachar;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -355,18 +361,23 @@ public class MenuModulosUI extends javax.swing.JFrame {
 
     private void btn_entregaDespacharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entregaDespacharActionPerformed
         // TODO add your handling code here:
+        showPanel(new UICamionEntregaDespachar());
     }//GEN-LAST:event_btn_entregaDespacharActionPerformed
 
     private void btn_camionEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_camionEntregaActionPerformed
         // TODO add your handling code here:
+        showPanel(new UICamionEntrega());
     }//GEN-LAST:event_btn_camionEntregaActionPerformed
+    
 
     private void btn_cargaDespacharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargaDespacharActionPerformed
         // TODO add your handling code here:
+        showPanel(new UICamionCargaDespachar());
     }//GEN-LAST:event_btn_cargaDespacharActionPerformed
 
     private void btn_cargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargaActionPerformed
         // TODO add your handling code here:
+        showPanel(new UICamionCarga());
     }//GEN-LAST:event_btn_cargaActionPerformed
 
     private void btn_histActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_histActionPerformed
@@ -374,11 +385,12 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_histActionPerformed
 
     private void btn_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adminActionPerformed
-        // TODO add your handling code here:
+        showPanel(new RegistroUsuariosUI((Administrador) usuario));
     }//GEN-LAST:event_btn_adminActionPerformed
 
     private void btn_paquetes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_paquetes1ActionPerformed
         // TODO add your handling code here:
+        showPanel(new GestionPaquete());
     }//GEN-LAST:event_btn_paquetes1ActionPerformed
 
     private void btn_invActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_invActionPerformed
@@ -394,7 +406,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_seguimientoActionPerformed
 
     private void btn_regCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamionActionPerformed
-        // TODO add your handling code here:
+        showPanel(new RegistroCamionesUI((Administrador) usuario));
     }//GEN-LAST:event_btn_regCamionActionPerformed
 
     private void btn_regCamion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamion1ActionPerformed

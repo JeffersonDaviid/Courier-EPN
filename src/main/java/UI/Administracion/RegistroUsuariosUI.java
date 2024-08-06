@@ -6,17 +6,22 @@ package UI.Administracion;
 
 import com.proyecto.courierepn.CourierEPN;
 
+import BL.Administracion.Administrador;
+import BL.Administracion.Usuario;
+
 /**
  *
  * @author Emilio
  */
 public class RegistroUsuariosUI extends javax.swing.JPanel {
+    Administrador usuarioActual;
 
     /**
      * Creates new form RegistroUsuariosUI
      */
-    public RegistroUsuariosUI() {
+    public RegistroUsuariosUI(Administrador usuario) {
         initComponents();
+        this.usuarioActual = usuario;
     }
 
     /**
@@ -156,7 +161,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         String pass = field_pass.getText();
         String rol = comboBox_rol.getSelectedItem().toString();
         String agencia = comboBox_agencia.getSelectedItem().toString();
-        CourierEPN.registrarUsuario(agencia, usuario, pass, rol);
+        usuarioActual.agregarNuevoUsuario(agencia, usuario, pass, rol);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
 
 
