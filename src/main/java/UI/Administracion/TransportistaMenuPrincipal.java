@@ -10,8 +10,8 @@ import UI.Administracion.views.*;
 import UI.Almacenamiento.HistorialUI;
 import UI.SeguimientoPaquete.UIEnvio;
 import UI.SeguimientoPaquete.UISeguimiento;
-import UI.Transporte.UITransporte;
-import UI.Transporte.UITransportePaquetes;
+import UI.Transporte.UICamionCarga;
+import UI.Transporte.UICamionCargaDespachar;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import java.awt.BorderLayout;
@@ -254,7 +254,7 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_CerrarActionPerformed
 
     private void otroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otroActionPerformed
-        ShowJPanel(new UITransportePaquetes());
+        ShowJPanel(new UICamionCargaDespachar());
     }//GEN-LAST:event_otroActionPerformed
 
     private void btn_prinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_prinActionPerformed
@@ -262,7 +262,7 @@ public class TransportistaMenuPrincipal extends javax.swing.JFrame {
     }// GEN-LAST:event_btn_prinActionPerformed
 
     private void btn_lendsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_lendsActionPerformed
-        ShowJPanel(new UITransporte());
+        ShowJPanel(new UICamionCarga());
     }// GEN-LAST:event_btn_lendsActionPerformed
 
     

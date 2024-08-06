@@ -16,13 +16,13 @@ import BL.Transporte.CamionCarga;
  *
  * @author saidl
  */
-public class UITransporte extends javax.swing.JPanel {
+public class UICamionCarga extends javax.swing.JPanel {
 
     Vehiculo vehiculo = new Vehiculo();
     /**
      * Creates new form UITransporte
      */
-    public UITransporte() {
+    public UICamionCarga() {
         initComponents();
     }
 
@@ -38,15 +38,15 @@ public class UITransporte extends javax.swing.JPanel {
         Panel_InfoCamion = new javax.swing.JPanel();
         ImgCamion = new javax.swing.JLabel();
         TxtCamion = new javax.swing.JLabel();
-        BtnActualizar = new javax.swing.JButton();
+        BtnActualizarCC = new javax.swing.JButton();
         TxtInventario = new javax.swing.JLabel();
         TablaInventario = new javax.swing.JScrollPane();
-        TablaListaInventario = new javax.swing.JTable();
+        TablaListaInventarioCC = new javax.swing.JTable();
         TxtInventario1 = new javax.swing.JLabel();
         TablaCargarPaquete = new javax.swing.JScrollPane();
-        TablaListaInventarioCamion = new javax.swing.JTable();
-        BtnAgrergar = new javax.swing.JButton();
-        BtnGuardar = new javax.swing.JButton();
+        TablaListaInventarioCamionC = new javax.swing.JTable();
+        BtnAgrergarCC = new javax.swing.JButton();
+        BtnGuardarCE = new javax.swing.JButton();
 
         Panel_InfoCamion.setBackground(new java.awt.Color(37, 98, 234));
 
@@ -54,38 +54,39 @@ public class UITransporte extends javax.swing.JPanel {
 
         TxtCamion.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         TxtCamion.setForeground(new java.awt.Color(255, 255, 255));
-        TxtCamion.setText("CAMIÓN");
+        TxtCamion.setText("CAMIÓN CARGA");
 
         javax.swing.GroupLayout Panel_InfoCamionLayout = new javax.swing.GroupLayout(Panel_InfoCamion);
         Panel_InfoCamion.setLayout(Panel_InfoCamionLayout);
         Panel_InfoCamionLayout.setHorizontalGroup(
             Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
-                .addGap(79, 79, 79)
                 .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImgCamion)
                     .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addGap(79, 79, 79)
+                        .addComponent(ImgCamion))
+                    .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
                         .addComponent(TxtCamion)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         Panel_InfoCamionLayout.setVerticalGroup(
             Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(ImgCamion)
-                .addGap(28, 28, 28)
+                .addGap(35, 35, 35)
                 .addComponent(TxtCamion)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        BtnActualizar.setBackground(new java.awt.Color(37, 101, 234));
-        BtnActualizar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        BtnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        BtnActualizar.setText("Actualizar");
-        BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+        BtnActualizarCC.setBackground(new java.awt.Color(37, 101, 234));
+        BtnActualizarCC.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        BtnActualizarCC.setForeground(new java.awt.Color(255, 255, 255));
+        BtnActualizarCC.setText("Actualizar");
+        BtnActualizarCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnActualizarActionPerformed(evt);
+                BtnActualizarCCActionPerformed(evt);
             }
         });
 
@@ -93,69 +94,69 @@ public class UITransporte extends javax.swing.JPanel {
         TxtInventario.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         TxtInventario.setText("CAMION");
 
-        TablaListaInventario.setModel(new javax.swing.table.DefaultTableModel(
+        TablaListaInventarioCC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID_Paquete", "Traking Number", "Peso", "Tamanio", "Tipo de Envio", "Direccion Destino", "Sucursal Salida"
+                "ID_Paquete", "Peso", "Tamanio", "Remitente", "Agencia Origen", "Agencia Destino"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        TablaInventario.setViewportView(TablaListaInventario);
+        TablaInventario.setViewportView(TablaListaInventarioCC);
 
         TxtInventario1.setBackground(new java.awt.Color(37, 98, 234));
         TxtInventario1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         TxtInventario1.setText("INVENTARIO");
 
-        TablaListaInventarioCamion.setModel(new javax.swing.table.DefaultTableModel(
+        TablaListaInventarioCamionC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID_Paquete", "Traking Number", "Peso", "Tamanio", "Tipo de Envio", "Direccion Destino", "Sucursal Salida"
+                "ID_Paquete", "Peso", "Tamanio", "Remitente", "Agencia Origen", "Agencia Destino"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        TablaCargarPaquete.setViewportView(TablaListaInventarioCamion);
+        TablaCargarPaquete.setViewportView(TablaListaInventarioCamionC);
 
-        BtnAgrergar.setBackground(new java.awt.Color(37, 101, 234));
-        BtnAgrergar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        BtnAgrergar.setForeground(new java.awt.Color(255, 255, 255));
-        BtnAgrergar.setText("Agregar");
-        BtnAgrergar.addActionListener(new java.awt.event.ActionListener() {
+        BtnAgrergarCC.setBackground(new java.awt.Color(37, 101, 234));
+        BtnAgrergarCC.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        BtnAgrergarCC.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgrergarCC.setText("Agregar");
+        BtnAgrergarCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAgrergarActionPerformed(evt);
+                BtnAgrergarCCActionPerformed(evt);
             }
         });
 
-        BtnGuardar.setBackground(new java.awt.Color(37, 101, 234));
-        BtnGuardar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        BtnGuardar.setForeground(new java.awt.Color(255, 255, 255));
-        BtnGuardar.setText("Guardar");
-        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        BtnGuardarCE.setBackground(new java.awt.Color(37, 101, 234));
+        BtnGuardarCE.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        BtnGuardarCE.setForeground(new java.awt.Color(255, 255, 255));
+        BtnGuardarCE.setText("Guardar");
+        BtnGuardarCE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnGuardarActionPerformed(evt);
+                BtnGuardarCEActionPerformed(evt);
             }
         });
 
@@ -168,60 +169,53 @@ public class UITransporte extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnGuardar)
+                        .addComponent(BtnGuardarCE)
                         .addGap(14, 14, 14))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnActualizar)
-                            .addComponent(TablaInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BtnActualizarCC)
                             .addComponent(TxtInventario)
-                            .addComponent(TablaCargarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnAgrergar))
-                        .addContainerGap(154, Short.MAX_VALUE))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(332, 332, 332)
-                    .addComponent(TxtInventario1)
-                    .addContainerGap(648, Short.MAX_VALUE)))
+                            .addComponent(BtnAgrergarCC)
+                            .addComponent(TxtInventario1)
+                            .addComponent(TablaInventario, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
+                            .addComponent(TablaCargarPaquete))
+                        .addContainerGap(60, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(BtnActualizar)
-                .addGap(56, 56, 56)
+                .addComponent(BtnActualizarCC)
+                .addGap(22, 22, 22)
+                .addComponent(TxtInventario1)
+                .addGap(18, 18, 18)
                 .addComponent(TablaInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(TxtInventario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(TablaCargarPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(BtnAgrergar)
+                .addComponent(BtnAgrergarCC)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                .addComponent(BtnGuardar)
+                .addComponent(BtnGuardarCE)
                 .addGap(17, 17, 17))
             .addComponent(Panel_InfoCamion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(68, 68, 68)
-                    .addComponent(TxtInventario1)
-                    .addContainerGap(706, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnAgrergarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgrergarActionPerformed
+    private void BtnAgrergarCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgrergarCCActionPerformed
         vehiculo.cambiarEstadoPaquete("Listo para Cargar", "En Transito");
         //vehiculo.cambiarEstadoPaquete("Entregado", "recibido");
         //vehiculo.cambiarEstadoPaquete("Entregado", "recibido");
         List<Paquete> paquetes = vehiculo.listarPaquetes("En Transito"); // Obtener los paquet
 
         // Obtener el modelo de la tabla de inventario del camión
-        DefaultTableModel camionModel = (DefaultTableModel) TablaListaInventarioCamion.getModel();
+        DefaultTableModel camionModel = (DefaultTableModel) TablaListaInventarioCamionC.getModel();
         camionModel.setRowCount(0); // Limpiar la tabla de inventario del camión
 
         // Obtener el modelo de la tabla de inventario principal
-        DefaultTableModel inventarioModel = (DefaultTableModel) TablaListaInventario.getModel();
+        DefaultTableModel inventarioModel = (DefaultTableModel) TablaListaInventarioCC.getModel();
         inventarioModel.setRowCount(0); // Limpiar la tabla de inventario principal
 
         // Agregar las filas correspondientes a TablaListaInventarioCamion
@@ -239,21 +233,21 @@ public class UITransporte extends javax.swing.JPanel {
         //vehiculo.cambiarEstadoPaquete("Retiro Transporte", "En Transito");
               //  List Vehiculo = vehiculo.listarPaquetes("En Transito");
                 // cargar tabla 1(limpiar) y 2 (Cargar)
-    }//GEN-LAST:event_BtnAgrergarActionPerformed
+    }//GEN-LAST:event_BtnAgrergarCCActionPerformed
 
 
-    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+    private void BtnGuardarCEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarCEActionPerformed
    // UITransportePaquetes uitp = new UITransportePaquetes();
     //AdminMenuPrincipal.ShowJPanel(uitp);
-    }//GEN-LAST:event_BtnGuardarActionPerformed
+    }//GEN-LAST:event_BtnGuardarCEActionPerformed
 
-    private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+    private void BtnActualizarCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarCCActionPerformed
         Vehiculo vehiculo = new Vehiculo(); 
         // Obtener la lista de paquetes con el estado "recibido"
         List<Paquete> paquetes = vehiculo.listarPaquetes("Listo para Cargar");
 
         // Crear el modelo de la tabla
-        DefaultTableModel model = (DefaultTableModel) TablaListaInventario.getModel();
+        DefaultTableModel model = (DefaultTableModel) TablaListaInventarioCC.getModel();
         model.setRowCount(0); // Limpiar la tabla
 
         // Llenar la tabla con la información de los paquetes
@@ -269,20 +263,20 @@ public class UITransporte extends javax.swing.JPanel {
             model.addRow(row);
         }
 
-    }//GEN-LAST:event_BtnActualizarActionPerformed
+    }//GEN-LAST:event_BtnActualizarCCActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnActualizar;
-    private javax.swing.JButton BtnAgrergar;
-    private javax.swing.JButton BtnGuardar;
+    private javax.swing.JButton BtnActualizarCC;
+    private javax.swing.JButton BtnAgrergarCC;
+    private javax.swing.JButton BtnGuardarCE;
     private javax.swing.JLabel ImgCamion;
     private javax.swing.JPanel Panel_InfoCamion;
     private javax.swing.JScrollPane TablaCargarPaquete;
     private javax.swing.JScrollPane TablaInventario;
-    private javax.swing.JTable TablaListaInventario;
-    private javax.swing.JTable TablaListaInventarioCamion;
+    private javax.swing.JTable TablaListaInventarioCC;
+    private javax.swing.JTable TablaListaInventarioCamionC;
     private javax.swing.JLabel TxtCamion;
     private javax.swing.JLabel TxtInventario;
     private javax.swing.JLabel TxtInventario1;
