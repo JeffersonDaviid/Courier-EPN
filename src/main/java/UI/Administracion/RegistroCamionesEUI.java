@@ -4,16 +4,18 @@
  */
 package UI.Administracion;
 
+import com.proyecto.courierepn.CourierEPN;
+
 /**
  *
  * @author Emilio
  */
-public class RegistroCamionesUI extends javax.swing.JPanel {
+public class RegistroCamionesEUI extends javax.swing.JPanel {
 
     /**
      * Creates new form RegistroUsuariosUI
      */
-    public RegistroCamionesUI() {
+    public RegistroCamionesEUI() {
         initComponents();
     }
 
@@ -34,17 +36,13 @@ public class RegistroCamionesUI extends javax.swing.JPanel {
         field_placa = new javax.swing.JTextField();
         btn_registrarCamion = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        btn_consultarCamion = new javax.swing.JButton();
         field_capacidad = new javax.swing.JTextField();
         field_marca = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         field_disponibilidad = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        field_placa1 = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
 
         jLabel2.setText("Placa:");
 
@@ -78,17 +76,7 @@ public class RegistroCamionesUI extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(13, 71, 161));
-        jLabel6.setText("Registro Camiones");
-
-        btn_consultarCamion.setBackground(new java.awt.Color(13, 71, 161));
-        btn_consultarCamion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btn_consultarCamion.setForeground(new java.awt.Color(255, 255, 255));
-        btn_consultarCamion.setText("Consultar Camión");
-        btn_consultarCamion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_consultarCamionActionPerformed(evt);
-            }
-        });
+        jLabel6.setText("Registro Camiones Entrega");
 
         field_capacidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,19 +98,12 @@ public class RegistroCamionesUI extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carga", "Entrega" }));
-
         jLabel9.setText("Tipo:");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(13, 71, 161));
-        jLabel7.setText("Consultar Camión");
-
-        jLabel10.setText("Placa:");
-
-        field_placa1.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.setText("Entrega");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                field_placa1ActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
@@ -130,10 +111,6 @@ public class RegistroCamionesUI extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(221, 221, 221))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -161,43 +138,28 @@ public class RegistroCamionesUI extends javax.swing.JPanel {
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(field_disponibilidad, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)))))
+                                    .addComponent(field_disponibilidad, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                                    .addComponent(jTextField1)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(129, 129, 129)
                         .addComponent(btn_registrarCamion)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(field_placa1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(159, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btn_consultarCamion)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(221, 221, 221))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(221, 221, 221))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(56, 56, 56)
-                    .addComponent(jLabel6)
-                    .addContainerGap(753, Short.MAX_VALUE)))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(603, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel7)
-                .addGap(46, 46, 46)
+                .addGap(112, 112, 112)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel10)
-                            .addComponent(field_placa1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                        .addComponent(jLabel2)
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(field_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -218,12 +180,10 @@ public class RegistroCamionesUI extends javax.swing.JPanel {
                     .addComponent(field_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_registrarCamion)
-                    .addComponent(btn_consultarCamion))
+                .addComponent(btn_registrarCamion)
                 .addGap(211, 211, 211))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -242,12 +202,13 @@ public class RegistroCamionesUI extends javax.swing.JPanel {
     }//GEN-LAST:event_field_placaActionPerformed
 
     private void btn_registrarCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarCamionActionPerformed
-        // TODO add your handling code here:
+        String placa = field_placa.getText();
+        String modelo = field_modelo.getText();
+        String marca = field_marca.getText();
+        String capacidad = field_capacidad.getText();
+        String disponibilidad = field_disponibilidad.getText();
+        CourierEPN.registrarCamionEntrega(placa, modelo, marca, capacidad, disponibilidad);
     }//GEN-LAST:event_btn_registrarCamionActionPerformed
-
-    private void btn_consultarCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarCamionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_consultarCamionActionPerformed
 
     private void field_capacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_capacidadActionPerformed
         // TODO add your handling code here:
@@ -261,30 +222,26 @@ public class RegistroCamionesUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_field_disponibilidadActionPerformed
 
-    private void field_placa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_placa1ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_field_placa1ActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_consultarCamion;
     private javax.swing.JButton btn_registrarCamion;
     private javax.swing.JTextField field_capacidad;
     private javax.swing.JTextField field_disponibilidad;
     private javax.swing.JTextField field_marca;
     private javax.swing.JTextField field_modelo;
     private javax.swing.JTextField field_placa;
-    private javax.swing.JTextField field_placa1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

@@ -213,7 +213,7 @@ public class CourierEPN {
 
                     case 16: // Nueva opción para ingresar un nuevo usuario
                         if (usuario instanceof Administrador) {
-                            ((Administrador) usuario).agregarNuevoUsuario();
+                            //((Administrador) usuario).agregarNuevoUsuario();
                         } else {
                             JOptionPane.showMessageDialog(null,
                                     "Solo los administradores pueden agregar nuevos usuarios.");
@@ -222,7 +222,7 @@ public class CourierEPN {
 
                     case 17:
                         if (usuario instanceof Administrador) {
-                            ((Administrador) usuario).agregarCamionCarga();
+                            //((Administrador) usuario).agregarCamionCarga();
                         } else {
                             JOptionPane.showMessageDialog(null,
                                     "Solo los administradores pueden agregar nuevos camiones de carga.");
@@ -231,7 +231,7 @@ public class CourierEPN {
 
                     case 18:
                         if (usuario instanceof Administrador) {
-                            ((Administrador) usuario).agregarCamionEntrega();
+                            //((Administrador) usuario).agregarCamionEntrega();
                         } else {
                             JOptionPane.showMessageDialog(null,
                                     "Solo los administradores pueden agregar nuevos camiones de entrega.");
@@ -270,11 +270,39 @@ public class CourierEPN {
         // pass = JOptionPane.showInputDialog("Ingrese su contraseña");
         // rol = JOptionPane.showInputDialog("Ingrese su rol");
         usuario = Usuario.login(agencia, user, pass, rol);
+        agencia = usuario.getAgencia();
         if (usuario != null) {
             Global.agenciaActual = agencia;
             return true;
         } else {
             return false;
+        }
+    }
+
+    public static void registrarUsuario(String nuevaAgencia, String nuevoNombre, String nuevaContrasena, String nuevoRol) {
+        if (usuario instanceof Administrador) {
+            ((Administrador) usuario).agregarNuevoUsuario(nuevaAgencia, nuevoNombre, nuevaContrasena, nuevoRol);
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Solo los administradores pueden registrar usuarios.");
+        }
+    }
+
+    public static void registrarCamionCarga(String placa, String modelo, String marca, String capacidadCarga, String disponibilidad) {
+        if (usuario instanceof Administrador) {
+            ((Administrador) usuario).agregarCamionCarga(placa, modelo, marca, capacidadCarga, disponibilidad);
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Solo los administradores pueden registrar camiones de carga.");
+        }
+    }
+
+    public static void registrarCamionEntrega(String placa, String modelo, String marca, String capacidadCarga, String disponibilidad) {
+        if (usuario instanceof Administrador) {
+            ((Administrador) usuario).agregarCamionEntrega(placa, modelo, marca, capacidadCarga, disponibilidad);
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Solo los administradores pueden registrar camiones de entrega.");
         }
     }
 

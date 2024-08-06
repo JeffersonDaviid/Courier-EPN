@@ -1,8 +1,11 @@
 package BL.Administracion;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import BL.BASEDEDATOS.DataHelper;
 
 public class GlobalPerfil {
 
@@ -33,7 +36,12 @@ public class GlobalPerfil {
     }
        // Nuevo método para agregar usuarios
        public void agregarUsuario(Usuario nuevoUsuario) {
-        perfiles.add(nuevoUsuario);
+        if(!usuarioExistente(nuevoUsuario.getNombre())) {
+            perfiles.add(nuevoUsuario);        
+            JOptionPane.showMessageDialog(null, "Nuevo usuario agregado exitosamente: " + nuevoUsuario.getNombre());
+        }
+        else
+            JOptionPane.showMessageDialog(null, "El usuario ya existe.");
     }
 
     public Usuario loginPerfil(String nombre, String contrasena, String rol) {
@@ -45,6 +53,20 @@ public class GlobalPerfil {
             }
         }
         return null;
+    }
+
+    public void guardarPerfiles() {
+
+
+    }
+
+    private boolean usuarioExistente(String usuario) {
+        for (Usuario perfil : perfiles) {
+            if (perfil.getNombre().equals(usuario)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

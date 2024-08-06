@@ -12,12 +12,12 @@ public class Administrador extends Usuario {
     }
 
     // Método para agregar un nuevo usuario a la lista
-    public void agregarNuevoUsuario() {
-        String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nombre del nuevo usuario:");
-        String nuevaContrasena = JOptionPane.showInputDialog(null, "Ingrese la contraseña del nuevo usuario:");
-        String nuevaAgencia = JOptionPane.showInputDialog(null, "Ingrese la agencia del nuevo usuario:");
-        String nuevoRol = JOptionPane.showInputDialog(null,
-                "Ingrese el rol del nuevo usuario (Administrador, Recepcionista, Bodeguero o Transportista):");
+    public void agregarNuevoUsuario(String nuevaAgencia, String nuevoNombre, String nuevaContrasena, String nuevoRol) {
+        //String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nombre del nuevo usuario:");
+        //String nuevaContrasena = JOptionPane.showInputDialog(null, "Ingrese la contraseña del nuevo usuario:");
+        //String nuevaAgencia = JOptionPane.showInputDialog(null, "Ingrese la agencia del nuevo usuario:");
+        //String nuevoRol = JOptionPane.showInputDialog(null,
+        //        "Ingrese el rol del nuevo usuario (Administrador, Recepcionista, Bodeguero o Transportista):");
 
         Usuario nuevoUsuario;
         if (nuevoRol.equalsIgnoreCase("Administrador")) {
@@ -34,20 +34,19 @@ public class Administrador extends Usuario {
         }
 
         GlobalPerfil.getInstancia().agregarUsuario(nuevoUsuario);
-        JOptionPane.showMessageDialog(null, "Nuevo usuario agregado exitosamente: " + nuevoUsuario.getNombre());
     }
 
     // Método para agregar un nuevo camión
-    public void agregarCamionCarga() {
-        String placa = JOptionPane.showInputDialog("Ingrese la placa:").trim();
-        String modelo = JOptionPane.showInputDialog("Ingrese el modelo:").trim();
-        String marca = JOptionPane.showInputDialog("Ingrese la marca:").trim();
+    public void agregarCamionCarga(String placa, String modelo, String marca, String capacidadCargaStr, String disponibilidadStr) {
+        // String placa = JOptionPane.showInputDialog("Ingrese la placa:").trim();
+        // String modelo = JOptionPane.showInputDialog("Ingrese el modelo:").trim();
+        // String marca = JOptionPane.showInputDialog("Ingrese la marca:").trim();
         int capacidadCarga = 0;
         int disponibilidad = 0;
 
         try {
-            capacidadCarga = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la capacidad de carga:").trim());
-            disponibilidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la disponibilidad:").trim());
+            capacidadCarga = Integer.parseInt(capacidadCargaStr);
+            disponibilidad = Integer.parseInt(disponibilidadStr);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Capacidad de carga y disponibilidad deben ser números.");
             return;
@@ -59,16 +58,16 @@ public class Administrador extends Usuario {
     }
 
     // Método para agregar un nuevo camión
-    public void agregarCamionEntrega() {
-        String placa = JOptionPane.showInputDialog("Ingrese la placa:").trim();
-        String modelo = JOptionPane.showInputDialog("Ingrese el modelo:").trim();
-        String marca = JOptionPane.showInputDialog("Ingrese la marca:").trim();
+    public void agregarCamionEntrega(String placa, String modelo, String marca, String capacidadCargaStr, String disponibilidadStr) {
+        // String placa = JOptionPane.showInputDialog("Ingrese la placa:").trim();
+        // String modelo = JOptionPane.showInputDialog("Ingrese el modelo:").trim();
+        // String marca = JOptionPane.showInputDialog("Ingrese la marca:").trim();
         int capacidadCarga = 0;
         int disponibilidad = 0;
 
         try {
-            capacidadCarga = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la capacidad de carga:").trim());
-            disponibilidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la disponibilidad:").trim());
+            capacidadCarga = Integer.parseInt(capacidadCargaStr);
+            disponibilidad = Integer.parseInt(disponibilidadStr);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Capacidad de carga y disponibilidad deben ser números.");
             return;
