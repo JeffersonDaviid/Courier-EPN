@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import BL.Administracion.Global;
 import BL.BASEDEDATOS.DataHelper;
 import BL.GestionPaquete.Paquete;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Historial {
     private ArrayList<Registro> registros;
@@ -26,7 +28,7 @@ public class Historial {
     }
 
     //Metodo que muestra el historial de ingresos y salidas del dia que se lo llame
-    public void consultar() {
+    public void consultar(int index) {
         System.out.print("Agencia: " + Global.getInstancia().agenciaActual.toUpperCase());
         for (Registro registro: registros) {
             System.out.println("\n" + registro.toString());
@@ -44,49 +46,61 @@ public class Historial {
         return null;
     }
 
-    //Metodo que filtra el hitorial segun un parametro de busqueda
-    public void filtrarHistorial(String parametro){
+   // Método que filtra el historial según los parámetros proporcionados
+    public List<Registro> filtrarHistorial(String idPaquete, String fechaIngreso, String fechaSalida, String agencia) {
+        DateTimeFormatter formatterFechaYHora = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        return registros.stream().filter(registro -> {
+            boolean matches = true;
+
+            if (idPaquete != null && !idPaquete.isEmpty()) {
+                matches &= registro.getIdPaquete().equals(idPaquete);
+            }
+
+            if (fechaIngreso != null && !fechaIngreso.isEmpty()) {
+                LocalDateTime fechaYHora = LocalDateTime.parse(registro.getFechaIngreso(), formatterFechaYHora);
+                LocalDate fecha = LocalDate.parse(fechaIngreso, formatterFecha);
+                matches &= fechaYHora.toLocalDate().equals(fecha);
+            }
+
+            if (fechaSalida != null && !fechaSalida.isEmpty() && registro.getFechaSalida() != null) {
+                LocalDateTime fechaYHora = LocalDateTime.parse(registro.getFechaSalida(), formatterFechaYHora);
+                LocalDate fecha = LocalDate.parse(fechaSalida, formatterFecha);
+                matches &= fechaYHora.toLocalDate().equals(fecha);
+            }
+
+            if (agencia != null && !agencia.isEmpty()) {
+                matches &= Global.getInstancia().agenciaActual.equalsIgnoreCase(agencia);
+            }
+
+            return matches;
+        }).collect(Collectors.toList());
     }
 
+
     public void filtrarPorId(String idPaquete){
-        System.out.println("Filtro por id Paquete");
-        for (Registro registro : registros) {
-            if (registro.getIdPaquete().equals(idPaquete)) {
-                System.out.println(registro);
-            }
-        }
+         System.out.println("Filtro por id Paquete");
+        filtrarHistorial(idPaquete, null, null, null).forEach(System.out::println);
     }
 
     public void filtrarPorFechaSalida(String fechaSalida){
-        System.out.println("Filtro por Fecha de Salida");
-        DateTimeFormatter formatterFechaYHora = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        DateTimeFormatter formatterFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        for (Registro registro : registros) {
-            if(registro.getFechaSalida() != null){
-                LocalDateTime fechaYHora = LocalDateTime.parse(registro.getFechaSalida(), formatterFechaYHora);
-                LocalDate fecha = LocalDate.parse(fechaSalida, formatterFecha); 
-                if (fechaYHora.toLocalDate().equals(fecha)) {
-                    System.out.println(registro);
-                } 
-            }
-        }
+         System.out.println("Filtro por Fecha de Salida");
+        filtrarHistorial(null, null, fechaSalida, null).forEach(System.out::println);
     }
 
     public void filtrarPorFechaIngreso(String fechaIngreso){
-        System.out.println("Filtro por Fecha de Ingreso");
-        DateTimeFormatter formatterFechaYHora = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        DateTimeFormatter formatterFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        for (Registro registro : registros) {
-            LocalDateTime fechaYHora = LocalDateTime.parse(registro.getFechaIngreso(), formatterFechaYHora);
-            LocalDate fecha = LocalDate.parse(fechaIngreso, formatterFecha);
-            if (fechaYHora.toLocalDate().equals(fecha)) {
-                System.out.println(registro);
-            } 
-        }
+         System.out.println("Filtro por Fecha de Ingreso");
+        filtrarHistorial(null, fechaIngreso, null, null).forEach(System.out::println);
     }
 
     //Método que actualiza la fecha de salida de un registro
     public void actualizarFechaDeSalida(String id, String fechaSalida) {
-        getRegistro(id).setFechaSalida(fechaSalida);;
+Registro registro = getRegistro(id);
+    if (registro != null) {
+        registro.setFechaSalida(fechaSalida);
+    } else {
+        System.out.println("Registro no encontrado");
+    }
     }
 }
