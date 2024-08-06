@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 public class Paquete {
-    private String id;
+    private int id;
     private float peso;
     private String tamanio;
     private ArrayList<Estado> historialEstado = new ArrayList<>();
@@ -30,7 +30,7 @@ public class Paquete {
     Estado estado;
     //private String trackingNumber;
 
-    public Paquete(String id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada) {
+    public Paquete(int id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada) {
         this.id = id;
         this.peso = peso;
         this.tamanio = tamanio;
@@ -51,11 +51,11 @@ public class Paquete {
     
     
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -184,8 +184,8 @@ public class Paquete {
         String fechaHoraSalida = estado.getFecha();  // Usa la fecha del último estado
        
 
-        String sql = "INSERT INTO Paquete (peso, tamanio, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio) VALUES ("
-            + peso + ", '" + tamanio + "', '" + fechaLlegada + "', '"
+        String sql = "INSERT INTO Paquete (peso, tamanio, sucursalAceptoPaquete,sucursalParaRecoger,fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio) VALUES ("
+            + peso + ", '" + tamanio + "', '" + agenciaOrigen + "', '"+ agenciaDestino + "', '"+ fechaLlegada + "', '"
             + fechaHoraSalida + "', '" + nombreRemitente + "', '"
             + correoRemitente + "', '" + telefonoRemitente + "', '" + nombreDestinatario + "', '"
             + correoDestinatario + "', '" + telefonoDestinatario + "', '"

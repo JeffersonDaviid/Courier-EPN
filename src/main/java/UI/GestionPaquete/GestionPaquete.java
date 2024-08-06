@@ -614,7 +614,7 @@ public class GestionPaquete extends javax.swing.JPanel {
 
             int ultimoId = obtenerUltimoId();
 
-            paquete.setId(String.valueOf(ultimoId));
+            paquete.setId(ultimoId);
 
             System.out.println("ID del paquete establecido: " + paquete.getId());
 
