@@ -6,13 +6,19 @@
 package UI.Administracion;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+
+import javax.swing.JPanel;
 
 /**
  *
  * @author Antonio
  */
 public class MenuUI extends javax.swing.JFrame {
+
+    LoginUI loginUI;
 
     /**
      * Creates new form Dashboard
@@ -28,6 +34,20 @@ public class MenuUI extends javax.swing.JFrame {
     
     
     private void InitContent() {
+    }
+
+    private void showPanel(JPanel panel) {
+        panel.setSize(978, 720);
+        panel.setLocation(0, 0);
+
+        jPanel3.removeAll();
+        jPanel3.add(panel, BorderLayout.CENTER);
+        jPanel3.revalidate();
+        jPanel3.repaint();
+    }
+
+    public void setLoginUI(LoginUI loginUI) {
+        this.loginUI = loginUI;
     }
 
     /**
@@ -439,6 +459,7 @@ public class MenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_op15ActionPerformed
 
     private void btn_op16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_op16ActionPerformed
+        showPanel(new RegistroUsuariosUI());
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_op16ActionPerformed
 
@@ -455,10 +476,11 @@ public class MenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_op5ActionPerformed
 
     private void btn_op17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_op17ActionPerformed
-        // TODO add your handling code here:
+        showPanel(new RegistroCamionesCUI());
     }//GEN-LAST:event_btn_op17ActionPerformed
 
     private void btn_op18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_op18ActionPerformed
+        showPanel(new RegistroCamionesEUI());
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_op18ActionPerformed
 
@@ -467,7 +489,9 @@ public class MenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_op19ActionPerformed
 
     private void btn_op20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_op20ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        loginUI.setVisible(true);
+        showPanel(new JPanel());
     }//GEN-LAST:event_btn_op20ActionPerformed
 
     /**

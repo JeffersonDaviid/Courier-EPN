@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class LoginUI extends javax.swing.JFrame {
 
-
     MenuUI menuUI = new MenuUI();
 
     /**
@@ -244,7 +243,11 @@ public class LoginUI extends javax.swing.JFrame {
         if(CourierEPN.login(agencia, user, pass, rol)){
             JOptionPane.showMessageDialog(null,"Bienvenido "+user);
             this.setVisible(false);
+            this.jTextField1.setText("");
+            this.jPasswordField1.setText("");
+            menuUI.setLoginUI(this);
             menuUI.setVisible(true);
+
         };
         //this.setVisible();
     }//GEN-LAST:event_jButton1ActionPerformed
