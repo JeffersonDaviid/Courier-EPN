@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 public class Paquete {
-    private int id;
+    private String id;
     private float peso;
     private String tamanio;
     private ArrayList<Estado> historialEstado = new ArrayList<>();
@@ -30,7 +30,7 @@ public class Paquete {
     Estado estado;
     //private String trackingNumber;
 
-    public Paquete(int id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada) {
+    public Paquete(String id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada) {
         this.id = id;
         this.peso = peso;
         this.tamanio = tamanio;
@@ -51,12 +51,17 @@ public class Paquete {
     
     
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        if (id == null || id.isEmpty() || id.equals("0")) {
+            Random random = new Random();
+            this.id = String.valueOf(random.nextInt(1000));
+        } else {
+            this.id = id;
+        }
     }
 
     public float getPeso() {
