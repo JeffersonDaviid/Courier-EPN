@@ -312,7 +312,7 @@ public class Inventario {
                     p.getNombreDestinatario(),
                     p.getAgenciaOrigen(),
                     p.getAgenciaDestino(),
-                    p.getHistorialEstado().getLast() });
+                    p.getHistorialEstado().get(p.getHistorialEstado().size() - 1).getEstado()});
         }
         return model;
     }
