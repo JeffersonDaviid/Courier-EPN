@@ -279,7 +279,7 @@ public class Inventario {
     public DefaultTableModel mostrarPaquetes(int index) {
         recepcion = Global.getInstancia().buscarAgencia(Global.agenciaActual).getRecepcion();
         DefaultTableModel model = new DefaultTableModel();
-        String[] columnas = { "ID", "Agencia de Origen", "Agencia de Destino", "Estado" };
+        String[] columnas = { "ID", "Peso","Tamaño","Remitente","Destinatario","Agencia de Origen", "Agencia de Destino", "Estado" };
         int cntidadCol = columnas.length;
         for (int i = 0; i < cntidadCol; i++) {
             model.addColumn(columnas[i]);
@@ -306,6 +306,10 @@ public class Inventario {
 
         for (Paquete p : paquetes) {
             model.addRow(new Object[] { p.getId(),
+                    p.getPeso(),
+                    p.getTamanio(),
+                    p.getNombreRemitente(),
+                    p.getNombreDestinatario(),
                     p.getAgenciaOrigen(),
                     p.getAgenciaDestino(),
                     p.getHistorialEstado().getLast() });
