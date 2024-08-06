@@ -8,6 +8,8 @@ package UI.Administracion;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
 import BL.Administracion.Usuario;
+import UI.Almacenamiento.HistorialnewUI;
+import UI.Almacenamiento.InventarioUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -371,6 +373,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
 
     private void btn_histActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_histActionPerformed
         // TODO add your handling code here:
+        showPanel(new HistorialnewUI());
     }//GEN-LAST:event_btn_histActionPerformed
 
     private void btn_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adminActionPerformed
@@ -383,6 +386,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
 
     private void btn_invActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_invActionPerformed
         // TODO add your handling code here:
+        showPanel(new InventarioUI());
     }//GEN-LAST:event_btn_invActionPerformed
 
     private void btn_envActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_envActionPerformed
