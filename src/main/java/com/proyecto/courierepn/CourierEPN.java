@@ -190,7 +190,7 @@ public class CourierEPN {
                         String destino = JOptionPane.showInputDialog("ingrese agencia destino del paquete");
                         Seguimiento s = new Seguimiento();
                         s.verEstadoPaquete(idPaquete, destino);
-                        break;
+                        break;/* 
                     case 12:
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarHistorial();
                         break;
@@ -209,7 +209,7 @@ public class CourierEPN {
 
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
                                 .consultarPorFechaSalida(fechaSal);
-                        break;
+                        break;*/
 
                     case 16: // Nueva opción para ingresar un nuevo usuario
                         if (usuario instanceof Administrador) {

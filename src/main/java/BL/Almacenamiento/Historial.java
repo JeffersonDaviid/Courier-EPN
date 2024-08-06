@@ -78,25 +78,9 @@ public class Historial {
         }).collect(Collectors.toList());
     }
 
-
-    public void filtrarPorId(String idPaquete){
-         System.out.println("Filtro por id Paquete");
-        filtrarHistorial(idPaquete, null, null, null).forEach(System.out::println);
-    }
-
-    public void filtrarPorFechaSalida(String fechaSalida){
-         System.out.println("Filtro por Fecha de Salida");
-        filtrarHistorial(null, null, fechaSalida, null).forEach(System.out::println);
-    }
-
-    public void filtrarPorFechaIngreso(String fechaIngreso){
-         System.out.println("Filtro por Fecha de Ingreso");
-        filtrarHistorial(null, fechaIngreso, null, null).forEach(System.out::println);
-    }
-
     //Método que actualiza la fecha de salida de un registro
     public void actualizarFechaDeSalida(String id, String fechaSalida) {
-Registro registro = getRegistro(id);
+    Registro registro = getRegistro(id);
     if (registro != null) {
         registro.setFechaSalida(fechaSalida);
     } else {

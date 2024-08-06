@@ -230,11 +230,6 @@ public class Inventario {
         return capacidadOcupada;
     }
 
-    //Metodo que consulta el historial de ingresos y salidas de los paquetes el dia ejecutado
-    public void consultarHistorial() {
-        historial.consultar(0);
-    }
-    
     public Historial getHistorial(){
         return historial;
     }
@@ -318,17 +313,5 @@ public class Inventario {
     //Metodo que devuleve todoso los paquetes listos para envio a domicilio
     public ArrayList<Paquete> getPaquetesParaEnvioDomicilio() {
         return new ArrayList<>(paquetesParaCargaDomicilio.values());
-    }
-
-    public void consultarPorID(String valor) {
-        historial.filtrarPorId(valor);
-    }
-
-    public void consultarPorFechaIngreso(String valor) {
-        historial.filtrarPorFechaIngreso(valor);    
-    }
-
-    public void consultarPorFechaSalida(String valor) {
-        historial.filtrarPorFechaSalida(valor);
     }
 }

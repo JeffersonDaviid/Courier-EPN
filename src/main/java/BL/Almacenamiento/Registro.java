@@ -6,9 +6,9 @@ public class Registro {
     private String agencia;
     private String idPaquete;
 
-    public Registro(String fechaIngreso, String sucursal, String idPaquete) {
+    public Registro(String fechaIngreso, String agencia, String idPaquete) {
         this.fechaIngreso = fechaIngreso;
-        this.agencia = sucursal;
+        this.agencia = agencia;
         this.idPaquete = idPaquete;
     }
 
@@ -32,16 +32,8 @@ public class Registro {
         return agencia;
     }
 
-    public void setAgencia(String sucursal) {
-        this.agencia = sucursal;
-    }
-
     public String getIdPaquete() {
         return idPaquete;
-    }
-
-    public void setIdPaquete(String idPaquete) {
-        this.idPaquete = idPaquete;
     }
 
     @Override
