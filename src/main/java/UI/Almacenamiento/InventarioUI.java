@@ -840,6 +840,7 @@ public class InventarioUI extends javax.swing.JPanel {
 
     private void jBCancelarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarEntregaActionPerformed
         // TODO add your handling code here:
+        this.jTFidEntrega.setText("");
     }//GEN-LAST:event_jBCancelarEntregaActionPerformed
 
     private void jBAceptarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarEntregaActionPerformed
@@ -868,6 +869,7 @@ public class InventarioUI extends javax.swing.JPanel {
 
     private void jBCancelarcargaRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarcargaRecepcionActionPerformed
         // TODO add your handling code here:
+        this.jTFidcargaRecepcion.setText("");
     }//GEN-LAST:event_jBCancelarcargaRecepcionActionPerformed
 
     private void jTFidOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFidOrdenarActionPerformed
@@ -885,6 +887,7 @@ public class InventarioUI extends javax.swing.JPanel {
 
     private void jBCancelarOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarOrdenarActionPerformed
         // TODO add your handling code here:
+        this.jTFOrdenar.setText("");
     }//GEN-LAST:event_jBCancelarOrdenarActionPerformed
 
 
