@@ -14,7 +14,7 @@ import BL.Facturacion.Tarifa;
 import BL.Facturacion.TarifaDomicilio;
 import BL.Facturacion.TarifaEnvio;
 import BL.GestionPaquete.Paquete;
-import UI.Facturacion.Facturacion;
+import UI.Facturacion.FacturaUI;
 
 /**
  *
@@ -514,14 +514,11 @@ public class GestionPaquete extends javax.swing.JPanel {
         private void jBaceptarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBaceptarActionPerformed
                 // TODO add your handling code here:
                 guardarPaquete();
-                Factura.guardarFactura(paquete.getId_paquete(), tarifa.getSubtotal(), tarifa.getTotal(),
-                                tarifa.getDescripcionTarifa());
-                Facturacion facturacion = new Facturacion(paquete.getTrackingNumber(), paquete.getNombreRemitente(),
-                                paquete.getNombreDestinatario(), paquete.getFechaHoraSalida(),
-                                paquete.getSucursalAceptoPaquete(), paquete.getSucursalParaRecoger(),
-                                paquete.getDomicilio(), paquete.getPeso(), paquete.getTamanio(), tarifa.getSubtotal(),
-                                tarifa.getSubtotal() * tarifa.getIvaPorcentaje() / 100, tarifa.getIvaPorcentaje(),
-                                tarifa.getTotal(), tarifa.getDescripcionTarifa());
+
+                Factura factura = new Factura(paquete, tarifa);
+                factura.guardarFactura();
+
+                FacturaUI facturacion = new FacturaUI(factura);
                 facturacion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 facturacion.setLocationRelativeTo(null);
                 facturacion.setVisible(true);
@@ -529,14 +526,20 @@ public class GestionPaquete extends javax.swing.JPanel {
         }// GEN-LAST:event_jBaceptarActionPerformed
 
         private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCalcularActionPerformed
-                tarifa = new TarifaEnvio(Float.parseFloat(jTpeso.getText()), jComboTamanio.getSelectedItem().toString(),
-                                jTsucursalRecibe.getText(), jTsucursalAcepto.getText());
-                tarifa.calcularPrecioEnvio();
+                // TODO: CREAR/CARGAR DATOS DEL OBJETO PAQUETE
+
+                // paquete = new Paquete(TOOL_TIP_TEXT_KEY, ABORT, TOOL_TIP_TEXT_KEY,
+                // TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY,
+                // TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY,
+                // TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY)
+
+                tarifa = new TarifaEnvio();
+                tarifa.calcularPrecio(paquete);
 
                 switch (jComboTipoEnvio.getSelectedItem().toString()) {
                         case "Domicilio":
                                 tarifa = new TarifaDomicilio(tarifa);
-                                tarifa.calcularPrecioEnvio();
+                                tarifa.calcularPrecio(paquete);
                                 break;
 
                         default:
