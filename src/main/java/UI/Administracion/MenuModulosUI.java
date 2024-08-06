@@ -360,7 +360,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_factActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_factActionPerformed
-        showPanel(new FacturaUI(null));
+        //showPanel(new FacturaUI(null));
     }//GEN-LAST:event_btn_factActionPerformed
 
     private void btn_entregaDespacharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entregaDespacharActionPerformed
@@ -404,7 +404,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_invActionPerformed
 
     private void btn_envActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_envActionPerformed
-        showPanel(new );
+        //showPanel(new );
     }//GEN-LAST:event_btn_envActionPerformed
 
     private void btn_seguimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_seguimientoActionPerformed
