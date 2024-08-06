@@ -8,6 +8,7 @@ import BL.Administracion.Administrador;
 import BL.Administracion.Global;
 import BL.Administracion.GlobalPerfil;
 import BL.Administracion.Usuario;
+import BL.Almacenamiento.Inventario;
 import BL.Facturacion.Factura;
 import BL.Facturacion.Tarifa;
 import BL.Facturacion.TarifaEnvio;
@@ -15,6 +16,7 @@ import BL.GestionPaquete.Paquete;
 import BL.Seguimiento.Seguimiento;
 import BL.Transporte.CamionCarga;
 import BL.Transporte.CamionEntrega;
+import UI.Almacenamiento.InventarioUI;
 
 public class CourierEPN {
 
@@ -97,6 +99,10 @@ public class CourierEPN {
                         break;
 
                     case 3:
+                    /*
+                        InventarioUI inventario = new InventarioUI();
+                        inventario.show();
+                     */
                         idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
                                 .agregarPaqueteDeRecepcion(idPaquete);
@@ -230,7 +236,6 @@ public class CourierEPN {
                         break;
                 }
             }
-
             opcion = 0;
         }
     }

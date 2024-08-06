@@ -5,10 +5,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import BL.Administracion.Global;
 import BL.BASEDEDATOS.DataHelper;
@@ -258,8 +259,51 @@ public class Inventario {
     }
 
     //Metodo que muestra todos los paquetes del inventario
-    public void mostrarPaquetes(){
-        //Algoritmo para mostrar todos los paquetes
+    public DefaultTableModel mostrarPaquetes(int index){
+        recepcion = Global.getInstancia().buscarAgencia(Global.agenciaActual).getRecepcion();
+        DefaultTableModel model= new DefaultTableModel();
+        String[] columnas = {"ID", "Agencia de Origen", "Agencia de Destino","Estado"};
+        int cntidadCol = columnas.length;
+        for(int i=0; i<cntidadCol; i++){
+            model.addColumn(columnas[i]);
+        } 
+        Collection<Paquete> paquetes;
+        switch (index) {
+            case 0:
+                paquetes = getPaquetesInventario();
+            case 1:
+                paquetes = recepcion.getPaquetesRecepcion();
+                break;
+            case 2:
+                paquetes = this.paquetesAlmacenados.values();
+                break;
+            case 3:
+                paquetes = this.paquetesParaCargaSucursal.values();
+                break;
+            case 4:
+                paquetes = getPaquetesListoParaEntregar();
+                break;
+            default:
+                throw new AssertionError();
+        }
+            
+        for (Paquete p: paquetes){
+                model.addRow(new Object[]{p.getId(),
+                                p.getAgenciaOrigen(),
+                                p.getAgenciaDestino(),
+                                p.getHistorialEstado().getLast()});                   
+        }  
+        return model;
+    }
+
+    private ArrayList<Paquete> getPaquetesListoParaEntregar() {
+        ArrayList<Paquete> paquetes = new ArrayList<>();
+        for (Paquete paquete : paquetesAlmacenados.values()) {
+            if(paquete.getHistorialEstado().get(paquete.getHistorialEstado().size()).getEstado() == "Listo para retiro de bodega"){
+                paquetes.add(paquete);
+            }
+        }
+        return paquetes;
     }
 
     //Metodo que devuelve todos los paquetes listos para enviar a otra sucursal
