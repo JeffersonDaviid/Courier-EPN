@@ -29,18 +29,20 @@ public class Factura {
     }
 
     public void generarFactura(Paquete paquete) {
+        fechaRegistro = (String.format("%tF %tT", new java.util.Date(), new java.util.Date()));
+
         this.paquete = paquete;
         facturas.add(this);
-        FacturaUI facturaUI = new FacturaUI(factura);
 
-        facturaUI.setSize(380, 480);
+        FacturaUI facturaUI = new FacturaUI(factura);
+        facturaUI.setSize(380, 490);
         facturaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         facturaUI.setLocationRelativeTo(null);
         facturaUI.setVisible(true);
 
         int i = 1;
         for (Factura factura : facturas) {
-            System.out.println(i + ": " + factura.getPaquete().getId());
+            System.out.println(i + ": " + factura.getPrecio().getTotal());
             i++;
         }
 
@@ -55,7 +57,7 @@ public class Factura {
         for (Factura factura : facturas) {
             if (factura.getPaquete().getId().equals(codigo)) {
                 FacturaUI facturaUI = new FacturaUI(factura);
-                facturaUI.setSize(380, 480);
+                facturaUI.setSize(380, 490);
                 facturaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 facturaUI.setLocationRelativeTo(null);
                 facturaUI.setVisible(true);
@@ -72,7 +74,7 @@ public class Factura {
                 factura.setFechaActualizacion(String.format("%tF %tT", new java.util.Date(), new java.util.Date()));
 
                 FacturaUI facturaUI = new FacturaUI(factura);
-                facturaUI.setSize(380, 480);
+                facturaUI.setSize(380, 490);
                 facturaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 facturaUI.setLocationRelativeTo(null);
                 facturaUI.setVisible(true);
