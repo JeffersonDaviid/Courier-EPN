@@ -12,8 +12,6 @@ import BL.Administracion.GlobalPerfil;
 import BL.Administracion.Usuario;
 import BL.Almacenamiento.Inventario;
 import BL.Facturacion.Factura;
-import BL.Facturacion.Tarifa;
-import BL.Facturacion.TarifaEnvio;
 import BL.GestionPaquete.Paquete;
 import BL.Seguimiento.Seguimiento;
 import BL.Transporte.CamionCarga;
@@ -28,7 +26,7 @@ public class CourierEPN {
     public static void main(String[] args) throws Exception {
         FlatMaterialLighterIJTheme.setup();
         new LoginUI().setVisible(true);
-        //loginConsola();
+        // loginConsola();
 
     }
 
@@ -36,7 +34,7 @@ public class CourierEPN {
         int opcion = 0;
         String idPaquete = "";
 
-        while (/*login()*/ true) {
+        while (/* login() */ true) {
 
             while (opcion != -1) {
 
@@ -81,22 +79,6 @@ public class CourierEPN {
                             domicilio = null;
                         }
 
-                        // Paquete p = new Paquete(id, ciudadOrigen, ciudadDestino, domicilio, peso,
-                        // tamanio);
-                        Paquete p = new Paquete(id, peso, tamanio, ciudadOrigen, ciudadDestino, "Pepe", "correo@epn",
-                                "099",
-                                "Juan", "juan@gmail", "09952", domicilio, "12/05/52");
-
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getRecepcion().agregarPaquete(p);
-
-                        Tarifa t = new TarifaEnvio();
-                        t.calcularPrecio(p);
-
-                        if (p.getDomicilio() != null) {
-                            t = new TarifaEnvio();
-                            t.calcularPrecio(p);
-                        }
-
                         break;
 
                     case 2:
@@ -105,10 +87,10 @@ public class CourierEPN {
                         break;
 
                     case 3:
-                    /*
-                        InventarioUI inventario = new InventarioUI();
-                        inventario.show();
-                     */
+                        /*
+                         * InventarioUI inventario = new InventarioUI();
+                         * inventario.show();
+                         */
                         idPaquete = JOptionPane.showInputDialog("ingrese id del paquete");
                         Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
                                 .agregarPaqueteDeRecepcion(idPaquete);
@@ -141,7 +123,7 @@ public class CourierEPN {
                     case 7:
                         camionCarga = Global.getInstancia().buscarAgencia(Global.agenciaActual).getCamionCarga();
                         if (camionCarga != null) {
-                            //camionCarga.descargarPaquete();
+                            // camionCarga.descargarPaquete();
                             mostrarPaquetes(camionCarga.getPaquetesCamion(), "Camión de carga");
                         } else {
                             JOptionPane.showMessageDialog(null, "No hay camiones de carga disponibles.", "Error",
@@ -190,30 +172,33 @@ public class CourierEPN {
                         String destino = JOptionPane.showInputDialog("ingrese agencia destino del paquete");
                         Seguimiento s = new Seguimiento();
                         s.verEstadoPaquete(idPaquete, destino);
-                        break;/* 
-                    case 12:
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().consultarHistorial();
-                        break;
-                    case 13:
-                        String idParaHistorial = JOptionPane.showInputDialog("ingrese id del paquete");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
-                                .consultarPorID(idParaHistorial);
-                        break;
-                    case 14:
-                        String fechaIng = JOptionPane.showInputDialog("ingrese la fecha de ingreso");
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
-                                .consultarPorFechaIngreso(fechaIng);
-                        break;
-                    case 15:
-                        String fechaSal = JOptionPane.showInputDialog("ingrese la fecha de salida");
-
-                        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
-                                .consultarPorFechaSalida(fechaSal);
-                        break;*/
+                        break;/*
+                               * case 12:
+                               * Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().
+                               * consultarHistorial();
+                               * break;
+                               * case 13:
+                               * String idParaHistorial =
+                               * JOptionPane.showInputDialog("ingrese id del paquete");
+                               * Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
+                               * .consultarPorID(idParaHistorial);
+                               * break;
+                               * case 14:
+                               * String fechaIng = JOptionPane.showInputDialog("ingrese la fecha de ingreso");
+                               * Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
+                               * .consultarPorFechaIngreso(fechaIng);
+                               * break;
+                               * case 15:
+                               * String fechaSal = JOptionPane.showInputDialog("ingrese la fecha de salida");
+                               * 
+                               * Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario()
+                               * .consultarPorFechaSalida(fechaSal);
+                               * break;
+                               */
 
                     case 16: // Nueva opción para ingresar un nuevo usuario
                         if (usuario instanceof Administrador) {
-                            //((Administrador) usuario).agregarNuevoUsuario();
+                            // ((Administrador) usuario).agregarNuevoUsuario();
                         } else {
                             JOptionPane.showMessageDialog(null,
                                     "Solo los administradores pueden agregar nuevos usuarios.");
@@ -222,7 +207,7 @@ public class CourierEPN {
 
                     case 17:
                         if (usuario instanceof Administrador) {
-                            //((Administrador) usuario).agregarCamionCarga();
+                            // ((Administrador) usuario).agregarCamionCarga();
                         } else {
                             JOptionPane.showMessageDialog(null,
                                     "Solo los administradores pueden agregar nuevos camiones de carga.");
@@ -231,7 +216,7 @@ public class CourierEPN {
 
                     case 18:
                         if (usuario instanceof Administrador) {
-                            //((Administrador) usuario).agregarCamionEntrega();
+                            // ((Administrador) usuario).agregarCamionEntrega();
                         } else {
                             JOptionPane.showMessageDialog(null,
                                     "Solo los administradores pueden agregar nuevos camiones de entrega.");
@@ -279,7 +264,8 @@ public class CourierEPN {
         }
     }
 
-    public static void registrarUsuario(String nuevaAgencia, String nuevoNombre, String nuevaContrasena, String nuevoRol) {
+    public static void registrarUsuario(String nuevaAgencia, String nuevoNombre, String nuevaContrasena,
+            String nuevoRol) {
         if (usuario instanceof Administrador) {
             ((Administrador) usuario).agregarNuevoUsuario(nuevaAgencia, nuevoNombre, nuevaContrasena, nuevoRol);
         } else {
@@ -288,7 +274,8 @@ public class CourierEPN {
         }
     }
 
-    public static void registrarCamionCarga(String placa, String modelo, String marca, String capacidadCarga, String disponibilidad) {
+    public static void registrarCamionCarga(String placa, String modelo, String marca, String capacidadCarga,
+            String disponibilidad) {
         if (usuario instanceof Administrador) {
             ((Administrador) usuario).agregarCamionCarga(placa, modelo, marca, capacidadCarga, disponibilidad);
         } else {
@@ -297,7 +284,8 @@ public class CourierEPN {
         }
     }
 
-    public static void registrarCamionEntrega(String placa, String modelo, String marca, String capacidadCarga, String disponibilidad) {
+    public static void registrarCamionEntrega(String placa, String modelo, String marca, String capacidadCarga,
+            String disponibilidad) {
         if (usuario instanceof Administrador) {
             ((Administrador) usuario).agregarCamionEntrega(placa, modelo, marca, capacidadCarga, disponibilidad);
         } else {

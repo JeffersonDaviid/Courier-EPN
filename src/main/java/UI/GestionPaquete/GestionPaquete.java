@@ -10,9 +10,7 @@ import javax.swing.JFrame;
 
 import BL.BASEDEDATOS.DataHelper;
 import BL.Facturacion.Factura;
-import BL.Facturacion.Tarifa;
-import BL.Facturacion.TarifaDomicilio;
-import BL.Facturacion.TarifaEnvio;
+import BL.Facturacion.Precio;
 import BL.GestionPaquete.Estado;
 import BL.GestionPaquete.Paquete;
 import UI.Facturacion.FacturaUI;
@@ -34,7 +32,7 @@ public class GestionPaquete extends javax.swing.JPanel {
 	private Paquete paquete;
 	private Estado estado;
 
-	private Tarifa tarifa = null;
+	private Factura factura;
 
 	public GestionPaquete() {
 		initComponents();
@@ -524,14 +522,8 @@ public class GestionPaquete extends javax.swing.JPanel {
 		// TODO add your handling code here:
 		guardarPaquete();
 
-		Factura factura = new Factura(paquete, tarifa);
-		factura.guardarFactura();
-
-		FacturaUI facturacion = new FacturaUI(factura);
-		facturacion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		facturacion.setLocationRelativeTo(null);
-		facturacion.setVisible(true);
-
+		factura = Factura.getIntancia();
+		factura.generarFactura(paquete);
 	}// GEN-LAST:event_jBaceptarActionPerformed
 
 	private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCalcularActionPerformed
@@ -544,23 +536,10 @@ public class GestionPaquete extends javax.swing.JPanel {
 				jtCorreoDestinatario.getText(), jtTelefonoDestinatario.getText(), jTdomicilio.getText(),
 				jTFechaLlegada.getText(), jTFechasalida.getText());
 
-		tarifa = new TarifaEnvio();
-		tarifa.calcularPrecio(paquete);
+		factura = Factura.getIntancia();
+		factura.getPrecio().calcularPrecio(paquete);
 
-		switch (jComboTipoEnvio.getSelectedItem().toString()) {
-			case "Domicilio":
-				tarifa = new TarifaDomicilio(tarifa);
-				tarifa.calcularPrecio(paquete);
-				break;
-
-			default:
-				break;
-		}
-
-		tarifa.mostrarCostoEnvio();
 	}// GEN-LAST:event_jBCalcularActionPerformed
-
-	
 
 	private void guardarPaquete() {
 		String nombreRemitente = jtNombreRemitente.getText();
@@ -577,7 +556,6 @@ public class GestionPaquete extends javax.swing.JPanel {
 		String sucursalAceptoPaquete = jTsucursalAcepto.getText();
 		String sucursalParaRecoger = jTsucursalRecibe.getText();
 		String domicilio = jTdomicilio.getText();
-		
 
 		paquete.setId(generateId());
 		paquete.setPeso(peso);
@@ -594,8 +572,6 @@ public class GestionPaquete extends javax.swing.JPanel {
 		paquete.setAgenciaOrigen(sucursalAceptoPaquete);
 		paquete.setAgenciaDestino(sucursalParaRecoger);
 		paquete.setDomicilio(domicilio);
-
-		
 
 		paquete.registrarPaquete(paquete);
 		// paquete.guardarPaquete(paquete);
