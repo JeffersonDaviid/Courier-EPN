@@ -215,7 +215,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         String pass = field_pass.getText();
         String rol = comboBox_rol.getSelectedItem().toString();
         String agencia = comboBox_agencia.getSelectedItem().toString();
-        usuarioActual.agregarNuevoUsuario(agencia, pass, rol, cedula, nombre, apellido, correo);
+        usuarioActual.registrarPerfil(agencia, pass, rol, cedula, nombre, apellido, correo);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
 
     private void field_pass1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_pass1ActionPerformed

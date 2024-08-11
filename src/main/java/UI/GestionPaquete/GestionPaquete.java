@@ -4,6 +4,8 @@
  */
 package UI.GestionPaquete;
 
+import BL.Administracion.Perfil;
+import BL.Administracion.Recepcionista;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
@@ -31,14 +33,18 @@ public class GestionPaquete extends javax.swing.JPanel {
 	 */
 	private Paquete paquete;
 	private Estado estado;
-
+        private Recepcionista usuario;
 	private Factura factura;
 
-	public GestionPaquete() {
+	public GestionPaquete(Perfil usuario) {
 		initComponents();
 		paquete = new Paquete();
-
+                this.usuario = (Recepcionista) usuario;
 	}
+
+    private GestionPaquete() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -522,8 +528,7 @@ public class GestionPaquete extends javax.swing.JPanel {
 		// TODO add your handling code here:
 		guardarPaquete();
 
-		factura = Factura.getIntancia();
-		factura.generarFactura(paquete);
+		usuario.generarFactura();
 	}// GEN-LAST:event_jBaceptarActionPerformed
 
 	private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCalcularActionPerformed
@@ -533,54 +538,22 @@ public class GestionPaquete extends javax.swing.JPanel {
 		if (jComboTipoEnvio.getSelectedItem().toString().equals("Domicilio"))
 			dirDomicilio = jTdomicilio.getText();
 
-		paquete = new Paquete("0", Float.parseFloat(jTpeso.getText()),
+		paquete = new Paquete(generateId(), Float.parseFloat(jTpeso.getText()),
 				jComboTamanio.getSelectedItem().toString(), jTsucursalAcepto.getText(),
 				jTsucursalRecibe.getText(), jtNombreRemitente.getText(), jtCorreoRemitente.getText(),
 				jtTelefonoRemitente.getText(), jtNombreDestinatario.getText(),
 				jtCorreoDestinatario.getText(), jtTelefonoDestinatario.getText(), dirDomicilio,
 				jTFechaLlegada.getText(), jTFechasalida.getText());
-
-		factura = Factura.getIntancia();
-		factura.getPrecio().calcularPrecio(paquete);
+                
+                usuario.registrarPaquete(paquete);
+                
+                usuario.previsualizarPrecioPaquete();
 
 	}// GEN-LAST:event_jBCalcularActionPerformed
 
 	private void guardarPaquete() {
-		String nombreRemitente = jtNombreRemitente.getText();
-		String correoRemitente = jtCorreoRemitente.getText();
-		String telefonoRemitente = jtTelefonoRemitente.getText();
-		String nombreDestinatario = jtNombreDestinatario.getText();
-		String correoDestinatario = jtCorreoDestinatario.getText();
-		String telefonoDestinatario = jtTelefonoDestinatario.getText();
-		float peso = Float.parseFloat(jTpeso.getText());
-		String tamanio = (String) jComboTamanio.getSelectedItem();
-		String fechaSalida = jTFechasalida.getText();
-		String fechaLlegada = jTFechaLlegada.getText();
-		String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem();
-		String sucursalAceptoPaquete = jTsucursalAcepto.getText();
-		String sucursalParaRecoger = jTsucursalRecibe.getText();
-		String domicilio = jTdomicilio.getText();
-
-		paquete.setId(generateId());
-		paquete.setPeso(peso);
-		paquete.setTamanio(tamanio);
-		paquete.setFechaLlegada(fechaLlegada);
-		paquete.setFechaSalida(fechaSalida);
-		paquete.setNombreRemitente(nombreRemitente);
-		paquete.setCorreoRemitente(correoRemitente);
-		paquete.setTelefonoRemitente(telefonoRemitente);
-		paquete.setNombreDestinatario(nombreDestinatario);
-		paquete.setCorreoDestinatario(correoDestinatario);
-		paquete.setTelefonoDestinatario(telefonoDestinatario);
-		paquete.setDomicilio(tipoEnvio);
-		paquete.setAgenciaOrigen(sucursalAceptoPaquete);
-		paquete.setAgenciaDestino(sucursalParaRecoger);
-		paquete.setDomicilio(domicilio);
-
-		paquete.registrarPaquete(paquete);
-		// paquete.guardarPaquete(paquete);
-
-		paquete.guardarPaquete(paquete);
+		usuario.registrarPaqueteEnInventario();
+                usuario.eliminarPaqueteRegistrado();
 
 	}
 
