@@ -4,6 +4,8 @@
  */
 package UI.Administracion;
 
+import javax.swing.JOptionPane;
+
 import com.proyecto.courierepn.CourierEPN;
 
 import BL.Administracion.Recepcionista;

@@ -1,6 +1,5 @@
 package BL.Administracion;
 
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -10,6 +9,15 @@ public class GestorPerfiles {
     // Método para registrar un perfil
     public static void registrarPerfil(Perfil nuevoPerfil) {
         ArrayList<Perfil> perfiles = deserializarPerfiles();
+        
+        // Verificar si el perfil ya existe antes de agregarlo
+        for (Perfil perfil : perfiles) {
+            if (perfil.getNombre().equals(nuevoPerfil.getNombre()) &&
+                perfil.getAgencia().equals(nuevoPerfil.getAgencia())) {
+                System.out.println("El perfil ya existe.");
+                return;
+            }
+        }
 
         // Agregar el nuevo perfil a la lista
         perfiles.add(nuevoPerfil);
@@ -30,14 +38,11 @@ public class GestorPerfiles {
 
                 // Determinar la clase hija a retornar
                 if (perfil instanceof Cliente && rol.equals("Cliente")) {
-                    return new Cliente(perfil.getNombre(), perfil.getApellido(), perfil.getCedula(), 
-                                       perfil.getCorreo(), perfil.getContrasena(), perfil.getAgencia());
+                    return perfil;
                 } else if (perfil instanceof Recepcionista && rol.equals("Recepcionista")) {
-                    return new Recepcionista(perfil.getNombre(), perfil.getApellido(), perfil.getCedula(), 
-                                             perfil.getCorreo(), perfil.getContrasena(), perfil.getAgencia());
+                    return perfil;
                 } else if (perfil instanceof Transportista && rol.equals("Transportista")) {
-                    return new Transportista(perfil.getNombre(), perfil.getApellido(), perfil.getCedula(), 
-                                             perfil.getCorreo(), perfil.getContrasena(), perfil.getAgencia());
+                    return perfil;
                 }
             }
         }
@@ -47,13 +52,14 @@ public class GestorPerfiles {
 
     // Método auxiliar para deserializar la lista de perfiles
     private static ArrayList<Perfil> deserializarPerfiles() {
-        ArrayList<Perfil> perfiles = null;
+        ArrayList<Perfil> perfiles = new ArrayList<>();
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ARCHIVO))) {
             perfiles = (ArrayList<Perfil>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            perfiles = new ArrayList<>(); // Si ocurre un error, retornamos una lista vacía
+            // Si ocurre un error, retornamos una lista vacía
         }
+
         return perfiles;
     }
 
@@ -65,18 +71,18 @@ public class GestorPerfiles {
             e.printStackTrace();
         }
     }
-    
+
     // public static void main(String[] args) {
     //     // Código para registrar un perfil
     //     Perfil nuevoPerfil = new Recepcionista("Damaris", "Suquillo", "123456789", "damaris@example.com", "123", "Quito");
     //     GestorPerfiles.registrarPerfil(nuevoPerfil);
 
-    //     // // Código para hacer login
-    //     // Perfil perfil = GestorPerfiles.login("Damaris", "123", "Quito", "Recepcionista");
-    //     // if (perfil != null) {
-    //     //     System.out.println("Login exitoso: " + perfil.getClass().getSimpleName());
-    //     // } else {
-    //     //     System.out.println("Login fallido");
-    //     // }
+    //     // Código para hacer login
+    //     Perfil perfil = GestorPerfiles.login("Damaris", "123", "Quito", "Recepcionista");
+    //     if (perfil != null) {
+    //         System.out.println("Login exitoso: " + perfil.getClass().getSimpleName());
+    //     } else {
+    //         System.out.println("Login fallido");
+    //     }
     // }
 }

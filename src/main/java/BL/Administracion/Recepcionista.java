@@ -79,6 +79,7 @@ public class Recepcionista extends Perfil {
                 GestorPerfiles.registrarPerfil(cliente);
                 break;
         }
+        JOptionPane.showMessageDialog(null, "Registro exitoso");
     }
 
     // // Método para agregar un nuevo camión
