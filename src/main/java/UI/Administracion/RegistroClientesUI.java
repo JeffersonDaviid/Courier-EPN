@@ -82,7 +82,7 @@ public class RegistroClientesUI extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(13, 71, 161));
-        jLabel6.setText("Registro Usuarios");
+        jLabel6.setText("Registro Clientes");
 
         jLabel7.setText("Nombre:");
 

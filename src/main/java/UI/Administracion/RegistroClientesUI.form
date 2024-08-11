@@ -166,7 +166,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="a1" green="47" red="d" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Registro Usuarios"/>
+        <Property name="text" type="java.lang.String" value="Registro Clientes"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">

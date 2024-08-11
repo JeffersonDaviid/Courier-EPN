@@ -79,6 +79,7 @@ public class Recepcionista extends Perfil {
         JOptionPane.showMessageDialog(null, "Registro exitoso");
     }
 
+    
     public Paquete getPaqueteEnRegistro() {
         return paqueteEnRegistro;
     }
