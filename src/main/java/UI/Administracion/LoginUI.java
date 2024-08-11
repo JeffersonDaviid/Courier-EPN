@@ -244,7 +244,7 @@ public class LoginUI extends javax.swing.JFrame {
         String pass = jPasswordField1.getText();
         String rol = jComboBox2.getSelectedItem().toString();
         JOptionPane.showMessageDialog(null, "agencia: " + agencia + " user: " + user + " pass: " + pass + " rol: " + rol);
-        usuario = GestorPerfiles.login(user, pass, agencia, rol);
+        usuario = GestorPerfiles.getInstance().login(user, pass, agencia, rol);
 
         if (usuario != null) {
             Global.agenciaActual = agencia;

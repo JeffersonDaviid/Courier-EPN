@@ -11,7 +11,8 @@ public class Recepcionista extends Perfil {
 
     public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena,
             String agencia) {
-        super(nombre, apellido, cedula, correo, contrasena, agencia);
+        super(nombre, apellido, cedula, correo, contrasena);
+        this.sucursal = agencia;
         //TODO Auto-generated constructor stub
     }
 
@@ -60,21 +61,34 @@ public class Recepcionista extends Perfil {
             JOptionPane.showMessageDialog(null, "No se pudo agregar el usuario. Verificar entradas.");
             return;
         }
+        GestorPerfiles gestorPerfiles = GestorPerfiles.getInstance();
         switch (rol) {
             case "Recepcionista":
                 Recepcionista recepcionista = new Recepcionista(nombre, apellido, cedula, correo, contrasena, agencia);
-                GestorPerfiles.registrarPerfil(recepcionista);
+                gestorPerfiles.registrarPerfil(recepcionista);
                 break;
             case "Transportista":
-                Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena, agencia);
-                GestorPerfiles.registrarPerfil(transportista);
+                Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena);
+                gestorPerfiles.registrarPerfil(transportista);
                 break;
             case "Cliente":
-                Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena, agencia);
-                GestorPerfiles.registrarPerfil(cliente);
+                Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena);
+                gestorPerfiles.registrarPerfil(cliente);
                 break;
         }
         JOptionPane.showMessageDialog(null, "Registro exitoso");
+    }
+
+    public Paquete getPaqueteEnRegistro() {
+        return paqueteEnRegistro;
+    }
+
+    public String getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
     }
 
     // Método para agregar un nuevo camión

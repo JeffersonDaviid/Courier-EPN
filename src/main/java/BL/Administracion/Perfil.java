@@ -14,16 +14,14 @@ public abstract class Perfil implements Serializable {
     private String apellido;
     private String correo;
     private String contrasena;
-    private String agencia;
     protected Inventario inventario;
     
-    public Perfil(String nombre, String apellido, String cedula, String correo, String contrasena, String agencia){
+    public Perfil(String nombre, String apellido, String cedula, String correo, String contrasena){
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
         this.correo = correo;
         this.contrasena = contrasena;
-        this.agencia = agencia;
         //this.inventario = Inventario.obtenerInstancia();
     }
 
@@ -108,18 +106,6 @@ public abstract class Perfil implements Serializable {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-
-
-
-    public String getAgencia() {
-        return agencia;
-    }
-
-
-
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
     }
 
 }
