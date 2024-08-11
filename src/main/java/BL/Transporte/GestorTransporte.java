@@ -1,9 +1,12 @@
 package BL.Transporte;
 
+import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import BL.Administracion.GestorPerfiles;
 import BL.Administracion.Transportista;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
@@ -22,7 +25,7 @@ public class GestorTransporte {
     private GestorTransporte() {
         this.inventario = Inventario.getInstancia();
         this.camiones = new ArrayList<Camion>(); // Incluir un metodo para cargar camiones quemados
-        this.transportistas = GestorPerfiles.obtenerTodosLosTransportistas();
+        this.transportistas = new ArrayList<Transportista>(); // Incluir un metodo para cargar transportistas quemados
         this.camionTransportista = new HashMap<Camion, Transportista>(); // Consultar para quemar asignaciones
         this.camionPaquetes = new HashMap<Camion, ArrayList<Paquete>>(); // Consultar para quemar asignaciones
     }
@@ -34,6 +37,19 @@ public class GestorTransporte {
         return instancia;
     }
 
+    // Metodos para agregar y eliminar objetos Transportista
+    public void agregarTransportista(Transportista transportista) {
+        if (transportistas == null) {
+            transportistas = new ArrayList<Transportista>();
+        }
+        transportistas.add(transportista);
+    }
+
+    public void eliminarTransportista(Transportista transportista) {
+        if (transportistas != null) {
+            transportistas.remove(transportista);
+        }
+    }
 
 
     // Metodo para agregar un nuevo objeto Camion
@@ -58,30 +74,52 @@ public class GestorTransporte {
         }
     }
 
-    // Asignar y eliminar camiones a transportistas
-    public void asignarCamionATransportista(Camion camion, Transportista transportista) {
-        if (camiones != null && transportistas != null &&
-                camiones.contains(camion) && transportistas.contains(transportista)) {
-
-            if (camionTransportista == null) {
-                camionTransportista = new HashMap<Camion, Transportista>();
+    // Método para asignar un camión a un transportista por ID de camión y cédula de
+    // transportista
+    public void asignarCamionATransportista(int idCamion, String cedulaTransportista) {
+        Camion camionAsignar = null;
+        Transportista transportistaAsignar = null;
+        // Buscar el camión por ID
+        for (Camion camion : camiones) {
+            if (camion.getIdCamion() == idCamion) {
+                camionAsignar = camion;
+                break;
             }
-            camionTransportista.put(camion, transportista);
+        }
+        // Buscar el transportista por cédula
+        for (Transportista transportista : transportistas) {
+            if (transportista.getCedula().equals(cedulaTransportista)) {
+                transportistaAsignar = transportista;
+                break;
+            }
+        }
+        if (camionAsignar != null && transportistaAsignar != null) {
+            camionTransportista.put(camionAsignar, transportistaAsignar);
         } else {
-            System.out.println("El Camion o el Transportista no existen.");
+            System.out.println("El Camión o el Transportista no existen.");
         }
     }
 
-    public void eliminarCamionDeTransportista(Camion camion) {
-        if (camionTransportista != null && camionTransportista.containsKey(camion)) {
-            camionTransportista.remove(camion);
+    // Método para eliminar un camión de un transportista por ID de camión
+    public void eliminarCamionDeTransportista(int idCamion) {
+        Camion camionEliminar = null;
+
+        // Buscar el camión por ID
+        for (Camion camion : camiones) {
+            if (camion.getIdCamion() == idCamion) {
+                camionEliminar = camion;
+                break;
+            }
+        }
+
+        if (camionEliminar != null && camionTransportista.containsKey(camionEliminar)) {
+            camionTransportista.remove(camionEliminar);
         } else {
-            System.out.println("La relación Camion-Transportista no existe.");
+            System.out.println("La relación Camión-Transportista no existe.");
         }
     }
 
     // Cargar y descargar paquetes de camiones
-
     // Método para cargar un paquete desde el inventario a un camión usando índices
     public void cargarPaqueteDesdeInventario(int camionIndex, int paqueteIndex) {
         // Verificamos si el índice del camión es válido
@@ -138,7 +176,9 @@ public class GestorTransporte {
     public void mostrarCamiones() {
         if (camiones != null) {
             for (Camion camion : camiones) {
-                System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo());
+                System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo() + ", Marca: "
+                        + camion.getMarca() + ", Disponibilidad: " + camion.isDisponibilidad() + ", Provincia: "
+                        + camion.getUbicacionProvincia());
             }
         } else {
             System.out.println("No hay camiones registrados.");

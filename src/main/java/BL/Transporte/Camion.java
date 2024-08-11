@@ -1,7 +1,10 @@
 package BL.Transporte;
 
-public class Camion {
+import java.io.Serializable;
 
+public class Camion implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     // atributos
     private int idCamion;
     private String placa;
