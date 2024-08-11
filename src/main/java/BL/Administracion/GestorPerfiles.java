@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class GestorPerfiles {
-    private static final String ARCHIVO = "perfiles.ser";
 
     // Método para registrar un perfil
     public static void registrarPerfil(Perfil nuevoPerfil) {
@@ -54,7 +53,7 @@ public class GestorPerfiles {
     private static ArrayList<Perfil> deserializarPerfiles() {
         ArrayList<Perfil> perfiles = new ArrayList<>();
 
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ARCHIVO))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src\\main\\java\\BL\\serializables\\perfiles.ser"))) {
             perfiles = (ArrayList<Perfil>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             // Si ocurre un error, retornamos una lista vacía
@@ -65,11 +64,57 @@ public class GestorPerfiles {
 
     // Método auxiliar para serializar la lista de perfiles
     private static void serializarPerfiles(ArrayList<Perfil> perfiles) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARCHIVO))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src\\main\\java\\BL\\serializables\\perfiles.ser"))) {
             oos.writeObject(perfiles);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // Método auxiliar para deserializar la lista de clientes
+    private static ArrayList<Cliente> deserializarClientes() {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src\\main\\java\\BL\\serializables\\clientes.ser"))) {
+            clientes = (ArrayList<Cliente>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            // Si ocurre un error, retornamos una lista vacía
+        }
+
+        return clientes;
+    }
+
+    // Método auxiliar para serializar la lista de clientes
+    private static void serializarClientes(ArrayList<Cliente> clientes) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src\\main\\java\\BL\\serializables\\clientes.ser"))) {
+            oos.writeObject(clientes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Método para registrar un perfil
+    public static void registrarCLiente(Cliente nuevoCliente) {
+        if(checkCliente(nuevoCliente.getCedula())) {
+            return;
+        }
+        ArrayList<Cliente> clientes = deserializarClientes();
+        // Agregar el nuevo perfil a la lista
+        clientes.add(nuevoCliente);
+
+        // Serializar la lista de vuelta en el archivo
+        serializarClientes(clientes);
+    }
+
+    public static boolean checkCliente(String cedula) {
+        ArrayList<Cliente> clientes = deserializarClientes();
+        for (Cliente cliente : clientes) {
+            if (cliente.getCedula().equals(cedula)) {
+                System.out.println("El cliente ya existe.");
+                return true;
+            }
+        }
+        return false;
     }
 
     // public static void main(String[] args) {

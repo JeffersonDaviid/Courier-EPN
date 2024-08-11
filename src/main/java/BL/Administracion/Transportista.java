@@ -19,7 +19,7 @@ public class Transportista extends Perfil {
     }
 
     public void registrarEntregaPaquete(){
-        //Logica para llamar a EntregaPaquete
+        //Logica para registrar que el paquete se entrego
     }
     
     
