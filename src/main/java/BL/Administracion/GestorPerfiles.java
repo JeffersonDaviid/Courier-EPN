@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class GestorPerfiles {
 
     // Método para registrar un perfil
@@ -12,8 +14,7 @@ public class GestorPerfiles {
         
         // Verificar si el perfil ya existe antes de agregarlo
         for (Perfil perfil : perfiles) {
-            if (perfil.getNombre().equals(nuevoPerfil.getNombre()) &&
-                perfil.getAgencia().equals(nuevoPerfil.getAgencia())) {
+            if (perfil.getCedula().equals(nuevoPerfil.getCedula())) {
                 System.out.println("El perfil ya existe.");
                 return;
             }
@@ -111,7 +112,8 @@ public class GestorPerfiles {
 
     // Método para registrar un perfil
     public static void registrarCLiente(Cliente nuevoCliente) {
-        if(checkCliente(nuevoCliente.getCedula())) {
+        if(checkCliente(nuevoCliente.getCedula())!=null) {
+            JOptionPane.showMessageDialog(null, "El cliente ya esta registrado");
             return;
         }
         ArrayList<Cliente> clientes = deserializarClientes();
@@ -122,28 +124,29 @@ public class GestorPerfiles {
         serializarClientes(clientes);
     }
 
-    public static boolean checkCliente(String cedula) {
+    public static Cliente checkCliente(String cedula) {
         ArrayList<Cliente> clientes = deserializarClientes();
         for (Cliente cliente : clientes) {
             if (cliente.getCedula().equals(cedula)) {
-                System.out.println("El cliente ya existe.");
-                return true;
+                JOptionPane.showMessageDialog(null, "El cliente si existe!");
+                return cliente;
             }
         }
-        return false;
+        return null;
     }
 
-    // public static void main(String[] args) {
-    //     // Código para registrar un perfil
-    //     Perfil nuevoPerfil = new Recepcionista("Damaris", "Suquillo", "123456789", "damaris@example.com", "123", "Quito");
-    //     GestorPerfiles.registrarPerfil(nuevoPerfil);
+    public static void main(String[] args) {
+        // Código para registrar un perfil
+        Cliente nuevoPerfil = new Cliente("David", "Quille", "123456789", "david@example.com", "123");
+        GestorPerfiles.registrarCLiente(nuevoPerfil);
 
-    //     // Código para hacer login
-    //     Perfil perfil = GestorPerfiles.login("Damaris", "123", "Quito", "Recepcionista");
-    //     if (perfil != null) {
-    //         System.out.println("Login exitoso: " + perfil.getClass().getSimpleName());
-    //     } else {
-    //         System.out.println("Login fallido");
-    //     }
-    // }
+        // // Código para hacer login
+        // Perfil perfil = GestorPerfiles.login("Damaris", "123", "Quito", "Recepcionista");
+        // if (perfil != null) {
+        //     System.out.println("Login exitoso: " + perfil.getClass().getSimpleName());
+        // } else {
+        //     System.out.println("Login fallido");
+        // }
+        checkCliente("123456789");
+    }
 }

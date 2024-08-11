@@ -10,9 +10,9 @@ public class Recepcionista extends Perfil {
     private Paquete paqueteEnRegistro;
     private String sucursal;
 
-    public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena,
-            String agencia) {
-        super(nombre, apellido, cedula, correo, contrasena, agencia);
+    public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena, String sucursal) {
+        super(nombre, apellido, cedula, correo, contrasena);
+        this.sucursal = sucursal;
     }
 
     @Override
@@ -70,11 +70,11 @@ public class Recepcionista extends Perfil {
                 GestorPerfiles.registrarPerfil(recepcionista);
                 break;
             case "Transportista":
-                Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena, agencia);
+                Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena);
                 GestorPerfiles.registrarPerfil(transportista);
                 break;
             case "Cliente":
-                Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena, agencia);
+                Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena);
                 GestorPerfiles.registrarPerfil(cliente);
                 break;
         }
