@@ -53,8 +53,8 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="btn_inv" max="32767" attributes="0"/>
-              <Component id="btn_paquetes1" pref="279" max="32767" attributes="0"/>
-              <Component id="btn_admin" alignment="0" pref="279" max="32767" attributes="0"/>
+              <Component id="btn_paquetes1" pref="267" max="32767" attributes="0"/>
+              <Component id="btn_admin" alignment="0" pref="267" max="32767" attributes="0"/>
               <Component id="btn_hist" max="32767" attributes="0"/>
               <Component id="btn_carga" max="32767" attributes="0"/>
               <Component id="btn_cargaDespachar" max="32767" attributes="0"/>
@@ -70,7 +70,6 @@
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Component id="btn_regCamion1" max="32767" attributes="0"/>
-              <Component id="btn_clientes" alignment="0" pref="279" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -81,8 +80,6 @@
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   <Component id="btn_admin" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_clientes" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="btn_paquetes1" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btn_inv" min="-2" pref="35" max="-2" attributes="0"/>
@@ -104,7 +101,7 @@
                   <Component id="btn_seguimiento" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btn_regCamion" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace pref="70" max="32767" attributes="0"/>
                   <Component id="btn_regCamion1" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
@@ -409,28 +406,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_regCamion1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_clientes">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cf" green="76" red="d" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Registrar Cliente"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                <EmptyBorder/>
-              </Border>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clientesActionPerformed"/>
-          </Events>
-        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -438,7 +413,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="995" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1007" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">

@@ -1,8 +1,8 @@
 package BL.Administracion;
 
 public class Cliente extends Perfil {
-    public Cliente(String nombre, String apellido, String cedula, String correo, String contrasena) {
-        super(nombre, apellido, cedula, correo, contrasena);
+    public Cliente(String nombre, String apellido, String cedula, String correo, String contrasena, String agencia) {
+        super(nombre, apellido, cedula, correo, contrasena, agencia);
     }
 
     @Override
