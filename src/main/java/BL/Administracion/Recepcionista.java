@@ -4,8 +4,6 @@ import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
-import BL.Transporte.CamionCarga;
-import BL.Transporte.CamionEntrega;
 
 public class Recepcionista extends Perfil {
     private Paquete paqueteEnRegistro;
@@ -80,33 +78,7 @@ public class Recepcionista extends Perfil {
     }
 
     // Método para agregar un nuevo camión
-    public void agregarCamionCarga(String placa, String modelo, String marca, String capacidadCargaStr, String disponibilidadStr) {
-        // String placa = JOptionPane.showInputDialog("Ingrese la placa:").trim();
-        // String modelo = JOptionPane.showInputDialog("Ingrese el modelo:").trim();
-        // String marca = JOptionPane.showInputDialog("Ingrese la marca:").trim();
-        int capacidadCarga = 0;
-        int disponibilidad = 0;
-
-        if(placa == null || modelo == null || marca == null || capacidadCargaStr == null || disponibilidadStr == null || placa.equals("") || modelo.equals("") || marca.equals("") || capacidadCargaStr.equals("") || disponibilidadStr.equals("")) {
-            JOptionPane.showMessageDialog(null, "No se pudo agregar el camión. Verificar entradas.");
-            return;
-        }
-
-        try {
-            capacidadCarga = Integer.parseInt(capacidadCargaStr);
-            disponibilidad = Integer.parseInt(disponibilidadStr);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Capacidad de carga y disponibilidad deben ser números.");
-            return;
-        }
-        CamionCarga nuevoCamion = new CamionCarga(placa, modelo, marca, capacidadCarga, disponibilidad,
-                Global.agenciaActual);
-        Global.getInstancia().buscarAgencia(Global.agenciaActual).agregarCamionCarga(nuevoCamion);
-        JOptionPane.showMessageDialog(null, "Camión de carga agregado exitosamente.");
-    }
-
-    // // Método para agregar un nuevo camión
-    // public void agregarCamionEntrega(String placa, String modelo, String marca, String capacidadCargaStr, String disponibilidadStr) {
+    // public void agregarCamionCarga(String placa, String modelo, String marca, String capacidadCargaStr, String disponibilidadStr) {
     //     // String placa = JOptionPane.showInputDialog("Ingrese la placa:").trim();
     //     // String modelo = JOptionPane.showInputDialog("Ingrese el modelo:").trim();
     //     // String marca = JOptionPane.showInputDialog("Ingrese la marca:").trim();
@@ -125,10 +97,11 @@ public class Recepcionista extends Perfil {
     //         JOptionPane.showMessageDialog(null, "Capacidad de carga y disponibilidad deben ser números.");
     //         return;
     //     }
-
-    //     CamionEntrega nuevoCamion = new CamionEntrega(placa, modelo, marca, capacidadCarga,
-    //             disponibilidad, Global.agenciaActual);
-    //     Global.getInstancia().buscarAgencia(Global.agenciaActual).agregarCamionEntrega(nuevoCamion);
-    //     JOptionPane.showMessageDialog(null, "Camión de entrega agregado exitosamente.");
+    //     CamionCarga nuevoCamion = new CamionCarga(placa, modelo, marca, capacidadCarga, disponibilidad,
+    //             Global.agenciaActual);
+    //     Global.getInstancia().buscarAgencia(Global.agenciaActual).agregarCamionCarga(nuevoCamion);
+    //     JOptionPane.showMessageDialog(null, "Camión de carga agregado exitosamente.");
     // }
+
+    
 }

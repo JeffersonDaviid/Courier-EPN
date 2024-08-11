@@ -577,10 +577,10 @@ public class GestionPaquete extends javax.swing.JPanel {
 		paquete.setAgenciaDestino(sucursalParaRecoger);
 		paquete.setDomicilio(domicilio);
 
-		paquete.registrarPaquete(paquete);
+		//paquete.registrarPaquete(paquete);
 		// paquete.guardarPaquete(paquete);
 
-		paquete.guardarPaquete(paquete);
+		//paquete.guardarPaquete(paquete);
 
 	}
 
