@@ -28,10 +28,10 @@ public class Factura {
         return factura;
     }
 
-    public void generarFactura(Paquete paquete) {
+    public void generarFactura(Paquete paquet) {
         fechaRegistro = (String.format("%tF %tT", new java.util.Date(), new java.util.Date()));
 
-        this.paquete = paquete;
+        this.paquete = paquet;
         facturas.add(this);
 
         FacturaUI facturaUI = new FacturaUI(factura);
