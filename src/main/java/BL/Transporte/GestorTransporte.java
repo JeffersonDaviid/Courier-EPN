@@ -10,25 +10,30 @@ import BL.GestionPaquete.Paquete;
 
 public class GestorTransporte {
 
+    private static GestorTransporte instancia;
     private Inventario inventario;
     private ArrayList<Camion> camiones;
     private ArrayList<Transportista> transportistas;
     private HashMap<Camion, Transportista> camionTransportista;
     private HashMap<Camion, ArrayList<Paquete>> camionPaquetes;
 
-    public GestorTransporte(Inventario inventario, ArrayList<Camion> camiones, ArrayList<Transportista> transportistas,
-            HashMap<Camion, Transportista> camionTransportista, HashMap<Camion, ArrayList<Paquete>> camionPaquetes) {
-        // this.inventario = Inventario.getInstance();
-        this.inventario = inventario;
-        this.camiones = camiones;
-        this.transportistas = transportistas;
-        this.camionTransportista = camionTransportista;
-        this.camionPaquetes = camionPaquetes;
+
+    // Constructor 
+    private GestorTransporte() {
+        this.inventario = Inventario.getInstancia();
+        this.camiones = new ArrayList<Camion>(); // Incluir un metodo para cargar camiones quemados
+        this.transportistas = GestorPerfiles.obtenerTodosLosTransportistas();
+        this.camionTransportista = new HashMap<Camion, Transportista>(); // Consultar para quemar asignaciones
+        this.camionPaquetes = new HashMap<Camion, ArrayList<Paquete>>(); // Consultar para quemar asignaciones
     }
 
-    public void cargarTransportistas() {
-        this.transportistas = GestorPerfiles.obtenerTodosLosTransportistas();
+    public static GestorTransporte getInstancia() {
+        if (instancia == null) {
+            instancia = new GestorTransporte();
+        }
+        return instancia;
     }
+
 
 
     // Metodo para agregar un nuevo objeto Camion
