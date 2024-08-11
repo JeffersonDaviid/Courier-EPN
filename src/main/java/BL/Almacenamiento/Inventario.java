@@ -17,9 +17,7 @@ import BL.GestionPaquete.Paquete;
 
 public class Inventario {
     private static Inventario inventario;
-    private Map<String, Paquete> paquetesAlmacenados;
-    private Map<String, Paquete> paquetesParaCargaSucursal;
-    private Map<String, Paquete> paquetesParaCargaDomicilio;
+    private Map<String, Paquete> paquetes;
     private int capacidadTotal;
     private int capacidadOcupada;
     private Historial historial;
@@ -28,9 +26,8 @@ public class Inventario {
     private Inventario() {
         this.diasMaximo = 15;
         this.capacidadTotal = 100;
-        this.paquetesAlmacenados = new HashMap<String, Paquete>();
-        this.paquetesParaCargaSucursal = new HashMap<String, Paquete>();
-        this.paquetesParaCargaDomicilio = new HashMap<String, Paquete>();
+        this.paquetes = new HashMap<String, Paquete>();
+        this.paquetes = new HashMap<String, Paquete>();
         this.capacidadOcupada = 0;
         this.historial = new Historial();
     }
@@ -50,9 +47,10 @@ public class Inventario {
             notificarCapacidadCompleta();
             return;
         }
-        // si hay espacio, lo guarda y actualiza su estado
-        organizarPaquetes(paquete);
-        ingresarRegistro(paquete, paquete.getAgenciaDestino());
+        // Si hay espacio, lo guarda y actualiza su estado a EnBodega
+        paquetes.put(paquete.getId(), paquete);
+        //paquete.cambiarEstado(new EnBodega());
+        ingresarRegistro(paquete, paquete.getAgenciaOrigen());
         actualizarCapacidadOcupada(capacidadPaquete);
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -62,69 +60,35 @@ public class Inventario {
         historial.registrarRegistro(new Registro(getFecha(), agencia, paquete.getId()));
     }
 
-    // Metodo que clasifica un paquete en las diferentes listas (Para envio a Sucursal - Para envio a domicilio - Para retiro de bodega)
-    private void organizarPaquetes(Paquete paquete) {
-        //Verifica si el paquete se encuentra en la Sucursal Destino, si no se lo colca en la lista pa envio a Sucursal
-        if (!paquete.getAgenciaDestino().equals(Global.agenciaActual)) {
-            paquetesParaCargaSucursal.put(paquete.getId(), paquete);
-            return;
-        } else {
-            // Si el paquete ya se encuentra en la sucursal de destino entonces verificamos si tiene entrega a domicilio
-            if (paquete.getDomicilio() != null) {
-                paquetesParaCargaDomicilio.put(paquete.getId(), paquete);
-            }else{
-                paquetesAlmacenados.put(paquete.getId(), paquete);
-            }
-        }
-    }
-
     // Metodo para entregar el paquete al cliente desde la bodega/recepcion - La llaa del boedeguero
     public void entregarPaquete(String tracking) {
         Paquete paquete = null;
         // Verifica si esta el paquete como retiro en bodega/recepcion
-        if (paquetesAlmacenados.containsKey(tracking)) {
-            paquete = paquetesAlmacenados.remove(tracking);
+        if (!paquetes.containsKey(tracking)) {
             // Si no esta verifica si esta en la lista para entregar a domicilio
-        } else if (paquetesParaCargaDomicilio.containsKey(tracking)) {
-            paquete = paquetesParaCargaDomicilio.remove(tracking);
-            // Si no esta en niguna es porque el paquete aun no ha llegado
-        } else {
             JOptionPane.showMessageDialog(null, "Paquete no encontrado");
             return;
         }
+        paquete = paquetes.get(tracking);
         // Si esta actualiza el estado del paquete
         historial.getRegistro(tracking).setFechaSalida(getFecha());
         actualizarCapacidadOcupada(-paquete.getTamanio().getValor());
     }
 
-        //Metodo que buscar un paquete en todo el inventario
-        public Paquete buscarPaquete(String trackingABuscar){
-            for (String tracking : paquetesAlmacenados.keySet()) {
-                if(tracking == trackingABuscar){
-                    return paquetesAlmacenados.get(trackingABuscar);
-                }
-            }
-            for (String tracking : paquetesParaCargaDomicilio.keySet()) {
-                if(tracking == trackingABuscar){
-                    return paquetesParaCargaDomicilio.get(trackingABuscar);
-                }
-            }
-            for (String tracking : paquetesParaCargaSucursal.keySet()) {
-                if(tracking == trackingABuscar){
-                    return paquetesParaCargaSucursal.get(trackingABuscar);
-                }
-            }
+    //Metodo que buscar un paquete en todo el inventario
+    public Paquete buscarPaquete(String trackingABuscar){
+        if(!paquetes.containsKey(trackingABuscar)){
             JOptionPane.showMessageDialog(null, "Paquete no encontrado");
             return null;
         }
+        return paquetes.get(trackingABuscar);
+    }
 
     // Metodo que devuelve toda la lsita de paquetes del invetario
     public ArrayList<Paquete> getPaquetesInventario() {
-        ArrayList<Paquete> paquetes = new ArrayList<>();
-        paquetes.addAll(paquetesAlmacenados.values());
-        paquetes.addAll(paquetesParaCargaSucursal.values());
-        paquetes.addAll(paquetesParaCargaDomicilio.values());
-        return paquetes;
+        ArrayList<Paquete> paq = new ArrayList<>();
+        paq.addAll(paquetes.values());
+        return paq;
     }
 
     // Metodo que obtiene la fecha para el registro de ingreso o salida
@@ -145,8 +109,7 @@ public class Inventario {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // Metodo que verifica si hay espacio suficiente en el invetario para otro
-    // paquete
+    // Metodo que verifica si hay espacio suficiente en el invetario para otro paquete
     private boolean hayEspacioSuficiente(int capacidadPaquete) {
         return (capacidadOcupada + capacidadPaquete) < capacidadTotal;
     }
@@ -184,21 +147,17 @@ public class Inventario {
     }
 
     // Metodo que retira los paquetes desde la lista correspondiente para cargarlos a los camiones
-    public Paquete retirarPaquete(String tracking) {
-        Paquete paquete = null;
-        // Verifica que el paquete este en el inventario para poder retirarlo
-        if (paquetesParaCargaDomicilio.containsKey(tracking)) {
-            paquete = paquetesParaCargaDomicilio.remove(tracking);
-        } else if (paquetesParaCargaSucursal.containsKey(tracking)) {
-            paquete = paquetesParaCargaSucursal.remove(tracking);
-        }else{
+    public void retirarPaquete(String tracking) {
+        Paquete paquete;
+        if(!paquetes.containsKey(tracking)){
             System.out.println("Paquete no encontrado");
-            return null;
+            return ;
         }
-        // Se guarda la fecha de salida del paquete en el registro y actualizar en la base
+        paquete = paquetes.get(tracking);
+        //paquetes.cambiarEstado(new Estado());
+        //Guarda la fecha de salida del paquete en el registro y actualizar en la base
         historial.getRegistro(tracking).setFechaSalida(getFecha());
         actualizarCapacidadOcupada(-paquete.getTamanio().getValor()); // Se actualiza la capacidad ocupada del inventario
-        return paquete;
     }
 
     // Metodo que muestra todos los paquetes del inventario
@@ -210,23 +169,7 @@ public class Inventario {
             model.addColumn(columnas[i]);
         }
         Collection<Paquete> paquetes;
-        switch (index) {
-            case 0:
-                paquetes = getPaquetesInventario();
-                break;
-            case 2:
-                paquetes = this.paquetesAlmacenados.values();
-                break;
-            case 3:
-                paquetes = this.paquetesParaCargaSucursal.values();
-                break;
-            case 4:
-                paquetes = this.paquetesParaCargaDomicilio.values();
-                break;
-            default:
-                throw new AssertionError();
-        }
-
+        paquetes = this.paquetes.values();
         for (Paquete p : paquetes) {
             model.addRow(new Object[] { p.getId(),
                     p.getPeso(),
@@ -241,20 +184,13 @@ public class Inventario {
         return model;
     }
 
-    private ArrayList<String> getPaquetesParaEntregar() {
-        Set<String> trackinPaquetes = paquetesAlmacenados.keySet();
-        return new ArrayList<>(trackinPaquetes);
-    }
-
-    // Metodo que devuelve todos los paquetes listos para enviar a otra sucursal
-    public ArrayList<String> getPaquetesParaCarga() {
-        Set<String> trackinPaquetes = paquetesParaCargaSucursal.keySet();
-        return new ArrayList<>(trackinPaquetes);
-    }
-
-    // Metodo que devuleve todoso los paquetes listos para envio a domicilio
-    public ArrayList<String> getPaquetesParaEnvioDomicilio() {
-        Set<String> trackinPaquetes = paquetesParaCargaDomicilio.keySet();
-        return new ArrayList<>(trackinPaquetes);
+    public ArrayList<Paquete> getPaquetesParaEntregar(){
+        ArrayList<Paquete> paquetesParaEnvio = new ArrayList<>();
+        for(Paquete paquete: paquetes.values()){
+            if(paquete.getEstado() == "En bodega"){
+                paquetesParaEnvio.add(paquete);
+            }
+        }
+        return paquetesParaEnvio;
     }
 }
