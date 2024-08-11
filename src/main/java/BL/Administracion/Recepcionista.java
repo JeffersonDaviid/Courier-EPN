@@ -57,24 +57,25 @@ public class Recepcionista extends Perfil {
     }
 
     // Método para agregar un nuevo usuario a la lista
-    public void agregarNuevoUsuario(String nuevaAgencia, String nuevoNombre, String nuevaContrasena, String nuevoRol) {
-        if(nuevoNombre == null || nuevaContrasena == null || nuevaAgencia == null || nuevoRol == null || nuevoNombre.equals("") || nuevaContrasena.equals("") || nuevaAgencia.equals("") || nuevoRol.equals("")) {
+    public void agregarNuevoUsuario(String agencia, String contrasena, String rol, String cedula, String nombre, String apellido, String correo) {
+        if(agencia == null || contrasena == null || nombre == null || rol == null || agencia.equals("") || contrasena.equals("") || nombre.equals("") || rol.equals("")) {
             JOptionPane.showMessageDialog(null, "No se pudo agregar el usuario. Verificar entradas.");
             return;
         }
-        Perfil nuevoUsuario;
-        if (nuevoRol.equalsIgnoreCase("Recepcionista")) {
-            //nuevoUsuario = new Recepcionista(nuevoNombre, nuevaContrasena, nuevaAgencia);
-        } else if (nuevoRol.equalsIgnoreCase("Bodeguero")) {
-            //nuevoUsuario = new Bodeguero(nuevoNombre, nuevaContrasena, nuevaAgencia);
-        } else if (nuevoRol.equalsIgnoreCase("Transportista")) {
-            //nuevoUsuario = new Transportista(nuevoNombre, nuevaContrasena, nuevaAgencia);
-        } else {
-            JOptionPane.showMessageDialog(null, "Rol desconocido. No se pudo agregar el usuario.");
-            return;
+        switch (rol) {
+            case "Recepcionista":
+                Recepcionista recepcionista = new Recepcionista(nombre, apellido, cedula, correo, contrasena, agencia);
+                GestorPerfiles.registrarPerfil(recepcionista);
+                break;
+            case "Transportista":
+                Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena, agencia);
+                GestorPerfiles.registrarPerfil(transportista);
+                break;
+            case "Cliente":
+                Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena, agencia);
+                GestorPerfiles.registrarPerfil(cliente);
+                break;
         }
-
-        //GlobalPerfil.getInstancia().agregarUsuario(nuevoUsuario);
     }
 
     // Método para agregar un nuevo camión

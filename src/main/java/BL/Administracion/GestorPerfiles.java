@@ -66,4 +66,17 @@ public class GestorPerfiles {
         }
     }
     
+    // public static void main(String[] args) {
+    //     // Código para registrar un perfil
+    //     Perfil nuevoPerfil = new Recepcionista("Damaris", "Suquillo", "123456789", "damaris@example.com", "123", "Quito");
+    //     GestorPerfiles.registrarPerfil(nuevoPerfil);
+
+    //     // // Código para hacer login
+    //     // Perfil perfil = GestorPerfiles.login("Damaris", "123", "Quito", "Recepcionista");
+    //     // if (perfil != null) {
+    //     //     System.out.println("Login exitoso: " + perfil.getClass().getSimpleName());
+    //     // } else {
+    //     //     System.out.println("Login fallido");
+    //     // }
+    // }
 }
