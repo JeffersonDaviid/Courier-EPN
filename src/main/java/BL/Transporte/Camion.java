@@ -1,141 +1,108 @@
 package BL.Transporte;
 
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+public class Camion {
 
-import javax.swing.JOptionPane;
-
-import BL.BASEDEDATOS.DataHelper;
-import BL.GestionPaquete.Paquete;
-
-public abstract class Camion{
-
-    //atributos
+    // atributos
+    private int idCamion;
     private String placa;
     private String modelo;
     private String marca;
     private int capacidadCarga;
-    private int disponibilidad;
-    private ArrayList<Paquete> paquetesCamion = new ArrayList<>();
-    private String agencia;
+    private int capacidadOcupada;
+    private boolean disponibilidad; // 1 libre y 0 ocupado
+    private Ubicacion ubicacionProvincia;
 
-    //constructor
-    public Camion() {
-    }
+    // constructor
 
-    //constructor
-    public Camion(String placa, String modelo, String marca, int capacidadCarga, int disponibilidad, String agencia) {
+    public Camion(int idCamion, String placa, String modelo, String marca, boolean disponibilidad,
+            Ubicacion ubicacionProvincia) {
+        this.idCamion = idCamion;
         this.placa = placa;
         this.modelo = modelo;
         this.marca = marca;
-        this.capacidadCarga = capacidadCarga;
+        this.capacidadCarga = 50;
+        this.capacidadOcupada = 0;
         this.disponibilidad = disponibilidad;
-        this.paquetesCamion = new ArrayList<>();
-        this.agencia = agencia;
+        this.ubicacionProvincia = ubicacionProvincia;
     }
 
-    //metodos
-    // Método para obtener la placa del camión
+    public Camion() {
+        this.idCamion = 0;
+        this.placa = null;
+        this.modelo = null;
+        this.marca = null;
+        this.capacidadCarga = 0;
+        this.capacidadOcupada = 0;
+        this.disponibilidad = true;
+        this.ubicacionProvincia = null;
+    }
+
+    public void avanzarUbicacionProvincia(Ubicacion ubicacionProvincia) {
+        this.ubicacionProvincia = ubicacionProvincia;
+    }
+
+    public int getIdCamion() {
+        return idCamion;
+    }
+
+    public void setIdCamion(int idCamion) {
+        this.idCamion = idCamion;
+    }
+
     public String getPlaca() {
         return placa;
     }
 
-    // Método para obtener la agencia del camión
-    public String getAgencia() {
-        return agencia;
-    }
-
-    // Método para obtener el modelo del camión
-    public String getModelo() {
-        return modelo;
-    }
-
-    // Método para obtener la marca del camión
-    public String getMarca() {
-        return marca;
-    }
-
-    // Método para obtener la capacidad de carga del camión
-    public int getCapacidadCarga() {
-        return capacidadCarga;
-    }
-
-    // Método para obtener la disponibilidad del camión
-    public int getDisponibilidad() {
-        return disponibilidad;
-    }
-
-    // Método para obtener los paquetes del camión
-    public ArrayList<Paquete> getPaquetesCamion() {
-        return paquetesCamion;
-    }
-
-    // Método para poner la marca del camión
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    // Método para poner la capacidad de carga del camión
-    public void setCapacidadCarga(int capacidadCarga) {
-        this.capacidadCarga = capacidadCarga;
-    }
-
-    // Método para poner la disponibilidad del camión
-    public void setDisponibilidad(int disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
-
-    // Método para poner la agencia del camión
-    public void setPaquetesCamion(ArrayList<Paquete> paquetesCamion) {
-        this.paquetesCamion = paquetesCamion;
-    }
-
-    // Método para poner la agencia del camión
     public void setPlaca(String placa) {
         this.placa = placa;
     }
 
-    // Método para poner la agencia del camión
+    public String getModelo() {
+        return modelo;
+    }
+
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
-    public String getFecha() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return sdf.format(new Date());
+    public String getMarca() {
+        return marca;
     }
 
-    // Método para tranformar a string 
-    @Override
-    public String toString() {
-        return String.format(
-                "Camión [Placa: %s, Modelo: %s, Marca: %s, Capacidad de Carga: %d, Disponibilidad: %d, Agencia: %s]",
-                placa, modelo, marca, capacidadCarga, disponibilidad, agencia);
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
-    // Método para cambiar el estado del paquete en BD utilizando el ID del paquete
-    public void cambiarEstadoPaquetePorId(String idPaquete, String estado) {
-        int rs = -1;
-        String sql = "INSERT INTO PaqueteEstados (idPaquete, estado, fecha) VALUES ('"
-                + idPaquete + "', '" + estado + "', '" + getFecha() + "')"; // 'getFecha()' debe retornar la fecha actual
+    public int getCapacidadCarga() {
+        return capacidadCarga;
+    }
 
-        try {
-            rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
+    public void setCapacidadCarga(int capacidadCarga) {
+        this.capacidadCarga = capacidadCarga;
+    }
 
-            if (rs > 0) {
-                JOptionPane.showMessageDialog(null, "Estado del paquete insertado con éxito", "Guardado",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo insertar el estado del paquete", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+    public int getCapacidadOcupada() {
+        return capacidadOcupada;
+    }
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al insertar el estado del paquete: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+    public void setCapacidadOcupada(int capacidadOcupada) {
+        this.capacidadOcupada = capacidadOcupada;
+    }
+
+    public boolean isDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+
+    public Ubicacion getUbicacionProvincia() {
+        return ubicacionProvincia;
+    }
+
+    public void setUbicacionProvincia(Ubicacion ubicacionProvincia) {
+        this.ubicacionProvincia = ubicacionProvincia;
     }
 
 }
