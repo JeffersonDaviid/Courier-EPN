@@ -202,7 +202,6 @@ public class RegistroClientesUI extends javax.swing.JPanel {
         String apellido = field_pass2.getText();
         String correo = field_pass4.getText();
         String pass = field_pass.getText();
-        String rol = comboBox_rol.getSelectedItem().toString();
         String agencia = comboBox_agencia.getSelectedItem().toString();
     
         // Comprobación de cédula ecuatoriana válida
@@ -218,7 +217,7 @@ public class RegistroClientesUI extends javax.swing.JPanel {
         }
     
         // Si todas las validaciones son correctas, proceder con el registro
-        usuarioActual.agregarNuevoUsuario(agencia, pass, rol, cedula, nombre, apellido, correo);
+        usuarioActual.agregarNuevoUsuario(agencia, pass, "Cliente", cedula, nombre, apellido, correo);
        // JOptionPane.showMessageDialog(this, "Registro exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
       
