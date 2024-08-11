@@ -2,9 +2,8 @@ package BL.Administracion;
 
 public class Transportista extends Perfil {
 
-    public Transportista(String nombre, String apellido, String cedula, String correo, String contrasena,
-            String agencia) {
-        super(nombre, apellido, cedula, correo, contrasena, agencia);
+    public Transportista(String nombre, String apellido, String cedula, String correo, String contrasena) {
+        super(nombre, apellido, cedula, correo, contrasena);
         //TODO Auto-generated constructor stub
     }
 
@@ -19,7 +18,7 @@ public class Transportista extends Perfil {
     }
 
     public void registrarEntregaPaquete(){
-        //Logica para llamar a EntregaPaquete
+        //Logica para registrar que el paquete se entrego
     }
     
     

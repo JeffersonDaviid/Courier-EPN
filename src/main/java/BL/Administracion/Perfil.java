@@ -17,13 +17,12 @@ public abstract class Perfil implements Serializable {
     private String agencia;
     protected Inventario inventario;
     
-    public Perfil(String nombre, String apellido, String cedula, String correo, String contrasena, String agencia){
+    public Perfil(String nombre, String apellido, String cedula, String correo, String contrasena){
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
         this.correo = correo;
         this.contrasena = contrasena;
-        this.agencia = agencia;
         //this.inventario = Inventario.obtenerInstancia();
     }
 
@@ -33,24 +32,9 @@ public abstract class Perfil implements Serializable {
 
     public abstract void reportarProblema(String idPaquete);
 
-    public static Perfil login(String agencia, String user, String pass, String rol) {
-        if (agencia.equals("") || agencia.equals(null) || agencia == null || user.equals("") || user.equals(null)
-                || user == null || pass.equals("") || pass == null || pass == null || rol.equals("")
-                || rol.equals(null) || rol == null || agencia.equals("") || agencia.equals(null) || agencia == null) {
-            return null;
-        }
-        Perfil usuario = null;
-        //usuario = .loginPerfil(user, pass, rol, agencia);
-
-        if (usuario == null) {
-            JOptionPane.showMessageDialog(null, "Usuario no encontrado");
-            return null;
-        }
-
-        return usuario;
-    }
-
-
+    // public Paquete obtenerPaquete(String idPaquete) {
+    //     //return Inventario.obtenerInstancia().obtenerPaquete(idPaquete);
+    // }
 
     public String getCedula() {
         return cedula;

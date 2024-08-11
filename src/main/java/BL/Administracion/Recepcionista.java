@@ -3,16 +3,16 @@ package BL.Administracion;
 import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
+import BL.Facturacion.Factura;
 import BL.GestionPaquete.Paquete;
 
 public class Recepcionista extends Perfil {
     private Paquete paqueteEnRegistro;
     private String sucursal;
 
-    public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena,
-            String agencia) {
-        super(nombre, apellido, cedula, correo, contrasena, agencia);
-        //TODO Auto-generated constructor stub
+    public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena, String sucursal) {
+        super(nombre, apellido, cedula, correo, contrasena);
+        this.sucursal = sucursal;
     }
 
     @Override
@@ -21,8 +21,8 @@ public class Recepcionista extends Perfil {
         throw new UnsupportedOperationException("Unimplemented method 'reportarProblema'");
     }
 
-    public void registrarPaquete(String id,float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada, String fechaSalida){
-        paqueteEnRegistro = new Paquete(id, peso, tamanio, agenciaOrigen, agenciaDestino, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, Domicilio, fechaLlegada, fechaSalida);
+    public void registrarPaquete(Paquete paquete) {
+        paqueteEnRegistro = paquete;
         //Inventario.obtenerInstancia().agregarPaquete(paquete);
     }
 
@@ -31,6 +31,10 @@ public class Recepcionista extends Perfil {
     }
 
     public void registrarPaqueteEnInventario(){
+        if(paqueteEnRegistro == null){
+            JOptionPane.showMessageDialog(null, "No hay paquete registrado.");
+            return;
+        }
         //Inventario.obtenerInstancia().agregarPaquete(paqueteEnRegistro);
     }
 
@@ -39,18 +43,18 @@ public class Recepcionista extends Perfil {
     }
 
     public void previsualizarPrecioPaquete(){
-        //Logica para llamar a Precio
+        Factura.getIntancia().getPrecio().calcularPrecio(paqueteEnRegistro);
     }
 
     public void generarFactura(){
-        //Logica para llamar a Factura
+        Factura.getIntancia().generarFactura(paqueteEnRegistro);
     }
 
     public void asignarTransportistaACamion(){
         //Logica para llamar a AsignarTransportista
     }
     
-    public void asignarPaqueteACamcion(){
+    public void asignarPaqueteACamion(){
         //Logica para llamar a AsignarPaquete
     }
 
@@ -66,16 +70,20 @@ public class Recepcionista extends Perfil {
                 GestorPerfiles.registrarPerfil(recepcionista);
                 break;
             case "Transportista":
-                Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena, agencia);
+                Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena);
                 GestorPerfiles.registrarPerfil(transportista);
                 break;
             case "Cliente":
-                Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena, agencia);
+                Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena);
                 GestorPerfiles.registrarPerfil(cliente);
                 break;
         }
         JOptionPane.showMessageDialog(null, "Registro exitoso");
     }
+
+    // public ArrayList<Paquete> obtenerPaquetes() {
+    //     return Inventario.obtenerInstancia().getPaquetes();
+    // }
 
     // Método para agregar un nuevo camión
     // public void agregarCamionCarga(String placa, String modelo, String marca, String capacidadCargaStr, String disponibilidadStr) {
