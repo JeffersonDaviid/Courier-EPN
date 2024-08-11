@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Recepcion;
-import BL.Transporte.CamionCarga;
-import BL.Transporte.CamionEntrega;
 
 public class Agencia {
     private String nombre;
@@ -16,8 +14,8 @@ public class Agencia {
 
     public Agencia(String nombre) {
         this.nombre = nombre;
-        this.camionesCarga = new ArrayList<>(); // Inicialización de la lista
-        this.camionesEntrega = new ArrayList<>(); // Inicialización de la lista
+        //this.camionesCarga = new ArrayList<>(); // Inicialización de la lista
+        //this.camionesEntrega = new ArrayList<>(); // Inicialización de la lista
     }
 
     public String getNombre() {

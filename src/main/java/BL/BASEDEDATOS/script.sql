@@ -16,6 +16,7 @@ CREATE TABLE Usuarios (
     agencia TEXT NOT NULL
 );
 
+select * from paquete
 
 DROP TABLE VEHICULOS;
 -- TRANSPORTE
@@ -32,7 +33,7 @@ DROP TABLE RUTAS;
 
 -- GESTION DE PAQUETES
 
-CREATE TABLE Paquete (
+CREATE TABLE Paquetes (
     idPaquete TEXT PRIMARY KEY,
     peso REAL,
     tamanio TEXT,
@@ -49,6 +50,8 @@ CREATE TABLE Paquete (
     tipoEnvio TEXT,
     domicilio TEXT DEFAULT 'NO'
 );
+
+select * from  Paquetes;
 
 CREATE TABLE Estado (
     idEstado INTEGER PRIMARY KEY AUTOINCREMENT,

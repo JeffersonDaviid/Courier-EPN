@@ -15,16 +15,19 @@ import BL.Administracion.Perfil;
  *
  * @author Emilio
  */
-public class RegistroUsuariosUI extends javax.swing.JPanel {
+public class RegistroClientesUI extends javax.swing.JPanel {
     Recepcionista usuarioActual;
 
     /**
      * Creates new form RegistroUsuariosUI
      */
-    public RegistroUsuariosUI(Perfil usuario) {
+    public RegistroClientesUI(Perfil usuario) {
         initComponents();
         this.usuarioActual = (Recepcionista) usuario;
     }
+
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,16 +62,21 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         btn_regUsuario.setBackground(new java.awt.Color(13, 71, 161));
         btn_regUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_regUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        btn_regUsuario.setText("Registrar Transportista");
+        btn_regUsuario.setText("Registrar Usuario");
         btn_regUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_regUsuarioActionPerformed(evt);
+                try {
+                    btn_regUsuarioActionPerformed(evt);
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(13, 71, 161));
-        jLabel6.setText("Registro Transportistas");
+        jLabel6.setText("Registro Clientes");
 
         jLabel7.setText("Nombre:");
 
@@ -134,7 +142,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(field_pass4, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
+                        .addGap(140, 140, 140)
                         .addComponent(btn_regUsuario)))
                 .addContainerGap(601, Short.MAX_VALUE))
         );
@@ -163,9 +171,9 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(field_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(31, 31, 31)
                 .addComponent(btn_regUsuario)
-                .addContainerGap(430, Short.MAX_VALUE))
+                .addContainerGap(432, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,7 +187,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         String apellido = field_pass2.getText();
         String correo = field_pass4.getText();
         String pass = field_pass.getText();
-        String agencia = comboBox_agencia.getSelectedItem().toString();
     
         // Comprobación de cédula ecuatoriana válida
         if (!esCedulaValida(cedula)) {
@@ -192,12 +199,12 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Correo no válido. Asegúrese de que contenga '@' y termine en un dominio válido.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Detener ejecución si el correo no es válido
         }
-    
+        String agencia = usuarioActual.getSucursal().name();
         // Si todas las validaciones son correctas, proceder con el registro
-        usuarioActual.agregarNuevoUsuario(agencia, pass, "Transportista", cedula, nombre, apellido, correo);
+        usuarioActual.agregarNuevoUsuario(agencia, pass, "Cliente", cedula, nombre, apellido, correo);
        // JOptionPane.showMessageDialog(this, "Registro exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
-
+      
     private void field_pass1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_pass1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_field_pass1ActionPerformed
@@ -215,7 +222,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
     }//GEN-LAST:event_field_pass4ActionPerformed
 
      // Método para verificar si una cédula ecuatoriana es válida
-     private boolean esCedulaValida(String cedula) {
+    private boolean esCedulaValida(String cedula) {
         if (cedula == null || cedula.length() != 10) {
             return false;
         }
@@ -241,7 +248,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
             return false;
         }
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_regUsuario;

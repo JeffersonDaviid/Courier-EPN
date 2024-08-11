@@ -27,10 +27,9 @@ public class Paquete {
     private String telefonoDestinatario;
     private String Domicilio;
     private String fechaLlegada;
-    Estado estado;
-    //private String trackingNumber;
+    private String fechaSalida;
 
-    public Paquete(String id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada) {
+    public Paquete(String id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada, String fechaSalida) {
         this.id = id;
         this.peso = peso;
         this.tamanio = tamanio;
@@ -44,6 +43,7 @@ public class Paquete {
         this.telefonoDestinatario = telefonoDestinatario;
         this.Domicilio = Domicilio;
         this.fechaLlegada = fechaLlegada;
+        this.fechaSalida = fechaSalida;
     }
 
     public Paquete() {
@@ -56,12 +56,7 @@ public class Paquete {
     }
 
     public void setId(String id) {
-        if (id == null || id.isEmpty() || id.equals("0")) {
-            Random random = new Random();
-            this.id = String.valueOf(random.nextInt(1000));
-        } else {
-            this.id = id;
-        }
+        this.id = id;
     }
 
     public float getPeso() {
@@ -159,7 +154,7 @@ public class Paquete {
     public void setFechaLlegada(String fechaLlegada) {
         this.fechaLlegada = fechaLlegada;
     }
-
+/* 
     public Estado getEstado() {
         return estado;
     }
@@ -167,7 +162,7 @@ public class Paquete {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-   
+   */
    
 
     public ArrayList<Estado> getHistorialEstado() {
@@ -186,11 +181,11 @@ public class Paquete {
 
     //guardar en la base
     public void guardarPaquete(Paquete paquete) {
-        String fechaHoraSalida = estado.getFecha();  // Usa la fecha del último estado
+          // Usa la fecha del último estado
 
-        String sql = "INSERT INTO Paquete (idPaquete, peso, tamanio, sucursalAceptoPaquete, sucursalParaRecoger, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio) VALUES ('"
+        String sql = "INSERT INTO Paquetes (idPaquete, peso, tamanio, sucursalAceptoPaquete, sucursalParaRecoger, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio) VALUES ('"
             + paquete.getId() + "', " + paquete.getPeso() + ", '" + paquete.getTamanio() + "', '" + paquete.getAgenciaOrigen() + "', '" + paquete.getAgenciaDestino() + "', '"
-            + paquete.getFechaLlegada() + "', '" + fechaHoraSalida + "', '" + paquete.getNombreRemitente() + "', '"
+            + paquete.getFechaLlegada() + "', '" + paquete.getFechaSalida() + "', '" + paquete.getNombreRemitente() + "', '"
             + paquete.getCorreoRemitente() + "', '" + paquete.getTelefonoRemitente() + "', '" + paquete.getNombreDestinatario() + "', '"
             + paquete.getCorreoDestinatario() + "', '" + paquete.getTelefonoDestinatario() + "', '"
             + paquete.getDomicilio() + "')";
@@ -209,6 +204,18 @@ public class Paquete {
             JOptionPane.showMessageDialog(null, "Error al guardar el paquete: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void setHistorialEstado(ArrayList<Estado> historialEstado) {
+        this.historialEstado = historialEstado;
+    }
+
+    public String getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(String fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
     
 }
