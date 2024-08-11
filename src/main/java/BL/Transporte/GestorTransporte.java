@@ -18,6 +18,7 @@ public class GestorTransporte {
 
     public GestorTransporte(Inventario inventario, ArrayList<Camion> camiones, ArrayList<Transportista> transportistas,
             HashMap<Camion, Transportista> camionTransportista, HashMap<Camion, ArrayList<Paquete>> camionPaquetes) {
+        //this.inventario = Inventario.getInstance();
         this.inventario = inventario;
         this.camiones = camiones;
         this.transportistas = transportistas;
@@ -25,31 +26,52 @@ public class GestorTransporte {
         this.camionPaquetes = camionPaquetes;
     }
 
-    public void addTransportista(Transportista transportista) {
+    // Metodo para agregar un nuevo objeto Transportista
+    // Este metodo deberia recibir los parametros necesarios para crear un objeto Transportista desde GUI
+    public void registrarTransportista(String cedula, String usuario, String contrasena, String nombre, String apellido, String agencia) {
+        // Error por constructor de Transportista, esperando que modifiquen el constructor 
+        Transportista transportista = new Transportista(cedula, usuario, contrasena, nombre, apellido, agencia);
         if (transportistas == null) {
             transportistas = new ArrayList<Transportista>();
         }
         transportistas.add(transportista);
     }
 
-    public void deleteTransportista(Transportista transportista) {
+    // Metodo para eliminar un objeto Transportista
+    // Este metodo deberia recibir la cedula del transportista a eliminar
+    public void eliminarTransportista(String cedula) {
         if (transportistas != null) {
-            transportistas.remove(transportista);
+            for (Transportista transportista : transportistas) {
+                if (transportista.getCedula().equals(cedula)) {
+                    transportistas.remove(transportista);
+                    break;
+                }
+            }
         }
     }
 
-    public void addCamion(Camion camion) {
+    // Metodo para agregar un nuevo objeto Camion
+    public void registrarCamion(int idCamion, String placa, String modelo, String marca, boolean disponibilidad, Ubicacion ubicacionProvincia) {
+        Camion camion = new Camion(idCamion, placa, modelo, marca, disponibilidad, ubicacionProvincia);
     if (camiones == null) {
         camiones = new ArrayList<Camion>();
     }
     camiones.add(camion);
     }
 
-    public void deleteCamion(Camion camion) {
+    // Metodo para eliminar un objeto Camion
+    public void eliminarCamion(int idCamion) {
         if (camiones != null) {
-            camiones.remove(camion);
+            for (Camion camion : camiones) {
+                if (camion.getIdCamion() == idCamion) {
+                    camiones.remove(camion);
+                    break;
+                }
+            }
         }
     }
+
+    // Asignar y eliminar camiones a transportistas
     public void asignarCamionATransportista(Camion camion, Transportista transportista) {
         if (camiones != null && transportistas != null &&
             camiones.contains(camion) && transportistas.contains(transportista)) {
@@ -70,6 +92,34 @@ public class GestorTransporte {
             System.out.println("La relación Camion-Transportista no existe.");
         }
     }
+    
+
+
+    // Cargar y descargar paquetes de camiones
+
+    // Método para cargar un paquete desde el inventario a un camión usando índices
+public void cargarPaqueteDesdeInventario(int camionIndex, int paqueteIndex) {
+    // Verificamos si el índice del camión es válido
+    if (camionIndex >= 0 && camionIndex < camiones.size()) {
+        Camion camion = camiones.get(camionIndex); // Obtenemos el camión basado en el índice
+
+        // Obtenemos la lista de paquetes del inventario
+        ArrayList<Paquete> paquetesInventario = inventario.getPaquetesInventario();
+
+        // Verificamos si el índice del paquete es válido
+        if (paqueteIndex >= 0 && paqueteIndex < paquetesInventario.size()) {
+            Paquete paquete = paquetesInventario.get(paqueteIndex); // Obtenemos el paquete basado en el índice
+
+            // Llamamos al método que carga un paquete al camión
+            cargarPaqueteACamion(camion, paquete);
+        } else {
+            System.out.println("El índice de paquete es inválido.");
+        }
+    } else {
+        System.out.println("El índice de camión es inválido.");
+    }
+}
+
 
     public void cargarPaqueteACamion(Camion camion, Paquete paquete) {
         if (camiones != null && camiones.contains(camion)) {
@@ -98,6 +148,9 @@ public class GestorTransporte {
             System.out.println("El Camion no tiene paquetes.");
         }
     }
+
+
+    // Metodos para mostrar informacion
 
     public void mostrarCamiones() {
         if (camiones != null) {

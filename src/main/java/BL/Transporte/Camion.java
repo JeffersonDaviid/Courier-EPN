@@ -14,13 +14,13 @@ public class Camion{
 
     //constructor
     
-    public Camion(int idCamion, String placa, String modelo, String marca, int capacidadCarga, int capacidadOcupada, boolean disponibilidad, Ubicacion ubicacionProvincia) {
+    public Camion(int idCamion, String placa, String modelo, String marca, boolean disponibilidad, Ubicacion ubicacionProvincia) {
         this.idCamion = idCamion;
         this.placa = placa;
         this.modelo = modelo;
         this.marca = marca;
-        this.capacidadCarga = capacidadCarga;
-        this.capacidadOcupada = capacidadOcupada;
+        this.capacidadCarga = 50;
+        this.capacidadOcupada = 0;
         this.disponibilidad = disponibilidad;
         this.ubicacionProvincia = ubicacionProvincia;
     }
