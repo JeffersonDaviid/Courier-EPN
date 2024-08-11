@@ -118,6 +118,8 @@ public class MenuModulosUI extends javax.swing.JFrame {
         btn_seguimiento = new javax.swing.JButton();
         btn_regCamion = new javax.swing.JButton();
         btn_regCamion1 = new javax.swing.JButton();
+        registrocli = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -126,7 +128,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(13, 71, 161));
 
-        btn_inv.setBackground(new java.awt.Color(13, 118, 207));
+        btn_inv.setBackground(new java.awt.Color(21, 101, 192));
         btn_inv.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_inv.setForeground(new java.awt.Color(255, 255, 255));
         btn_inv.setText("Inventario");
@@ -137,7 +139,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_paquetes1.setBackground(new java.awt.Color(13, 118, 207));
+        btn_paquetes1.setBackground(new java.awt.Color(21, 101, 192));
         btn_paquetes1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_paquetes1.setForeground(new java.awt.Color(255, 255, 255));
         btn_paquetes1.setText("Gestión de Paquetes");
@@ -148,7 +150,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_admin.setBackground(new java.awt.Color(13, 118, 207));
+        btn_admin.setBackground(new java.awt.Color(21, 101, 192));
         btn_admin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_admin.setForeground(new java.awt.Color(255, 255, 255));
         btn_admin.setText("Registro de Usuarios");
@@ -159,7 +161,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_hist.setBackground(new java.awt.Color(13, 118, 207));
+        btn_hist.setBackground(new java.awt.Color(21, 101, 192));
         btn_hist.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_hist.setForeground(new java.awt.Color(255, 255, 255));
         btn_hist.setText("Historial");
@@ -170,7 +172,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_carga.setBackground(new java.awt.Color(13, 118, 207));
+        btn_carga.setBackground(new java.awt.Color(21, 101, 192));
         btn_carga.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_carga.setForeground(new java.awt.Color(255, 255, 255));
         btn_carga.setText("Camión Carga");
@@ -181,7 +183,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_cargaDespachar.setBackground(new java.awt.Color(13, 118, 207));
+        btn_cargaDespachar.setBackground(new java.awt.Color(21, 101, 192));
         btn_cargaDespachar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_cargaDespachar.setForeground(new java.awt.Color(255, 255, 255));
         btn_cargaDespachar.setText("Despachar paquetes Camión Carga");
@@ -192,7 +194,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_camionEntrega.setBackground(new java.awt.Color(13, 118, 207));
+        btn_camionEntrega.setBackground(new java.awt.Color(21, 101, 192));
         btn_camionEntrega.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_camionEntrega.setForeground(new java.awt.Color(255, 255, 255));
         btn_camionEntrega.setText("Camión Entrega");
@@ -203,7 +205,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_entregaDespachar.setBackground(new java.awt.Color(13, 118, 207));
+        btn_entregaDespachar.setBackground(new java.awt.Color(21, 101, 192));
         btn_entregaDespachar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_entregaDespachar.setForeground(new java.awt.Color(255, 255, 255));
         btn_entregaDespachar.setText("Despachar paquetes Camión Entrega");
@@ -214,7 +216,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_fact.setBackground(new java.awt.Color(13, 118, 207));
+        btn_fact.setBackground(new java.awt.Color(21, 101, 192));
         btn_fact.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_fact.setForeground(new java.awt.Color(255, 255, 255));
         btn_fact.setText("Facturación");
@@ -225,11 +227,11 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("COURIER EPN");
 
-        btn_env.setBackground(new java.awt.Color(13, 118, 207));
+        btn_env.setBackground(new java.awt.Color(21, 101, 192));
         btn_env.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_env.setForeground(new java.awt.Color(255, 255, 255));
         btn_env.setText("Envío");
@@ -240,7 +242,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_seguimiento.setBackground(new java.awt.Color(13, 118, 207));
+        btn_seguimiento.setBackground(new java.awt.Color(21, 101, 192));
         btn_seguimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_seguimiento.setForeground(new java.awt.Color(255, 255, 255));
         btn_seguimiento.setText("Seguimiento");
@@ -251,7 +253,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
-        btn_regCamion.setBackground(new java.awt.Color(13, 118, 207));
+        btn_regCamion.setBackground(new java.awt.Color(21, 101, 192));
         btn_regCamion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_regCamion.setForeground(new java.awt.Color(255, 255, 255));
         btn_regCamion.setText("Registro de Camiones");
@@ -273,6 +275,19 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
+        registrocli.setBackground(new java.awt.Color(21, 101, 192));
+        registrocli.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        registrocli.setForeground(new java.awt.Color(255, 255, 255));
+        registrocli.setText("Registro de Clientes");
+        registrocli.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        registrocli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrocliActionPerformed(evt);
+            }
+        });
+
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -289,22 +304,30 @@ public class MenuModulosUI extends javax.swing.JFrame {
             .addComponent(btn_seguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_regCamion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_env, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(btn_regCamion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(registrocli, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(btn_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(registrocli, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(btn_paquetes1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_inv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -326,16 +349,16 @@ public class MenuModulosUI extends javax.swing.JFrame {
                 .addComponent(btn_seguimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_regCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(btn_regCamion1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1007, Short.MAX_VALUE)
+            .addGap(0, 1001, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,8 +371,9 @@ public class MenuModulosUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,6 +447,10 @@ public class MenuModulosUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_regCamion1ActionPerformed
 
+    private void registrocliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrocliActionPerformed
+        showPanel(new RegistroClientesUI(usuario));        // TODO add your handling code here:
+    }//GEN-LAST:event_registrocliActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -455,5 +483,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton registrocli;
     // End of variables declaration//GEN-END:variables
 }
