@@ -438,7 +438,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_seguimientoActionPerformed
 
     private void btn_regCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamionActionPerformed
-        showPanel(new RegistroCamionesUI(usuario));
+        showPanel(new RegistroCamionesCUI((Recepcionista)usuario));
     }//GEN-LAST:event_btn_regCamionActionPerformed
 
     private void btn_regCamion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamion1ActionPerformed

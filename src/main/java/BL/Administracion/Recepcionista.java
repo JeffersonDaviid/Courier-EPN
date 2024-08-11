@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
+import BL.Transporte.GestorTransporte;
 
 public class Recepcionista extends Perfil {
     private Paquete paqueteEnRegistro;
@@ -69,6 +70,7 @@ public class Recepcionista extends Perfil {
                 break;
             case "Transportista":
                 Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena);
+                GestorTransporte.getInstancia().agregarTransportista(transportista);
                 gestorPerfiles.registrarPerfil(transportista);
                 break;
             case "Cliente":
