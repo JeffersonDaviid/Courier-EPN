@@ -6,22 +6,22 @@ package UI.Administracion;
 
 import com.proyecto.courierepn.CourierEPN;
 
-import BL.Administracion.Administrador;
-import BL.Administracion.Usuario;
+import BL.Administracion.Recepcionista;
+import BL.Administracion.Perfil;
 
 /**
  *
  * @author Emilio
  */
 public class RegistroUsuariosUI extends javax.swing.JPanel {
-    Administrador usuarioActual;
+    Recepcionista usuarioActual;
 
     /**
      * Creates new form RegistroUsuariosUI
      */
-    public RegistroUsuariosUI(Administrador usuario) {
+    public RegistroUsuariosUI(Perfil usuario) {
         initComponents();
-        this.usuarioActual = usuario;
+        this.usuarioActual = (Recepcionista) usuario;
     }
 
     /**

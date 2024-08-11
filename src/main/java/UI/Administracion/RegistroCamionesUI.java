@@ -6,8 +6,8 @@ package UI.Administracion;
 
 import com.proyecto.courierepn.CourierEPN;
 
-import BL.Administracion.Administrador;
-import BL.Administracion.Usuario;
+import BL.Administracion.Recepcionista;
+import BL.Administracion.Perfil;
 
 /**
  *
@@ -15,14 +15,14 @@ import BL.Administracion.Usuario;
  */
 public class RegistroCamionesUI extends javax.swing.JPanel {
 
-    Administrador usuario;
+    Recepcionista usuario;
 
     /**
      * Creates new form RegistroUsuariosUI
      */
-    public RegistroCamionesUI(Administrador usuario) {
+    public RegistroCamionesUI(Perfil usuario) {
         initComponents();
-        this.usuario = usuario;
+        this.usuario = (Recepcionista) usuario;
     }
 
     /**
@@ -210,8 +210,8 @@ public class RegistroCamionesUI extends javax.swing.JPanel {
         String disponibilidad = field_disponibilidad.getText();
         if(jComboBox1.getSelectedItem().equals("Carga"))
             usuario.agregarCamionCarga(placa, modelo, marca, capacidad, disponibilidad);
-        else
-            usuario.agregarCamionEntrega(placa, modelo, marca, capacidad, disponibilidad);
+        // else
+        //     usuario.agregarCamionEntrega(placa, modelo, marca, capacidad, disponibilidad);
     }//GEN-LAST:event_btn_registrarCamionActionPerformed
 
     private void field_capacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_capacidadActionPerformed

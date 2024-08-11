@@ -9,7 +9,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 import BL.Administracion.Administrador;
 import BL.Administracion.Global;
 import BL.Administracion.GlobalPerfil;
-import BL.Administracion.Usuario;
+import BL.Administracion.Perfil;
 import BL.Almacenamiento.Inventario;
 import BL.Facturacion.Factura;
 import BL.GestionPaquete.Paquete;
@@ -21,7 +21,7 @@ import UI.Almacenamiento.InventarioUI;
 
 public class CourierEPN {
 
-    static Usuario usuario = null;
+    static Perfil usuario = null;
 
     public static void main(String[] args) throws Exception {
         FlatMaterialLighterIJTheme.setup();
@@ -254,7 +254,7 @@ public class CourierEPN {
         // user = JOptionPane.showInputDialog("Ingrese su usuario");
         // pass = JOptionPane.showInputDialog("Ingrese su contraseña");
         // rol = JOptionPane.showInputDialog("Ingrese su rol");
-        usuario = Usuario.login(agencia, user, pass, rol);
+        usuario = Perfil.login(agencia, user, pass, rol);
         if (usuario != null) {
             // agencia = usuario.getAgencia();
             Global.agenciaActual = agencia;

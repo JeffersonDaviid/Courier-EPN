@@ -7,8 +7,9 @@ package UI.Administracion;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
-import BL.Administracion.Administrador;
-import BL.Administracion.Usuario;
+import BL.Administracion.Perfil;
+import BL.Administracion.Recepcionista;
+import BL.Administracion.Transportista;
 import UI.GestionPaquete.GestionPaquete;
 import UI.SeguimientoPaquete.UISeguimiento;
 import UI.Transporte.UICamionCarga;
@@ -32,12 +33,13 @@ import javax.swing.JPanel;
 public class MenuModulosUI extends javax.swing.JFrame {
 
     LoginUI loginUI;
-    Usuario usuario; 
+    Perfil usuario; 
 
     /**
      * Creates new form Dashboard
+     * @param usuario
      */
-    public MenuModulosUI(Usuario usuario) {
+    public MenuModulosUI(Perfil usuario) {
         this.usuario = usuario;
         initComponents();
         InitStyles();
@@ -61,23 +63,21 @@ public class MenuModulosUI extends javax.swing.JFrame {
     
     
     private void InitContent() {
-        if(usuario.getClass().toString().equals("class BL.Administracion."+"Administrador")){
+        if (usuario instanceof Recepcionista) {
             this.btn_admin.show();
             this.btn_regCamion.show();
-        }else if(usuario.getClass().toString().equals("class BL.Administracion."+"Recepcionista")){
             this.btn_seguimiento.show();
             this.btn_paquetes1.show();
             this.btn_fact.show();
             this.btn_env.show();
-        }else if(usuario.getClass().toString().equals("class BL.Administracion."+"Bodeguero")){
             this.btn_hist.show();
             this.btn_inv.show();
-        }else if(usuario.getClass().toString().equals("class BL.Administracion."+"Transportista")){
+        } else if (usuario instanceof Transportista) {
             this.btn_carga.show();
             this.btn_cargaDespachar.show();
             this.btn_camionEntrega.show();
             this.btn_entregaDespachar.show();
-        }
+        } 
     }
 
     private void showPanel(JPanel panel) {
@@ -390,7 +390,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_histActionPerformed
 
     private void btn_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adminActionPerformed
-        showPanel(new RegistroUsuariosUI((Administrador) usuario));
+        showPanel(new RegistroUsuariosUI(usuario));
     }//GEN-LAST:event_btn_adminActionPerformed
 
     private void btn_paquetes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_paquetes1ActionPerformed
@@ -412,7 +412,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_seguimientoActionPerformed
 
     private void btn_regCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamionActionPerformed
-        showPanel(new RegistroCamionesUI((Administrador) usuario));
+        showPanel(new RegistroCamionesUI(usuario));
     }//GEN-LAST:event_btn_regCamionActionPerformed
 
     private void btn_regCamion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamion1ActionPerformed
