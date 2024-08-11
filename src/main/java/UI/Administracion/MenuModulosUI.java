@@ -395,7 +395,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
 
     private void btn_paquetes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_paquetes1ActionPerformed
         // TODO add your handling code here:
-        showPanel(new GestionPaquete(usuario));
+        showPanel(new GestionPaquete());
     }//GEN-LAST:event_btn_paquetes1ActionPerformed
 
     private void btn_invActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_invActionPerformed
