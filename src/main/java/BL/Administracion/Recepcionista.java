@@ -4,16 +4,19 @@ import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
+import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
+import BL.Transporte.Ubicacion;
 
 public class Recepcionista extends Perfil {
     private Paquete paqueteEnRegistro;
-    private String sucursal;
+    private Ubicacion sucursal;
 
     public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena,
-            String agencia) {
+            Ubicacion agencia) {
         super(nombre, apellido, cedula, correo, contrasena);
-        this.sucursal = agencia;
+        sucursal = agencia;
+        //this.sucursal = agencia;
         //TODO Auto-generated constructor stub
     }
 
@@ -57,7 +60,7 @@ public class Recepcionista extends Perfil {
     }
 
     // Método para agregar un nuevo usuario a la lista
-    public void agregarNuevoUsuario(String agencia, String contrasena, String rol, String cedula, String nombre, String apellido, String correo) {
+    public void agregarNuevoUsuario(String agencia, String contrasena, String rol, String cedula, String nombre, String apellido, String correo) throws ClassNotFoundException {
         if(agencia == null || contrasena == null || nombre == null || rol == null || agencia.equals("") || contrasena.equals("") || nombre.equals("") || rol.equals("")) {
             JOptionPane.showMessageDialog(null, "No se pudo agregar el usuario. Verificar entradas.");
             return;
@@ -65,7 +68,8 @@ public class Recepcionista extends Perfil {
         GestorPerfiles gestorPerfiles = GestorPerfiles.getInstance();
         switch (rol) {
             case "Recepcionista":
-                Recepcionista recepcionista = new Recepcionista(nombre, apellido, cedula, correo, contrasena, agencia);
+                Ubicacion ubicacion = Ubicacion.valueOf(agencia); 
+                Recepcionista recepcionista = new Recepcionista(nombre, apellido, cedula, correo, contrasena, ubicacion);
                 gestorPerfiles.registrarPerfil(recepcionista);
                 break;
             case "Transportista":
@@ -81,16 +85,29 @@ public class Recepcionista extends Perfil {
         JOptionPane.showMessageDialog(null, "Registro exitoso");
     }
 
+    public void agregarCamion(String placa, String modelo, String marca, boolean disponibilidad,
+    Ubicacion ubicacionProvincia) {
+        GestorTransporte.getInstancia().registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia);
+    }
+
+    public void eliminarCamion(int idCamion) {
+        GestorTransporte.getInstancia().eliminarCamion(idCamion);
+    }
+
+    public void eliminarTransportista(String cedula) throws ClassNotFoundException {
+        GestorTransporte.getInstancia().eliminarTransportista((Transportista)GestorPerfiles.getInstance().obtenerTransportistaPorCedula(cedula));
+    }
+
     
     public Paquete getPaqueteEnRegistro() {
         return paqueteEnRegistro;
     }
 
-    public String getSucursal() {
+    public Ubicacion getSucursal() {
         return sucursal;
     }
 
-    public void setSucursal(String sucursal) {
+    public void setSucursal(Ubicacion sucursal) {
         this.sucursal = sucursal;
     }
 

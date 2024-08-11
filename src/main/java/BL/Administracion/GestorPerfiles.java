@@ -3,6 +3,9 @@ package BL.Administracion;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
+import BL.Transporte.Ubicacion;
+
 import java.io.File;
 
 public class GestorPerfiles {
@@ -41,10 +44,9 @@ public class GestorPerfiles {
         try (Statement stmt = connection.createStatement()) {
             // Create Perfiles table
             stmt.execute("CREATE TABLE IF NOT EXISTS Perfiles (" +
-                         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                          "nombre TEXT NOT NULL," +
                          "apellido TEXT NOT NULL," +
-                         "cedula TEXT UNIQUE NOT NULL," +
+                         "cedula TEXT UNIQUE NOT NULL PRIMARY KEY," +
                          "email TEXT," +
                          "contrasena TEXT NOT NULL," +
                          "agencia TEXT," +
@@ -66,6 +68,10 @@ public class GestorPerfiles {
 
     // Método para registrar un perfil
     public void registrarPerfil(Perfil nuevoPerfil) {
+        if(verificarCedulaExistente(nuevoPerfil.getCedula())) {
+            JOptionPane.showMessageDialog(null, "No se pudo agregar el usuario. La cédula ya está registrada.");
+            return;
+        }
         String sql = "INSERT INTO Perfiles (nombre, apellido, cedula, email, contrasena, agencia, tipo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -74,7 +80,7 @@ public class GestorPerfiles {
             pstmt.setString(3, nuevoPerfil.getCedula());
             pstmt.setString(4, nuevoPerfil.getCorreo());
             pstmt.setString(5, nuevoPerfil.getContrasena());
-            pstmt.setString(6, nuevoPerfil instanceof Recepcionista ? ((Recepcionista) nuevoPerfil).getSucursal() : null);
+            pstmt.setString(6, nuevoPerfil instanceof Recepcionista ? ((Recepcionista) nuevoPerfil).getSucursal().name() : null);
             pstmt.setString(7, nuevoPerfil.getClass().getSimpleName());
             
             pstmt.executeUpdate();
@@ -87,8 +93,10 @@ public class GestorPerfiles {
         }
     }
 
+
+
     // Método para realizar login
-    public Perfil login(String nombre, String contrasena, String agencia, String rol) {
+    public Perfil login(String nombre, String contrasena, String agencia, String rol) throws ClassNotFoundException {
         String sql;
         if (rol.equals("Recepcionista")) {
             sql = "SELECT * FROM Perfiles WHERE nombre = ? AND contrasena = ? AND agencia = ? AND tipo = ?";
@@ -118,9 +126,46 @@ public class GestorPerfiles {
         return null;
     }
 
-    // ... (other methods remain the same)
+    // Método para obtener un Transportista por su cedula
+    public Perfil obtenerTransportistaPorCedula(String cedula) throws ClassNotFoundException {
+        String sql = "SELECT * FROM Perfiles WHERE cedula = ? AND tipo = 'Transportista'";
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, cedula);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                return createPerfilFromResultSet(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
 
-    private Perfil createPerfilFromResultSet(ResultSet rs) throws SQLException {
+    // Método para verificar si una cédula ya está ingresada en la BD
+    public boolean verificarCedulaExistente(String cedula) {
+        String sql = "SELECT COUNT(*) FROM Perfiles WHERE cedula = ?";
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, cedula);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+
+    public Perfil createPerfilFromResultSet(ResultSet rs) throws SQLException {
         String tipo = rs.getString("tipo");
         String nombre = rs.getString("nombre");
         String apellido = rs.getString("apellido");
@@ -128,12 +173,13 @@ public class GestorPerfiles {
         String email = rs.getString("email");
         String contrasena = rs.getString("contrasena");
         String agencia = rs.getString("agencia");
-
+        agencia = agencia.toUpperCase();
         switch (tipo) {
             case "Cliente":
                 return new Cliente(nombre, apellido, cedula, email, contrasena);
             case "Recepcionista":
-                return new Recepcionista(nombre, apellido, cedula, email, contrasena, agencia);
+                Ubicacion ubicacion = Ubicacion.valueOf(agencia);
+                return new Recepcionista(nombre, apellido, cedula, email, contrasena, ubicacion);
             case "Transportista":
                 return new Transportista(nombre, apellido, cedula, email, contrasena);
             default:
@@ -152,26 +198,26 @@ public class GestorPerfiles {
         }
     }
 
-    public static void main(String[] args) {
-        GestorPerfiles gestor = GestorPerfiles.getInstance();
+    // public static void main(String[] args) throws ClassNotFoundException {
+    //     GestorPerfiles gestor = GestorPerfiles.getInstance();
 
-        // Test login with default Recepcionista
-        Perfil adminPerfil = gestor.login("Admin", "123", "Quito", "Recepcionista");
-        if (adminPerfil != null) {
-            System.out.println("Login exitoso para Admin: " + adminPerfil.getClass().getSimpleName());
-        } else {
-            System.out.println("Login fallido para Admin");
-        }
+    //     // Test login with default Recepcionista
+    //     Perfil adminPerfil = gestor.login("Admin", "123", "Quito", "Recepcionista");
+    //     if (adminPerfil != null) {
+    //         System.out.println("Login exitoso para Admin: " + adminPerfil.getClass().getSimpleName());
+    //     } else {
+    //         System.out.println("Login fallido para Admin");
+    //     }
 
-        // Test login for a non-Recepcionista user
-        Perfil clientePerfil = gestor.login("ClienteTest", "password", null, "Cliente");
-        if (clientePerfil != null) {
-            System.out.println("Login exitoso para Cliente: " + clientePerfil.getClass().getSimpleName());
-        } else {
-            System.out.println("Login fallido para Cliente");
-        }
+    //     // Test login for a non-Recepcionista user
+    //     Perfil clientePerfil = gestor.login("ClienteTest", "password", null, "Cliente");
+    //     if (clientePerfil != null) {
+    //         System.out.println("Login exitoso para Cliente: " + clientePerfil.getClass().getSimpleName());
+    //     } else {
+    //         System.out.println("Login fallido para Cliente");
+    //     }
 
-        // Close the connection when done
-        gestor.closeConnection();
-    }
+    //     // Close the connection when done
+    //     gestor.closeConnection();
+    // }
 }

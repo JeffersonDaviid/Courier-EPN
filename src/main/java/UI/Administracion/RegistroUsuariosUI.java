@@ -79,7 +79,12 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         btn_regUsuario.setText("Registrar Usuario");
         btn_regUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_regUsuarioActionPerformed(evt);
+                try {
+                    btn_regUsuarioActionPerformed(evt);
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -209,7 +214,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_field_passActionPerformed
 
-    private void btn_regUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regUsuarioActionPerformed
+    private void btn_regUsuarioActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException {//GEN-FIRST:event_btn_regUsuarioActionPerformed
         String cedula = field_pass3.getText();
         String nombre = field_pass1.getText();
         String apellido = field_pass2.getText();
