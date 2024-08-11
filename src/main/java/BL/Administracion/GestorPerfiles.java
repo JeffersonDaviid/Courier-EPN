@@ -2,6 +2,7 @@ package BL.Administracion;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GestorPerfiles {
 
@@ -69,6 +70,21 @@ public class GestorPerfiles {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // Método para obtener todos los Transportistas
+    public static ArrayList<Transportista> obtenerTodosLosTransportistas() {
+        ArrayList<Perfil> perfiles = deserializarPerfiles();
+        ArrayList<Transportista> transportistas = new ArrayList<>();
+
+        // Filtrar las instancias de Transportista
+        for (Perfil perfil : perfiles) {
+            if (perfil instanceof Transportista) {
+                Transportista transportista = (Transportista) perfil;
+                transportistas.add(transportista);
+            }
+        }
+        return transportistas;
     }
 
     // Método auxiliar para deserializar la lista de clientes

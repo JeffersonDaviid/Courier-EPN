@@ -3,6 +3,7 @@ package BL.Transporte;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import BL.Administracion.GestorPerfiles;
 import BL.Administracion.Transportista;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
@@ -25,32 +26,10 @@ public class GestorTransporte {
         this.camionPaquetes = camionPaquetes;
     }
 
-    // Metodo para agregar un nuevo objeto Transportista
-    // Este metodo deberia recibir los parametros necesarios para crear un objeto
-    // Transportista desde GUI
-    public void registrarTransportista(String cedula, String usuario, String contrasena, String nombre, String apellido,
-            String agencia) {
-        // Error por constructor de Transportista, esperando que modifiquen el
-        // constructor
-        Transportista transportista = new Transportista(cedula, usuario, contrasena, nombre, apellido, agencia);
-        if (transportistas == null) {
-            transportistas = new ArrayList<Transportista>();
-        }
-        transportistas.add(transportista);
+    public void cargarTransportistas() {
+        this.transportistas = GestorPerfiles.obtenerTodosLosTransportistas();
     }
 
-    // Metodo para eliminar un objeto Transportista
-    // Este metodo deberia recibir la cedula del transportista a eliminar
-    public void eliminarTransportista(String cedula) {
-        if (transportistas != null) {
-            for (Transportista transportista : transportistas) {
-                if (transportista.getCedula().equals(cedula)) {
-                    transportistas.remove(transportista);
-                    break;
-                }
-            }
-        }
-    }
 
     // Metodo para agregar un nuevo objeto Camion
     public void registrarCamion(int idCamion, String placa, String modelo, String marca, boolean disponibilidad,
@@ -170,6 +149,7 @@ public class GestorTransporte {
             System.out.println("No hay transportistas registrados.");
         }
     }
+
 
     public void mostrarCamionesTransportistas() {
         if (camionTransportista != null) {
