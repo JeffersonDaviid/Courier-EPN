@@ -1,35 +1,21 @@
 package BL.Administracion;
 
-import java.sql.*;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-
 import BL.Transporte.Ubicacion;
-
-import java.io.File;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GestorPerfiles {
 
-    private static final String DB_NAME = "perfiles.db";
-    private static final String DB_PATH = "src" + File.separator + "main" + File.separator + "java" + File.separator + "BL" + File.separator + "BD";
-    private static final String DB_URL = "jdbc:sqlite:" + DB_PATH + File.separator + DB_NAME;
+    private static final String FILE_NAME = "src\\main\\java\\BL\\Serializables\\perfiles.ser";
     private static GestorPerfiles instance;
-    private Connection connection;
+    private List<Perfil> perfiles;
 
     // Private constructor to prevent instantiation
     private GestorPerfiles() {
-        try {
-            // Ensure the directory exists
-            File dbDirectory = new File(DB_PATH);
-            if (!dbDirectory.exists()) {
-                dbDirectory.mkdirs();
-            }
-            
-            connection = DriverManager.getConnection(DB_URL);
-            initializeDatabase();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        perfiles = new ArrayList<>();
+        loadPerfiles();
+        initializeDefaultRecepcionista();
     }
 
     // Public method to get the singleton instance
@@ -40,184 +26,82 @@ public class GestorPerfiles {
         return instance;
     }
 
-    private void initializeDatabase() {
-        try (Statement stmt = connection.createStatement()) {
-            // Create Perfiles table
-            stmt.execute("CREATE TABLE IF NOT EXISTS Perfiles (" +
-                         "nombre TEXT NOT NULL," +
-                         "apellido TEXT NOT NULL," +
-                         "cedula TEXT UNIQUE NOT NULL PRIMARY KEY," +
-                         "email TEXT," +
-                         "contrasena TEXT NOT NULL," +
-                         "agencia TEXT," +
-                         "tipo TEXT NOT NULL)");
-
-            // Check if default Recepcionista exists
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Perfiles WHERE nombre = 'Admin' AND tipo = 'Recepcionista'");
-            if (rs.next() && rs.getInt(1) == 0) {
-                // Insert default Recepcionista
-                String sql = "INSERT INTO Perfiles (nombre, apellido, cedula, email, contrasena, agencia, tipo) " +
-                             "VALUES ('Admin', 'Admin', 'ADMIN001', 'admin@example.com', '123', 'Quito', 'Recepcionista')";
-                stmt.execute(sql);
-                System.out.println("Default Recepcionista (Admin) inserted.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    private void initializeDefaultRecepcionista() {
+        if (verificarCedulaExistente("ADMIN001")) {
+            return;
         }
+        Perfil defaultRecepcionista = new Recepcionista("Admin", "Admin", "ADMIN001", "admin@example.com", "123", Ubicacion.QUITO);
+        perfiles.add(defaultRecepcionista);
+        savePerfiles();
+        System.out.println("Recepcionista por defecto creado con éxito.");
     }
 
     // Método para registrar un perfil
-    public void registrarPerfil(Perfil nuevoPerfil) {
-        if(verificarCedulaExistente(nuevoPerfil.getCedula())) {
-            JOptionPane.showMessageDialog(null, "No se pudo agregar el usuario. La cédula ya está registrada.");
+    public synchronized void registrarPerfil(Perfil nuevoPerfil) {
+        if (verificarCedulaExistente(nuevoPerfil.getCedula())) {
+            System.out.println("No se pudo agregar el usuario. La cédula ya está registrada.");
             return;
         }
-        String sql = "INSERT INTO Perfiles (nombre, apellido, cedula, email, contrasena, agencia, tipo) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, nuevoPerfil.getNombre());
-            pstmt.setString(2, nuevoPerfil.getApellido());
-            pstmt.setString(3, nuevoPerfil.getCedula());
-            pstmt.setString(4, nuevoPerfil.getCorreo());
-            pstmt.setString(5, nuevoPerfil.getContrasena());
-            pstmt.setString(6, nuevoPerfil instanceof Recepcionista ? ((Recepcionista) nuevoPerfil).getSucursal().name() : null);
-            pstmt.setString(7, nuevoPerfil.getClass().getSimpleName());
-            
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            if (e.getMessage().contains("UNIQUE constraint failed")) {
-                System.out.println("El perfil ya existe.");
-            } else {
-                e.printStackTrace();
-            }
-        }
+        perfiles.add(nuevoPerfil);
+        savePerfiles();
     }
 
-
-
     // Método para realizar login
-    public Perfil login(String nombre, String contrasena, String agencia, String rol) throws ClassNotFoundException {
-        String sql;
-        if (rol.equals("Recepcionista")) {
-            sql = "SELECT * FROM Perfiles WHERE nombre = ? AND contrasena = ? AND agencia = ? AND tipo = ?";
-        } else {
-            sql = "SELECT * FROM Perfiles WHERE nombre = ? AND contrasena = ? AND tipo = ?";
-        }
-        
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, nombre);
-            pstmt.setString(2, contrasena);
-            if (rol.equals("Recepcionista")) {
-                pstmt.setString(3, agencia);
-                pstmt.setString(4, rol);
-            } else {
-                pstmt.setString(3, rol);
+    public synchronized Perfil login(String nombre, String contrasena, String agencia, String rol) {
+        for (Perfil perfil : perfiles) {
+            if (perfil.getNombre().equals(nombre) && perfil.getContrasena().equals(contrasena)) {
+                if (rol.equals(perfil.getClass().getSimpleName())) {
+                    if (rol.equals("Recepcionista")) {
+                        Recepcionista recepcionista = (Recepcionista) perfil;
+                        if (recepcionista.getSucursal().name().equals(agencia)) {
+                            return perfil;
+                        }
+                    } else {
+                        return perfil;
+                    }
+                }
             }
-            
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                return createPerfilFromResultSet(rs);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        
         return null;
     }
 
     // Método para obtener un Transportista por su cedula
-    public Perfil obtenerTransportistaPorCedula(String cedula) throws ClassNotFoundException {
-        String sql = "SELECT * FROM Perfiles WHERE cedula = ? AND tipo = 'Transportista'";
-        
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, cedula);
-            
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                return createPerfilFromResultSet(rs);
+    public synchronized Perfil obtenerTransportistaPorCedula(String cedula) {
+        for (Perfil perfil : perfiles) {
+            if (perfil instanceof Transportista && perfil.getCedula().equals(cedula)) {
+                return perfil;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        
         return null;
     }
 
-    // Método para verificar si una cédula ya está ingresada en la BD
-    public boolean verificarCedulaExistente(String cedula) {
-        String sql = "SELECT COUNT(*) FROM Perfiles WHERE cedula = ?";
-        
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, cedula);
-            
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                return count > 0;
+    // Método para verificar si una cédula ya está ingresada
+    public synchronized boolean verificarCedulaExistente(String cedula) {
+        for (Perfil perfil : perfiles) {
+            if (perfil.getCedula().equals(cedula)) {
+                return true;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        
         return false;
     }
 
-    public Perfil createPerfilFromResultSet(ResultSet rs) throws SQLException {
-        String tipo = rs.getString("tipo");
-        String nombre = rs.getString("nombre");
-        String apellido = rs.getString("apellido");
-        String cedula = rs.getString("cedula");
-        String email = rs.getString("email");
-        String contrasena = rs.getString("contrasena");
-        String agencia = rs.getString("agencia");
-        agencia = agencia.toUpperCase();
-        switch (tipo) {
-            case "Cliente":
-                return new Cliente(nombre, apellido, cedula, email, contrasena);
-            case "Recepcionista":
-                Ubicacion ubicacion = Ubicacion.valueOf(agencia);
-                return new Recepcionista(nombre, apellido, cedula, email, contrasena, ubicacion);
-            case "Transportista":
-                return new Transportista(nombre, apellido, cedula, email, contrasena);
-            default:
-                throw new IllegalArgumentException("Tipo de perfil desconocido: " + tipo);
-        }
-    }
-
-    // Close the database connection
-    public void closeConnection() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        } catch (SQLException e) {
+    private void loadPerfiles() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
+            perfiles = (List<Perfil>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            // File not found, which is expected for the first run
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar los perfiles.");
             e.printStackTrace();
         }
     }
 
-    // public static void main(String[] args) throws ClassNotFoundException {
-    //     GestorPerfiles gestor = GestorPerfiles.getInstance();
-
-    //     // Test login with default Recepcionista
-    //     Perfil adminPerfil = gestor.login("Admin", "123", "Quito", "Recepcionista");
-    //     if (adminPerfil != null) {
-    //         System.out.println("Login exitoso para Admin: " + adminPerfil.getClass().getSimpleName());
-    //     } else {
-    //         System.out.println("Login fallido para Admin");
-    //     }
-
-    //     // Test login for a non-Recepcionista user
-    //     Perfil clientePerfil = gestor.login("ClienteTest", "password", null, "Cliente");
-    //     if (clientePerfil != null) {
-    //         System.out.println("Login exitoso para Cliente: " + clientePerfil.getClass().getSimpleName());
-    //     } else {
-    //         System.out.println("Login fallido para Cliente");
-    //     }
-
-    //     // Close the connection when done
-    //     gestor.closeConnection();
-    // }
+    private void savePerfiles() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+            oos.writeObject(perfiles);
+        } catch (IOException e) {
+            System.out.println("Error al guardar los perfiles.");
+            e.printStackTrace();
+        }
+    }
 }

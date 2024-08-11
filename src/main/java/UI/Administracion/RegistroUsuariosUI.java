@@ -36,11 +36,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         field_pass = new javax.swing.JTextField();
-        comboBox_rol = new javax.swing.JComboBox<>();
-        comboBox_agencia = new javax.swing.JComboBox<>();
         btn_regUsuario = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -54,43 +50,25 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
 
         jLabel3.setText("Contraseña:");
 
-        jLabel4.setText("Rol:");
-
-        jLabel5.setText("Agencia:");
-
         field_pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 field_passActionPerformed(evt);
             }
         });
 
-        comboBox_rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Recepcionista", "Transportista", "Cliente" }));
-        comboBox_rol.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBox_rolActionPerformed(evt);
-            }
-        });
-
-        comboBox_agencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quito", "Guayaquil", "Cuenca" }));
-
         btn_regUsuario.setBackground(new java.awt.Color(13, 71, 161));
         btn_regUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_regUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        btn_regUsuario.setText("Registrar Usuario");
+        btn_regUsuario.setText("Registrar Transportista");
         btn_regUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btn_regUsuarioActionPerformed(evt);
-                } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                btn_regUsuarioActionPerformed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(13, 71, 161));
-        jLabel6.setText("Registro Usuarios");
+        jLabel6.setText("Registro Transportistas");
 
         jLabel7.setText("Nombre:");
 
@@ -133,17 +111,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(comboBox_rol, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(comboBox_agencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(321, 321, 321))
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,9 +134,9 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(field_pass4, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
+                        .addGap(107, 107, 107)
                         .addComponent(btn_regUsuario)))
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(601, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,17 +163,9 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(field_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(comboBox_rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(comboBox_agencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(33, 33, 33)
                 .addComponent(btn_regUsuario)
-                .addContainerGap(345, Short.MAX_VALUE))
+                .addContainerGap(430, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,7 +179,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         String apellido = field_pass2.getText();
         String correo = field_pass4.getText();
         String pass = field_pass.getText();
-        String rol = comboBox_rol.getSelectedItem().toString();
         String agencia = comboBox_agencia.getSelectedItem().toString();
     
         // Comprobación de cédula ecuatoriana válida
@@ -236,7 +194,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         }
     
         // Si todas las validaciones son correctas, proceder con el registro
-        usuarioActual.agregarNuevoUsuario(agencia, pass, rol, cedula, nombre, apellido, correo);
+        usuarioActual.agregarNuevoUsuario(agencia, pass, "Transportista", cedula, nombre, apellido, correo);
        // JOptionPane.showMessageDialog(this, "Registro exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
 
@@ -255,10 +213,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
     private void field_pass4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_pass4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_field_pass4ActionPerformed
-
-    private void comboBox_rolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_rolActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBox_rolActionPerformed
 
      // Método para verificar si una cédula ecuatoriana es válida
      private boolean esCedulaValida(String cedula) {
@@ -291,8 +245,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_regUsuario;
-    private javax.swing.JComboBox<String> comboBox_agencia;
-    private javax.swing.JComboBox<String> comboBox_rol;
     private javax.swing.JTextField field_pass;
     private javax.swing.JTextField field_pass1;
     private javax.swing.JTextField field_pass2;
@@ -300,8 +252,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
     private javax.swing.JTextField field_pass4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

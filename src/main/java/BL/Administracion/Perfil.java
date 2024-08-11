@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
 
-public abstract class Perfil {
+public abstract class Perfil implements Serializable {
     private static final long serialVersionUID = 1L;
     private String cedula;
     private String nombre;

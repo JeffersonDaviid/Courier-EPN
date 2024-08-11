@@ -1,5 +1,7 @@
 package BL.Administracion;
 
+import java.io.Serializable;
+
 import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
@@ -8,7 +10,7 @@ import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
 import BL.Transporte.Ubicacion;
 
-public class Recepcionista extends Perfil {
+public class Recepcionista extends Perfil{
     private Paquete paqueteEnRegistro;
     private Ubicacion sucursal;
 
@@ -67,11 +69,6 @@ public class Recepcionista extends Perfil {
         }
         GestorPerfiles gestorPerfiles = GestorPerfiles.getInstance();
         switch (rol) {
-            case "Recepcionista":
-                Ubicacion ubicacion = Ubicacion.valueOf(agencia); 
-                Recepcionista recepcionista = new Recepcionista(nombre, apellido, cedula, correo, contrasena, ubicacion);
-                gestorPerfiles.registrarPerfil(recepcionista);
-                break;
             case "Transportista":
                 Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena);
                 GestorTransporte.getInstancia().agregarTransportista(transportista);

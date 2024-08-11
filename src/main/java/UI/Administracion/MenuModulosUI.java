@@ -153,7 +153,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
         btn_admin.setBackground(new java.awt.Color(21, 101, 192));
         btn_admin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_admin.setForeground(new java.awt.Color(255, 255, 255));
-        btn_admin.setText("Registro de Usuarios");
+        btn_admin.setText("Registro de Transportistas");
         btn_admin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btn_admin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
