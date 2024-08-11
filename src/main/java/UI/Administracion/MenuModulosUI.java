@@ -118,6 +118,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
         btn_seguimiento = new javax.swing.JButton();
         btn_regCamion = new javax.swing.JButton();
         btn_regCamion1 = new javax.swing.JButton();
+        btn_clientes = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -273,13 +274,24 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
+        btn_clientes.setBackground(new java.awt.Color(13, 118, 207));
+        btn_clientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn_clientes.setForeground(new java.awt.Color(255, 255, 255));
+        btn_clientes.setText("Registrar Cliente");
+        btn_clientes.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_clientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clientesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btn_inv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_paquetes1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
-            .addComponent(btn_admin, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+            .addComponent(btn_paquetes1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(btn_admin, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
             .addComponent(btn_hist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_carga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_cargaDespachar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -294,6 +306,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(btn_regCamion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_clientes, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,6 +316,8 @@ public class MenuModulosUI extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addComponent(btn_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_paquetes1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_inv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,7 +339,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
                 .addComponent(btn_seguimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_regCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addComponent(btn_regCamion1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -333,7 +348,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1007, Short.MAX_VALUE)
+            .addGap(0, 995, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,6 +436,10 @@ public class MenuModulosUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_regCamion1ActionPerformed
 
+    private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_clientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -441,6 +460,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     private javax.swing.JButton btn_camionEntrega;
     private javax.swing.JButton btn_carga;
     private javax.swing.JButton btn_cargaDespachar;
+    private javax.swing.JButton btn_clientes;
     private javax.swing.JButton btn_entregaDespachar;
     private javax.swing.JButton btn_env;
     private javax.swing.JButton btn_fact;
