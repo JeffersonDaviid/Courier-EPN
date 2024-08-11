@@ -41,6 +41,7 @@ public class GestionPaquete extends javax.swing.JPanel {
 		initComponents();
 		paquete = new Paquete();
 		recepcionista = (Recepcionista) usuario;
+		recepcionista.eliminarPaqueteRegistrado();
 	}
 
 	/**
