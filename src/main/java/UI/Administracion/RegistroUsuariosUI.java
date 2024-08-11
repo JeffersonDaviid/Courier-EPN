@@ -64,7 +64,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
             }
         });
 
-        comboBox_rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Recepcionista", "Bodeguero", "Transportista" }));
+        comboBox_rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Recepcionista", "Transportista", "Cliente" }));
         comboBox_rol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBox_rolActionPerformed(evt);
@@ -217,7 +217,22 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         String pass = field_pass.getText();
         String rol = comboBox_rol.getSelectedItem().toString();
         String agencia = comboBox_agencia.getSelectedItem().toString();
+    
+        // Comprobación de cédula ecuatoriana válida
+        if (!esCedulaValida(cedula)) {
+            JOptionPane.showMessageDialog(this, "Cédula ecuatoriana no válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener ejecución si la cédula no es válida
+        }
+    
+        // Comprobación de correo válido
+        if (!correo.matches("^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,4}$")) {
+            JOptionPane.showMessageDialog(this, "Correo no válido. Asegúrese de que contenga '@' y termine en un dominio válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener ejecución si el correo no es válido
+        }
+    
+        // Si todas las validaciones son correctas, proceder con el registro
         usuarioActual.agregarNuevoUsuario(agencia, pass, rol, cedula, nombre, apellido, correo);
+       // JOptionPane.showMessageDialog(this, "Registro exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
 
     private void field_pass1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_pass1ActionPerformed
@@ -239,6 +254,34 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
     private void comboBox_rolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_rolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBox_rolActionPerformed
+
+     // Método para verificar si una cédula ecuatoriana es válida
+     private boolean esCedulaValida(String cedula) {
+        if (cedula == null || cedula.length() != 10) {
+            return false;
+        }
+        
+        try {
+            int provincia = Integer.parseInt(cedula.substring(0, 2));
+            if (provincia < 1 || provincia > 24) {
+                return false;
+            }
+            
+            int[] coeficientes = {2, 1, 2, 1, 2, 1, 2, 1, 2};
+            int suma = 0;
+            for (int i = 0; i < 9; i++) {
+                int digito = Integer.parseInt(cedula.substring(i, i+1)) * coeficientes[i];
+                suma += (digito > 9) ? digito - 9 : digito;
+            }
+            
+            int digitoVerificador = Integer.parseInt(cedula.substring(9, 10));
+            int decenaSuperior = ((suma + 9) / 10) * 10;
+            return (decenaSuperior - suma) == digitoVerificador;
+            
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
