@@ -27,9 +27,9 @@ public class Precio {
 
 		calcularPrecioCaracteristicas(paquete.getPeso(), paquete.getTamanio());
 
-		calcularPrecioDistancia(paquete.getAgenciaOrigen(), paquete.getAgenciaDestino());
+		calcularPrecioDistancia(paquete.getSucursalOrigen(), paquete.getSucursalDestino());
 
-		if (paquete.getDomicilio() != null) {
+		if (paquete.getDireccion() != null) {
 			calcularServicioDomicilio();
 		}
 

@@ -51,6 +51,18 @@ public class GestorFacturas {
         JOptionPane.showMessageDialog(null, "No se encontro la factura");
     }
 
+    public void actualizarFactura(String tacking, String observacion) {
+
+        for (Factura factura : facturas) {
+            if (factura.getPaquete().getTracking().equals(tacking)) {
+                factura.setObservacion(observacion);
+                factura.setFechaActualizacion(String.format("%tF %tT", new java.util.Date(), new java.util.Date()));
+                JOptionPane.showMessageDialog(null, "Factura actualizada");
+                return;
+            }
+        }
+    }
+
     public Factura geFactura() {
         return factura;
     }

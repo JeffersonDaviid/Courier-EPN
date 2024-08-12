@@ -12,22 +12,6 @@ public class Factura {
     public Factura() {
     }
 
-    // public Factura(Paquete paquete) {
-    // this.paquete = paquete;
-    // this.fechaRegistro = String.format("%tF %tT", new java.util.Date(), new
-    // java.util.Date());
-    // this.fechaActualizacion = String.format("%tF %tT", new java.util.Date(), new
-    // java.util.Date());
-    // this.observacion = "";
-    // precio.calcularPrecio(paquete);
-
-    // }
-
-    public void actualizarFactura(String id, String observacion) {
-        this.observacion = observacion;
-        this.fechaActualizacion = String.format("%tF %tT", new java.util.Date(), new java.util.Date());
-    }
-
     public String getFechaRegistro() {
         return fechaRegistro;
     }

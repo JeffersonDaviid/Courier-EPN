@@ -24,7 +24,8 @@ public class FacturaUI extends javax.swing.JFrame {
 		String ivaPorcentajeFormat = String.format("%.1f", factura.getPrecio().getIva());
 		lblCodigoTracking.setText(factura.getPaquete().getTracking());
 		lblFecha.setText(factura.getFechaRegistro());
-		lblNombreRemitente.setText(factura.getPaquete().getNombreRemitente());
+		lblNombreRemitente.setText(
+				factura.getPaquete().getCliente().getNombre() + " " + factura.getPaquete().getCliente().getApellido());
 		lblDestinatario.setText(factura.getPaquete().getNombreDestinatario());
 		lblCiudadOrigen.setText(factura.getPaquete().getSucursalOrigen());
 		lblCiudadDestino.setText(factura.getPaquete().getSucursalDestino());
