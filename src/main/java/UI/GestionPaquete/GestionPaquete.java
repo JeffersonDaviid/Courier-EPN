@@ -534,7 +534,7 @@ public class GestionPaquete extends javax.swing.JPanel {
 		if (jComboTipoEnvio.getSelectedItem().toString().equals("Domicilio"))
 			dirDomicilio = jTdomicilio.getText();
 
-		paquete = new Paquete("0", Float.parseFloat(jTpeso.getText()),
+		paquete = new Paquete(generateId(), Float.parseFloat(jTpeso.getText()),
 				jComboTamanio.getSelectedItem().toString(), jTsucursalAcepto.getText(),
 				jTsucursalRecibe.getText(), jtNombreRemitente.getText(), jtCorreoRemitente.getText(),
 				jtTelefonoRemitente.getText(), jtNombreDestinatario.getText(),

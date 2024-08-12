@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
 import BL.Facturacion.Factura;
+import BL.Facturacion.GestorFacturas;
 import BL.GestionPaquete.Paquete;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
@@ -17,14 +18,14 @@ public class Recepcionista extends Perfil{
     private Paquete paqueteEnRegistro;
     private Ubicacion sucursal;
     private GestorTransporte transporte;
-    private Factura facturacion;
+    private GestorFacturas facturacion;
 
     public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena,
             Ubicacion agencia) {
         super(nombre, apellido, cedula, correo, contrasena);
         sucursal = agencia;
         transporte = GestorTransporte.getInstancia();
-        facturacion = Factura.getIntancia();
+        facturacion = GestorFacturas.getInstancia();
     }
 
     public void registrarPaquete(Paquete paquete){
@@ -45,7 +46,7 @@ public class Recepcionista extends Perfil{
     }
 
     public float previsualizarPrecioPaquete(){
-        float precio = facturacion.getPrecio().calcularPrecio(paqueteEnRegistro);
+        float precio = facturacion.geFactura().getPrecio().calcularPrecio(paqueteEnRegistro);
         return precio;
     }
 
@@ -65,9 +66,9 @@ public class Recepcionista extends Perfil{
         return inventario.getPaquetesInventario();
     }
 
-    public void eliminarPaqueteInventario(Paquete paquete) {
-        inventario.eliminarPaquete(paquete);
-    }
+    // public void eliminarPaqueteInventario(Paquete paquete) {
+    //     inventario.eliminarPaquete(paquete);
+    // }
 
     // Método para agregar un nuevo usuario a la lista
     public void agregarNuevoUsuario(String agencia, String contrasena, String rol, String cedula, String nombre, String apellido, String correo) throws ClassNotFoundException {

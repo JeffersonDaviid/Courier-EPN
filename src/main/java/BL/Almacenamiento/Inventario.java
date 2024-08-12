@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import BL.GestionPaquete.EnBodega;
 import BL.GestionPaquete.Paquete;
 
-public class Inventario {
+public class Inventario implements Serializable {
     private static final String FILE_NAME_PAQUETES = "src\\main\\java\\BL\\Serializables\\paquetes.ser";
     private static final String FILE_NAME_HISTORIAL = "src\\main\\java\\BL\\Serializables\\historial.ser";
     private static Inventario inventario;

@@ -1,7 +1,5 @@
 package BL.Transporte;
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +9,8 @@ import BL.GestionPaquete.Paquete;
 
 public class GestorTransporte {
     // yo solo cambio de estado cuando se carga un paquete en un camion
-    // por asi decirlo hago una copia del paqute en mi lista de paquets del camion, y nunca saco el paquete de la lista de paquetes del inventario
+    // por asi decirlo hago una copia del paqute en mi lista de paquets del camion,
+    // y nunca saco el paquete de la lista de paquetes del inventario
     private static GestorTransporte instancia;
     private Inventario inventario;
     private ArrayList<Camion> camiones;
@@ -20,13 +19,16 @@ public class GestorTransporte {
     private HashMap<Camion, ArrayList<Paquete>> camionPaquetes;
 
     private static int siguienteIdCamion = 1;
-    // Constructor 
+
+    // Constructor
     private GestorTransporte() {
         this.inventario = Inventario.getInstancia();
-        this.camiones = new ArrayList<Camion>(); // Incluir un metodo para cargar camiones quemados
-        this.transportistas = new ArrayList<Transportista>(); // Incluir un metodo para cargar transportistas quemados
-        this.camionTransportista = new HashMap<Camion, Transportista>(); // Consultar para quemar asignaciones
-        this.camionPaquetes = new HashMap<Camion, ArrayList<Paquete>>(); // Consultar para quemar asignaciones
+        this.camiones = new ArrayList<Camion>(); // metodo para cargar camiones desde .ser
+        this.transportistas = new ArrayList<Transportista>(); // metodo para cargar transportistas desde .ser
+        this.camionTransportista = new HashMap<Camion, Transportista>(); // Metodo para cargar asignacion de camiones a
+                                                                         // transportistas .ser
+        this.camionPaquetes = new HashMap<Camion, ArrayList<Paquete>>(); // Metodo para cargar asignacion de paquetes a
+                                                                         // camiones .ser
     }
 
     // Metodo para obtener la instancia de la clase
@@ -57,10 +59,10 @@ public class GestorTransporte {
     }
 
     // Metodo para agregar un nuevo objeto Camion
-    public void registrarCamion( String placa, String modelo, String marca, boolean disponibilidad,
-             Ubicacion ubicacionDestino) {
+    public void registrarCamion(String placa, String modelo, String marca, boolean disponibilidad,
+            Ubicacion ubicacion) {
         int idCamion = generarIdCamion();
-        Camion camion = new Camion(idCamion, placa, modelo, marca, disponibilidad, ubicacionDestino);
+        Camion camion = new Camion(idCamion, placa, modelo, marca, disponibilidad, ubicacion);
         if (camiones == null) {
             camiones = new ArrayList<Camion>();
         }
@@ -78,85 +80,61 @@ public class GestorTransporte {
             }
         }
     }
+    // Metodo para obtener el objeto camion por placa
 
-    // Método para asignar un camión a un transportista por ID de camión y cédula de
-    // transportista
-    public void asignarCamionATransportista(int idCamion, String cedulaTransportista) {
-        Camion camionAsignar = null;
-        Transportista transportistaAsignar = null;
-        // Buscar el camión por ID
-        for (Camion camion : camiones) {
-            if (camion.getIdCamion() == idCamion) {
-                camionAsignar = camion;
-                break;
+    public Camion obtenerCamionPorPlaca(String placa) {
+        if (camiones != null) {
+            for (Camion camion : camiones) {
+                if (camion.getPlaca().equals(placa)) {
+                    return camion;
+                }
             }
         }
-        // Buscar el transportista por cédula
-        for (Transportista transportista : transportistas) {
-            if (transportista.getCedula().equals(cedulaTransportista)) {
-                transportistaAsignar = transportista;
-                break;
-            }
-        }
-        if (camionAsignar != null && transportistaAsignar != null) {
-            camionTransportista.put(camionAsignar, transportistaAsignar);
-        } else {
-            System.out.println("El Camión o el Transportista no existen.");
-        }
+        return null;
     }
 
-    // Método para eliminar un camión de un transportista por ID de camión
-    public void eliminarCamionDeTransportista(int idCamion) {
-        Camion camionEliminar = null;
-
-        // Buscar el camión por ID
-        for (Camion camion : camiones) {
-            if (camion.getIdCamion() == idCamion) {
-                camionEliminar = camion;
-                break;
+    // Metodo para obtener el objeto Transportista por cédula
+    public Transportista obtenerTransportistaPorCedula(String cedula) {
+        if (transportistas != null) {
+            for (Transportista transportista : transportistas) {
+                if (transportista.getCedula().equals(cedula)) {
+                    return transportista;
+                }
             }
         }
-
-        if (camionEliminar != null && camionTransportista.containsKey(camionEliminar)) {
-            camionTransportista.remove(camionEliminar);
-        } else {
-            System.out.println("La relación Camión-Transportista no existe.");
-        }
+        return null;
     }
 
-    // Cargar y descargar paquetes de camiones 
-    // Método para cargar un paquete desde el inventario a un camión usando índices
-    public void cargarPaqueteDesdeInventario(int idCamion, String trackingPaquete) {
-        Camion camionAsignar = null;
-        Paquete paqueteAsignar = null;
-        // Buscar el camión por ID
-        for (Camion camion : camiones) {
-            if (camion.getIdCamion() == idCamion) {
-                camionAsignar = camion;
-                break;
+    // Metodo para obtener los paquetes de inventario por la ciudad de destino
+    @SuppressWarnings("unlikely-arg-type")
+    private ArrayList<Paquete> obtenerPaquetesPorDestino(Ubicacion destino) {
+        ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
+        for (Paquete paquete : inventario.getPaquetesParaEntregar()) {
+            if (paquete.getSucursalDestino().equals(destino)) {
+                paquetes.add(paquete);
             }
         }
-        // Buscar el paquete por tracking
-        for (Paquete paquete : inventario.getPaquetesParaEntregar()) { // obtengo paquetes para entregar
-            if (paquete.getId().equals(trackingPaquete)) {
-                paqueteAsignar = paquete;
-                break;
-            }
-        }
-        if (camionAsignar != null && paqueteAsignar != null) {
-            if (camionAsignar.getUbicacionDestino().equals(paqueteAsignar.getAgenciaDestino())) { 
-                // Esperando que paquete utilice clase enumerada de provincia
-                cargarPaqueteACamion(camionAsignar, paqueteAsignar);
+        return paquetes;
+    }
+
+    // Metodo para asignar un paquete a un camion por su ciudad de destino
+    public boolean asignarPaqueteACamion(Camion camion, Ubicacion destino) {
+        if (camion != null) {
+            ArrayList<Paquete> paquetes = obtenerPaquetesPorDestino(destino);
+            if (paquetes.size() > 0) {
+                cargarPaqueteACamion(camion, paquetes.get(0));
+                // logica para cambiar el estado del paquete
+                return true;
             } else {
-                System.out.println("El Camión y el Paquete no están en la misma provincia.");
+                System.out.println("No hay paquetes para cargar en el camión.");
             }
-            cargarPaqueteACamion(camionAsignar, paqueteAsignar);
         } else {
-            System.out.println("El Camión o el Paquete no existen.");
+            System.out.println("El Camión no existe.");
         }
+        return false;
     }
 
-
+    // Metodo auxiliaar cargar paquete a camion en hashmap
     public void cargarPaqueteACamion(Camion camionAsignar, Paquete paqueteAsignar) {
         if (camiones != null && camiones.contains(camionAsignar)) {
             if (camionPaquetes == null) {
@@ -165,7 +143,7 @@ public class GestorTransporte {
             if (camionPaquetes.containsKey(camionAsignar)) {
                 // anadir logica para cambiar estado de paquete
                 camionPaquetes.get(camionAsignar).add(paqueteAsignar);
-                camionAsignar.incrementarCapacidadOcupada(camionAsignar.getCapacidadOcupada()+1);
+                camionAsignar.incrementarCapacidadOcupada(camionAsignar.getCapacidadOcupada() + 1);
             } else {
                 ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
                 // anadir logica para cambiar estado de paquete
@@ -179,75 +157,47 @@ public class GestorTransporte {
         }
     }
 
-    // Método para descargar un paquete de un camión a una sucursal 
-    public Paquete descargarPaqueteEnSucursal(int idCamion, String trackingPaquete) {
-        Camion camionAsignar = null;
-        Paquete paqueteAsignar = null;
-        // Buscar el camión por ID
-        for (Camion camion : camiones) {
-            if (camion.getIdCamion() == idCamion) {
-                camionAsignar = camion;
-                break;
+    // Método para asignar un camión a un transportista por ID de camión y cédula de
+    // transportista
+    public void asignarTransportistaACamion(Transportista transportista, Camion camion) {
+        if (camiones != null && camiones.contains(camion) && transportistas != null
+                && transportistas.contains(transportista)) {
+            if (camionTransportista == null) {
+                camionTransportista = new HashMap<Camion, Transportista>();
             }
-        }
-        // Buscar el paquete por tracking
-        for (Paquete paquete : camionPaquetes.get(camionAsignar)) {
-            if (paquete.getId().equals(trackingPaquete)) {
-                paqueteAsignar = paquete;
-                break;
-            }
-        }
-        if (camionAsignar != null && paqueteAsignar != null) {
-            // verificar si el paquete se debe entregar a domicilio
-            if (paqueteAsignar.getDomicilio() == null) {
-                // cambiar el estado del paquete y retirarlo del camión
-                camionPaquetes.get(camionAsignar).remove(paqueteAsignar);
-                camionAsignar.reducirCapacidadOcupada(camionAsignar.getCapacidadOcupada() - 1);
-                return paqueteAsignar;
-            } else {
-                System.out.println("El paquete se debe entregar a domicilio.");
-            }
+            camionTransportista.put(camion, transportista);
         } else {
-            System.out.println("El Camión o el Paquete no existen.");
+            System.out.println("El Camión o el Transportista no existen.");
         }
-        return null;
     }
 
-   
+    // Método para eliminar un camión de un transportista por ID de camión
+    public void eliminarCamionDeTransportista(Camion camion) {
+        if (camion != null && camionTransportista.containsKey(camion)) {
+            camionTransportista.remove(camion);
+        } else {
+            System.out.println("La relación Camión-Transportista no existe.");
+        }
+    }
 
-    // Metodo para entregar paquetes Domicilio
-    public void entregarPaqueteDomicilio(int idCamion, String trackingPaquete) {
-        Camion camionAsignar = null;
-        Paquete paqueteAsignar = null;
-        // Buscar el camión por ID
-        for (Camion camion : camiones) {
-            if (camion.getIdCamion() == idCamion) {
-                camionAsignar = camion;
-                break;
-            }
-        }
+    // Método para descargar un paquete de un camión a una sucursal
+    public void descargarPaqueteDeCamion(Camion camion, String tracking) {
+        Paquete paqueteABorrar = null;
         // Buscar el paquete por tracking
-        for (Paquete paquete : camionPaquetes.get(camionAsignar)) {
-            if (paquete.getId().equals(trackingPaquete)) {
-                paqueteAsignar = paquete;
+        for (Paquete paquete : camionPaquetes.get(camion)) {
+            if (paquete.getTracking().equals(tracking)) {
+                paqueteABorrar = paquete;
                 break;
             }
         }
-        if (camionAsignar != null && paqueteAsignar != null) {
-            // verificar si el paquete se debe entregar a domicilio
-            if (!paqueteAsignar.getDomicilio().equals(null)) {
-                // anadir logica para cambiar estado de paquete
-                camionPaquetes.get(camionAsignar).remove(paqueteAsignar);
-                camionAsignar.reducirCapacidadOcupada(camionAsignar.getCapacidadOcupada() - 1);
-            } else {
-                System.out.println("El paquete se debe entregar en sucursal.");
-            }
+        if (camion != null && paqueteABorrar != null) {
+            // cambiar el estado del paquete y retirarlo del camión
+            camionPaquetes.get(camion).remove(paqueteABorrar);
+            camion.reducirCapacidadOcupada(camion.getCapacidadOcupada() - 1);
         } else {
             System.out.println("El Camión o el Paquete no existen.");
         }
     }
-
-    
 
     // Metodos para mostrar informacion
 
@@ -256,7 +206,7 @@ public class GestorTransporte {
             for (Camion camion : camiones) {
                 System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo() + ", Marca: "
                         + camion.getMarca() + ", Disponibilidad: " + camion.isDisponibilidad() + ", Provincia: "
-                        + camion.getUbicacionDestino());
+                        + camion.getUbicacion());
             }
         } else {
             System.out.println("No hay camiones registrados.");
@@ -272,7 +222,6 @@ public class GestorTransporte {
             System.out.println("No hay transportistas registrados.");
         }
     }
-
 
     public void mostrarCamionesTransportistas() {
         if (camionTransportista != null) {
@@ -290,7 +239,7 @@ public class GestorTransporte {
             for (Camion camion : camionPaquetes.keySet()) {
                 System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo());
                 for (Paquete paquete : camionPaquetes.get(camion)) {
-                    System.out.println("Paquete: " + paquete.getId());
+                    System.out.println("Paquete: " + paquete.getTracking());
                 }
             }
         } else {
