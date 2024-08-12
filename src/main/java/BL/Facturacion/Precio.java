@@ -43,9 +43,9 @@ public class Precio {
 	private void calcularPrecioDistancia(String origen, String destino) {
 		String[] ciudades = {
 				"Ambato", "Azogues", "Babahoyo", "Cuenca", "Esmeraldas", "Guayaquil", "Guaranda",
-				"Ibarra", "Latacunga", "Loja", "Macará", "Macas", "Machala", "Manta", "Portoviejo",
-				"Puyo", "Quito", "Riobamba", "Rumichaca", "Santo Domingo", "Tena", "Tulcán", "Zamora",
-				"Lago Agrio"
+				"Ibarra", "Latacunga", "Loja", "Macara", "Macas", "Machala", "Manta", "Portoviejo",
+				"Puyo", "Quito", "Riobamba", "Rumichaca", "Santo_Domingo", "Tena", "Tulcan", "Zamora",
+				"Lago_Agrio"
 		};
 
 		int[][] distancias = {
@@ -126,10 +126,10 @@ public class Precio {
 		int indiceInicial = -1;
 		int indiceFinal = -1;
 		for (int i = 0; i < ciudades.length; i++) {
-			if (ciudades[i].equals(origen)) {
+			if (ciudades[i].equalsIgnoreCase(origen)) {
 				indiceInicial = i;
 			}
-			if (ciudades[i].equals(destino)) {
+			if (ciudades[i].equalsIgnoreCase(destino)) {
 				indiceFinal = i;
 			}
 		}
