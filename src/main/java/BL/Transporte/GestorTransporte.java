@@ -1,7 +1,7 @@
 package BL.Transporte;
 
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,6 +11,7 @@ import BL.GestionPaquete.Paquete;
 
 public class GestorTransporte {
     // yo solo cambio de estado cuando se carga un paquete en un camion
+    // por asi decirlo hago una copia del paqute en mi lista de paquets del camion, y nunca saco el paquete de la lista de paquetes del inventario
     private static GestorTransporte instancia;
     private Inventario inventario;
     private ArrayList<Camion> camiones;
@@ -57,9 +58,9 @@ public class GestorTransporte {
 
     // Metodo para agregar un nuevo objeto Camion
     public void registrarCamion( String placa, String modelo, String marca, boolean disponibilidad,
-            Ubicacion ubicacionOrigen, Ubicacion ubicacionDestino) {
+             Ubicacion ubicacionDestino) {
         int idCamion = generarIdCamion();
-        Camion camion = new Camion(idCamion, placa, modelo, marca, disponibilidad, ubicacionOrigen, ubicacionDestino);
+        Camion camion = new Camion(idCamion, placa, modelo, marca, disponibilidad, ubicacionDestino);
         if (camiones == null) {
             camiones = new ArrayList<Camion>();
         }
@@ -143,8 +144,7 @@ public class GestorTransporte {
             }
         }
         if (camionAsignar != null && paqueteAsignar != null) {
-            if (camionAsignar.getUbicacionOrigen().equals(paqueteAsignar.getAgenciaOrigen()) && 
-            camionAsignar.getUbicacionDestino().equals(paqueteAsignar.getAgenciaDestino())) { 
+            if (camionAsignar.getUbicacionDestino().equals(paqueteAsignar.getAgenciaDestino())) { 
                 // Esperando que paquete utilice clase enumerada de provincia
                 cargarPaqueteACamion(camionAsignar, paqueteAsignar);
             } else {
@@ -256,7 +256,7 @@ public class GestorTransporte {
             for (Camion camion : camiones) {
                 System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo() + ", Marca: "
                         + camion.getMarca() + ", Disponibilidad: " + camion.isDisponibilidad() + ", Provincia: "
-                        + camion.getUbicacionOrigen());
+                        + camion.getUbicacionDestino());
             }
         } else {
             System.out.println("No hay camiones registrados.");
