@@ -43,8 +43,8 @@ public class Precio {
 	private void calcularPrecioDistancia(String origen, String destino) {
 		String[] ciudades = {
 				"Ambato", "Azogues", "Babahoyo", "Cuenca", "Esmeraldas", "Guayaquil", "Guaranda",
-				"Ibarra", "Latacunga", "Loja", "Macará", "Macas", "Machala", "Manta", "Portoviejo",
-				"Puyo", "Quito", "Riobamba", "Rumichaca", "Santo Domingo", "Tena", "Tulcan", "Zamora",
+				"Ibarra", "Latacunga", "Loja", "Macara", "Macas", "Machala", "Manta", "Portoviejo",
+				"Puyo", "Quito", "Riobamba", "Rumichaca", "Santo_Domingo", "Tena", "Tulcan", "Zamora",
 				"Lago_Agrio"
 		};
 
