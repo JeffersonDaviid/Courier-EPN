@@ -36,7 +36,7 @@ public class Transportista extends Perfil {
     }
 
     @Override
-    public void reportarProblema(Paquete paquete) {
+    public void reportarProblema(Paquete paquete, String problema) {
         if(paquete==null||!(paquete.getEstado() instanceof Transportandose)){
             JOptionPane.showMessageDialog(null, "El paquete no existe.");
             return;

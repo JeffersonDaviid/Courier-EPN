@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 import BL.Facturacion.GestorFacturas;
 import BL.GestionPaquete.Paquete;
+import BL.GestionPaquete.Seguimiento;
 import BL.GestionPaquete.Transportandose;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
@@ -55,8 +56,8 @@ public class Recepcionista extends Perfil{
         this.sucursal = sucursal;
     }
 
-    public void registrarPaquete(Paquete paquete){
-        paqueteEnRegistro = paquete;
+    public void registrarPaquete(String tracking, float peso, String tamanio, Cliente cliente, String sucursalOrigen, String sucursalDestino, String direccion, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String fechaSalida, Seguimiento seguimiento){
+        paqueteEnRegistro = new Paquete(tracking, peso, tamanio, cliente, sucursalOrigen, sucursalDestino, direccion, nombreDestinatario, correoDestinatario, telefonoDestinatario, fechaSalida, seguimiento);
         //Inventario.obtenerInstancia().agregarPaquete(paquete);
     }
 
@@ -112,7 +113,7 @@ public class Recepcionista extends Perfil{
     
 
     @Override
-    public void reportarProblema(Paquete paquete) {
+    public void reportarProblema(Paquete paquete, String problema) {
         if(paquete==null||(paquete.getEstado() instanceof Transportandose)){
             JOptionPane.showMessageDialog(null, "Este reporte esta fuera de su jurisdiccion");
             return;
