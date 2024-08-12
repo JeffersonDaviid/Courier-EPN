@@ -16,8 +16,12 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import BL.GestionPaquete.Conflicto;
 import BL.GestionPaquete.EnBodega;
+import BL.GestionPaquete.Entregado;
 import BL.GestionPaquete.Paquete;
+import BL.GestionPaquete.Transportandose;
 
 public class Inventario implements Serializable {
     private static final String FILE_NAME_PAQUETES = "src\\main\\java\\BL\\Serializables\\paquetes.ser";
@@ -27,34 +31,37 @@ public class Inventario implements Serializable {
     private Historial historial;
     private int diasMaximo;
 
-
     private Inventario() {
         this.diasMaximo = 15;
-        this.paquetes = new HashMap<String, Paquete>();
-        this.historial = new Historial();
-        loadInventario();
+        this.paquetes = loadPaquetes();
+        this.historial = loadHistorial();
     }
 
-    @SuppressWarnings("unchecked")
-    private void loadInventario() {
-        // Carga los paquetes
-        try (ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream(FILE_NAME_PAQUETES))) {
-            paquetes = (Map<String, Paquete>) ois1.readObject();
-        } catch (FileNotFoundException e) {
-            // File not found, which is expected for the first run
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error al cargar los Paquetes.");
-            e.printStackTrace();
-        }
+    private Historial loadHistorial() {
         //Carga el Historial
         try (ObjectInputStream ois2 = new ObjectInputStream(new FileInputStream(FILE_NAME_HISTORIAL))) {
-            historial = (Historial) ois2.readObject();
+            return (Historial) ois2.readObject();
         } catch (FileNotFoundException e) {
             // File not found, which is expected for the first run
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error al cargar el Historial.");
             e.printStackTrace();
         }
+        return new Historial();
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Paquete> loadPaquetes() {
+        // Carga los paquetes
+        try (ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream(FILE_NAME_PAQUETES))) {
+            return (Map<String, Paquete>) ois1.readObject();
+        } catch (FileNotFoundException e) {
+            // File not found, which is expected for the first run
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar los Paquetes.");
+            e.printStackTrace();
+        }
+        return new HashMap<String,Paquete>();
     }
 
     private void saveInventario(){
@@ -145,8 +152,39 @@ public class Inventario implements Serializable {
         for (int i = 0; i < cntidadCol; i++) {
             model.addColumn(columnas[i]);
         }
-        Collection<Paquete> paquetes = this.paquetes.values();
-        for (Paquete p : paquetes) {
+        Collection<Paquete> paquetesMostrar = new ArrayList<>();
+        
+        switch (index) {
+            case 0:
+                paquetesMostrar = getPaquetesInventario();
+                break;
+            case 1:
+                paquetesMostrar = getPaquetesParaEntregar();
+                break;
+            case 2:
+                for (Paquete paquete : paquetes.values()) {
+                    if(paquete.getEstado() instanceof Entregado){
+                        paquetesMostrar.add(paquete);
+                    }
+                }
+                break;
+            case 3:
+            for (Paquete paquete : paquetes.values()) {
+                if(paquete.getEstado() instanceof Transportandose){
+                    paquetesMostrar.add(paquete);
+                }
+            }
+                break;
+            case 4:
+            for (Paquete paquete : paquetes.values()) {
+                if(paquete.getEstado() instanceof Conflicto){
+                    paquetesMostrar.add(paquete);
+                }
+            }
+            break;
+        }
+        this.paquetes.values();
+        for (Paquete p : paquetesMostrar) {
             model.addRow(new Object[] { 
                     p.getTracking(),
                     p.getPeso(),
@@ -170,4 +208,6 @@ public class Inventario implements Serializable {
         }
         return paquetesParaEnvio;
     }
+
+    public getPaquetes
 }

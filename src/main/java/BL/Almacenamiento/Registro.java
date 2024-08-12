@@ -1,6 +1,8 @@
 package BL.Almacenamiento;
 
-public class Registro {
+import java.io.Serializable;
+
+public class Registro implements Serializable{
     private String fechaIngreso;
     private String fechaSalida;
     private String agencia;
