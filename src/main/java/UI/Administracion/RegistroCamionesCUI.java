@@ -5,7 +5,7 @@
 package UI.Administracion;
 
 import BL.Administracion.Recepcionista;
-import BL.Transporte.Ubicacion;
+
 
 /**
  *

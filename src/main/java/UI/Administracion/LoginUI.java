@@ -6,16 +6,10 @@
 package UI.Administracion;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
-import com.proyecto.courierepn.CourierEPN;
-
 import BL.Administracion.GestorPerfiles;
 import BL.Administracion.Perfil;
-import BL.Administracion.Transportista;
 import UI.Transporte.UITransporte;
-
 import java.awt.Color;
-
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
