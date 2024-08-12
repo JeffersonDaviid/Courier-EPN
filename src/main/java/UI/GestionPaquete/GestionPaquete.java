@@ -409,7 +409,6 @@ public class GestionPaquete extends javax.swing.JPanel {
         }
         recepcionista.generarFactura();
         recepcionista.registrarPaqueteEnInventario();
-        JOptionPane.showMessageDialog(null, "Paquete registrado con éxito");
         recepcionista.eliminarPaqueteRegistrado();
         paquete = null;
     }//GEN-LAST:event_jBaceptarActionPerformed

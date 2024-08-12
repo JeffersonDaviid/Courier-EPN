@@ -1,9 +1,11 @@
 package BL.GestionPaquete;
 
+import java.io.Serializable;
+
 import BL.Administracion.Cliente;
 import BL.Almacenamiento.Inventario;
 
-public class Paquete {
+public class Paquete implements Serializable {
     private static int contador;
     private String tracking;
     private float peso;
@@ -61,7 +63,7 @@ public class Paquete {
         if (seguimiento != null) {
             seguimiento.realizarSeguimiento();
         }
-        Inventario.getInstancia().notificarCambioEstado(this.tracking);
+        //Inventario.getInstancia().notificarCambioEstado(this.tracking);
     }
 
     //getters

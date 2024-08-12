@@ -210,10 +210,10 @@ public class Inventario implements Serializable {
     }
 
     //Metodo que notifica cuando un paquete se ha cargado a los camniones y poder registrar su fecha de Salida
-    public void notificarCambioEstado(String trackingPaquete){
-        if(paquetes.get(trackingPaquete).getEstado() instanceof Transportandose){
-            historial.getRegistro(trackingPaquete).setFechaSalida(getFecha());
-        }
-        saveInventario();
-    }
+    // public void notificarCambioEstado(String trackingPaquete){
+    //     if(paquetes.get(trackingPaquete).getEstado() instanceof Transportandose){
+    //         historial.getRegistro(trackingPaquete).setFechaSalida(getFecha());
+    //     }
+    //     saveInventario();
+    // }
 }
