@@ -48,7 +48,7 @@ public class Historial implements Serializable {
                     break;
                 case 0:
                     for (Registro registro : registros) {
-                        if(registro.getTrackinPaquete() == parametro){
+                        if(registro.getTrackinPaquete().equals(parametro)){
                             registrosMostrar.add(registro);
                         }
                     }                

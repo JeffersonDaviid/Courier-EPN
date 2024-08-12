@@ -12,8 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,7 +25,7 @@ public class Inventario implements Serializable {
     private static final String FILE_NAME_PAQUETES = "src\\main\\java\\BL\\Serializables\\paquetes.ser";
     private static final String FILE_NAME_HISTORIAL = "src\\main\\java\\BL\\Serializables\\historial.ser";
     private static Inventario inventario;
-    private Map<String, Paquete> paquetes;
+    private ArrayList<Paquete> paquetes;
     private Historial historial;
     private int diasMaximo;
 
@@ -51,17 +49,17 @@ public class Inventario implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    private Map<String, Paquete> loadPaquetes() {
+    private ArrayList<Paquete> loadPaquetes() {
         // Carga los paquetes
         try (ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream(FILE_NAME_PAQUETES))) {
-            return (Map<String, Paquete>) ois1.readObject();
+            return (ArrayList<Paquete>) ois1.readObject();
         } catch (FileNotFoundException e) {
             // File not found, which is expected for the first run
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error al cargar los Paquetes.");
             e.printStackTrace();
         }
-        return new HashMap<String,Paquete>();
+        return new ArrayList<Paquete>();
     }
 
     public void saveInventario(){
@@ -90,7 +88,7 @@ public class Inventario implements Serializable {
 
     // Metodo que ingresar un paquete
     public void agregarPaquete(Paquete paquete) {
-        paquetes.put(paquete.getTracking(), paquete);
+        paquetes.add(paquete);
         paquete.cambiarEstado(new EnBodega(paquete));
         ingresarRegistro(paquete, paquete.getSucursalOrigen());
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
@@ -104,18 +102,18 @@ public class Inventario implements Serializable {
 
     //Metodo que buscar un paquete en todo el inventario
     public Paquete buscarPaquete(String trackingABuscar){
-        if(!paquetes.containsKey(trackingABuscar)){
-            JOptionPane.showMessageDialog(null, "Paquete no encontrado");
-            return null;
+        for (Paquete paquete : paquetes) {
+            if(paquete.getTracking().equals(trackingABuscar)){
+                return paquete;
+            }
         }
-        return paquetes.get(trackingABuscar);
+        JOptionPane.showMessageDialog(null, "Paquete no encontrado");
+        return null;        
     }
 
     // Metodo que devuelve toda la lsita de paquetes del invetario
     public ArrayList<Paquete> getPaquetesInventario() {
-        ArrayList<Paquete> paq = new ArrayList<>();
-        paq.addAll(paquetes.values());
-        return paq;
+        return paquetes;
     }
 
     // Metodo que obtiene la fecha para el registro de ingreso o salida
@@ -162,34 +160,34 @@ public class Inventario implements Serializable {
                 paquetesMostrar = getPaquetesParaEntregar();
                 break;
             case 2:
-                for (Paquete paquete : paquetes.values()) {
+                for (Paquete paquete : paquetes) {
                     if(paquete.getEstado() instanceof Entregado){
                         paquetesMostrar.add(paquete);
                     }
                 }
                 break;
             case 3:
-            for (Paquete paquete : paquetes.values()) {
+            for (Paquete paquete : paquetes) {
                 if(paquete.getEstado() instanceof Transportandose){
                     paquetesMostrar.add(paquete);
                 }
             }
                 break;
             case 4:
-            for (Paquete paquete : paquetes.values()) {
+            for (Paquete paquete : paquetes) {
                 if(paquete.getEstado() instanceof Conflicto){
                     paquetesMostrar.add(paquete);
                 }
             }
             break;
         }
-        this.paquetes.values();
+        //this.paquetes.values();
         for (Paquete p : paquetesMostrar) {
             model.addRow(new Object[] { 
                     p.getTracking(),
                     p.getPeso(),
                     p.getTamanio(),
-                    p.getCliente(),
+                    p.getCliente().getNombre(),
                     p.getNombreDestinatario(),
                     p.getSucursalOrigen(),
                     p.getSucursalDestino(),
@@ -201,7 +199,7 @@ public class Inventario implements Serializable {
 
     public ArrayList<Paquete> getPaquetesParaEntregar(){
         ArrayList<Paquete> paquetesParaEnvio = new ArrayList<>();
-        for(Paquete paquete: paquetes.values()){
+        for(Paquete paquete: paquetes){
             if(paquete.getEstado() instanceof EnBodega){
                 paquetesParaEnvio.add(paquete);
             }
@@ -210,10 +208,14 @@ public class Inventario implements Serializable {
     }
 
     //Metodo que notifica cuando un paquete se ha cargado a los camniones y poder registrar su fecha de Salida
-    // public void notificarCambioEstado(String trackingPaquete){
-    //     if(paquetes.get(trackingPaquete).getEstado() instanceof Transportandose){
-    //         historial.getRegistro(trackingPaquete).setFechaSalida(getFecha());
-    //     }
-    //     saveInventario();
-    // }
+    public void notificarCambioEstado(String trackingPaquete){
+        for (Paquete paquete : paquetes) {
+            if(paquete.getTracking().equals(trackingPaquete)){
+                if(paquete.getEstado() instanceof Transportandose){
+                    historial.getRegistro(trackingPaquete).setFechaSalida(getFecha());
+                }
+            }
+        }
+        saveInventario();
+    }
 }
