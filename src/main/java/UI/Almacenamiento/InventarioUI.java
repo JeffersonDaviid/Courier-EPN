@@ -57,6 +57,7 @@ public class InventarioUI extends javax.swing.JPanel {
         jTFestadoRecepcion = new javax.swing.JTextField();
         jPanel14 = new javax.swing.JPanel();
         jBCancelarcargaRecepcion = new javax.swing.JButton();
+        jBCancelarcargaRecepcion1 = new javax.swing.JButton();
 
         jTablePaquetes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,17 +124,6 @@ public class InventarioUI extends javax.swing.JPanel {
 
         jPanel9.setBackground(new java.awt.Color(254, 254, 254));
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Paquetes"));
-
-        jTFidcargaRecepcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFidcargaRecepcionActionPerformed(evt);
-            }
-        });
-        jTFidcargaRecepcion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFidcargaRecepcionKeyReleased(evt);
-            }
-        });
 
         jLabel14.setText("idPaquete");
 
@@ -260,21 +250,33 @@ public class InventarioUI extends javax.swing.JPanel {
             }
         });
 
+        jBCancelarcargaRecepcion1.setBackground(new java.awt.Color(37, 98, 234));
+        jBCancelarcargaRecepcion1.setText("Buscar");
+        jBCancelarcargaRecepcion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarcargaRecepcion1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
+                .addContainerGap(65, Short.MAX_VALUE)
+                .addComponent(jBCancelarcargaRecepcion1)
+                .addGap(46, 46, 46)
                 .addComponent(jBCancelarcargaRecepcion)
-                .addGap(82, 82, 82))
+                .addGap(24, 24, 24))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBCancelarcargaRecepcion)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBCancelarcargaRecepcion)
+                    .addComponent(jBCancelarcargaRecepcion1))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -298,7 +300,7 @@ public class InventarioUI extends javax.swing.JPanel {
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         jTabbedPanelMain.addTab("Datos Paquetes", jPanel2);
@@ -382,38 +384,26 @@ public class InventarioUI extends javax.swing.JPanel {
         this.jTFestadoRecepcion.setText("");
     }//GEN-LAST:event_jBCancelarcargaRecepcionActionPerformed
 
-    private void jTFidcargaRecepcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidcargaRecepcionKeyReleased
-        String id = this.jTFidcargaRecepcion.getName();
-        ArrayList<Paquete> paquetes_consulta = recepcionista.obtenerPaquetes();
-
-        Paquete paqueteEncontrado = null;
-        for (Paquete paquete : paquetes_consulta) {
-            if (paquete.getTracking().equals(id)) {
-                paqueteEncontrado = paquete;
-                break;
-            }
-        }
-
-        if (paqueteEncontrado != null) {
-            this.jTFpesocargaRecepcion.setText(String.valueOf(paqueteEncontrado.getPeso()));
-            this.jTFTamaniocargaRecepcion.setText(String.valueOf(paqueteEncontrado.getTamanio()));
-            this.jTFRemitentecargaRecepcion.setText(paqueteEncontrado.getDireccion());
-            this.jTFDestinatariocargaRecepcion.setText(paqueteEncontrado.getNombreDestinatario());
-            this.jTFSucursalOrigencargaRecepcion.setText(paqueteEncontrado.getSucursalOrigen());
-            this.jTFSucursalDestinocargaRecepcion.setText(paqueteEncontrado.getSucursalDestino());
-            this.jTFestadoRecepcion.setText(paqueteEncontrado.getEstado().toString());
-        } else {
-            System.out.println("Paquete no encontrado con el ID: " + id);
-        }
-    }//GEN-LAST:event_jTFidcargaRecepcionKeyReleased
-
-    private void jTFidcargaRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFidcargaRecepcionActionPerformed
+    private void jBCancelarcargaRecepcion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarcargaRecepcion1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTFidcargaRecepcionActionPerformed
+        String id = this.jTFidcargaRecepcion.getText();
+        Paquete paquetes_consulta = Inventario.getInstancia().buscarPaquete(id);
+
+        if (paquetes_consulta != null) {
+            this.jTFpesocargaRecepcion.setText(String.valueOf(paquetes_consulta.getPeso()));
+            this.jTFTamaniocargaRecepcion.setText(String.valueOf(paquetes_consulta.getTamanio()));
+            this.jTFRemitentecargaRecepcion.setText(paquetes_consulta.getCliente().getNombre());
+            this.jTFDestinatariocargaRecepcion.setText(paquetes_consulta.getNombreDestinatario());
+            this.jTFSucursalOrigencargaRecepcion.setText(paquetes_consulta.getSucursalOrigen());
+            this.jTFSucursalDestinocargaRecepcion.setText(paquetes_consulta.getSucursalDestino());
+            this.jTFestadoRecepcion.setText(paquetes_consulta.getEstado().toString());
+        }
+    }//GEN-LAST:event_jBCancelarcargaRecepcion1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCancelarcargaRecepcion;
+    private javax.swing.JButton jBCancelarcargaRecepcion1;
     private javax.swing.JComboBox<String> jComboBFiltroConsulta;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel26;
