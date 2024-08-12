@@ -58,7 +58,6 @@ public class Recepcionista extends Perfil{
 
     public void registrarPaquete(String tracking, float peso, String tamanio, Cliente cliente, String sucursalOrigen, String sucursalDestino, String direccion, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String fechaSalida, Seguimiento seguimiento){
         paqueteEnRegistro = new Paquete(tracking, peso, tamanio, cliente, sucursalOrigen, sucursalDestino, direccion, nombreDestinatario, correoDestinatario, telefonoDestinatario, fechaSalida, seguimiento);
-        //Inventario.obtenerInstancia().agregarPaquete(paquete);
     }
 
     public void eliminarPaqueteRegistrado() {
@@ -78,11 +77,14 @@ public class Recepcionista extends Perfil{
         GestorFacturas.getInstancia().generarFactura(paqueteEnRegistro);
     }
 
-    public void asignarTransportistaACamion(Transportista transportista, Camion camion){
+    public void asignarTransportistaACamion(String cedula, String placa){
+        Transportista transportista = GestorTransporte.getInstancia().obtenerTransportistaPorCedula(cedula);
+        Camion camion = GestorTransporte.getInstancia().obtenerCamionPorPlaca(placa);
         GestorTransporte.getInstancia().asignarTransportistaACamion(transportista, camion);
     }
     
-    public boolean asignarPaqueteACamion(Camion camion, Ubicacion destino){
+    public boolean asignarPaqueteACamion(String placa, Ubicacion destino){
+        Camion camion = GestorTransporte.getInstancia().obtenerCamionPorPlaca(placa);
         return GestorTransporte.getInstancia().asignarPaqueteACamion(camion, destino);
     }
 

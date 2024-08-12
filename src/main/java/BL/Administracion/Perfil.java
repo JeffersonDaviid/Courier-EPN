@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
-import BL.Soporte.Problema;
 
 public abstract class Perfil implements Serializable {
     private static final long serialVersionUID = 1L;
