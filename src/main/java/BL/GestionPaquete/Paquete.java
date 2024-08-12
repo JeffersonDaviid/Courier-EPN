@@ -15,6 +15,7 @@ public class Paquete {
     private String nombreDestinatario;
     private String correoDestinatario;
     private String telefonoDestinatario;
+    private String fechaSalida;
     private EstadoPaquete estado;
     private Seguimiento seguimiento;
 
@@ -22,7 +23,7 @@ public class Paquete {
         this.tracking = generarTracking();
     }
 
-    public Paquete(String tracking, float peso, String tamanio, Cliente cliente, String sucursalOrigen, String sucursalDestino, String direccion, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, EstadoPaquete estado, Seguimiento seguimiento) {
+    public Paquete(String tracking, float peso, String tamanio, Cliente cliente, String sucursalOrigen, String sucursalDestino, String direccion, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String fechaSalida, EstadoPaquete estado, Seguimiento seguimiento) {
         this.tracking = tracking;
         this.peso = peso;
         this.tamanio = tamanio;
@@ -33,9 +34,12 @@ public class Paquete {
         this.nombreDestinatario = nombreDestinatario;
         this.correoDestinatario = correoDestinatario;
         this.telefonoDestinatario = telefonoDestinatario;
+        this.fechaSalida = fechaSalida;
         this.estado = estado;
         this.seguimiento = seguimiento;
     }
+
+    
     
 
     
@@ -150,6 +154,14 @@ public class Paquete {
         this.telefonoDestinatario = telefonoDestinatario;
     }
 
+    public String getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(String fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+
     public EstadoPaquete getEstado() {
         return estado;
     }
@@ -166,19 +178,13 @@ public class Paquete {
         this.seguimiento = seguimiento;
     }
 
-   
-
-    /*
-    public String getDescripcionCompleta() {
-    return String.format("Paquete[Tracking: %s, Peso: %.2f kg, Tamaño: %s, Cliente: %s, Sucursal Origen: %s, Sucursal Destino: %s, Dirección: %s, Estado: %s]",
-    tracking, peso, tamanio, cliente, sucursalOrigen, sucursalDestino, direccion, estado);
-    }
-     */
-
     @Override
     public String toString() {
-        return "Paquete{" + "tracking=" + tracking + ", peso=" + peso + ", tamanio=" + tamanio + ", cliente=" + cliente + ", sucursalOrigen=" + sucursalOrigen + ", sucursalDestino=" + sucursalDestino + ", direccion=" + direccion + ", nombreDestinatario=" + nombreDestinatario + ", correoDestinatario=" + correoDestinatario + ", telefonoDestinatario=" + telefonoDestinatario + ", estado=" + estado + ", seguimiento=" + seguimiento + '}';
+        return "Paquete{" + "tracking=" + tracking + ", peso=" + peso + ", tamanio=" + tamanio + ", cliente=" + cliente + ", sucursalOrigen=" + sucursalOrigen + ", sucursalDestino=" + sucursalDestino + ", direccion=" + direccion + ", nombreDestinatario=" + nombreDestinatario + ", correoDestinatario=" + correoDestinatario + ", telefonoDestinatario=" + telefonoDestinatario + ", fechaSalida=" + fechaSalida + ", estado=" + estado + ", seguimiento=" + seguimiento + '}';
     }
+    
+    
+   
     
     
     
