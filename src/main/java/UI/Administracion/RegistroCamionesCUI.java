@@ -172,8 +172,36 @@ public class RegistroCamionesCUI extends javax.swing.JPanel {
         String modelo = field_modelo.getText();
         String marca = field_marca.getText();
         String capacidad = field_capacidad.getText();
-        recepcionista.agregarCamion(placa, modelo, marca, true, recepcionista.getSucursal());
+
+        if (validarPlaca(placa)) {
+            //recepcionista.agregarCamion(placa, modelo, marca, true, recepcionista.getSucursal());
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Placa inválida. Asegúrate de que cumpla con el formato requerido.");
+        }
     }//GEN-LAST:event_btn_registrarCamionActionPerformed
+
+    private boolean validarPlaca(String placa) {
+        // Longitud mínima
+        if (placa.length() < 7) {
+            return false;
+        }
+
+        // Contar letras y números
+        int letras = 0;
+        int numeros = 0;
+
+        for (int i = 0; i < placa.length(); i++) {
+            char c = placa.charAt(i);
+            if (Character.isLetter(c)) {
+                letras++;
+            } else if (Character.isDigit(c)) {
+                numeros++;
+            }
+        }
+
+        // Validar que haya al menos 3 letras y 4 números
+        return letras >= 3 && numeros >= 4;
+    }
 
     private void field_capacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_capacidadActionPerformed
         // TODO add your handling code here:

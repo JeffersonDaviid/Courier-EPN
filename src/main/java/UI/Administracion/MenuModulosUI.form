@@ -54,8 +54,8 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="btn_inv" max="32767" attributes="0"/>
-              <Component id="btn_paquetes1" pref="267" max="32767" attributes="0"/>
-              <Component id="btn_admin" alignment="0" pref="267" max="32767" attributes="0"/>
+              <Component id="btn_paquetes1" pref="279" max="32767" attributes="0"/>
+              <Component id="btn_admin" alignment="0" pref="279" max="32767" attributes="0"/>
               <Component id="btn_hist" max="32767" attributes="0"/>
               <Component id="btn_carga" max="32767" attributes="0"/>
               <Component id="btn_cargaDespachar" max="32767" attributes="0"/>
@@ -66,7 +66,6 @@
               <Component id="btn_regCamion" max="32767" attributes="0"/>
               <Component id="btn_env" alignment="0" max="32767" attributes="0"/>
               <Component id="btn_regCamion1" max="32767" attributes="0"/>
-              <Component id="registrocli" alignment="0" pref="267" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -80,6 +79,7 @@
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
+              <Component id="registrocli1" alignment="0" pref="279" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -91,8 +91,8 @@
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="btn_admin" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="registrocli" min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="registrocli1" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="btn_paquetes1" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -115,7 +115,7 @@
                   <Component id="btn_seguimiento" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="btn_regCamion" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btn_regCamion1" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
@@ -420,7 +420,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_regCamion1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="registrocli">
+        <Component class="javax.swing.JSeparator" name="jSeparator1">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="registrocli1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="c0" green="65" red="15" type="rgb"/>
@@ -439,15 +446,8 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registrocliActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registrocli1ActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JSeparator" name="jSeparator1">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
