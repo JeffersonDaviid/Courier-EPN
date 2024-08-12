@@ -34,12 +34,12 @@ public class GestorFacturas {
 
     /**
      * 
-     * @param codigo puede ser el ID de la factura o el ID del paquete
+     * @param tracking puede ser el ID de la factura o el ID del paquete
      * @return
      */
-    public void buscarFactura(String codigo) {
+    public void buscarFactura(String tracking) {
         for (Factura factura : facturas) {
-            if (factura.getPaquete().getId().equals(codigo)) {
+            if (factura.getPaquete().getTracking().equals(tracking)) {
                 FacturaUI facturaUI = new FacturaUI(factura);
                 facturaUI.setSize(380, 490);
                 facturaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
