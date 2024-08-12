@@ -1,5 +1,6 @@
 package BL.Almacenamiento;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ import BL.GestionPaquete.Paquete;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Historial {
+public class Historial implements Serializable {
     private ArrayList<Registro> registros;
 
     public Historial() {
