@@ -88,7 +88,7 @@ public class Recepcionista extends Perfil{
 
     public void agregarCamion(String placa, String modelo, String marca, boolean disponibilidad,
     Ubicacion ubicacionProvincia) {
-        transporte.registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia, );
+        transporte.registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia);
     }
 
     public void eliminarCamion(int idCamion) {
