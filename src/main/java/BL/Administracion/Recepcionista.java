@@ -1,8 +1,6 @@
 package BL.Administracion;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
@@ -90,8 +88,8 @@ public class Recepcionista extends Perfil{
         GestorTransporte.getInstancia().registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia);
     }
 
-    public void eliminarCamion(int idCamion) {
-        GestorTransporte.getInstancia().eliminarCamion(idCamion);
+    public void eliminarCamion(Camion camion) {
+        GestorTransporte.getInstancia().eliminarCamion(camion);
     }
 
     public void eliminarTransportista(String cedula) throws ClassNotFoundException {
