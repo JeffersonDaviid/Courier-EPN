@@ -7,10 +7,6 @@ public class Cliente extends Perfil {
         super(nombre, apellido, cedula, correo, contrasena);
     }
 
-    public void consultarSeguimiento(String idPaquete){
-        //Logica para llamar a Seguimiento
-    }
-
     @Override
     public void reportarProblema(Paquete paquete) {
         // TODO Auto-generated method stub

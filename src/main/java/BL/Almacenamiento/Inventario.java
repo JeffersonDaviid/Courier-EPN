@@ -1,5 +1,6 @@
 package BL.Almacenamiento;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -15,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import BL.Administracion.Global;
 import BL.GestionPaquete.Paquete;
 
-public class Inventario {
+public class Inventario implements Serializable {
     private static Inventario inventario;
     private Map<String, Paquete> paquetes;
     private Historial historial;

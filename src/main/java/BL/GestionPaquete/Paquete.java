@@ -1,62 +1,51 @@
 package BL.GestionPaquete;
 
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
-import BL.Administracion.Global;
-import BL.BASEDEDATOS.DataHelper;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Random;
-
 public class Paquete {
-    private String id;
+    private String tracking;
     private float peso;
     private String tamanio;
-    private ArrayList<Estado> historialEstado = new ArrayList<>();
-    private String agenciaOrigen;
-    private String agenciaDestino;
-    private String domicilio;
-    private String nombreRemitente;
-    private String correoRemitente;
-    private String telefonoRemitente;
-    private String nombreDestinatario;
-    private String correoDestinatario;
-    private String telefonoDestinatario;
-    private String Domicilio;
-    private String fechaLlegada;
-    private String fechaSalida;
-
-    public Paquete(String id, float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada, String fechaSalida) {
-        this.id = id;
-        this.peso = peso;
-        this.tamanio = tamanio;
-        this.agenciaOrigen = agenciaOrigen;
-        this.agenciaDestino = agenciaDestino;
-        this.nombreRemitente = nombreRemitente;
-        this.correoRemitente = correoRemitente;
-        this.telefonoRemitente = telefonoRemitente;
-        this.nombreDestinatario = nombreDestinatario;
-        this.correoDestinatario = correoDestinatario;
-        this.telefonoDestinatario = telefonoDestinatario;
-        this.Domicilio = Domicilio;
-        this.fechaLlegada = fechaLlegada;
-        this.fechaSalida = fechaSalida;
-    }
+    private String cliente;
+    private String sucursalOrigen;
+    private String sucursalDestino;
+    private String direccion;
+    private EstadoPaquete estado;
 
     public Paquete() {
-    }
-    
-    
-
-    public String getId() {
-        return id;
+        this.tracking = generarTracking();
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Paquete(String tracking, float peso, String tamanio, String cliente, String sucursalOrigen, String sucursalDestino, String direccion, EstadoPaquete estado) {
+        this.tracking = tracking;
+        this.peso = peso;
+        this.tamanio = tamanio;
+        this.cliente = cliente;
+        this.sucursalOrigen = sucursalOrigen;
+        this.sucursalDestino = sucursalDestino;
+        this.direccion = direccion;
+        this.estado = estado;
+    }
+    
+    private String generarTracking() {
+        // Generar un número de tracking de 7 dígitos
+        return String.format("%07d", (int)(Math.random() * 10000000));
+    }
+
+    // Método para obtener el estado actual del paquete
+    public EstadoPaquete obtenerEstadoActual() {
+        return this.estado;
+    }
+
+    // Método para cambiar el estado del paquete (puede hacerse protected)
+    public void cambiarEstado(EstadoPaquete nuevoEstado) {
+        this.estado = nuevoEstado;
+    }
+
+    public String getTracking() {
+        return tracking;    
+    }
+
+    public void setTracking(String tracking) {
+        this.tracking = tracking;
     }
 
     public float getPeso() {
@@ -75,147 +64,57 @@ public class Paquete {
         this.tamanio = tamanio;
     }
 
-    public String getAgenciaOrigen() {
-        return agenciaOrigen;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setAgenciaOrigen(String agenciaOrigen) {
-        this.agenciaOrigen = agenciaOrigen;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
-    public String getAgenciaDestino() {
-        return agenciaDestino;
+    public String getSucursalOrigen() {
+        return sucursalOrigen;
     }
 
-    public void setAgenciaDestino(String agenciaDestino) {
-        this.agenciaDestino = agenciaDestino;
+    public void setSucursalOrigen(String sucursalOrigen) {
+        this.sucursalOrigen = sucursalOrigen;
     }
 
-    public String getNombreRemitente() {
-        return nombreRemitente;
+    public String getSucursalDestino() {
+        return sucursalDestino;
     }
 
-    public void setNombreRemitente(String nombreRemitente) {
-        this.nombreRemitente = nombreRemitente;
+    public void setSucursalDestino(String sucursalDestino) {
+        this.sucursalDestino = sucursalDestino;
     }
 
-    public String getCorreoRemitente() {
-        return correoRemitente;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setCorreoRemitente(String correoRemitente) {
-        this.correoRemitente = correoRemitente;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public String getTelefonoRemitente() {
-        return telefonoRemitente;
-    }
-
-    public void setTelefonoRemitente(String telefonoRemitente) {
-        this.telefonoRemitente = telefonoRemitente;
-    }
-
-    public String getNombreDestinatario() {
-        return nombreDestinatario;
-    }
-
-    public void setNombreDestinatario(String nombreDestinatario) {
-        this.nombreDestinatario = nombreDestinatario;
-    }
-
-    public String getCorreoDestinatario() {
-        return correoDestinatario;
-    }
-
-    public void setCorreoDestinatario(String correoDestinatario) {
-        this.correoDestinatario = correoDestinatario;
-    }
-
-    public String getTelefonoDestinatario() {
-        return telefonoDestinatario;
-    }
-
-    public void setTelefonoDestinatario(String telefonoDestinatario) {
-        this.telefonoDestinatario = telefonoDestinatario;
-    }
-
-    public String getDomicilio() {
-        return Domicilio;
-    }
-
-    public void setDomicilio(String Domicilio) {
-        this.Domicilio = Domicilio;
-    }
-
-    public String getFechaLlegada() {
-        return fechaLlegada;
-    }
-
-    public void setFechaLlegada(String fechaLlegada) {
-        this.fechaLlegada = fechaLlegada;
-    }
-/* 
-    public Estado getEstado() {
+    public EstadoPaquete getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    // Métodos getter y setter
+    public void setEstado(EstadoPaquete estado) {
         this.estado = estado;
     }
-   */
-   
 
-    public ArrayList<Estado> getHistorialEstado() {
-        return historialEstado;
+    /*
+    public String getDescripcionCompleta() {
+    return String.format("Paquete[Tracking: %s, Peso: %.2f kg, Tamaño: %s, Cliente: %s, Sucursal Origen: %s, Sucursal Destino: %s, Dirección: %s, Estado: %s]",
+    tracking, peso, tamanio, cliente, sucursalOrigen, sucursalDestino, direccion, estado);
     }
-
-    public void agregarEstado(Estado estado) {
-        historialEstado.add(estado);
+     */
+    @Override
+    public String toString() {
+        return "Paquete{" + "tracking=" + tracking + ", peso=" + peso + ", tamanio=" + tamanio + ", cliente=" + cliente + ", sucursalOrigen=" + sucursalOrigen + ", sucursalDestino=" + sucursalDestino + ", direccion=" + direccion + ", estado=" + estado + '}';
     }
     
-    public void registrarPaquete(Paquete paquete) {
-        Recepcion recepcion = Global.getInstancia().buscarAgencia(paquete.getAgenciaOrigen()).getRecepcion();
-        recepcion.agregarPaquete(paquete);
-        JOptionPane.showMessageDialog(null, "El paquete: " + paquete.getId() + " ha sido registrado");
-    }
-
-    //guardar en la base
-    public void guardarPaquete(Paquete paquete) {
-          // Usa la fecha del último estado
-
-        String sql = "INSERT INTO Paquetes (idPaquete, peso, tamanio, sucursalAceptoPaquete, sucursalParaRecoger, fechaHoraLlegada, fechaHoraSalida, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, domicilio) VALUES ('"
-            + paquete.getId() + "', " + paquete.getPeso() + ", '" + paquete.getTamanio() + "', '" + paquete.getAgenciaOrigen() + "', '" + paquete.getAgenciaDestino() + "', '"
-            + paquete.getFechaLlegada() + "', '" + paquete.getFechaSalida() + "', '" + paquete.getNombreRemitente() + "', '"
-            + paquete.getCorreoRemitente() + "', '" + paquete.getTelefonoRemitente() + "', '" + paquete.getNombreDestinatario() + "', '"
-            + paquete.getCorreoDestinatario() + "', '" + paquete.getTelefonoDestinatario() + "', '"
-            + paquete.getDomicilio() + "')";
-
-        try {
-            int rs = DataHelper.getInstancia().executeQueryInsertUpdateDelete(sql);
-
-            if (rs > 0) {
-                JOptionPane.showMessageDialog(null, "Paquete guardado con éxito", "Guardado",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al guardar el paquete", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar el paquete: " + e.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public void setHistorialEstado(ArrayList<Estado> historialEstado) {
-        this.historialEstado = historialEstado;
-    }
-
-    public String getFechaSalida() {
-        return fechaSalida;
-    }
-
-    public void setFechaSalida(String fechaSalida) {
-        this.fechaSalida = fechaSalida;
-    }
     
 }
