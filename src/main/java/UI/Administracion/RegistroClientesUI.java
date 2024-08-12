@@ -229,6 +229,11 @@ public class RegistroClientesUI extends javax.swing.JPanel {
         String agencia = usuarioActual.getSucursal().name();
         // Si todas las validaciones son correctas, proceder con el registro
         usuarioActual.agregarNuevoUsuario(agencia, "NULL", "Cliente", cedula, nombre, apellido, correo, telefono);
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (Perfil perfil : GestorPerfiles.getInstance().getClientes()) {
+            model.addElement(perfil.getCedula() + " - " + perfil.getNombre() + " " + perfil.getApellido());
+        }
+        jList1.setModel(model);
        // JOptionPane.showMessageDialog(this, "Registro exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
       
