@@ -1,9 +1,7 @@
 package BL.Transporte;
 
-import java.io.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,7 +10,7 @@ import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
 
 public class GestorTransporte {
-
+    // yo solo cambio de estado cuando se carga un paquete en un camion
     private static GestorTransporte instancia;
     private Inventario inventario;
     private ArrayList<Camion> camiones;
@@ -20,7 +18,7 @@ public class GestorTransporte {
     private HashMap<Camion, Transportista> camionTransportista;
     private HashMap<Camion, ArrayList<Paquete>> camionPaquetes;
 
-
+    private static int siguienteIdCamion = 1;
     // Constructor 
     private GestorTransporte() {
         this.inventario = Inventario.getInstancia();
@@ -30,6 +28,7 @@ public class GestorTransporte {
         this.camionPaquetes = new HashMap<Camion, ArrayList<Paquete>>(); // Consultar para quemar asignaciones
     }
 
+    // Metodo para obtener la instancia de la clase
     public static GestorTransporte getInstancia() {
         if (instancia == null) {
             instancia = new GestorTransporte();
@@ -51,11 +50,16 @@ public class GestorTransporte {
         }
     }
 
+    // Metodo para generar un nuevo ID de camión
+    private int generarIdCamion() {
+        return siguienteIdCamion++;
+    }
 
     // Metodo para agregar un nuevo objeto Camion
-    public void registrarCamion(int idCamion, String placa, String modelo, String marca, boolean disponibilidad,
-            Ubicacion ubicacionProvincia) {
-        Camion camion = new Camion(idCamion, placa, modelo, marca, disponibilidad, ubicacionProvincia);
+    public void registrarCamion( String placa, String modelo, String marca, boolean disponibilidad,
+            Ubicacion ubicacionOrigen, Ubicacion ubicacionDestino) {
+        int idCamion = generarIdCamion();
+        Camion camion = new Camion(idCamion, placa, modelo, marca, disponibilidad, ubicacionOrigen, ubicacionDestino);
         if (camiones == null) {
             camiones = new ArrayList<Camion>();
         }
@@ -119,57 +123,131 @@ public class GestorTransporte {
         }
     }
 
-    // Cargar y descargar paquetes de camiones
+    // Cargar y descargar paquetes de camiones 
     // Método para cargar un paquete desde el inventario a un camión usando índices
-    public void cargarPaqueteDesdeInventario(int camionIndex, int paqueteIndex) {
-        // Verificamos si el índice del camión es válido
-        if (camionIndex >= 0 && camionIndex < camiones.size()) {
-            Camion camion = camiones.get(camionIndex); // Obtenemos el camión basado en el índice
-
-            // Obtenemos la lista de paquetes del inventario
-            ArrayList<Paquete> paquetesInventario = inventario.getPaquetesInventario();
-
-            // Verificamos si el índice del paquete es válido
-            if (paqueteIndex >= 0 && paqueteIndex < paquetesInventario.size()) {
-                Paquete paquete = paquetesInventario.get(paqueteIndex); // Obtenemos el paquete basado en el índice
-
-                // Llamamos al método que carga un paquete al camión
-                cargarPaqueteACamion(camion, paquete);
-            } else {
-                System.out.println("El índice de paquete es inválido.");
+    public void cargarPaqueteDesdeInventario(int idCamion, String trackingPaquete) {
+        Camion camionAsignar = null;
+        Paquete paqueteAsignar = null;
+        // Buscar el camión por ID
+        for (Camion camion : camiones) {
+            if (camion.getIdCamion() == idCamion) {
+                camionAsignar = camion;
+                break;
             }
+        }
+        // Buscar el paquete por tracking
+        for (Paquete paquete : inventario.getPaquetesParaEntregar()) { // obtengo paquetes para entregar
+            if (paquete.getId().equals(trackingPaquete)) {
+                paqueteAsignar = paquete;
+                break;
+            }
+        }
+        if (camionAsignar != null && paqueteAsignar != null) {
+            if (camionAsignar.getUbicacionOrigen().equals(paqueteAsignar.getAgenciaOrigen()) && 
+            camionAsignar.getUbicacionDestino().equals(paqueteAsignar.getAgenciaDestino())) { 
+                // Esperando que paquete utilice clase enumerada de provincia
+                cargarPaqueteACamion(camionAsignar, paqueteAsignar);
+            } else {
+                System.out.println("El Camión y el Paquete no están en la misma provincia.");
+            }
+            cargarPaqueteACamion(camionAsignar, paqueteAsignar);
         } else {
-            System.out.println("El índice de camión es inválido.");
+            System.out.println("El Camión o el Paquete no existen.");
         }
     }
 
-    public void cargarPaqueteACamion(Camion camion, Paquete paquete) {
-        if (camiones != null && camiones.contains(camion)) {
+
+    public void cargarPaqueteACamion(Camion camionAsignar, Paquete paqueteAsignar) {
+        if (camiones != null && camiones.contains(camionAsignar)) {
             if (camionPaquetes == null) {
                 camionPaquetes = new HashMap<Camion, ArrayList<Paquete>>();
             }
-            if (camionPaquetes.containsKey(camion)) {
+            if (camionPaquetes.containsKey(camionAsignar)) {
                 // anadir logica para cambiar estado de paquete
-                camionPaquetes.get(camion).add(paquete);
+                camionPaquetes.get(camionAsignar).add(paqueteAsignar);
+                camionAsignar.incrementarCapacidadOcupada(camionAsignar.getCapacidadOcupada()+1);
             } else {
                 ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
                 // anadir logica para cambiar estado de paquete
-                paquetes.add(paquete);
-                camionPaquetes.put(camion, paquetes);
+                paquetes.add(paqueteAsignar);
+                camionPaquetes.put(camionAsignar, paquetes);
+                camionAsignar.incrementarCapacidadOcupada(camionAsignar.getCapacidadOcupada() + 1);
+
             }
         } else {
             System.out.println("El Camion no existe.");
         }
     }
 
-    public void descargarPaqueteDeCamion(Camion camion, Paquete paquete) {
-        if (camionPaquetes != null && camionPaquetes.containsKey(camion)) {
-            // anadir logica para cambiar estado de paquete
-            camionPaquetes.get(camion).remove(paquete);
+    // Método para descargar un paquete de un camión a una sucursal 
+    public Paquete descargarPaqueteEnSucursal(int idCamion, String trackingPaquete) {
+        Camion camionAsignar = null;
+        Paquete paqueteAsignar = null;
+        // Buscar el camión por ID
+        for (Camion camion : camiones) {
+            if (camion.getIdCamion() == idCamion) {
+                camionAsignar = camion;
+                break;
+            }
+        }
+        // Buscar el paquete por tracking
+        for (Paquete paquete : camionPaquetes.get(camionAsignar)) {
+            if (paquete.getId().equals(trackingPaquete)) {
+                paqueteAsignar = paquete;
+                break;
+            }
+        }
+        if (camionAsignar != null && paqueteAsignar != null) {
+            // verificar si el paquete se debe entregar a domicilio
+            if (paqueteAsignar.getDomicilio() == null) {
+                // cambiar el estado del paquete y retirarlo del camión
+                camionPaquetes.get(camionAsignar).remove(paqueteAsignar);
+                camionAsignar.reducirCapacidadOcupada(camionAsignar.getCapacidadOcupada() - 1);
+                return paqueteAsignar;
+            } else {
+                System.out.println("El paquete se debe entregar a domicilio.");
+            }
         } else {
-            System.out.println("El Camion no tiene paquetes.");
+            System.out.println("El Camión o el Paquete no existen.");
+        }
+        return null;
+    }
+
+   
+
+    // Metodo para entregar paquetes Domicilio
+    public void entregarPaqueteDomicilio(int idCamion, String trackingPaquete) {
+        Camion camionAsignar = null;
+        Paquete paqueteAsignar = null;
+        // Buscar el camión por ID
+        for (Camion camion : camiones) {
+            if (camion.getIdCamion() == idCamion) {
+                camionAsignar = camion;
+                break;
+            }
+        }
+        // Buscar el paquete por tracking
+        for (Paquete paquete : camionPaquetes.get(camionAsignar)) {
+            if (paquete.getId().equals(trackingPaquete)) {
+                paqueteAsignar = paquete;
+                break;
+            }
+        }
+        if (camionAsignar != null && paqueteAsignar != null) {
+            // verificar si el paquete se debe entregar a domicilio
+            if (!paqueteAsignar.getDomicilio().equals(null)) {
+                // anadir logica para cambiar estado de paquete
+                camionPaquetes.get(camionAsignar).remove(paqueteAsignar);
+                camionAsignar.reducirCapacidadOcupada(camionAsignar.getCapacidadOcupada() - 1);
+            } else {
+                System.out.println("El paquete se debe entregar en sucursal.");
+            }
+        } else {
+            System.out.println("El Camión o el Paquete no existen.");
         }
     }
+
+    
 
     // Metodos para mostrar informacion
 
@@ -178,7 +256,7 @@ public class GestorTransporte {
             for (Camion camion : camiones) {
                 System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo() + ", Marca: "
                         + camion.getMarca() + ", Disponibilidad: " + camion.isDisponibilidad() + ", Provincia: "
-                        + camion.getUbicacionProvincia());
+                        + camion.getUbicacionOrigen());
             }
         } else {
             System.out.println("No hay camiones registrados.");

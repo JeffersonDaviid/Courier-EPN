@@ -13,12 +13,13 @@ public class Camion implements Serializable {
     private int capacidadCarga;
     private int capacidadOcupada;
     private boolean disponibilidad; // 1 libre y 0 ocupado
-    private Ubicacion ubicacionProvincia;
+    private Ubicacion ubicacionOrigen;
+    private Ubicacion ubicacionDestino;
 
     // constructor
 
-    public Camion(int idCamion, String placa, String modelo, String marca, boolean disponibilidad,
-            Ubicacion ubicacionProvincia) {
+    public Camion(int idCamion, String placa, String modelo, String marca,
+            boolean disponibilidad, Ubicacion ubicacionOrigen, Ubicacion ubicacionDestino) {
         this.idCamion = idCamion;
         this.placa = placa;
         this.modelo = modelo;
@@ -26,7 +27,8 @@ public class Camion implements Serializable {
         this.capacidadCarga = 50;
         this.capacidadOcupada = 0;
         this.disponibilidad = disponibilidad;
-        this.ubicacionProvincia = ubicacionProvincia;
+        this.ubicacionOrigen = ubicacionOrigen;
+        this.ubicacionDestino = ubicacionDestino;
     }
 
     public Camion() {
@@ -37,11 +39,30 @@ public class Camion implements Serializable {
         this.capacidadCarga = 0;
         this.capacidadOcupada = 0;
         this.disponibilidad = true;
-        this.ubicacionProvincia = null;
+        this.ubicacionOrigen = null;
+        this.ubicacionDestino = null;
     }
 
-    public void avanzarUbicacionProvincia(Ubicacion ubicacionProvincia) {
-        this.ubicacionProvincia = ubicacionProvincia;
+    public void viajar() {
+        Ubicacion temp = this.ubicacionOrigen;
+        this.ubicacionOrigen = this.ubicacionDestino;
+        this.ubicacionDestino = temp;
+    }
+
+    public void incrementarCapacidadOcupada(int cantidad) {
+        if (this.capacidadOcupada + cantidad <= this.capacidadCarga) {
+            this.capacidadOcupada += cantidad;
+        } else {
+            System.out.println("No hay suficiente capacidad en el camión.");
+        }
+    }
+
+    public void reducirCapacidadOcupada(int cantidad) {
+        if (this.capacidadOcupada - cantidad >= 0) {
+            this.capacidadOcupada -= cantidad;
+        } else {
+            System.out.println("No se puede reducir la capacidad ocupada por más de lo que está ocupado.");
+        }
     }
 
     public int getIdCamion() {
@@ -100,12 +121,20 @@ public class Camion implements Serializable {
         this.disponibilidad = disponibilidad;
     }
 
-    public Ubicacion getUbicacionProvincia() {
-        return ubicacionProvincia;
+    public Ubicacion getUbicacionOrigen() {
+        return ubicacionOrigen;
     }
 
-    public void setUbicacionProvincia(Ubicacion ubicacionProvincia) {
-        this.ubicacionProvincia = ubicacionProvincia;
+    public void setUbicacionOrigen(Ubicacion ubicacionOrigen) {
+        this.ubicacionOrigen = ubicacionOrigen;
+    }
+
+    public Ubicacion getUbicacionDestino() {
+        return ubicacionDestino;
+    }
+
+    public void setUbicacionDestino(Ubicacion ubicacionDestino) {
+        this.ubicacionDestino = ubicacionDestino;
     }
 
 }
