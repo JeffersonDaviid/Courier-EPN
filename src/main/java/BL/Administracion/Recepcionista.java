@@ -65,6 +65,10 @@ public class Recepcionista extends Perfil{
         return inventario.getPaquetesInventario();
     }
 
+    public void eliminarPaqueteInventario(Paquete paquete) {
+        inventario.eliminarPaquete(paquete);
+    }
+
     // Método para agregar un nuevo usuario a la lista
     public void agregarNuevoUsuario(String agencia, String contrasena, String rol, String cedula, String nombre, String apellido, String correo) throws ClassNotFoundException {
         if(agencia == null || contrasena == null || nombre == null || rol == null || agencia.equals("") || contrasena.equals("") || nombre.equals("") || rol.equals("")) {
