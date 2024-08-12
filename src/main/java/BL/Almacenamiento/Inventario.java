@@ -190,7 +190,7 @@ public class Inventario implements Serializable {
                     p.getPeso(),
                     p.getTamanio(),
                     p.getCliente(),
-                    "p.getNombreDestinatario()",
+                    p.getNombreDestinatario(),
                     p.getSucursalOrigen(),
                     p.getSucursalDestino(),
                     p.getEstado().toString(),

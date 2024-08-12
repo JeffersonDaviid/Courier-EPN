@@ -394,11 +394,11 @@ public class InventarioUI extends javax.swing.JPanel {
         if (paqueteEncontrado != null) {
             this.jTFpesocargaRecepcion.setText(String.valueOf(paqueteEncontrado.getPeso()));
             this.jTFTamaniocargaRecepcion.setText(String.valueOf(paqueteEncontrado.getTamanio()));
-            this.jTFRemitentecargaRecepcion.setText(paqueteEncontrado.getCliente());
-            this.jTFDestinatariocargaRecepcion.setText("Remitente");
+            this.jTFRemitentecargaRecepcion.setText(paqueteEncontrado.getDireccion());
+            this.jTFDestinatariocargaRecepcion.setText(paqueteEncontrado.getNombreDestinatario());
             this.jTFSucursalOrigencargaRecepcion.setText(paqueteEncontrado.getSucursalOrigen());
             this.jTFSucursalDestinocargaRecepcion.setText(paqueteEncontrado.getSucursalDestino());
-            this.jTFestadoRecepcion.setText("Recepción");
+            this.jTFestadoRecepcion.setText(paqueteEncontrado.getEstado().toString());
         } else {
             System.out.println("Paquete no encontrado con el ID: " + id);
         }
