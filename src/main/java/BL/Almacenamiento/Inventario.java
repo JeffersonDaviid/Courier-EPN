@@ -57,20 +57,19 @@ public class Inventario implements Serializable {
         }
     }
 
-    @SuppressWarnings("unused")
     private void saveInventario(){
         //Guarda los paquetes
         try (ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(FILE_NAME_PAQUETES))) {
             oos1.writeObject(paquetes);
         } catch (IOException e) {
-            System.out.println("Error al guardar los perfiles.");
+            System.out.println("Error al guardar los Paquetes.");
             e.printStackTrace();
         }
         //Guarda el historial
         try (ObjectOutputStream oos2 = new ObjectOutputStream(new FileOutputStream(FILE_NAME_HISTORIAL))) {
             oos2.writeObject(historial);
         } catch (IOException e) {
-            System.out.println("Error al guardar los perfiles.");
+            System.out.println("Error al guardar el Historial.");
             e.printStackTrace();
         }
     }
@@ -85,9 +84,10 @@ public class Inventario implements Serializable {
     // Metodo que ingresar un paquete
     public void agregarPaquete(Paquete paquete) {
         paquetes.put(paquete.getTracking(), paquete);
-        //paquete.cambiarEstado(new EnBodega());
+        paquete.cambiarEstado(new EnBodega(paquete));
         ingresarRegistro(paquete, paquete.getSucursalOrigen());
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
+        saveInventario();
     }
 
     // Metodo que guarda el ingreso de un paquete al invetario para el Historial
@@ -145,8 +145,7 @@ public class Inventario implements Serializable {
         for (int i = 0; i < cntidadCol; i++) {
             model.addColumn(columnas[i]);
         }
-        Collection<Paquete> paquetes;
-        paquetes = this.paquetes.values();
+        Collection<Paquete> paquetes = this.paquetes.values();
         for (Paquete p : paquetes) {
             model.addRow(new Object[] { 
                     p.getTracking(),
