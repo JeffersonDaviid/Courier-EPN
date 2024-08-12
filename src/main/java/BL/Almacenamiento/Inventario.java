@@ -18,17 +18,12 @@ import BL.GestionPaquete.Paquete;
 public class Inventario {
     private static Inventario inventario;
     private Map<String, Paquete> paquetes;
-    private int capacidadTotal;
-    private int capacidadOcupada;
     private Historial historial;
     private int diasMaximo;
 
     private Inventario() {
         this.diasMaximo = 15;
-        this.capacidadTotal = 100;
         this.paquetes = new HashMap<String, Paquete>();
-        this.paquetes = new HashMap<String, Paquete>();
-        this.capacidadOcupada = 0;
         this.historial = new Historial();
     }
 
@@ -41,38 +36,15 @@ public class Inventario {
 
     // Metodo que ingresar un paquete
     public void agregarPaquete(Paquete paquete) {
-        int capacidadPaquete = paquete.getTamanio().getValor();
-        // Verifica que hay espacio suficiente en el inventario
-        if (!hayEspacioSuficiente(capacidadPaquete)) {
-            notificarCapacidadCompleta();
-            return;
-        }
-        // Si hay espacio, lo guarda y actualiza su estado a EnBodega
         paquetes.put(paquete.getId(), paquete);
         //paquete.cambiarEstado(new EnBodega());
         ingresarRegistro(paquete, paquete.getAgenciaOrigen());
-        actualizarCapacidadOcupada(capacidadPaquete);
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // Metodo que guarda el ingreso de un paquete al invetario para el Historial
     private void ingresarRegistro(Paquete paquete, String agencia) {
         historial.registrarRegistro(new Registro(getFecha(), agencia, paquete.getId()));
-    }
-
-    // Metodo para entregar el paquete al cliente desde la bodega/recepcion - La llaa del boedeguero
-    public void entregarPaquete(String tracking) {
-        Paquete paquete = null;
-        // Verifica si esta el paquete como retiro en bodega/recepcion
-        if (!paquetes.containsKey(tracking)) {
-            // Si no esta verifica si esta en la lista para entregar a domicilio
-            JOptionPane.showMessageDialog(null, "Paquete no encontrado");
-            return;
-        }
-        paquete = paquetes.get(tracking);
-        // Si esta actualiza el estado del paquete
-        historial.getRegistro(tracking).setFechaSalida(getFecha());
-        actualizarCapacidadOcupada(-paquete.getTamanio().getValor());
     }
 
     //Metodo que buscar un paquete en todo el inventario
@@ -98,27 +70,6 @@ public class Inventario {
         return now.format(formatter);
     }
 
-    // Metodo que actualiza la capacidad del inventario
-    public void actualizarCapacidadOcupada(int cantidad) {
-        capacidadOcupada += cantidad;
-    }
-
-    // Metodo que notifica que el invetario ha llenado su capacidad
-    private void notificarCapacidadCompleta() {
-        JOptionPane.showMessageDialog(null, "Capacidad de la bodega alcanzado", "Alerta",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    // Metodo que verifica si hay espacio suficiente en el invetario para otro paquete
-    private boolean hayEspacioSuficiente(int capacidadPaquete) {
-        return (capacidadOcupada + capacidadPaquete) < capacidadTotal;
-    }
-
-    // Metodo que actualiza la capacidad total del inventario
-    public void actualizarCapacidadTotal(int capacidad) {
-        this.capacidadTotal = capacidad;
-    }
-
     // Metodo que calcula la fecha o dias que le faltan a un paquete, sin ser reclamado
     public String calcularFechaLimite(String fechaIngreso) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -134,30 +85,8 @@ public class Inventario {
         }
     }
 
-    public int getCapacidadTotal() {
-        return capacidadTotal;
-    }
-
-    public int getCapacidadOcupada() {
-        return capacidadOcupada;
-    }
-
     public Historial getHistorial() {
         return historial;
-    }
-
-    // Metodo que retira los paquetes desde la lista correspondiente para cargarlos a los camiones
-    public void retirarPaquete(String tracking) {
-        Paquete paquete;
-        if(!paquetes.containsKey(tracking)){
-            System.out.println("Paquete no encontrado");
-            return ;
-        }
-        paquete = paquetes.get(tracking);
-        //paquetes.cambiarEstado(new Estado());
-        //Guarda la fecha de salida del paquete en el registro y actualizar en la base
-        historial.getRegistro(tracking).setFechaSalida(getFecha());
-        actualizarCapacidadOcupada(-paquete.getTamanio().getValor()); // Se actualiza la capacidad ocupada del inventario
     }
 
     // Metodo que muestra todos los paquetes del inventario
