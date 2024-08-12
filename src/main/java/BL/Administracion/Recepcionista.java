@@ -1,10 +1,13 @@
 package BL.Administracion;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
+import BL.Facturacion.Factura;
 import BL.GestionPaquete.Paquete;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
@@ -13,23 +16,19 @@ import BL.Transporte.Ubicacion;
 public class Recepcionista extends Perfil{
     private Paquete paqueteEnRegistro;
     private Ubicacion sucursal;
+    private GestorTransporte transporte;
+    private Factura facturacion;
 
     public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena,
             Ubicacion agencia) {
         super(nombre, apellido, cedula, correo, contrasena);
         sucursal = agencia;
-        //this.sucursal = agencia;
-        //TODO Auto-generated constructor stub
+        transporte = GestorTransporte.getInstancia();
+        facturacion = Factura.getIntancia();
     }
 
-    @Override
-    public void reportarProblema(String idPaquete) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reportarProblema'");
-    }
-
-    public void registrarPaquete(String id,float peso, String tamanio, String agenciaOrigen, String agenciaDestino, String nombreRemitente, String correoRemitente, String telefonoRemitente, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String Domicilio, String fechaLlegada, String fechaSalida){
-        paqueteEnRegistro = new Paquete(id, peso, tamanio, agenciaOrigen, agenciaDestino, nombreRemitente, correoRemitente, telefonoRemitente, nombreDestinatario, correoDestinatario, telefonoDestinatario, Domicilio, fechaLlegada, fechaSalida);
+    public void registrarPaquete(Paquete paquete){
+        paqueteEnRegistro = paquete;
         //Inventario.obtenerInstancia().agregarPaquete(paquete);
     }
 
@@ -38,27 +37,32 @@ public class Recepcionista extends Perfil{
     }
 
     public void registrarPaqueteEnInventario(){
-        //Inventario.obtenerInstancia().agregarPaquete(paqueteEnRegistro);
+        inventario.agregarPaquete(paqueteEnRegistro);
     }
 
     public void consultarSeguimientoPaquete(String idPaquete){
         //Logica para llamar a Seguimiento
     }
 
-    public void previsualizarPrecioPaquete(){
-        //Logica para llamar a Precio
+    public float previsualizarPrecioPaquete(){
+        float precio = facturacion.getPrecio().calcularPrecio(paqueteEnRegistro);
+        return precio;
     }
 
     public void generarFactura(){
-        //Logica para llamar a Factura
+        facturacion.generarFactura(paqueteEnRegistro);
     }
 
-    public void asignarTransportistaACamion(){
-        //Logica para llamar a AsignarTransportista
+    public void asignarTransportistaACamion(Transportista transportista, Camion camion){
+        transporte.asignarTransportistaACamion(transportista, camion);
     }
     
-    public void asignarPaqueteACamcion(){
-        //Logica para llamar a AsignarPaquete
+    public boolean asignarPaqueteACamion(Camion camion, Ubicacion destino){
+        return transporte.asignarPaqueteACamion(camion, destino);
+    }
+
+    public ArrayList<Paquete> obtenerPaquetes() {
+        return inventario.getPaquetesInventario();
     }
 
     // Método para agregar un nuevo usuario a la lista
@@ -84,17 +88,16 @@ public class Recepcionista extends Perfil{
 
     public void agregarCamion(String placa, String modelo, String marca, boolean disponibilidad,
     Ubicacion ubicacionProvincia) {
-        GestorTransporte.getInstancia().registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia);
+        transporte.registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia);
     }
 
     public void eliminarCamion(int idCamion) {
-        GestorTransporte.getInstancia().eliminarCamion(idCamion);
+        transporte.eliminarCamion(idCamion);
     }
 
     public void eliminarTransportista(String cedula) throws ClassNotFoundException {
-        GestorTransporte.getInstancia().eliminarTransportista((Transportista)GestorPerfiles.getInstance().obtenerTransportistaPorCedula(cedula));
+        transporte.eliminarTransportista((Transportista)GestorPerfiles.getInstance().obtenerTransportistaPorCedula(cedula));
     }
-
     
     public Paquete getPaqueteEnRegistro() {
         return paqueteEnRegistro;
@@ -108,31 +111,11 @@ public class Recepcionista extends Perfil{
         this.sucursal = sucursal;
     }
 
-    // Método para agregar un nuevo camión
-    // public void agregarCamionCarga(String placa, String modelo, String marca, String capacidadCargaStr, String disponibilidadStr) {
-    //     // String placa = JOptionPane.showInputDialog("Ingrese la placa:").trim();
-    //     // String modelo = JOptionPane.showInputDialog("Ingrese el modelo:").trim();
-    //     // String marca = JOptionPane.showInputDialog("Ingrese la marca:").trim();
-    //     int capacidadCarga = 0;
-    //     int disponibilidad = 0;
-
-    //     if(placa == null || modelo == null || marca == null || capacidadCargaStr == null || disponibilidadStr == null || placa.equals("") || modelo.equals("") || marca.equals("") || capacidadCargaStr.equals("") || disponibilidadStr.equals("")) {
-    //         JOptionPane.showMessageDialog(null, "No se pudo agregar el camión. Verificar entradas.");
-    //         return;
-    //     }
-
-    //     try {
-    //         capacidadCarga = Integer.parseInt(capacidadCargaStr);
-    //         disponibilidad = Integer.parseInt(disponibilidadStr);
-    //     } catch (NumberFormatException e) {
-    //         JOptionPane.showMessageDialog(null, "Capacidad de carga y disponibilidad deben ser números.");
-    //         return;
-    //     }
-    //     CamionCarga nuevoCamion = new CamionCarga(placa, modelo, marca, capacidadCarga, disponibilidad,
-    //             Global.agenciaActual);
-    //     Global.getInstancia().buscarAgencia(Global.agenciaActual).agregarCamionCarga(nuevoCamion);
-    //     JOptionPane.showMessageDialog(null, "Camión de carga agregado exitosamente.");
-    // }
+    @Override
+    public void reportarProblema(Paquete paquete) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'reportarProblema'");
+    }
 
     
 }

@@ -7,7 +7,8 @@ package UI.Administracion;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
-import BL.Administracion.Usuario;
+import BL.Administracion.Perfil;
+import BL.Administracion.Recepcionista;
 import UI.GestionPaquete.GestionPaquete;
 import UI.Transporte.UICamionCarga;
 import UI.Transporte.UICamionCargaDespachar;
@@ -27,12 +28,12 @@ import javax.swing.JPanel;
 public class MenuModulosUI extends javax.swing.JFrame {
 
     LoginUI loginUI;
-    Usuario usuario; 
+    Perfil usuario; 
 
     /**
      * Creates new form Dashboard
      */
-    public MenuModulosUI(Usuario usuario) {
+    public MenuModulosUI(Perfil usuario) {
         this.usuario = usuario;
         initComponents();
         InitStyles();
@@ -387,7 +388,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
 
     private void btn_paquetes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_paquetes1ActionPerformed
         // TODO add your handling code here:
-        showPanel(new GestionPaquete());
+        showPanel(new GestionPaquete((Recepcionista) usuario));
     }//GEN-LAST:event_btn_paquetes1ActionPerformed
 
     private void btn_invActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_invActionPerformed

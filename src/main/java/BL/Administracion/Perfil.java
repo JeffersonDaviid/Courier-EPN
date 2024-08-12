@@ -22,14 +22,14 @@ public abstract class Perfil implements Serializable {
         this.cedula = cedula;
         this.correo = correo;
         this.contrasena = contrasena;
-        //this.inventario = Inventario.obtenerInstancia();
+        this.inventario = Inventario.getInstancia();
     }
 
-    // public Paquete obtenerPaquete(String idPaquete) {
-    //     return Inventario.obtenerInstancia().obtenerPaquete(idPaquete);
-    // }
+    public Paquete obtenerPaquete(String idPaquete) {
+        return inventario.buscarPaquete(idPaquete);
+    }
 
-    public abstract void reportarProblema(String idPaquete);
+    public abstract void reportarProblema(Paquete paquete);
 
     public static Perfil login(String agencia, String user, String pass, String rol) {
         if (agencia.equals("") || agencia.equals(null) || agencia == null || user.equals("") || user.equals(null)

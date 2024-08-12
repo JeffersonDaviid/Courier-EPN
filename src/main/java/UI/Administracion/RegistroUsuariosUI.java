@@ -62,7 +62,12 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         btn_regUsuario.setText("Registrar Transportista");
         btn_regUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_regUsuarioActionPerformed(evt);
+                try {
+                    btn_regUsuarioActionPerformed(evt);
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -179,7 +184,6 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         String apellido = field_pass2.getText();
         String correo = field_pass4.getText();
         String pass = field_pass.getText();
-        String agencia = comboBox_agencia.getSelectedItem().toString();
     
         // Comprobación de cédula ecuatoriana válida
         if (!esCedulaValida(cedula)) {
@@ -194,7 +198,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         }
     
         // Si todas las validaciones son correctas, proceder con el registro
-        usuarioActual.agregarNuevoUsuario(agencia, pass, "Transportista", cedula, nombre, apellido, correo);
+        usuarioActual.agregarNuevoUsuario(usuarioActual.getSucursal().name(), pass, "Transportista", cedula, nombre, apellido, correo);
        // JOptionPane.showMessageDialog(this, "Registro exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
 

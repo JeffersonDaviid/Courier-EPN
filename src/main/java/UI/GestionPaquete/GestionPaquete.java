@@ -4,6 +4,7 @@
  */
 package UI.GestionPaquete;
 
+import BL.Administracion.Recepcionista;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
@@ -31,13 +32,14 @@ public class GestionPaquete extends javax.swing.JPanel {
 	 */
 	private Paquete paquete;
 	private Estado estado;
-
+        private Recepcionista recepcionista;
 	private Factura factura;
 
-	public GestionPaquete() {
+	public GestionPaquete(Recepcionista recepcionista) {
 		initComponents();
 		paquete = new Paquete();
-
+        this.recepcionista = recepcionista;
+        this.recepcionista.eliminarPaqueteRegistrado();
 	}
 
 	/**
@@ -520,10 +522,9 @@ public class GestionPaquete extends javax.swing.JPanel {
 
 	private void jBaceptarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBaceptarActionPerformed
 		// TODO add your handling code here:
-		guardarPaquete();
-
-		factura = Factura.getIntancia();
-		factura.generarFactura(paquete);
+		recepcionista.generarFactura();
+                recepcionista.registrarPaqueteEnInventario();
+                recepcionista.eliminarPaqueteRegistrado();
 	}// GEN-LAST:event_jBaceptarActionPerformed
 
 	private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBCalcularActionPerformed
@@ -539,50 +540,12 @@ public class GestionPaquete extends javax.swing.JPanel {
 				jtTelefonoRemitente.getText(), jtNombreDestinatario.getText(),
 				jtCorreoDestinatario.getText(), jtTelefonoDestinatario.getText(), dirDomicilio,
 				jTFechaLlegada.getText(), jTFechasalida.getText());
-
-		factura = Factura.getIntancia();
-		factura.getPrecio().calcularPrecio(paquete);
-
+                recepcionista.registrarPaquete(paquete);
+		float precio = recepcionista.previsualizarPrecioPaquete();
+                JOptionPane.showMessageDialog(null, "Precio del paquete: " + precio);
 	}// GEN-LAST:event_jBCalcularActionPerformed
 
-	private void guardarPaquete() {
-		String nombreRemitente = jtNombreRemitente.getText();
-		String correoRemitente = jtCorreoRemitente.getText();
-		String telefonoRemitente = jtTelefonoRemitente.getText();
-		String nombreDestinatario = jtNombreDestinatario.getText();
-		String correoDestinatario = jtCorreoDestinatario.getText();
-		String telefonoDestinatario = jtTelefonoDestinatario.getText();
-		float peso = Float.parseFloat(jTpeso.getText());
-		String tamanio = (String) jComboTamanio.getSelectedItem();
-		String fechaSalida = jTFechasalida.getText();
-		String fechaLlegada = jTFechaLlegada.getText();
-		String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem();
-		String sucursalAceptoPaquete = jTsucursalAcepto.getText();
-		String sucursalParaRecoger = jTsucursalRecibe.getText();
-		String domicilio = jTdomicilio.getText();
-
-		paquete.setId(generateId());
-		paquete.setPeso(peso);
-		paquete.setTamanio(tamanio);
-		paquete.setFechaLlegada(fechaLlegada);
-		paquete.setFechaSalida(fechaSalida);
-		paquete.setNombreRemitente(nombreRemitente);
-		paquete.setCorreoRemitente(correoRemitente);
-		paquete.setTelefonoRemitente(telefonoRemitente);
-		paquete.setNombreDestinatario(nombreDestinatario);
-		paquete.setCorreoDestinatario(correoDestinatario);
-		paquete.setTelefonoDestinatario(telefonoDestinatario);
-		paquete.setDomicilio(tipoEnvio);
-		paquete.setAgenciaOrigen(sucursalAceptoPaquete);
-		paquete.setAgenciaDestino(sucursalParaRecoger);
-		paquete.setDomicilio(domicilio);
-
-		//paquete.registrarPaquete(paquete);
-		// paquete.guardarPaquete(paquete);
-
-		//paquete.guardarPaquete(paquete);
-
-	}
+	
 
 	private String generateId() {
 		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -631,13 +594,6 @@ public class GestionPaquete extends javax.swing.JPanel {
 					.log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		// </editor-fold>
-
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new GestionPaquete().setVisible(true);
-			}
-		});
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
