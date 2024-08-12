@@ -1,7 +1,15 @@
 package BL.Transporte;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import BL.Administracion.Transportista;
 import BL.Almacenamiento.Inventario;
@@ -12,6 +20,10 @@ public class GestorTransporte {
     // yo solo cambio de estado cuando se carga un paquete en un camion
     // por asi decirlo hago una copia del paqute en mi lista de paquets del camion,
     // y nunca saco el paquete de la lista de paquetes del inventario
+    private static final String FILE_NAMEC = "src\\main\\java\\BL\\Serializables\\camiones.ser";
+    private static final String FILE_NAMET = "src\\main\\java\\BL\\Serializables\\transportistas.ser";
+    private static final String FILE_NAMECT = "src\\main\\java\\BL\\Serializables\\camionTransportista.ser";
+    private static final String FILE_NAMECP = "src\\main\\java\\BL\\Serializables\\camionPaquetes.ser";
     private static GestorTransporte instancia;
     private Inventario inventario;
     private ArrayList<Camion> camiones;
@@ -20,15 +32,130 @@ public class GestorTransporte {
     private HashMap<Camion, ArrayList<Paquete>> camionPaquetes;
 
     private static int siguienteIdCamion = 1;
-
+    
     // Constructor
     private GestorTransporte() {
         this.inventario = Inventario.getInstancia();
-        this.camiones = new ArrayList<Camion>(); // metodo para cargar camiones desde .ser
-        this.transportistas = new ArrayList<Transportista>(); // metodo para cargar transportistas desde .ser
-        this.camionTransportista = new HashMap<Camion, Transportista>(); // Metodo para cargar asignacion de camiones transportistas .ser
-        this.camionPaquetes = new HashMap<Camion, ArrayList<Paquete>>(); // Metodo para cargar asignacion de paquetes a
-                                                                         // camiones .ser
+        inicializarArchivos();
+        this.camiones = loadCamiones();  // Carga camiones desde el archivo
+        this.transportistas = loadTransportistas();  // Carga transportistas desde el archivo
+        this.camionTransportista = loadCamionTransportista();  // Carga asignación de camiones a transportistas desde el archivo
+        this.camionPaquetes = loadCamionPaquete();  // Carga asignación de paquetes a camiones desde el archivo
+    }
+
+    // Método para verificar e inicializar archivos
+    private void inicializarArchivos() {
+        crearArchivoSiNoExiste(FILE_NAMEC);
+        crearArchivoSiNoExiste(FILE_NAMET);
+        crearArchivoSiNoExiste(FILE_NAMECT);
+        crearArchivoSiNoExiste(FILE_NAMECP);
+    }
+
+    // Método para crear un archivo si no existe
+    private void crearArchivoSiNoExiste(String archivo) {
+        File file = new File(archivo);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error al crear el archivo: " + archivo);
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private ArrayList<Camion> loadCamiones() {
+        // Carga los paquetes
+        try (ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream(FILE_NAMEC))) {
+            return (ArrayList<Camion>) ois1.readObject();
+        } catch (FileNotFoundException e) {
+            // File not found, which is expected for the first run
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar los camiones.");
+            e.printStackTrace();
+        }
+        return new ArrayList<Camion>();
+    }
+
+    private void saveCamiones() {
+        try (ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(FILE_NAMEC))) {
+            oos1.writeObject(camiones);
+        } catch (IOException e) {
+            System.out.println("Error al guardar los transportistas.");
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private ArrayList<Transportista> loadTransportistas() {
+        // Carga los paquetes
+        try (ObjectInputStream ois2 = new ObjectInputStream(new FileInputStream(FILE_NAMET))) {
+            return (ArrayList<Transportista>) ois2.readObject();
+        } catch (FileNotFoundException e) {
+            // File not found, which is expected for the first run
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar los camiones.");
+            e.printStackTrace();
+        }
+        return new ArrayList<Transportista>();
+    }
+
+    private void saveTransportistas() {
+        try (ObjectOutputStream oos2 = new ObjectOutputStream(new FileOutputStream(FILE_NAMET))) {
+            oos2.writeObject(transportistas);
+        } catch (IOException e) {
+            System.out.println("Error al guardar los transportistas.");
+            e.printStackTrace();
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private HashMap<Camion, Transportista> loadCamionTransportista() {
+        // Carga los paquetes
+        try (ObjectInputStream ois3 = new ObjectInputStream(new FileInputStream(FILE_NAMECT))) {
+            return (HashMap<Camion, Transportista>) ois3.readObject();
+        } catch (FileNotFoundException e) {
+            // File not found, which is expected for the first run
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar los camiones.");
+            e.printStackTrace();
+        }
+        return new HashMap<Camion, Transportista>();
+    }
+    
+    private void saveCamionTransportista() {
+        try (ObjectOutputStream ois3 = new ObjectOutputStream(new FileOutputStream(FILE_NAMECT))) {
+            ois3.writeObject(camionTransportista);
+        } catch (IOException e) {
+            System.out.println("Error al guardar camiona transportista.");
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private HashMap<Camion, ArrayList<Paquete>> loadCamionPaquete() {
+        // Carga los paquetes
+        try (ObjectInputStream ois4 = new ObjectInputStream(new FileInputStream(FILE_NAMECP))) {
+            return (HashMap<Camion, ArrayList<Paquete>>) ois4.readObject();
+        } catch (FileNotFoundException e) {
+            // File not found, which is expected for the first run
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar los camiones.");
+            e.printStackTrace();
+        }
+        return new HashMap<Camion, ArrayList<Paquete>>();
+    }
+
+    private void saveCamionPaquete() {
+        try (ObjectOutputStream oos4 = new ObjectOutputStream(new FileOutputStream(FILE_NAMECP))) {
+            oos4.writeObject(camionPaquetes);
+        } catch (IOException e) {
+            System.out.println("Error al guardar paquete a camion.");
+            e.printStackTrace();
+        }
     }
 
     // Metodo para obtener la instancia de la clase
@@ -45,11 +172,13 @@ public class GestorTransporte {
             transportistas = new ArrayList<Transportista>();
         }
         transportistas.add(transportista);
+        saveTransportistas();
     }
 
     public void eliminarTransportista(Transportista transportista) {
         if (transportistas != null) {
             transportistas.remove(transportista);
+            saveTransportistas();
         }
     }
 
@@ -67,6 +196,7 @@ public class GestorTransporte {
             camiones = new ArrayList<Camion>();
         }
         camiones.add(camion);
+        saveCamiones();
         camionPaquetes.put(camion, new ArrayList<Paquete>());
     }
 
@@ -74,6 +204,7 @@ public class GestorTransporte {
     public void eliminarCamion(Camion camion) {
         if (camiones != null) {
             camiones.remove(camion);
+            saveCamiones();
         }
     }
     // Metodo para obtener el objeto camion por placa
@@ -101,6 +232,7 @@ public class GestorTransporte {
         return null;
     }
 
+    
     // Metodo para obtener los paquetes de inventario por la ciudad de destino
     
     private ArrayList<Paquete> obtenerPaquetesPorDestino(Ubicacion destino) {
@@ -113,6 +245,8 @@ public class GestorTransporte {
         return paquetes;
     }
 
+    
+
     // Método para asignar un camión a un transportista por ID de camión y cédula de
     // transportista
     public void asignarTransportistaACamion(Transportista transportista, Camion camion) {
@@ -122,6 +256,7 @@ public class GestorTransporte {
                 camionTransportista = new HashMap<Camion, Transportista>();
             }
             camionTransportista.put(camion, transportista);
+            saveCamionTransportista();
         } else {
             System.out.println("El Camión o el Transportista no existen.");
         }
@@ -131,6 +266,7 @@ public class GestorTransporte {
     public void eliminarCamionDeTransportista(Camion camion) {
         if (camion != null && camionTransportista.containsKey(camion)) {
             camionTransportista.remove(camion);
+            saveCamionTransportista();
         } else {
             System.out.println("La relación Camión-Transportista no existe.");
         }
@@ -147,6 +283,7 @@ public class GestorTransporte {
                     // Incluir la logica para notificar a Inventario que se cambio el estado de los paquetes 
                     inventario.notificarCambioEstado(paquete.getTracking());
                 }
+                saveCamionPaquete();
                 return true;
             } else {
                 System.out.println("No hay paquetes para cargar en el camión.");
@@ -173,6 +310,7 @@ public class GestorTransporte {
                 camionPaquetes.put(camionAsignar, paquetes);
             }
             camionAsignar.incrementarCapacidadOcupada(1);
+            saveCamionPaquete();
         } else {
             System.out.println("El Camion no existe.");
         }
@@ -194,6 +332,7 @@ public class GestorTransporte {
             // cambiar el estado del paquete y retirarlo del camión
             camionPaquetes.get(camion).remove(paqueteABorrar);
             camion.reducirCapacidadOcupada(1);
+            saveCamionPaquete();
         } else {
             System.out.println("El Camión o el Paquete no existen.");
         }
@@ -222,7 +361,8 @@ public class GestorTransporte {
         return paquetes;
     }
 
-    // Metodo para obtener el camion asignado a un transportista
+	
+	// Metodo para obtener el camion asignado a un transportista
     public Camion consultarCamionAsignado (Transportista transportista) {
         if (transportista != null) {
             // Itera sobre la relación camión-transportista
@@ -236,6 +376,7 @@ public class GestorTransporte {
         }
         return null;
     }
+
 
     // Metodos para mostrar informacion
 
@@ -313,5 +454,8 @@ public class GestorTransporte {
             System.out.println("No hay camiones con paquetes.");
         }
     }
+
+    
+
 
 }
