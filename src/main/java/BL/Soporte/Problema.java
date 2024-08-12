@@ -4,10 +4,14 @@
  */
 package BL.Soporte;
 
+import BL.GestionPaquete.Paquete;
+
 /**
  *
  * @author Alex
  */
-public class Problema {
+public interface Problema {
+    void resolverReclamo();
+    double calcularReembolso(double precioPaquete);
     
 }
