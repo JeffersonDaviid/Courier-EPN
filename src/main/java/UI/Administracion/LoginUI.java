@@ -9,7 +9,6 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 import com.proyecto.courierepn.CourierEPN;
 
 import BL.Administracion.GestorPerfiles;
-import BL.Administracion.Global;
 import BL.Administracion.Perfil;
 
 import java.awt.Color;
@@ -251,7 +250,6 @@ public class LoginUI extends javax.swing.JFrame {
         usuario = GestorPerfiles.getInstance().login(user, pass, agencia, rol);
 
         if (usuario != null) {
-            Global.agenciaActual = agencia;
             JOptionPane.showMessageDialog(null, "Bienvenido " + user);
             this.setVisible(false);
             this.jTextField1.setText("");
