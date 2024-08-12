@@ -6,6 +6,7 @@ import java.util.HashMap;
 import BL.Administracion.Transportista;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
+import BL.GestionPaquete.Transportandose;
 
 public class GestorTransporte {
     // yo solo cambio de estado cuando se carga un paquete en un camion
@@ -25,8 +26,7 @@ public class GestorTransporte {
         this.inventario = Inventario.getInstancia();
         this.camiones = new ArrayList<Camion>(); // metodo para cargar camiones desde .ser
         this.transportistas = new ArrayList<Transportista>(); // metodo para cargar transportistas desde .ser
-        this.camionTransportista = new HashMap<Camion, Transportista>(); // Metodo para cargar asignacion de camiones a
-                                                                         // transportistas .ser
+        this.camionTransportista = new HashMap<Camion, Transportista>(); // Metodo para cargar asignacion de camiones transportistas .ser
         this.camionPaquetes = new HashMap<Camion, ArrayList<Paquete>>(); // Metodo para cargar asignacion de paquetes a
                                                                          // camiones .ser
     }
@@ -67,6 +67,7 @@ public class GestorTransporte {
             camiones = new ArrayList<Camion>();
         }
         camiones.add(camion);
+        camionPaquetes.put(camion, new ArrayList<Paquete>());
     }
 
     // Metodo para eliminar un objeto Camion
@@ -122,8 +123,11 @@ public class GestorTransporte {
         if (camion != null) {
             ArrayList<Paquete> paquetes = obtenerPaquetesPorDestino(destino);
             if (paquetes.size() > 0) {
-                cargarPaqueteACamion(camion, paquetes.get(0));
-                // logica para cambiar el estado del paquete
+                for (Paquete paquete : paquetes) {
+                    inventario.buscarPaquete(paquete.getTracking()).cambiarEstado(new Transportandose(paquete));
+                    cargarPaqueteACamion(camion, paquete);
+                    // Incluir la logica para notificar a Inventario que se cambio el estado de los paquetes 
+                }
                 return true;
             } else {
                 System.out.println("No hay paquetes para cargar en el camión.");
@@ -181,7 +185,7 @@ public class GestorTransporte {
     }
 
     // Método para descargar un paquete de un camión a una sucursal
-    public void descargarPaqueteDeCamion(Camion camion, String tracking) {
+    public void eliminarPaqueteAsignado(Camion camion, String tracking) {
         Paquete paqueteABorrar = null;
         // Buscar el paquete por tracking
         for (Paquete paquete : camionPaquetes.get(camion)) {
