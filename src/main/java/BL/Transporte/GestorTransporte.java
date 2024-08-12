@@ -71,14 +71,9 @@ public class GestorTransporte {
     }
 
     // Metodo para eliminar un objeto Camion
-    public void eliminarCamion(int idCamion) {
+    public void eliminarCamion(Camion camion) {
         if (camiones != null) {
-            for (Camion camion : camiones) {
-                if (camion.getIdCamion() == idCamion) {
-                    camiones.remove(camion);
-                    break;
-                }
-            }
+            camiones.remove(camion);
         }
     }
     // Metodo para obtener el objeto camion por placa
@@ -116,6 +111,29 @@ public class GestorTransporte {
             }
         }
         return paquetes;
+    }
+
+    // Método para asignar un camión a un transportista por ID de camión y cédula de
+    // transportista
+    public void asignarTransportistaACamion(Transportista transportista, Camion camion) {
+        if (camiones != null && camiones.contains(camion) && transportistas != null
+                && transportistas.contains(transportista)) {
+            if (camionTransportista == null) {
+                camionTransportista = new HashMap<Camion, Transportista>();
+            }
+            camionTransportista.put(camion, transportista);
+        } else {
+            System.out.println("El Camión o el Transportista no existen.");
+        }
+    }
+
+    // Método para eliminar un camión de un transportista por ID de camión
+    public void eliminarCamionDeTransportista(Camion camion) {
+        if (camion != null && camionTransportista.containsKey(camion)) {
+            camionTransportista.remove(camion);
+        } else {
+            System.out.println("La relación Camión-Transportista no existe.");
+        }
     }
 
     // Metodo para asignar un paquete a un camion por su ciudad de destino
@@ -160,28 +178,7 @@ public class GestorTransporte {
         }
     }
 
-    // Método para asignar un camión a un transportista por ID de camión y cédula de
-    // transportista
-    public void asignarTransportistaACamion(Transportista transportista, Camion camion) {
-        if (camiones != null && camiones.contains(camion) && transportistas != null
-                && transportistas.contains(transportista)) {
-            if (camionTransportista == null) {
-                camionTransportista = new HashMap<Camion, Transportista>();
-            }
-            camionTransportista.put(camion, transportista);
-        } else {
-            System.out.println("El Camión o el Transportista no existen.");
-        }
-    }
-
-    // Método para eliminar un camión de un transportista por ID de camión
-    public void eliminarCamionDeTransportista(Camion camion) {
-        if (camion != null && camionTransportista.containsKey(camion)) {
-            camionTransportista.remove(camion);
-        } else {
-            System.out.println("La relación Camión-Transportista no existe.");
-        }
-    }
+   
 
     // Método para descargar un paquete de un camión a una sucursal
     public void eliminarPaqueteAsignado(Camion camion, String tracking) {
@@ -200,6 +197,29 @@ public class GestorTransporte {
         } else {
             System.out.println("El Camión o el Paquete no existen.");
         }
+    }
+
+    // metodo para obtener la lista de paquetes que tiene asignado un transportista
+
+    public ArrayList<Paquete> consultarAsignacionPaquetes(Transportista transportista) {
+        ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
+
+        if (transportista != null) {
+            // Itera sobre la relación camión-transportista
+            for (Camion camion : camionTransportista.keySet()) {
+                if (camionTransportista.get(camion).equals(transportista)) {
+                    // Si el transportista está asignado a este camión, añade los paquetes del
+                    // camión a la lista
+                    if (camionPaquetes.containsKey(camion)) {
+                        paquetes.addAll(camionPaquetes.get(camion));
+                    }
+                }
+            }
+        } else {
+            System.out.println("El transportista proporcionado es nulo.");
+        }
+
+        return paquetes;
     }
 
     // Metodos para mostrar informacion
