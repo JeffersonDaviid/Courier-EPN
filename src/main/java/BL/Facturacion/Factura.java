@@ -67,7 +67,7 @@ public class Factura {
         JOptionPane.showMessageDialog(null, "No se encontro la factura");
     }
 
-    public void procesarDevolucion(String id, String observacion) {
+    public void actualizarFactura(String id, String observacion) {
         for (Factura factura : facturas) {
             if (factura.getPaquete().getId().equals(id)) {
                 factura.setObservacion(observacion);
