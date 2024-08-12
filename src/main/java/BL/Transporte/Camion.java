@@ -13,13 +13,12 @@ public class Camion implements Serializable {
     private int capacidadCarga;
     private int capacidadOcupada;
     private boolean disponibilidad; // 1 libre y 0 ocupado
-    private Ubicacion ubicacionOrigen;
     private Ubicacion ubicacionDestino;
 
     // constructor
 
     public Camion(int idCamion, String placa, String modelo, String marca,
-            boolean disponibilidad, Ubicacion ubicacionOrigen, Ubicacion ubicacionDestino) {
+            boolean disponibilidad, Ubicacion ubicacionDestino) {
         this.idCamion = idCamion;
         this.placa = placa;
         this.modelo = modelo;
@@ -27,7 +26,6 @@ public class Camion implements Serializable {
         this.capacidadCarga = 50;
         this.capacidadOcupada = 0;
         this.disponibilidad = disponibilidad;
-        this.ubicacionOrigen = ubicacionOrigen;
         this.ubicacionDestino = ubicacionDestino;
     }
 
@@ -39,14 +37,11 @@ public class Camion implements Serializable {
         this.capacidadCarga = 0;
         this.capacidadOcupada = 0;
         this.disponibilidad = true;
-        this.ubicacionOrigen = null;
         this.ubicacionDestino = null;
     }
 
     public void viajar() {
-        Ubicacion temp = this.ubicacionOrigen;
-        this.ubicacionOrigen = this.ubicacionDestino;
-        this.ubicacionDestino = temp;
+        
     }
 
     public void incrementarCapacidadOcupada(int cantidad) {
@@ -121,13 +116,6 @@ public class Camion implements Serializable {
         this.disponibilidad = disponibilidad;
     }
 
-    public Ubicacion getUbicacionOrigen() {
-        return ubicacionOrigen;
-    }
-
-    public void setUbicacionOrigen(Ubicacion ubicacionOrigen) {
-        this.ubicacionOrigen = ubicacionOrigen;
-    }
 
     public Ubicacion getUbicacionDestino() {
         return ubicacionDestino;
