@@ -13,9 +13,13 @@ public class GestorFacturas {
     private ArrayList<Factura> facturas = new ArrayList<>();
     private Factura factura = new Factura();
 
+    private GestorFacturas(){
+    }
+
     public static GestorFacturas getInstancia() {
         if (gestorFacturas == null) {
-            return new GestorFacturas();
+            gestorFacturas = new GestorFacturas();
+            return gestorFacturas;
         }
         return gestorFacturas;
     }
