@@ -208,6 +208,4 @@ public class Inventario implements Serializable {
         }
         return paquetesParaEnvio;
     }
-
-    public getPaquetes
 }

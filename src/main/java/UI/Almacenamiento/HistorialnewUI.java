@@ -4,29 +4,21 @@
  */
 package UI.Almacenamiento;
 
-import BL.Administracion.Global;
-import BL.Almacenamiento.Historial;
-import BL.Almacenamiento.Registro;
-import java.util.ArrayList;
-import java.util.List;
+import BL.Almacenamiento.Inventario;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author user
  */
 public class HistorialnewUI extends javax.swing.JPanel {
-    private Historial historial;
 
     /**
      * Creates new form HistorialnewUI
      */
     public HistorialnewUI() {
-        historial = new Historial();
-
         initComponents();
-        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().getHistorial().consultar(-1);
+        this.tablaHistorial1.setModel(Inventario.getInstancia().getHistorial().mostrarHistorial(-1,""));
     }
 
     /**
@@ -153,44 +145,13 @@ public class HistorialnewUI extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-     
-    Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().getHistorial().consultar(-1);
-     String filterType = (String) comboBoxFiltrarHistorial1.getSelectedItem();
-        String filterValue = escribirFiltro1.getText();
-
-        if (!filterValue.isEmpty()) {
-            List<Registro> resultadosFiltrados;
-            switch (filterType) {
-                case "Id Paquete":
-                    resultadosFiltrados = historial.filtrarHistorial(filterValue, null, null, null);
-                    break;
-                case "Fecha Ingreso":
-                    resultadosFiltrados = historial.filtrarHistorial(null, filterValue, null, null);
-                    break;
-                case "Fecha Salida":
-                    resultadosFiltrados = historial.filtrarHistorial(null, null, filterValue, null);
-                    break;
-                case "Agencia":
-                    resultadosFiltrados = historial.filtrarHistorial(null, null, null, filterValue);
-                    break;
-                default:
-                    resultadosFiltrados = new ArrayList<>();
-            }
-            actualizarTabla(resultadosFiltrados);
+        if (escribirFiltro1.getText() == "") {
+            this.tablaHistorial1.setModel(Inventario.getInstancia().getHistorial().mostrarHistorial(comboBoxFiltrarHistorial1.getSelectedIndex(),escribirFiltro1.getText()));
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor para filtrar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void actualizarTabla(List<Registro> registros) {
-        DefaultTableModel model = (DefaultTableModel) tablaHistorial1.getModel();
-        model.setRowCount(0); // Limpia las filas existentes
-
-        for (Registro registro : registros) {
-            model.addRow(new Object[] {registro.getIdPaquete(), registro.getFechaIngreso(), registro.getFechaSalida()});
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBoxFiltrarHistorial1;
