@@ -1,90 +1,31 @@
 package BL.Facturacion;
 
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import BL.GestionPaquete.Paquete;
-import UI.Facturacion.FacturaUI;
 
 public class Factura {
-    private int idFactura;
     private String fechaRegistro;
     private String fechaActualizacion;
     private String observacion;
-    private static Factura factura = new Factura();
-    private static ArrayList<Factura> facturas = new ArrayList<>();
     private Paquete paquete;
     private Precio precio = new Precio();
 
-    private Factura() {
+    public Factura() {
     }
 
-    public static Factura getIntancia() {
-        if (factura == null) {
-            return new Factura();
-        }
-        return factura;
-    }
+    // public Factura(Paquete paquete) {
+    // this.paquete = paquete;
+    // this.fechaRegistro = String.format("%tF %tT", new java.util.Date(), new
+    // java.util.Date());
+    // this.fechaActualizacion = String.format("%tF %tT", new java.util.Date(), new
+    // java.util.Date());
+    // this.observacion = "";
+    // precio.calcularPrecio(paquete);
 
-    public void generarFactura(Paquete paquet) {
-        fechaRegistro = (String.format("%tF %tT", new java.util.Date(), new java.util.Date()));
-
-        this.paquete = paquet;
-        facturas.add(this);
-
-        FacturaUI facturaUI = new FacturaUI(factura);
-        facturaUI.setSize(380, 490);
-        facturaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        facturaUI.setLocationRelativeTo(null);
-        facturaUI.setVisible(true);
-
-        int i = 1;
-        for (Factura factura : facturas) {
-            System.out.println(i + ": " + factura.getPrecio().getTotal());
-            i++;
-        }
-
-    }
-
-    /**
-     * 
-     * @param codigo puede ser el ID de la factura o el ID del paquete
-     * @return
-     */
-    public void buscarFactura(String codigo) {
-        for (Factura factura : facturas) {
-            if (factura.getPaquete().getId().equals(codigo)) {
-                FacturaUI facturaUI = new FacturaUI(factura);
-                facturaUI.setSize(380, 490);
-                facturaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                facturaUI.setLocationRelativeTo(null);
-                facturaUI.setVisible(true);
-                return;
-            }
-        }
-        JOptionPane.showMessageDialog(null, "No se encontro la factura");
-    }
+    // }
 
     public void actualizarFactura(String id, String observacion) {
-        for (Factura factura : facturas) {
-            if (factura.getPaquete().getId().equals(id)) {
-                factura.setObservacion(observacion);
-                factura.setFechaActualizacion(String.format("%tF %tT", new java.util.Date(), new java.util.Date()));
-
-                FacturaUI facturaUI = new FacturaUI(factura);
-                facturaUI.setSize(380, 490);
-                facturaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                facturaUI.setLocationRelativeTo(null);
-                facturaUI.setVisible(true);
-                return;
-            }
-        }
-    }
-
-    public int getIdFactura() {
-        return idFactura;
+        this.observacion = observacion;
+        this.fechaActualizacion = String.format("%tF %tT", new java.util.Date(), new java.util.Date());
     }
 
     public String getFechaRegistro() {
@@ -113,6 +54,14 @@ public class Factura {
 
     public void setFechaActualizacion(String fechaActualizacion) {
         this.fechaActualizacion = fechaActualizacion;
+    }
+
+    public void setPaquete(Paquete paquete) {
+        this.paquete = paquete;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
 }
