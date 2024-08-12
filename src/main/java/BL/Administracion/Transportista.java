@@ -1,5 +1,6 @@
 package BL.Administracion;
 
+import BL.GestionPaquete.Entregado;
 import BL.GestionPaquete.Paquete;
 import BL.Transporte.GestorTransporte;
 
@@ -26,8 +27,8 @@ public class Transportista extends Perfil {
 
     public void entregarPaquete(String idPaquete){
         Paquete paquete = inventario.buscarPaquete(idPaquete);
-        paquete.setEstado(new Entregado());
+        paquete.setEstado(new Entregado(paquete));
         inventario.guardarInventario();
-        GestirTransporte.getInstancia().eliminarPaqueteAsignado(paquete, this);
+        GestorTransporte.getInstancia().eliminarPaqueteAsignado(paquete, this);
     }
 }
