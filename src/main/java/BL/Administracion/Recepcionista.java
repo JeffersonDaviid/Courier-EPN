@@ -6,8 +6,6 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
-import BL.Almacenamiento.Inventario;
-import BL.Facturacion.Factura;
 import BL.Facturacion.GestorFacturas;
 import BL.GestionPaquete.Paquete;
 import BL.Transporte.Camion;
@@ -17,15 +15,11 @@ import BL.Transporte.Ubicacion;
 public class Recepcionista extends Perfil{
     private Paquete paqueteEnRegistro;
     private Ubicacion sucursal;
-    private GestorTransporte transporte;
-    private GestorFacturas facturacion;
 
     public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena,
             Ubicacion agencia) {
         super(nombre, apellido, cedula, correo, contrasena);
         sucursal = agencia;
-        transporte = GestorTransporte.getInstancia();
-        facturacion = GestorFacturas.getInstancia();
     }
 
     public void registrarPaquete(Paquete paquete){
@@ -46,20 +40,20 @@ public class Recepcionista extends Perfil{
     }
 
     public float previsualizarPrecioPaquete(){
-        float precio = facturacion.geFactura().getPrecio().calcularPrecio(paqueteEnRegistro);
+        float precio = GestorFacturas.getInstancia().geFactura().getPrecio().calcularPrecio(paqueteEnRegistro);
         return precio;
     }
 
     public void generarFactura(){
-        facturacion.generarFactura(paqueteEnRegistro);
+        GestorFacturas.getInstancia().generarFactura(paqueteEnRegistro);
     }
 
     public void asignarTransportistaACamion(Transportista transportista, Camion camion){
-        transporte.asignarTransportistaACamion(transportista, camion);
+        GestorTransporte.getInstancia().asignarTransportistaACamion(transportista, camion);
     }
     
     public boolean asignarPaqueteACamion(Camion camion, Ubicacion destino){
-        return transporte.asignarPaqueteACamion(camion, destino);
+        return GestorTransporte.getInstancia().asignarPaqueteACamion(camion, destino);
     }
 
     public ArrayList<Paquete> obtenerPaquetes() {
@@ -93,15 +87,15 @@ public class Recepcionista extends Perfil{
 
     public void agregarCamion(String placa, String modelo, String marca, boolean disponibilidad,
     Ubicacion ubicacionProvincia) {
-        transporte.registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia);
+        GestorTransporte.getInstancia().registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia);
     }
 
     public void eliminarCamion(int idCamion) {
-        transporte.eliminarCamion(idCamion);
+        GestorTransporte.getInstancia().eliminarCamion(idCamion);
     }
 
     public void eliminarTransportista(String cedula) throws ClassNotFoundException {
-        transporte.eliminarTransportista((Transportista)GestorPerfiles.getInstance().obtenerTransportistaPorCedula(cedula));
+        GestorTransporte.getInstancia().eliminarTransportista((Transportista)GestorPerfiles.getInstance().obtenerTransportistaPorCedula(cedula));
     }
     
     public Paquete getPaqueteEnRegistro() {
