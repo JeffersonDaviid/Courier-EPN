@@ -1,5 +1,11 @@
 package BL.Almacenamiento;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,24 +14,65 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-import BL.Administracion.Global;
+import BL.GestionPaquete.EnBodega;
 import BL.GestionPaquete.Paquete;
 
 public class Inventario implements Serializable {
+    private static final String FILE_NAME_PAQUETES = "src\\main\\java\\BL\\Serializables\\paquetes.ser";
+    private static final String FILE_NAME_HISTORIAL = "src\\main\\java\\BL\\Serializables\\historial.ser";
     private static Inventario inventario;
     private Map<String, Paquete> paquetes;
     private Historial historial;
     private int diasMaximo;
 
+
     private Inventario() {
         this.diasMaximo = 15;
         this.paquetes = new HashMap<String, Paquete>();
         this.historial = new Historial();
+        loadInventario();
+    }
+
+    @SuppressWarnings("unchecked")
+    private void loadInventario() {
+        // Carga los paquetes
+        try (ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream(FILE_NAME_PAQUETES))) {
+            paquetes = (Map<String, Paquete>) ois1.readObject();
+        } catch (FileNotFoundException e) {
+            // File not found, which is expected for the first run
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar los Paquetes.");
+            e.printStackTrace();
+        }
+        //Carga el Historial
+        try (ObjectInputStream ois2 = new ObjectInputStream(new FileInputStream(FILE_NAME_HISTORIAL))) {
+            historial = (Historial) ois2.readObject();
+        } catch (FileNotFoundException e) {
+            // File not found, which is expected for the first run
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar el Historial.");
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private void saveInventario(){
+        //Guarda los paquetes
+        try (ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(FILE_NAME_PAQUETES))) {
+            oos1.writeObject(paquetes);
+        } catch (IOException e) {
+            System.out.println("Error al guardar los perfiles.");
+            e.printStackTrace();
+        }
+        //Guarda el historial
+        try (ObjectOutputStream oos2 = new ObjectOutputStream(new FileOutputStream(FILE_NAME_HISTORIAL))) {
+            oos2.writeObject(historial);
+        } catch (IOException e) {
+            System.out.println("Error al guardar los perfiles.");
+            e.printStackTrace();
+        }
     }
 
     public static Inventario getInstancia() {
@@ -37,15 +84,15 @@ public class Inventario implements Serializable {
 
     // Metodo que ingresar un paquete
     public void agregarPaquete(Paquete paquete) {
-        paquetes.put(paquete.getId(), paquete);
+        paquetes.put(paquete.getTracking(), paquete);
         //paquete.cambiarEstado(new EnBodega());
-        ingresarRegistro(paquete, paquete.getAgenciaOrigen());
+        ingresarRegistro(paquete, paquete.getSucursalOrigen());
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // Metodo que guarda el ingreso de un paquete al invetario para el Historial
     private void ingresarRegistro(Paquete paquete, String agencia) {
-        historial.registrarRegistro(new Registro(getFecha(), agencia, paquete.getId()));
+        historial.registrarRegistro(new Registro(getFecha(), agencia, paquete.getTracking()));
     }
 
     //Metodo que buscar un paquete en todo el inventario
@@ -93,7 +140,7 @@ public class Inventario implements Serializable {
     // Metodo que muestra todos los paquetes del inventario
     public DefaultTableModel mostrarPaquetes(int index) {
         DefaultTableModel model = new DefaultTableModel();
-        String[] columnas = { "ID", "Peso","Tamaño","Remitente","Destinatario","Agencia de Origen", "Agencia de Destino", "Estado", "Tiempo Restante" };
+        String[] columnas = { "ID", "Peso","Tamaño","Remitente","Destinatario","Sucursal de Origen", "Sucursal de Destino", "Estado", "Tiempo Restante" };
         int cntidadCol = columnas.length;
         for (int i = 0; i < cntidadCol; i++) {
             model.addColumn(columnas[i]);
@@ -101,15 +148,16 @@ public class Inventario implements Serializable {
         Collection<Paquete> paquetes;
         paquetes = this.paquetes.values();
         for (Paquete p : paquetes) {
-            model.addRow(new Object[] { p.getId(),
+            model.addRow(new Object[] { 
+                    p.getTracking(),
                     p.getPeso(),
                     p.getTamanio(),
-                    p.getNombreRemitente(),
-                    p.getNombreDestinatario(),
-                    p.getAgenciaOrigen(),
-                    p.getAgenciaDestino(),
-                    p.getHistorialEstado().get(p.getHistorialEstado().size() - 1).getEstado(),
-                    calcularFechaLimite(historial.getRegistro(p.getId()).getFechaIngreso())});
+                    p.getCliente(),
+                    "p.getNombreDestinatario()",
+                    p.getSucursalOrigen(),
+                    p.getSucursalDestino(),
+                    p.getEstado().toString(),
+                    calcularFechaLimite(historial.getRegistro(p.getTracking()).getFechaIngreso())});
         }
         return model;
     }
@@ -117,7 +165,7 @@ public class Inventario implements Serializable {
     public ArrayList<Paquete> getPaquetesParaEntregar(){
         ArrayList<Paquete> paquetesParaEnvio = new ArrayList<>();
         for(Paquete paquete: paquetes.values()){
-            if(paquete.getEstado() == "En bodega"){
+            if(paquete.getEstado() instanceof EnBodega){
                 paquetesParaEnvio.add(paquete);
             }
         }
