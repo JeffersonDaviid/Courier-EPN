@@ -456,7 +456,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_registrocli1ActionPerformed
 
     private void btn_regCamion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamion2ActionPerformed
-        // TODO add your handling code here:
+       //RECLAMOS
     }//GEN-LAST:event_btn_regCamion2ActionPerformed
 
     /**
