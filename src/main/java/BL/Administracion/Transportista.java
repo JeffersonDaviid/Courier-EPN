@@ -1,8 +1,6 @@
 package BL.Administracion;
 
-import BL.GestionPaquete.Entregado;
 import BL.GestionPaquete.Paquete;
-import BL.Transporte.GestorTransporte;
 
 public class Transportista extends Perfil {
 

@@ -121,6 +121,7 @@ public class GestorPerfiles {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     private void loadPerfiles() {
         File file = new File(FILE_NAME);
         if (!file.exists() || file.length() == 0) {

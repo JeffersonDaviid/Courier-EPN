@@ -2,7 +2,6 @@ package BL.Administracion;
 
 import java.io.Serializable;
 
-import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
