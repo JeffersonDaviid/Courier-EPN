@@ -113,6 +113,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
         btn_regCamion1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         registrocli1 = new javax.swing.JButton();
+        btn_regCamion2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -281,6 +282,16 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
+        btn_regCamion2.setBackground(new java.awt.Color(21, 101, 192));
+        btn_regCamion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn_regCamion2.setForeground(new java.awt.Color(255, 255, 255));
+        btn_regCamion2.setText("Reclamos");
+        btn_regCamion2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_regCamion2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regCamion2ActionPerformed(evt);
+            }
+        });
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -298,6 +309,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
             .addComponent(btn_regCamion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_env, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_regCamion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_regCamion2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -309,6 +321,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(registrocli1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
+        
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -342,6 +355,8 @@ public class MenuModulosUI extends javax.swing.JFrame {
                 .addComponent(btn_seguimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_regCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_regCamion2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED) 
                 .addComponent(btn_regCamion1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -440,6 +455,10 @@ public class MenuModulosUI extends javax.swing.JFrame {
         showPanel(new RegistroClientesUI((Recepcionista)usuario));
     }//GEN-LAST:event_registrocli1ActionPerformed
 
+    private void btn_regCamion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamion2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_regCamion2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -468,6 +487,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     private javax.swing.JButton btn_paquetes1;
     private javax.swing.JButton btn_regCamion;
     private javax.swing.JButton btn_regCamion1;
+    private javax.swing.JButton btn_regCamion2;
     private javax.swing.JButton btn_seguimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
