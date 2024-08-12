@@ -30,7 +30,7 @@ public abstract class Perfil implements Serializable {
         return inventario.buscarPaquete(idPaquete);
     }
 
-    public abstract void reportarProblema(Paquete paquete, String problema);
+    public abstract void reportarProblema(String idPaquete, String problema);
 
     public String getCedula() {
         return cedula;
