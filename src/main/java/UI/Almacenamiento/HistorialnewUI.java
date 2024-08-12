@@ -4,6 +4,7 @@
  */
 package UI.Almacenamiento;
 
+import BL.Administracion.Recepcionista;
 import BL.Almacenamiento.Inventario;
 import javax.swing.JOptionPane;
 
@@ -16,8 +17,10 @@ public class HistorialnewUI extends javax.swing.JPanel {
     /**
      * Creates new form HistorialnewUI
      */
-    public HistorialnewUI() {
+    Recepcionista recepcionista;
+    public HistorialnewUI(Recepcionista recepcionista) {
         initComponents();
+        this.recepcionista = recepcionista;
         this.tablaHistorial1.setModel(Inventario.getInstancia().getHistorial().mostrarHistorial(-1,""));
     }
 

@@ -405,7 +405,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cargaActionPerformed
 
     private void btn_histActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_histActionPerformed
-        showPanel(new HistorialnewUI());
+        showPanel(new HistorialnewUI((Recepcionista)usuario));
     }//GEN-LAST:event_btn_histActionPerformed
 
     private void btn_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adminActionPerformed
@@ -419,7 +419,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_paquetes1ActionPerformed
 
     private void btn_invActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_invActionPerformed
-        showPanel(new InventarioUI());        // TODO add your handling code here:
+        showPanel(new InventarioUI((Recepcionista)usuario));        // TODO add your handling code here:
     }//GEN-LAST:event_btn_invActionPerformed
 
     private void btn_envActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_envActionPerformed

@@ -1,5 +1,6 @@
 package UI.Almacenamiento;
 
+import BL.Administracion.Recepcionista;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
 import java.util.ArrayList;
@@ -14,8 +15,10 @@ public class InventarioUI extends javax.swing.JPanel {
     /**
      * Creates new form InventarioUI
      */
-    public InventarioUI() {
+    Recepcionista recepcionista;
+    public InventarioUI(Recepcionista recepcionista) {
         initComponents();
+        this.recepcionista = recepcionista;
         this.jTablePaquetes.setModel(Inventario.getInstancia().mostrarPaquetes(0));
     }
         
