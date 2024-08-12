@@ -19,7 +19,7 @@ public class InventarioUI extends javax.swing.JPanel {
     public InventarioUI(Recepcionista recepcionista) {
         initComponents();
         this.recepcionista = recepcionista;
-        this.jTablePaquetes.setModel(Inventario.getInstancia().mostrarPaquetes(0));
+        this.jTablePaquetes.setModel(recepcionista.mostrarPaquetes(0));
     }
         
     /**
@@ -367,7 +367,7 @@ public class InventarioUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jTablePaquetesMouseClicked
 
     private void jComboBFiltroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBFiltroConsultaActionPerformed
-        this.jTablePaquetes.setModel(Inventario.getInstancia().mostrarPaquetes(this.jComboBFiltroConsulta.getSelectedIndex()));
+        this.jTablePaquetes.setModel(recepcionista.mostrarPaquetes(this.jComboBFiltroConsulta.getSelectedIndex()));
     }//GEN-LAST:event_jComboBFiltroConsultaActionPerformed
 
     private void jBCancelarcargaRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarcargaRecepcionActionPerformed
@@ -384,7 +384,7 @@ public class InventarioUI extends javax.swing.JPanel {
 
     private void jTFidcargaRecepcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidcargaRecepcionKeyReleased
         String id = this.jTFidcargaRecepcion.getName();
-        ArrayList<Paquete> paquetes_consulta = Inventario.getInstancia().getPaquetesInventario();
+        ArrayList<Paquete> paquetes_consulta = recepcionista.obtenerPaquetes();
 
         Paquete paqueteEncontrado = null;
         for (Paquete paquete : paquetes_consulta) {

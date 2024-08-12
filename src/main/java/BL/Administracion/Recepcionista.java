@@ -3,6 +3,7 @@ package BL.Administracion;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import BL.Facturacion.GestorFacturas;
 import BL.GestionPaquete.Paquete;
@@ -19,44 +20,6 @@ public class Recepcionista extends Perfil{
             Ubicacion agencia) {
         super(nombre, apellido, cedula, correo, contrasena, telefono);
         sucursal = agencia;
-    }
-
-    public void registrarPaquete(Paquete paquete){
-        paqueteEnRegistro = paquete;
-        //Inventario.obtenerInstancia().agregarPaquete(paquete);
-    }
-
-    public void eliminarPaqueteRegistrado() {
-        paqueteEnRegistro = null;
-    }
-
-    public void registrarPaqueteEnInventario(){
-        inventario.agregarPaquete(paqueteEnRegistro);
-    }
-
-    public void consultarSeguimientoPaquete(String idPaquete){
-        //Logica para llamar a Seguimiento
-    }
-
-    public float previsualizarPrecioPaquete(){
-        float precio = GestorFacturas.getInstancia().geFactura().getPrecio().calcularPrecio(paqueteEnRegistro);
-        return precio;
-    }
-
-    public void generarFactura(){
-        GestorFacturas.getInstancia().generarFactura(paqueteEnRegistro);
-    }
-
-    public void asignarTransportistaACamion(Transportista transportista, Camion camion){
-        GestorTransporte.getInstancia().asignarTransportistaACamion(transportista, camion);
-    }
-    
-    public boolean asignarPaqueteACamion(Camion camion, Ubicacion destino){
-        return GestorTransporte.getInstancia().asignarPaqueteACamion(camion, destino);
-    }
-
-    public ArrayList<Paquete> obtenerPaquetes() {
-        return inventario.getPaquetesInventario();
     }
 
     // Método para agregar un nuevo usuario a la lista
@@ -80,6 +43,52 @@ public class Recepcionista extends Perfil{
         JOptionPane.showMessageDialog(null, "Registro exitoso");
     }
 
+    public Paquete getPaqueteEnRegistro() {
+        return paqueteEnRegistro;
+    }
+
+    public Ubicacion getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(Ubicacion sucursal) {
+        this.sucursal = sucursal;
+    }
+
+    public void registrarPaquete(Paquete paquete){
+        paqueteEnRegistro = paquete;
+        //Inventario.obtenerInstancia().agregarPaquete(paquete);
+    }
+
+    public void eliminarPaqueteRegistrado() {
+        paqueteEnRegistro = null;
+    }
+
+    public void registrarPaqueteEnInventario(){
+        inventario.agregarPaquete(paqueteEnRegistro);
+    }
+
+    public float previsualizarPrecioPaquete(){
+        float precio = GestorFacturas.getInstancia().geFactura().getPrecio().calcularPrecio(paqueteEnRegistro);
+        return precio;
+    }
+
+    public void generarFactura(){
+        GestorFacturas.getInstancia().generarFactura(paqueteEnRegistro);
+    }
+
+    public void asignarTransportistaACamion(Transportista transportista, Camion camion){
+        GestorTransporte.getInstancia().asignarTransportistaACamion(transportista, camion);
+    }
+    
+    public boolean asignarPaqueteACamion(Camion camion, Ubicacion destino){
+        return GestorTransporte.getInstancia().asignarPaqueteACamion(camion, destino);
+    }
+
+    public ArrayList<Paquete> obtenerPaquetes() {
+        return inventario.getPaquetesInventario();
+    }
+
     public void agregarCamion(String placa, String modelo, String marca, boolean disponibilidad,
     Ubicacion ubicacionProvincia) {
         GestorTransporte.getInstancia().registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia);
@@ -92,18 +101,12 @@ public class Recepcionista extends Perfil{
     public void eliminarTransportista(String cedula) throws ClassNotFoundException {
         GestorTransporte.getInstancia().eliminarTransportista((Transportista)GestorPerfiles.getInstance().obtenerTransportistaPorCedula(cedula));
     }
+
+    public DefaultTableModel mostrarPaquetes(int index){
+        return inventario.mostrarPaquetes(index);
+    }
     
-    public Paquete getPaqueteEnRegistro() {
-        return paqueteEnRegistro;
-    }
-
-    public Ubicacion getSucursal() {
-        return sucursal;
-    }
-
-    public void setSucursal(Ubicacion sucursal) {
-        this.sucursal = sucursal;
-    }
+    
 
     @Override
     public void reportarProblema(Paquete paquete) {
