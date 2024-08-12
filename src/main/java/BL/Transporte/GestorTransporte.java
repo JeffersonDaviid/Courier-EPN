@@ -107,11 +107,11 @@ public class GestorTransporte {
     }
 
     // Metodo para obtener los paquetes de inventario por la ciudad de destino
-    @SuppressWarnings("unlikely-arg-type")
+    
     private ArrayList<Paquete> obtenerPaquetesPorDestino(Ubicacion destino) {
         ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
         for (Paquete paquete : inventario.getPaquetesParaEntregar()) {
-            if (paquete.getSucursalDestino().equals(destino)) {
+            if (paquete.getSucursalDestino().equals(destino.name())) {
                 paquetes.add(paquete);
             }
         }
@@ -147,15 +147,13 @@ public class GestorTransporte {
             if (camionPaquetes.containsKey(camionAsignar)) {
                 // anadir logica para cambiar estado de paquete
                 camionPaquetes.get(camionAsignar).add(paqueteAsignar);
-                camionAsignar.incrementarCapacidadOcupada(camionAsignar.getCapacidadOcupada() + 1);
             } else {
                 ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
                 // anadir logica para cambiar estado de paquete
                 paquetes.add(paqueteAsignar);
                 camionPaquetes.put(camionAsignar, paquetes);
-                camionAsignar.incrementarCapacidadOcupada(camionAsignar.getCapacidadOcupada() + 1);
-
             }
+            camionAsignar.incrementarCapacidadOcupada(1);
         } else {
             System.out.println("El Camion no existe.");
         }
@@ -197,7 +195,7 @@ public class GestorTransporte {
         if (camion != null && paqueteABorrar != null) {
             // cambiar el estado del paquete y retirarlo del camión
             camionPaquetes.get(camion).remove(paqueteABorrar);
-            camion.reducirCapacidadOcupada(camion.getCapacidadOcupada() - 1);
+            camion.reducirCapacidadOcupada(1);
         } else {
             System.out.println("El Camión o el Paquete no existen.");
         }
@@ -206,11 +204,15 @@ public class GestorTransporte {
     // Metodos para mostrar informacion
 
     public void mostrarCamiones() {
-        if (camiones != null) {
+        if (camiones != null && !camiones.isEmpty()) {
             for (Camion camion : camiones) {
-                System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo() + ", Marca: "
-                        + camion.getMarca() + ", Disponibilidad: " + camion.isDisponibilidad() + ", Provincia: "
-                        + camion.getUbicacion());
+                System.out.println("Placa: " + camion.getPlaca()
+                        + ", Modelo: " + camion.getModelo()
+                        + ", Marca: " + camion.getMarca()
+                        + ", Disponibilidad: " + camion.isDisponibilidad()
+                        + ", Provincia: " + camion.getUbicacion()
+                        + ", Capacidad Total: " + camion.getCapacidadCarga()
+                        + ", Capacidad Ocupada: " + camion.getCapacidadOcupada());
             }
         } else {
             System.out.println("No hay camiones registrados.");
@@ -218,9 +220,13 @@ public class GestorTransporte {
     }
 
     public void mostrarTransportistas() {
-        if (transportistas != null) {
+        if (transportistas != null && !transportistas.isEmpty()) {
             for (Transportista transportista : transportistas) {
-                System.out.println("Nombre: " + transportista.getNombre() + ", Cedula: ");
+                System.out.println("Nombre: " + transportista.getNombre()
+                        + ", Apellido: " + transportista.getApellido()
+                        + ", Cédula: " + transportista.getCedula()
+                        + ", Correo: " + transportista.getCorreo()
+                        + ", Contraseña: " + transportista.getContrasena());
             }
         } else {
             System.out.println("No hay transportistas registrados.");
@@ -228,10 +234,18 @@ public class GestorTransporte {
     }
 
     public void mostrarCamionesTransportistas() {
-        if (camionTransportista != null) {
+        if (camionTransportista != null && !camionTransportista.isEmpty()) {
             for (Camion camion : camionTransportista.keySet()) {
-                System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo()
-                        + ", Transportista: " + camionTransportista.get(camion).getNombre());
+                Transportista transportista = camionTransportista.get(camion);
+                System.out.println("Placa: " + camion.getPlaca()
+                        + ", Modelo: " + camion.getModelo()
+                        + ", Marca: " + camion.getMarca()
+                        + ", Disponibilidad: " + camion.isDisponibilidad()
+                        + ", Provincia: " + camion.getUbicacion()
+                        + ", Transportista: " + transportista.getNombre()
+                        + " " + transportista.getApellido()
+                        + ", Cédula: " + transportista.getCedula()
+                        + ", Correo: " + transportista.getCorreo());
             }
         } else {
             System.out.println("No hay camiones asignados a transportistas.");
@@ -239,11 +253,24 @@ public class GestorTransporte {
     }
 
     public void mostrarCamionesPaquetes() {
-        if (camionPaquetes != null) {
+        if (camionPaquetes != null && !camionPaquetes.isEmpty()) {
             for (Camion camion : camionPaquetes.keySet()) {
-                System.out.println("Placa: " + camion.getPlaca() + ", Modelo: " + camion.getModelo());
+                System.out.println("Placa: " + camion.getPlaca()
+                        + ", Modelo: " + camion.getModelo()
+                        + ", Marca: " + camion.getMarca()
+                        + ", Disponibilidad: " + camion.isDisponibilidad()
+                        + ", Provincia: " + camion.getUbicacion()
+                        + ", Capacidad Total: " + camion.getCapacidadCarga()
+                        + ", Capacidad Ocupada: " + camion.getCapacidadOcupada());
                 for (Paquete paquete : camionPaquetes.get(camion)) {
-                    System.out.println("Paquete: " + paquete.getTracking());
+                    System.out.println("  Paquete Tracking: " + paquete.getTracking()
+                            + ", Peso: " + paquete.getPeso()
+                            + ", Tamaño: " + paquete.getTamanio()
+                            + ", Cliente: " + paquete.getCliente()
+                            + ", Sucursal Origen: " + paquete.getSucursalOrigen()
+                            + ", Sucursal Destino: " + paquete.getSucursalDestino()
+                            + ", Dirección: " + paquete.getDireccion()
+                            + ", Estado: " + paquete.getEstado());
                 }
             }
         } else {
