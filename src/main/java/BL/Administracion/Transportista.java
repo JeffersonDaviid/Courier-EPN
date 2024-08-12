@@ -11,9 +11,9 @@ public class Transportista extends Perfil {
         //TODO Auto-generated constructor stub
     }
 
-    public ArrayList<Paquete> consultarAsignacionPaquetes(){
-        return GestorTransporte.getInstancia().consultarAsignacionPaquetes(this);
-    }
+    // public ArrayList<Paquete> consultarAsignacionPaquetes(){
+    //     return GestorTransporte.getInstancia().consultarAsignacionPaquetes(this);
+    // }
 
     public void registrarEntregaPaquete(){
         //Logica para llamar a EntregaPaquete
@@ -25,10 +25,10 @@ public class Transportista extends Perfil {
         throw new UnsupportedOperationException("Unimplemented method 'reportarProblema'");
     }
 
-    public void entregarPaquete(String idPaquete){
-        Paquete paquete = inventario.buscarPaquete(idPaquete);
-        paquete.setEstado(new Entregado(paquete));
-        inventario.guardarInventario();
-        GestorTransporte.getInstancia().eliminarPaqueteAsignado(paquete, this);
-    }
+    // public void entregarPaquete(String idPaquete){
+    //     Paquete paquete = inventario.buscarPaquete(idPaquete);
+    //     paquete.setEstado(new Entregado(paquete));
+    //     inventario.guardarInventario();
+    //     GestorTransporte.getInstancia().eliminarPaqueteAsignado(paquete, this);
+    // }
 }

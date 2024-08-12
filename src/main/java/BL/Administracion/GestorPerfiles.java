@@ -5,6 +5,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class GestorPerfiles {
 
     private static final String FILE_NAME = "src\\main\\java\\BL\\Serializables\\perfiles.ser";
@@ -48,7 +50,9 @@ public class GestorPerfiles {
 
     // Método para realizar login
     public synchronized Perfil login(String nombre, String contrasena, String agencia, String rol) {
-        for (Perfil perfil : perfiles) {
+        List<Perfil> usuarios = getUsuarios();
+        for (Perfil perfil : usuarios) {
+            JOptionPane.showMessageDialog(null, perfil.getNombre()+" "+perfil.getContrasena());
             if (perfil.getNombre().equals(nombre) && perfil.getContrasena().equals(contrasena)) {
                 if (rol.equals(perfil.getClass().getSimpleName())) {
                     if (rol.equals("Recepcionista")) {
@@ -75,6 +79,38 @@ public class GestorPerfiles {
         return null;
     }
 
+    public synchronized List<Transportista> getTransportistas() {
+        List<Transportista> transportistas = new ArrayList<>();
+        for (Perfil perfil : this.perfiles) {
+            if (perfil instanceof Transportista) {
+                transportistas.add((Transportista)perfil);
+            }
+        }
+        return transportistas;
+    }
+
+    public synchronized List<Cliente> getClientes() {
+        List<Cliente> clientes = new ArrayList<>();
+        for (Perfil perfil : this.perfiles) {
+            if (perfil instanceof Cliente) {
+                clientes.add((Cliente)perfil);
+            }
+        }
+        return clientes;
+    }
+
+    public synchronized List<Perfil> getUsuarios() {
+        List<Perfil> usuarios = new ArrayList<>();
+        for (Perfil perfil : this.perfiles) {
+            if (perfil instanceof Cliente) {
+                
+            }else{
+                usuarios.add(perfil);
+            }
+        }
+        return usuarios;
+    }
+
     // Método para verificar si una cédula ya está ingresada
     public synchronized boolean verificarCedulaExistente(String cedula) {
         for (Perfil perfil : perfiles) {
@@ -86,10 +122,21 @@ public class GestorPerfiles {
     }
 
     private void loadPerfiles() {
+        File file = new File(FILE_NAME);
+        if (!file.exists() || file.length() == 0) {
+            System.out.println("No se encontró el archivo de perfiles o está vacío. Creando nuevo archivo.");
+            savePerfiles(); // Guarda un archivo vacío para evitar futuros problemas
+            return;
+        }
+    
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
             perfiles = (List<Perfil>) ois.readObject();
         } catch (FileNotFoundException e) {
-            // File not found, which is expected for the first run
+            System.out.println("Archivo no encontrado, creando un nuevo archivo.");
+            savePerfiles(); // Guarda un archivo vacío para evitar futuros problemas
+        } catch (EOFException e) {
+            System.out.println("El archivo de perfiles está vacío o corrupto. Se creará un nuevo archivo.");
+            savePerfiles();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error al cargar los perfiles.");
             e.printStackTrace();
