@@ -11,8 +11,8 @@ import BL.Transporte.GestorTransporte;
 
 public class Transportista extends Perfil {
 
-    public Transportista(String nombre, String apellido, String cedula, String correo, String contrasena) {
-        super(nombre, apellido, cedula, correo, contrasena);
+    public Transportista(String nombre, String apellido, String cedula, String correo, String contrasena, String telefono) {
+        super(nombre, apellido, cedula, correo, contrasena, telefono);
         //TODO Auto-generated constructor stub
     }
 

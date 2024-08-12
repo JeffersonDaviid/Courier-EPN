@@ -14,9 +14,9 @@ public class Recepcionista extends Perfil{
     private Paquete paqueteEnRegistro;
     private Ubicacion sucursal;
 
-    public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena,
+    public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena, String telefono,
             Ubicacion agencia) {
-        super(nombre, apellido, cedula, correo, contrasena);
+        super(nombre, apellido, cedula, correo, contrasena, telefono);
         sucursal = agencia;
     }
 
@@ -63,20 +63,20 @@ public class Recepcionista extends Perfil{
     // }
 
     // Método para agregar un nuevo usuario a la lista
-    public void agregarNuevoUsuario(String agencia, String contrasena, String rol, String cedula, String nombre, String apellido, String correo) throws ClassNotFoundException {
-        if(agencia == null || contrasena == null || nombre == null || rol == null || agencia.equals("") || contrasena.equals("") || nombre.equals("") || rol.equals("")) {
+    public void agregarNuevoUsuario(String agencia, String contrasena, String rol, String cedula, String nombre, String apellido, String correo, String telefono) throws ClassNotFoundException {
+        if(agencia == null || contrasena == null || nombre == null || rol == null || agencia.equals("") || contrasena.equals("") || nombre.equals("") || rol.equals("") || cedula.equals("") || apellido.equals("") || correo.equals("") || telefono.equals("")) {
             JOptionPane.showMessageDialog(null, "No se pudo agregar el usuario. Verificar entradas.");
             return;
         }
         GestorPerfiles gestorPerfiles = GestorPerfiles.getInstance();
         switch (rol) {
             case "Transportista":
-                Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena);
+                Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena, telefono);
                 GestorTransporte.getInstancia().agregarTransportista(transportista);
                 gestorPerfiles.registrarPerfil(transportista);
                 break;
             case "Cliente":
-                Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena);
+                Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena, telefono);
                 gestorPerfiles.registrarPerfil(cliente);
                 break;
         }

@@ -32,7 +32,7 @@ public class GestorPerfiles {
         if (verificarCedulaExistente("ADMIN001")) {
             return;
         }
-        Perfil defaultRecepcionista = new Recepcionista("Admin", "Admin", "ADMIN001", "admin@example.com", "123", Ubicacion.QUITO);
+        Perfil defaultRecepcionista = new Recepcionista("Admin", "Admin", "ADMIN001", "admin@example.com", "123", "0999999999" ,Ubicacion.QUITO);
         perfiles.add(defaultRecepcionista);
         savePerfiles();
         System.out.println("Recepcionista por defecto creado con éxito.");
@@ -97,6 +97,16 @@ public class GestorPerfiles {
             }
         }
         return clientes;
+    }
+
+    public synchronized Cliente getCliente(String cedula) {
+        Cliente cliente = null;
+        for (Perfil c : this.perfiles) {
+            if (c instanceof Cliente && c.getCedula().equals(cedula)) {
+                cliente = (Cliente) c;
+            }
+        }
+        return cliente;
     }
 
     public synchronized List<Perfil> getUsuarios() {

@@ -4,17 +4,34 @@
  */
 package UI.GestionPaquete;
 
+import java.util.Random;
+
+import javax.swing.JOptionPane;
+
+import BL.Administracion.Cliente;
+import BL.Administracion.GestorPerfiles;
+import BL.Administracion.Recepcionista;
+import BL.Facturacion.Factura;
+import BL.GestionPaquete.Default;
+import BL.GestionPaquete.Estado;
+import BL.GestionPaquete.Paquete;
+
 /**
  *
  * @author marlo
  */
 public class GestionPaquete extends javax.swing.JPanel {
 
-    /**
-     * Creates new form GestionPaquete
-     */
-    public GestionPaquete() {
+    private Paquete paquete;    
+    private Estado estado;
+    private Recepcionista recepcionista;
+    private Factura factura;
+    private Cliente cliente = null;
+    public GestionPaquete(Recepcionista recepcionista) {
         initComponents();
+        paquete = new Paquete();
+        this.recepcionista = recepcionista;
+        this.recepcionista.eliminarPaqueteRegistrado();
     }
 
     /**
@@ -50,8 +67,6 @@ public class GestionPaquete extends javax.swing.JPanel {
         jComboTamanio = new javax.swing.JComboBox<>();
         jBCalcular = new javax.swing.JButton();
         jBaceptar = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jTsucursalAcepto = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jComboSucurcalRecoger = new javax.swing.JComboBox<>();
         jldomicilio = new javax.swing.JLabel();
@@ -158,8 +173,6 @@ public class GestionPaquete extends javax.swing.JPanel {
             }
         });
 
-        jLabel11.setText("Sucursal que acepto el paquete");
-
         jLabel10.setText("Sucursal para recoger");
 
         jComboSucurcalRecoger.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AMBATO", "AZOGUES", "BABAHOYO", "CUENCA", "ESMERALDAS", "GUAYAQUIL", "GUARANDA", "IBARRA", "LATACUNGA", "LOJA", "MACARA", "MANTA", "PORTOVIEJO", "PUYO", "QUITO", "RIOBAMBA", "RUMICHACA", "SANTO_DOMINGO", "TENA", "TULCAN", "ZAMORA", "LAGO_AGRIO" }));
@@ -228,8 +241,6 @@ public class GestionPaquete extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel28)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTsucursalAcepto)
-                                .addComponent(jLabel11)
                                 .addComponent(jComboSucurcalRecoger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel10)
                                 .addComponent(jldomicilio)
@@ -278,19 +289,12 @@ public class GestionPaquete extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtTelefonoRemitente, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel27)
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jComboTipoEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTsucursalAcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel27)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jComboTipoEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboSucurcalRecoger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -323,7 +327,16 @@ public class GestionPaquete extends javax.swing.JPanel {
     }//GEN-LAST:event_jtBuscarCedulaActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
+        String cedula = jtBuscarCedula.getText();
+        cliente = GestorPerfiles.getInstance().getCliente(cedula);
+        if(cliente == null){
+            JOptionPane.showMessageDialog(null, "Cliente no encontrado");
+            return;
+        }else{
+            jtNombreRemitente.setText(cliente.getNombre());
+            jtCorreoRemitente.setText(cliente.getCorreo());
+            jtTelefonoRemitente.setText(cliente.getTelefono());
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jtNombreRemitenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreRemitenteActionPerformed
@@ -364,32 +377,56 @@ public class GestionPaquete extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboTipoEnvioActionPerformed
 
     private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBCalcularActionPerformed
+        if(cliente == null){
+            JOptionPane.showMessageDialog(null, "Primero debe buscar un cliente");
+            return;
+        }
+        String dirDomicilio = null;
 
-    private void jBaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBaceptarActionPerformed
-        // TODO add your handling code here:
-        String Buscarcedula = jtBuscarCedula.getText();
-        // Información del remitente
-        String nombreRemitente = jtNombreRemitente.getText();
-        String correoRemitente = jtCorreoRemitente.getText();
-        String telefonoRemitente = jtTelefonoRemitente.getText();
-
+		if (jComboTipoEnvio.getSelectedItem().toString().equals("Domicilio"))
+			dirDomicilio = jTdomicilio.getText();
         // Información del destinatario
         String nombreDestinatario = jtNombreDestinatario.getText();
         String correoDestinatario = jtCorreoDestinatario.getText();
         String telefonoDestinatario = jtTelefonoDestinatario.getText();
 
         // Información del paquete
-        String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem();
-        String sucursalOrigen = jTsucursalAcepto.getText();
+        String sucursalOrigen = recepcionista.getSucursal().name();
         String sucursalDestino = (String) jComboSucurcalRecoger.getSelectedItem();
-        String direccion = jTdomicilio.getText();
         String peso = jTpeso.getText(); // Debe convertir este valor a float más adelante si es necesario
         String tamanio = (String) jComboTamanio.getSelectedItem();
+        paquete = new Paquete(generateId(), Float.parseFloat(peso), tamanio, cliente, sucursalOrigen, sucursalDestino, dirDomicilio, nombreDestinatario, correoDestinatario, telefonoDestinatario, null, null, null);
+        recepcionista.registrarPaquete(paquete);
+        float precio = recepcionista.previsualizarPrecioPaquete();
+        JOptionPane.showMessageDialog(null, "El precio del paquete es: " + precio);
         
-        
+    }//GEN-LAST:event_jBCalcularActionPerformed
+
+    private void jBaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBaceptarActionPerformed
+        if(recepcionista.getPaqueteEnRegistro()==null){
+            JOptionPane.showMessageDialog(null, "Primero debe ingresar los datos del paquete");
+            return;
+        }
+        recepcionista.generarFactura();
+        recepcionista.registrarPaqueteEnInventario();
+        JOptionPane.showMessageDialog(null, "Paquete registrado con éxito");
+        recepcionista.eliminarPaqueteRegistrado();
     }//GEN-LAST:event_jBaceptarActionPerformed
+
+    private String generateId() {
+		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		int length = 10; // desired length of the generated string
+
+		for (int i = 0; i < length; i++) {
+			int index = random.nextInt(characters.length());
+			char randomChar = characters.charAt(index);
+			sb.append(randomChar);
+		}
+
+		return sb.toString();
+	}
 
     private void jComboSucurcalRecogerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboSucurcalRecogerActionPerformed
         // TODO add your handling code here:
@@ -405,7 +442,6 @@ public class GestionPaquete extends javax.swing.JPanel {
     private javax.swing.JLabel jLNombreRem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -419,7 +455,6 @@ public class GestionPaquete extends javax.swing.JPanel {
     private javax.swing.JTextField jTdomicilio;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTpeso;
-    private javax.swing.JTextField jTsucursalAcepto;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JLabel jldomicilio;
     private javax.swing.JTextField jtBuscarCedula;

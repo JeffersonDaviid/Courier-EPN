@@ -62,6 +62,8 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jLabel11 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        field_pass5 = new javax.swing.JTextField();
 
         jLabel3.setText("Contraseña:");
 
@@ -128,6 +130,14 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         jLabel11.setForeground(new java.awt.Color(13, 71, 161));
         jLabel11.setText("Registro Transportistas");
 
+        jLabel4.setText("Teléfono:");
+
+        field_pass5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                field_pass5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,7 +170,12 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
                                 .addComponent(field_pass4, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(107, 107, 107)
-                        .addComponent(btn_regUsuario)))
+                        .addComponent(btn_regUsuario))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(field_pass5, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(295, Short.MAX_VALUE))
@@ -201,12 +216,16 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(field_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(field_pass5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addComponent(btn_regUsuario))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(425, Short.MAX_VALUE))
+                .addContainerGap(417, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(29, 29, 29)
@@ -225,7 +244,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         String apellido = field_pass2.getText();
         String correo = field_pass4.getText();
         String pass = field_pass.getText();
-    
+        String telefono = field_pass5.getText();
         // Comprobación de cédula ecuatoriana válida
         if (!esCedulaValida(cedula)) {
             JOptionPane.showMessageDialog(this, "Cédula ecuatoriana no válida.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -239,7 +258,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         }
     
         // Si todas las validaciones son correctas, proceder con el registro
-        usuarioActual.agregarNuevoUsuario(usuarioActual.getSucursal().name(), pass, "Transportista", cedula, nombre, apellido, correo);
+        usuarioActual.agregarNuevoUsuario(usuarioActual.getSucursal().name(), pass, "Transportista", cedula, nombre, apellido, correo, telefono);
        // JOptionPane.showMessageDialog(this, "Registro exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
 
@@ -258,6 +277,10 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
     private void field_pass4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_pass4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_field_pass4ActionPerformed
+
+    private void field_pass5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_field_pass5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_field_pass5ActionPerformed
 
      // Método para verificar si una cédula ecuatoriana es válida
      private boolean esCedulaValida(String cedula) {
@@ -295,9 +318,11 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
     private javax.swing.JTextField field_pass2;
     private javax.swing.JTextField field_pass3;
     private javax.swing.JTextField field_pass4;
+    private javax.swing.JTextField field_pass5;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
