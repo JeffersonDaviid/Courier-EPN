@@ -214,5 +214,6 @@ public class Inventario implements Serializable {
         if(paquetes.get(trackingPaquete).getEstado() instanceof Transportandose){
             historial.getRegistro(trackingPaquete).setFechaSalida(getFecha());
         }
+        saveInventario();
     }
 }

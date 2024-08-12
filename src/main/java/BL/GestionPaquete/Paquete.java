@@ -1,9 +1,7 @@
 package BL.GestionPaquete;
 
 import BL.Administracion.Cliente;
-import BL.Administracion.Perfil;
 import BL.Almacenamiento.Inventario;
-import UI.Almacenamiento.InventarioUI;
 
 public class Paquete {
     private static int contador;
@@ -59,6 +57,7 @@ public class Paquete {
         if (seguimiento != null) {
             seguimiento.realizarSeguimiento();
         }
+        Inventario.getInstancia().notificarCambioEstado(this.tracking);
     }
 
     //getters

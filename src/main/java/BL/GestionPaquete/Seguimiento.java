@@ -1,9 +1,10 @@
 package BL.GestionPaquete;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Seguimiento {
+public class Seguimiento implements Serializable{
     private Paquete paquete;
     private List<EstadoPaquete> historialEstados;
 
