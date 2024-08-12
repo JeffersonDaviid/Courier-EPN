@@ -18,10 +18,6 @@ public class Registro implements Serializable{
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(String fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
     public String getFechaSalida() {
         return fechaSalida;
     }

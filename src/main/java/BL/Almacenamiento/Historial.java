@@ -31,14 +31,6 @@ public class Historial implements Serializable {
         return null;
     }
 
-    //Método que actualiza la fecha de salida de un registro
-    public void actualizarFechaDeSalida(String trackingPaquete, String fechaSalida) {
-        Registro registro = getRegistro(trackingPaquete);
-        if (registro != null) {
-            registro.setFechaSalida(fechaSalida);
-        }
-    }
-
     public DefaultTableModel mostrarHistorial(int index, String parametro) {
         DateTimeFormatter formatterFechaYHora = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         DateTimeFormatter formatterFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
