@@ -4,11 +4,13 @@
  */
 package BL.GestionPaquete;
 
+import java.io.Serializable;
+
 /**
  *
  * @author marlo
  */
-public abstract class EstadoPaquete {
+public abstract class EstadoPaquete implements Serializable{
 
     private final Paquete paquete;
     

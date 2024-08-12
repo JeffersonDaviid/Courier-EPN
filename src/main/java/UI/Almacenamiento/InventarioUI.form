@@ -127,11 +127,11 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
-                    <StringItem index="0" value="Todos los paquetes en el almacen"/>
-                    <StringItem index="1" value="Paquetes en recepcion"/>
-                    <StringItem index="2" value="Paquetes en bodega"/>
-                    <StringItem index="3" value="Paquetes para carga sucursal"/>
-                    <StringItem index="4" value="Paquetes listos para entregar"/>
+                    <StringItem index="0" value="Todos los Paquetes"/>
+                    <StringItem index="1" value="Paquetes En Bodega"/>
+                    <StringItem index="2" value="Paquetes Entregados"/>
+                    <StringItem index="3" value="Paquetes Transportandose"/>
+                    <StringItem index="4" value="Paquetes En Conflicto"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -544,7 +544,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="70" max="32767" attributes="0"/>
                                   <Component id="jTFestadoOrdenar" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                           </Group>

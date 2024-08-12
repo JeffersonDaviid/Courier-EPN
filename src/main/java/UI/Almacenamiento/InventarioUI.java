@@ -1,6 +1,6 @@
 package UI.Almacenamiento;
 
-import BL.Administracion.Global;
+import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class InventarioUI extends javax.swing.JPanel {
      */
     public InventarioUI() {
         initComponents();
-        this.jTablePaquetes.setModel(Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(0));  
+        this.jTablePaquetes.setModel(Inventario.getInstancia().mostrarPaquetes(0));
     }
         
     /**
@@ -119,7 +119,7 @@ public class InventarioUI extends javax.swing.JPanel {
         jPanel12.setBackground(new java.awt.Color(254, 254, 254));
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccionar Tabla"));
 
-        jComboBFiltroConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos los paquetes en el almacen", "Paquetes en recepcion", "Paquetes en bodega", "Paquetes para carga sucursal", "Paquetes listos para entregar" }));
+        jComboBFiltroConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos los Paquetes", "Paquetes En Bodega", "Paquetes Entregados", "Paquetes Transportandose", "Paquetes En Conflicto" }));
         jComboBFiltroConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBFiltroConsultaActionPerformed(evt);
@@ -442,7 +442,7 @@ public class InventarioUI extends javax.swing.JPanel {
                         .addComponent(jTFSucursalOrigenOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel42)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                         .addComponent(jTFestadoOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -816,7 +816,7 @@ public class InventarioUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jTablePaquetesMouseClicked
 
     private void jComboBFiltroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBFiltroConsultaActionPerformed
-        this.jTablePaquetes.setModel(Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().mostrarPaquetes(this.jComboBFiltroConsulta.getSelectedIndex()));                
+        this.jTablePaquetes.setModel(Inventario.getInstancia().mostrarPaquetes(this.jComboBFiltroConsulta.getSelectedIndex()));
     }//GEN-LAST:event_jComboBFiltroConsultaActionPerformed
 
     private void jBCancelarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarEntregaActionPerformed
@@ -832,16 +832,16 @@ public class InventarioUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jBCancelarEntregaActionPerformed
 
     private void jBAceptarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarEntregaActionPerformed
-        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().entregarPaquete(this.jTFidEntrega.getText());
+        //Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().entregarPaquete(this.jTFidEntrega.getText());
     }//GEN-LAST:event_jBAceptarEntregaActionPerformed
 
     private void jTFidEntregaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidEntregaKeyReleased
         String id = this.jTFidOrdenar.getName();
-        ArrayList<Paquete> paquetes_consulta = Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().getPaquetesInventario();
+        ArrayList<Paquete> paquetes_consulta = Inventario.getInstancia().getPaquetesInventario();
 
         Paquete paqueteEncontrado = null;
         for (Paquete paquete : paquetes_consulta) {
-            if (paquete.getId().equals(id)) {
+            if (paquete.getTracking().equals(id)) {
                 paqueteEncontrado = paquete;
                 break;
             }
@@ -850,10 +850,10 @@ public class InventarioUI extends javax.swing.JPanel {
         if (paqueteEncontrado != null) {
             this.jTFpesoEntrega.setText(String.valueOf(paqueteEncontrado.getPeso()));
             this.jTFTamanioEntrega.setText(String.valueOf(paqueteEncontrado.getTamanio()));
-            this.jTFRemitenteEntrega.setText(paqueteEncontrado.getNombreRemitente());
+            this.jTFRemitenteEntrega.setText(paqueteEncontrado.getCliente());
             this.jTFDestinatarioEntrega.setText(paqueteEncontrado.getNombreDestinatario());
-            this.jTFSucursalOrigenEntrega.setText(paqueteEncontrado.getAgenciaOrigen());
-            this.jTFSucursalDestinoEntrega.setText(paqueteEncontrado.getAgenciaDestino());
+            this.jTFSucursalOrigenEntrega.setText(paqueteEncontrado.getSucursalOrigen());
+            this.jTFSucursalDestinoEntrega.setText(paqueteEncontrado.getSucursalDestino());
             this.jTFestadoEntrega.setText("Listo para entrega");
         } else {
             System.out.println("Paquete no encontrado con el ID: " + id);
@@ -864,54 +864,22 @@ public class InventarioUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFidEntregaActionPerformed
 
-    private void jTFidcargaRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFidcargaRecepcionActionPerformed
+    private void jBCancelarOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarOrdenarActionPerformed
+        this.jTFidOrdenar.setText("");
+        this.jTFpesoOrdenar.setText("");
+        this.jTFTamanioOrdenar.setText("");
+        this.jTFDestinatarioOrdenar.setText("");
+        this.jTFRemitenteOrdenar.setText("");
+        this.jTFDestinatarioOrdenar.setText("");
+        this.jTFSucursalOrigenOrdenar.setText("");
+        this.jTFSucursalDestinoOrdenar.setText("");
+        this.jTFestadoOrdenar.setText("");
+    }//GEN-LAST:event_jBCancelarOrdenarActionPerformed
+
+    private void jBAceptarOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarOrdenarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTFidcargaRecepcionActionPerformed
-
-    private void jTFidcargaRecepcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidcargaRecepcionKeyReleased
-        String id = this.jTFidcargaRecepcion.getName();
-        ArrayList<Paquete> paquetes_consulta = Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().getPaquetesInventario();
-
-        Paquete paqueteEncontrado = null;
-        for (Paquete paquete : paquetes_consulta) {
-            if (paquete.getId().equals(id)) {
-                paqueteEncontrado = paquete;
-                break;
-            }
-        }
-
-        if (paqueteEncontrado != null) {
-            this.jTFpesocargaRecepcion.setText(String.valueOf(paqueteEncontrado.getPeso()));
-            this.jTFTamaniocargaRecepcion.setText(String.valueOf(paqueteEncontrado.getTamanio()));
-            this.jTFRemitentecargaRecepcion.setText(paqueteEncontrado.getNombreRemitente());
-            this.jTFDestinatariocargaRecepcion.setText(paqueteEncontrado.getNombreDestinatario());
-            this.jTFSucursalOrigencargaRecepcion.setText(paqueteEncontrado.getAgenciaOrigen());
-            this.jTFSucursalDestinocargaRecepcion.setText(paqueteEncontrado.getAgenciaDestino());
-            this.jTFestadoRecepcion.setText("Recepción");
-        } else {
-            System.out.println("Paquete no encontrado con el ID: " + id);
-        }
-    }//GEN-LAST:event_jTFidcargaRecepcionKeyReleased
-
-    private void jBAceptarcargaRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarcargaRecepcionActionPerformed
-        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().agregarPaqueteDeRecepcion(this.jTFidcargaRecepcion.getText());
-    }//GEN-LAST:event_jBAceptarcargaRecepcionActionPerformed
-
-    private void jBCancelarcargaRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarcargaRecepcionActionPerformed
-        this.jTFidcargaRecepcion.setText("");
-        this.jTFpesocargaRecepcion.setText("");
-        this.jTFTamaniocargaRecepcion.setText("");
-        this.jTFDestinatariocargaRecepcion.setText("");
-        this.jTFRemitentecargaRecepcion.setText("");
-        this.jTFDestinatariocargaRecepcion.setText("");
-        this.jTFSucursalOrigencargaRecepcion.setText("");
-        this.jTFSucursalDestinocargaRecepcion.setText("");
-        this.jTFestadoRecepcion.setText("");
-    }//GEN-LAST:event_jBCancelarcargaRecepcionActionPerformed
-
-    private void jTFidOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFidOrdenarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFidOrdenarActionPerformed
+        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().organizarPaquetes(this.jTFidOrdenar.getText());
+    }//GEN-LAST:event_jBAceptarOrdenarActionPerformed
 
     private void jTFidOrdenarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidOrdenarKeyReleased
         String id = this.jTFidOrdenar.getName();
@@ -938,22 +906,54 @@ public class InventarioUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTFidOrdenarKeyReleased
 
-    private void jBAceptarOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarOrdenarActionPerformed
+    private void jTFidOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFidOrdenarActionPerformed
         // TODO add your handling code here:
-        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().organizarPaquetes(this.jTFidOrdenar.getText());
-    }//GEN-LAST:event_jBAceptarOrdenarActionPerformed
+    }//GEN-LAST:event_jTFidOrdenarActionPerformed
 
-    private void jBCancelarOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarOrdenarActionPerformed
-        this.jTFidOrdenar.setText("");
-        this.jTFpesoOrdenar.setText("");
-        this.jTFTamanioOrdenar.setText("");
-        this.jTFDestinatarioOrdenar.setText("");
-        this.jTFRemitenteOrdenar.setText("");
-        this.jTFDestinatarioOrdenar.setText("");
-        this.jTFSucursalOrigenOrdenar.setText("");
-        this.jTFSucursalDestinoOrdenar.setText("");
-        this.jTFestadoOrdenar.setText("");
-    }//GEN-LAST:event_jBCancelarOrdenarActionPerformed
+    private void jBCancelarcargaRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarcargaRecepcionActionPerformed
+        this.jTFidcargaRecepcion.setText("");
+        this.jTFpesocargaRecepcion.setText("");
+        this.jTFTamaniocargaRecepcion.setText("");
+        this.jTFDestinatariocargaRecepcion.setText("");
+        this.jTFRemitentecargaRecepcion.setText("");
+        this.jTFDestinatariocargaRecepcion.setText("");
+        this.jTFSucursalOrigencargaRecepcion.setText("");
+        this.jTFSucursalDestinocargaRecepcion.setText("");
+        this.jTFestadoRecepcion.setText("");
+    }//GEN-LAST:event_jBCancelarcargaRecepcionActionPerformed
+
+    private void jBAceptarcargaRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAceptarcargaRecepcionActionPerformed
+        Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().agregarPaqueteDeRecepcion(this.jTFidcargaRecepcion.getText());
+    }//GEN-LAST:event_jBAceptarcargaRecepcionActionPerformed
+
+    private void jTFidcargaRecepcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFidcargaRecepcionKeyReleased
+        String id = this.jTFidcargaRecepcion.getName();
+        ArrayList<Paquete> paquetes_consulta = Global.getInstancia().buscarAgencia(Global.agenciaActual).getInventario().getPaquetesInventario();
+
+        Paquete paqueteEncontrado = null;
+        for (Paquete paquete : paquetes_consulta) {
+            if (paquete.getId().equals(id)) {
+                paqueteEncontrado = paquete;
+                break;
+            }
+        }
+
+        if (paqueteEncontrado != null) {
+            this.jTFpesocargaRecepcion.setText(String.valueOf(paqueteEncontrado.getPeso()));
+            this.jTFTamaniocargaRecepcion.setText(String.valueOf(paqueteEncontrado.getTamanio()));
+            this.jTFRemitentecargaRecepcion.setText(paqueteEncontrado.getNombreRemitente());
+            this.jTFDestinatariocargaRecepcion.setText(paqueteEncontrado.getNombreDestinatario());
+            this.jTFSucursalOrigencargaRecepcion.setText(paqueteEncontrado.getAgenciaOrigen());
+            this.jTFSucursalDestinocargaRecepcion.setText(paqueteEncontrado.getAgenciaDestino());
+            this.jTFestadoRecepcion.setText("Recepción");
+        } else {
+            System.out.println("Paquete no encontrado con el ID: " + id);
+        }
+    }//GEN-LAST:event_jTFidcargaRecepcionKeyReleased
+
+    private void jTFidcargaRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFidcargaRecepcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFidcargaRecepcionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
