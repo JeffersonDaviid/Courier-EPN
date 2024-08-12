@@ -45,7 +45,6 @@ public class Paquete implements Serializable {
         int  inventario = Inventario.getInstancia().getPaquetesInventario().size();
         return String.valueOf(inventario + 1);
     }
-*
     // Método para obtener el estado actual del paquete
     public EstadoPaquete obtenerEstadoActual() {
         return this.estado;
