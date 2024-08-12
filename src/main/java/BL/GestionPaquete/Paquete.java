@@ -40,20 +40,77 @@ public class Paquete {
         this.estado = nuevoEstado;
     }
 
-    // Métodos getter y setter para el estado (opcional según tu diseño)
+    public String getTracking() {
+        return tracking;    
+    }
+
+    public void setTracking(String tracking) {
+        this.tracking = tracking;
+    }
+
+    public float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    public String getTamanio() {
+        return tamanio;
+    }
+
+    public void setTamanio(String tamanio) {
+        this.tamanio = tamanio;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getSucursalOrigen() {
+        return sucursalOrigen;
+    }
+
+    public void setSucursalOrigen(String sucursalOrigen) {
+        this.sucursalOrigen = sucursalOrigen;
+    }
+
+    public String getSucursalDestino() {
+        return sucursalDestino;
+    }
+
+    public void setSucursalDestino(String sucursalDestino) {
+        this.sucursalDestino = sucursalDestino;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
     public EstadoPaquete getEstado() {
         return estado;
     }
 
+    // Métodos getter y setter
     public void setEstado(EstadoPaquete estado) {
         this.estado = estado;
     }
+
     /*
     public String getDescripcionCompleta() {
-        return String.format("Paquete[Tracking: %s, Peso: %.2f kg, Tamaño: %s, Cliente: %s, Sucursal Origen: %s, Sucursal Destino: %s, Dirección: %s, Estado: %s]",
-                             tracking, peso, tamanio, cliente, sucursalOrigen, sucursalDestino, direccion, estado);
+    return String.format("Paquete[Tracking: %s, Peso: %.2f kg, Tamaño: %s, Cliente: %s, Sucursal Origen: %s, Sucursal Destino: %s, Dirección: %s, Estado: %s]",
+    tracking, peso, tamanio, cliente, sucursalOrigen, sucursalDestino, direccion, estado);
     }
-*/
+     */
     @Override
     public String toString() {
         return "Paquete{" + "tracking=" + tracking + ", peso=" + peso + ", tamanio=" + tamanio + ", cliente=" + cliente + ", sucursalOrigen=" + sucursalOrigen + ", sucursalDestino=" + sucursalDestino + ", direccion=" + direccion + ", estado=" + estado + '}';
