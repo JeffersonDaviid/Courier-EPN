@@ -105,7 +105,10 @@ public class Recepcionista extends Perfil{
     public DefaultTableModel mostrarPaquetes(int index){
         return inventario.mostrarPaquetes(index);
     }
-    
+
+    public DefaultTableModel mostrarHistorial(int index, String filtro){
+        return inventario.getHistorial().mostrarHistorial(index, filtro);
+    }
     
 
     @Override
