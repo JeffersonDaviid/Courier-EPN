@@ -87,7 +87,7 @@ public class Historial implements Serializable {
                 model.addRow(new Object[] { 
                         p.getTrackinPaquete(),
                         p.getFechaIngreso(),
-                        p.getFechaSalida()});
+                        (p.getFechaSalida() != null)? p.getFechaSalida(): ""});
             }
             return model;
         }

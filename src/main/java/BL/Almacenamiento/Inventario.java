@@ -144,7 +144,7 @@ public class Inventario implements Serializable {
         return historial;
     }
 
-    // Metodo que muestra todos los paquetes del inventario
+    // Metodo que muestra todos los paquetes del inventario en la UI
     public DefaultTableModel mostrarPaquetes(int index) {
         DefaultTableModel model = new DefaultTableModel();
         String[] columnas = { "ID", "Peso","Tamaño","Remitente","Destinatario","Sucursal de Origen", "Sucursal de Destino", "Estado", "Tiempo Restante" };
@@ -207,5 +207,12 @@ public class Inventario implements Serializable {
             }
         }
         return paquetesParaEnvio;
+    }
+
+    //Metodo que notifica cuando un paquete se ha cargado a los camniones y poder registrar su fecha de Salida
+    public void notificarCambioEstado(String trackingPaquete){
+        if(paquetes.get(trackingPaquete).getEstado() instanceof Transportandose){
+            historial.getRegistro(trackingPaquete).setFechaSalida(getFecha());
+        }
     }
 }

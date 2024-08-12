@@ -127,6 +127,7 @@ public class GestorTransporte {
                     inventario.buscarPaquete(paquete.getTracking()).cambiarEstado(new Transportandose(paquete));
                     cargarPaqueteACamion(camion, paquete);
                     // Incluir la logica para notificar a Inventario que se cambio el estado de los paquetes 
+                    inventario.notificarCambioEstado(paquete.getTracking());
                 }
                 return true;
             } else {
