@@ -395,7 +395,7 @@ public class GestionPaquete extends javax.swing.JPanel {
         String sucursalDestino = (String) jComboSucurcalRecoger.getSelectedItem();
         String peso = jTpeso.getText(); // Debe convertir este valor a float más adelante si es necesario
         String tamanio = (String) jComboTamanio.getSelectedItem();
-        paquete = new Paquete(generateId(), Float.parseFloat(peso), tamanio, cliente, sucursalOrigen, sucursalDestino, dirDomicilio, nombreDestinatario, correoDestinatario, telefonoDestinatario, null, null, null);
+        paquete = new Paquete(generateId(), Float.parseFloat(peso), tamanio, cliente, sucursalOrigen, sucursalDestino, dirDomicilio, nombreDestinatario, correoDestinatario, telefonoDestinatario, null, null);
         recepcionista.registrarPaquete(paquete);
         float precio = recepcionista.previsualizarPrecioPaquete();
         JOptionPane.showMessageDialog(null, "El precio del paquete es: " + precio);

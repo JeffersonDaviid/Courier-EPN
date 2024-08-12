@@ -23,7 +23,7 @@ public class Paquete {
         this.tracking = generarTracking();
     }
 
-    public Paquete(String tracking, float peso, String tamanio, Cliente cliente, String sucursalOrigen, String sucursalDestino, String direccion, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String fechaSalida, EstadoPaquete estado, Seguimiento seguimiento) {
+    public Paquete(String tracking, float peso, String tamanio, Cliente cliente, String sucursalOrigen, String sucursalDestino, String direccion, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String fechaSalida, Seguimiento seguimiento) {
         this.tracking = tracking;
         this.peso = peso;
         this.tamanio = tamanio;
@@ -35,7 +35,7 @@ public class Paquete {
         this.correoDestinatario = correoDestinatario;
         this.telefonoDestinatario = telefonoDestinatario;
         this.fechaSalida = fechaSalida;
-        this.estado = estado;
+        this.estado = new Default(this);
         this.seguimiento = seguimiento;
     }
 
