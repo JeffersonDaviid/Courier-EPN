@@ -1,6 +1,8 @@
 package BL.Administracion;
 
+import BL.GestionPaquete.Entregado;
 import BL.GestionPaquete.Paquete;
+import BL.Transporte.GestorTransporte;
 
 public class Transportista extends Perfil {
 
@@ -23,10 +25,11 @@ public class Transportista extends Perfil {
         throw new UnsupportedOperationException("Unimplemented method 'reportarProblema'");
     }
 
-    // public void entregarPaquete(String idPaquete){
-    //     Paquete paquete = inventario.buscarPaquete(idPaquete);
-    //     paquete.setEstado(new Entregado(paquete));
-    //     inventario.guardarInventario();
-    //     GestorTransporte.getInstancia().eliminarPaqueteAsignado(paquete, this);
-    // }
+    public void entregarPaquete(String idPaquete){
+        Paquete paquete = inventario.buscarPaquete(idPaquete);
+        paquete.setEstado(new Entregado(paquete));
+        inventario.saveInventario();
+        Camion camion = GestorTransporte.getInstancia().consultarCamionAsignado(this);
+        GestorTransporte.getInstancia().eliminarPaqueteAsignado(camion, idPaquete);
+    }
 }

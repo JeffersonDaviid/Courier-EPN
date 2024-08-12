@@ -64,7 +64,7 @@ public class Inventario implements Serializable {
         return new HashMap<String,Paquete>();
     }
 
-    private void saveInventario(){
+    public void saveInventario(){
         //Guarda los paquetes
         try (ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(FILE_NAME_PAQUETES))) {
             oos1.writeObject(paquetes);
