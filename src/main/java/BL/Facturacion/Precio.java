@@ -23,7 +23,7 @@ public class Precio {
 		iva = 0;
 		descripcion = "";
 
-		cargarIvar();
+		cargarIva();
 
 		calcularPrecioCaracteristicas(paquete.getPeso(), paquete.getTamanio());
 
@@ -179,7 +179,7 @@ public class Precio {
 		descripcion += "Servicio a Domicilio";
 	}
 
-	private void cargarIvar() {
+	private void cargarIva() {
 		Properties props = new Properties();
 		try {
 			var in = Files.newInputStream(Paths.get("opciones.properties"));
