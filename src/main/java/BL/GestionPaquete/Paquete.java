@@ -57,7 +57,6 @@ public class Paquete implements Serializable {
         if (seguimiento != null) {
             seguimiento.realizarSeguimiento();
         }
-        //Inventario.getInstancia().notificarCambioEstado(this.tracking);
     }
 
     //getters

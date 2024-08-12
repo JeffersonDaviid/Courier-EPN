@@ -148,7 +148,7 @@ public class HistorialnewUI extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (escribirFiltro1.getText() == "") {
+        if (!escribirFiltro1.getText().isEmpty()) {
             this.tablaHistorial1.setModel(recepcionista.mostrarHistorial(comboBoxFiltrarHistorial1.getSelectedIndex(),escribirFiltro1.getText()));
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor para filtrar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
