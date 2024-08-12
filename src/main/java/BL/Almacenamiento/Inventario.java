@@ -126,7 +126,7 @@ public class Inventario implements Serializable {
     }
 
     // Metodo que calcula la fecha o dias que le faltan a un paquete, sin ser reclamado
-    public String calcularFechaLimite(String fechaIngreso) {
+    private String calcularFechaLimite(String fechaIngreso) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
             LocalDateTime fechaHoraIngreso = LocalDateTime.parse(fechaIngreso, formatter);

@@ -6,12 +6,12 @@ public class Registro implements Serializable{
     private String fechaIngreso;
     private String fechaSalida;
     private String agencia;
-    private String idPaquete;
+    private String trackinPaquete;
 
     public Registro(String fechaIngreso, String agencia, String idPaquete) {
         this.fechaIngreso = fechaIngreso;
         this.agencia = agencia;
-        this.idPaquete = idPaquete;
+        this.trackinPaquete = idPaquete;
     }
 
     public String getFechaIngreso() {
@@ -34,8 +34,8 @@ public class Registro implements Serializable{
         return agencia;
     }
 
-    public String getIdPaquete() {
-        return idPaquete;
+    public String getTrackinPaquete() {
+        return trackinPaquete;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Registro implements Serializable{
                 "fechaIngreso='" + fechaIngreso + '\'' +
                 ", fechaSalida='" + fechaSalida + '\'' +
                 ", sucursal='" + agencia + '\'' +
-                ", idPaquete=" + idPaquete +
+                ", idPaquete=" + trackinPaquete +
                 '}';
     }
 }

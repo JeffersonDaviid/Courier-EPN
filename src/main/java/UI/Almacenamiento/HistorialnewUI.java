@@ -57,7 +57,7 @@ public class HistorialnewUI extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtrar Historial", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14))); // NOI18N
 
-        comboBoxFiltrarHistorial1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id Paquete", "Fecha Ingreso", "Fecha Salida" }));
+        comboBoxFiltrarHistorial1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tracking Paquete", "Fecha Ingreso", "Fecha Salida" }));
 
         escribirFiltro1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

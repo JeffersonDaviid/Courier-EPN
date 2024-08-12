@@ -21,9 +21,9 @@ public class Historial implements Serializable {
     }
 
     //Metodo que busca un registro expecifico en toda la lista
-    public Registro getRegistro(String idPaquete) {
+    public Registro getRegistro(String trackingPaquete) {
         for (Registro registro : registros) {
-            if (registro.getIdPaquete().equals(idPaquete)) {
+            if (registro.getTrackinPaquete().equals(trackingPaquete)) {
                 return registro;
             }
         }
@@ -32,63 +32,63 @@ public class Historial implements Serializable {
     }
 
     //Método que actualiza la fecha de salida de un registro
-    public void actualizarFechaDeSalida(String id, String fechaSalida) {
-        Registro registro = getRegistro(id);
+    public void actualizarFechaDeSalida(String trackingPaquete, String fechaSalida) {
+        Registro registro = getRegistro(trackingPaquete);
         if (registro != null) {
             registro.setFechaSalida(fechaSalida);
         }
     }
 
-public DefaultTableModel mostrarHistorial(int index, String parametro) {
-    DateTimeFormatter formatterFechaYHora = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    DateTimeFormatter formatterFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DefaultTableModel model = new DefaultTableModel();
-        String[] columnas = { "Tracking Paquete", "Fecha Ingreso","Fecha Salida","Sucursal" };
-        int cntidadCol = columnas.length;
-        for (int i = 0; i < cntidadCol; i++) {
-            model.addColumn(columnas[i]);
-        }
-        Collection<Registro> registrosMostrar = new ArrayList<>();
-        
-        switch (index) {
-            case -1:
-                registrosMostrar = registros;
-                break;
-            case 0:
-                for (Registro registro : registros) {
-                    if(registro.getIdPaquete() == parametro){
-                        registrosMostrar.add(registro);
-                    }
-                }                
-                break;
-            case 1:
-                for (Registro registro : registros) {
-                    LocalDateTime fechaYHora = LocalDateTime.parse(registro.getFechaIngreso(), formatterFechaYHora);
-                    LocalDate fecha = LocalDate.parse(parametro, formatterFecha);
-                    if(fechaYHora.toLocalDate().equals(fecha)){
-                        registrosMostrar.add(registro);
-                    }
-                }
-                break;
-            case 2:
-                for (Registro registro : registros) {
-                    if(registro.getFechaSalida() == null){
-                        continue;
-                    }
-                    LocalDateTime fechaYHora = LocalDateTime.parse(registro.getFechaSalida(), formatterFechaYHora);
-                    LocalDate fecha = LocalDate.parse(parametro, formatterFecha);
-                    if(fechaYHora.toLocalDate().equals(fecha)){
-                        registrosMostrar.add(registro);
-                    }
-                }
-                break;
+    public DefaultTableModel mostrarHistorial(int index, String parametro) {
+        DateTimeFormatter formatterFechaYHora = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DefaultTableModel model = new DefaultTableModel();
+            String[] columnas = { "Tracking Paquete", "Fecha Ingreso","Fecha Salida","Sucursal" };
+            int cntidadCol = columnas.length;
+            for (int i = 0; i < cntidadCol; i++) {
+                model.addColumn(columnas[i]);
             }
-        for (Registro p : registrosMostrar) {
-            model.addRow(new Object[] { 
-                    p.getIdPaquete(),
-                    p.getFechaIngreso(),
-                    p.getFechaSalida()});
+            Collection<Registro> registrosMostrar = new ArrayList<>();
+            
+            switch (index) {
+                case -1:
+                    registrosMostrar = registros;
+                    break;
+                case 0:
+                    for (Registro registro : registros) {
+                        if(registro.getTrackinPaquete() == parametro){
+                            registrosMostrar.add(registro);
+                        }
+                    }                
+                    break;
+                case 1:
+                    for (Registro registro : registros) {
+                        LocalDateTime fechaYHora = LocalDateTime.parse(registro.getFechaIngreso(), formatterFechaYHora);
+                        LocalDate fecha = LocalDate.parse(parametro, formatterFecha);
+                        if(fechaYHora.toLocalDate().equals(fecha)){
+                            registrosMostrar.add(registro);
+                        }
+                    }
+                    break;
+                case 2:
+                    for (Registro registro : registros) {
+                        if(registro.getFechaSalida() == null){
+                            continue;
+                        }
+                        LocalDateTime fechaYHora = LocalDateTime.parse(registro.getFechaSalida(), formatterFechaYHora);
+                        LocalDate fecha = LocalDate.parse(parametro, formatterFecha);
+                        if(fechaYHora.toLocalDate().equals(fecha)){
+                            registrosMostrar.add(registro);
+                        }
+                    }
+                    break;
+                }
+            for (Registro p : registrosMostrar) {
+                model.addRow(new Object[] { 
+                        p.getTrackinPaquete(),
+                        p.getFechaIngreso(),
+                        p.getFechaSalida()});
+            }
+            return model;
         }
-        return model;
-    }
 }
