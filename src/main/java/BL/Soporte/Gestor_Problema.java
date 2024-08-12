@@ -4,10 +4,40 @@
  */
 package BL.Soporte;
 
+import BL.GestionPaquete.Paquete;
+
 /**
  *
  * @author Alex
  */
 public class Gestor_Problema {
+     private Paquete paquete;
+    private Problema problema;
+    private double precioPaquete;
+
+    public Gestor_Problema(Paquete paquete, double precioPaquete, Problema problema) {
+        this.paquete = paquete;
+        this.precioPaquete = precioPaquete;
+        this.problema = problema;
+    }
+
+    public void solucionarReclamo() {
+    problema.resolverReclamo();
+
+        if (problema instanceof RetrasoProblema) {
+            double reembolso = ((RetrasoProblema) problema).calcularReembolso(precioPaquete);
+            System.out.println("Reembolso calculado: " + reembolso);
+        } else if (problema instanceof ExtraviadoProblema) {
+            double reembolso = ((ExtraviadoProblema) problema).calcularReembolso(precioPaquete);
+            System.out.println("Reembolso calculado: " + reembolso);
+        } else if (problema instanceof DanadoProblema) {
+            double reembolso = ((DanadoProblema) problema).calcularReembolso(precioPaquete);
+            System.out.println("Reembolso calculado: " + reembolso);
+        } else if (problema instanceof EquivocadoProblema) {
+            ((EquivocadoProblema) problema).corregirDestinatario(paquete);
+        }
+
+        System.out.println("Reclamo solucionado para el paquete: " + paquete.obtenerEstadoActual() + " con un precio de: " + precioPaquete);
+    }   
     
 }

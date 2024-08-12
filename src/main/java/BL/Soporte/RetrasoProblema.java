@@ -4,10 +4,24 @@
  */
 package BL.Soporte;
 
+import BL.GestionPaquete.Paquete;
+
 /**
  *
  * @author Alex
  */
-public class RetrasoProblema {
+public class RetrasoProblema implements Problema{
+
+    @Override
+    public void resolverReclamo() {
+        System.out.println("Resolviendo problema de retraso...");
+    }
+
+    @Override
+    public double calcularReembolso(double precioPaquete) {
+        return 0.20 * precioPaquete;
+    }
+
+   
     
 }
