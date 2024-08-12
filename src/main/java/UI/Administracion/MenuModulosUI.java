@@ -12,10 +12,6 @@ import BL.Administracion.Recepcionista;
 import UI.Almacenamiento.HistorialnewUI;
 import UI.Almacenamiento.InventarioUI;
 import UI.GestionPaquete.GestionPaquete;
-import UI.Transporte.UICamionCarga;
-import UI.Transporte.UICamionCargaDespachar;
-import UI.Transporte.UICamionEntrega;
-import UI.Transporte.UICamionEntregaDespachar;
 
 import java.awt.BorderLayout;
 
@@ -388,20 +384,20 @@ public class MenuModulosUI extends javax.swing.JFrame {
 
     private void btn_entregaDespacharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entregaDespacharActionPerformed
         // TODO add your handling code here:
-        showPanel(new UICamionEntregaDespachar());
+        //showPanel(new UICamionEntregaDespachar());
     }//GEN-LAST:event_btn_entregaDespacharActionPerformed
 
     private void btn_camionEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_camionEntregaActionPerformed
         // TODO add your handling code here:
-        showPanel(new UICamionEntrega());
+        //showPanel(new UICamionEntrega());
     }//GEN-LAST:event_btn_camionEntregaActionPerformed
 
     private void btn_cargaDespacharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargaDespacharActionPerformed
-        showPanel(new UICamionCargaDespachar());
+        //showPanel(new UICamionCargaDespachar());
     }//GEN-LAST:event_btn_cargaDespacharActionPerformed
 
     private void btn_cargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargaActionPerformed
-        showPanel(new UICamionCarga());
+        //showPanel(new UICamionCarga());
     }//GEN-LAST:event_btn_cargaActionPerformed
 
     private void btn_histActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_histActionPerformed

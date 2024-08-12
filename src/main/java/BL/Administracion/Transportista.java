@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import BL.GestionPaquete.Entregado;
 import BL.GestionPaquete.Paquete;
+import BL.GestionPaquete.Transportandose;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
 
@@ -36,8 +37,10 @@ public class Transportista extends Perfil {
 
     @Override
     public void reportarProblema(Paquete paquete) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reportarProblema'");
+        if(paquete==null||!(paquete.getEstado() instanceof Transportandose)){
+            JOptionPane.showMessageDialog(null, "El paquete no existe.");
+            return;
+        }
     }
 
     public void entregarPaquete(String idPaquete){
