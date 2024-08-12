@@ -24,7 +24,7 @@ public class Transportista extends Perfil {
         throw new UnsupportedOperationException("Unimplemented method 'reportarProblema'");
     }
 
-    public void entregarPaquete(String idPaquete{
+    public void entregarPaquete(String idPaquete){
         Paquete paquete = inventario.buscarPaquete(idPaquete);
         paquete.setEstado(new Entregado());
         inventario.guardarInventario();
