@@ -29,7 +29,7 @@ public class GestionPaquete extends javax.swing.JPanel {
     private Cliente cliente = null;
     public GestionPaquete(Recepcionista recepcionista) {
         initComponents();
-        paquete = new Paquete();
+        paquete =  null;
         this.recepcionista = recepcionista;
         this.recepcionista.eliminarPaqueteRegistrado();
     }
