@@ -222,6 +222,21 @@ public class GestorTransporte {
         return paquetes;
     }
 
+    // Metodo para obtener el camion asignado a un transportista
+    public Camion consultarCamionAsignado (Transportista transportista) {
+        if (transportista != null) {
+            // Itera sobre la relación camión-transportista
+            for (Camion camion : camionTransportista.keySet()) {
+                if (camionTransportista.get(camion).equals(transportista)) {
+                    return camion;
+                }
+            }
+        } else {
+            System.out.println("El transportista proporcionado es nulo.");
+        }
+        return null;
+    }
+
     // Metodos para mostrar informacion
 
     public void mostrarCamiones() {
