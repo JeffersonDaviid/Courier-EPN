@@ -1,6 +1,5 @@
 package BL.Administracion;
 
-import BL.Transporte.Ubicacion;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
