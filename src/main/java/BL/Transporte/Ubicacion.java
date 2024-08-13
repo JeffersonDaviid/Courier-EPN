@@ -3,6 +3,8 @@ package BL.Transporte;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public enum Ubicacion {
     CUENCA,
     GUARANDA,
@@ -37,7 +39,7 @@ public enum Ubicacion {
     try {
         return Ubicacion.valueOf(texto.toUpperCase());
     } catch (IllegalArgumentException e) {
-        JOptionPane.showMessageDialog(this, "Ubicación no válida.");
+        JOptionPane.showMessageDialog(null, "Ubicación no válida.");
         return null;
     }
 }

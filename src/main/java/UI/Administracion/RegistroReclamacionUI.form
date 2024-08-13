@@ -199,10 +199,10 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Retraso "/>
-            <StringItem index="1" value="Extrav&#xed;o"/>
-            <StringItem index="2" value="Da&#xf1;o en el paquete"/>
-            <StringItem index="3" value="Paquete equivocado"/>
+            <StringItem index="0" value="Extraviado"/>
+            <StringItem index="1" value="Da&#xf1;ado"/>
+            <StringItem index="2" value="Retraso"/>
+            <StringItem index="3" value="Equivocado"/>
           </StringArray>
         </Property>
       </Properties>
@@ -224,7 +224,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Registrar Reclamaci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Registrar Reclamo"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarReclamacionActionPerformed"/>
@@ -238,7 +238,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="a1" green="47" red="d" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Registrar una Reclamaci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Registrar una Reclamo"/>
       </Properties>
     </Component>
   </SubComponents>
