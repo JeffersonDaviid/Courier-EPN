@@ -4,8 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 public class GestorPerfiles {
 
     private static final String FILE_NAME = "src\\main\\java\\BL\\Serializables\\perfiles.ser";
@@ -51,7 +49,6 @@ public class GestorPerfiles {
     public synchronized Perfil login(String nombre, String contrasena, String rol) {
         List<Perfil> usuarios = getUsuarios();
         for (Perfil perfil : usuarios) {
-            JOptionPane.showMessageDialog(null, perfil.getNombre()+" "+perfil.getContrasena());
             if (perfil.getNombre().equals(nombre) && perfil.getContrasena().equals(contrasena)) {
                 if (rol.equals(perfil.getClass().getSimpleName())) {
                     return perfil;
