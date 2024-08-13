@@ -44,7 +44,7 @@ public class Transportista extends Perfil {
         }
     }
 
-    public void entregarPaquete(String idPaquete){
+    public void registrarEntregaPaquete(String idPaquete){
         Paquete paquete = inventario.buscarPaquete(idPaquete);
         if(paquete==null){
             JOptionPane.showMessageDialog(null, "El paquete no existe.");
