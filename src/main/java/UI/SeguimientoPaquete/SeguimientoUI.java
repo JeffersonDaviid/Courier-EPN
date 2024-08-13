@@ -92,10 +92,10 @@ public class SeguimientoUI extends javax.swing.JPanel {
        String trackingId = jTextFieldIdPaquete.getText();
 
         // Buscar el paquete por su número de tracking en el inventario
-        Paquete paquete = Inventario.getInstancia().buscarPaquete(trackingId);
+        Paquete paquete = recepcionista.obtenerPaquete(trackingId);
 
         if (paquete != null) {
-            Seguimiento seguimiento = paquete.getSeguimiento();
+            Seguimiento seguimiento = recepcionista.consultarSeguimientoPaquete(paquete.getTracking());
 
             // Si el seguimiento es null, crearlo aquí
             if (seguimiento == null) {
