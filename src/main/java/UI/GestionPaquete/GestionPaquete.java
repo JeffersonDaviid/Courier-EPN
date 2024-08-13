@@ -152,7 +152,7 @@ public class GestionPaquete extends javax.swing.JPanel {
             }
         });
 
-        jComboTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pequeño", "mediano", "grande", " " }));
+        jComboTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pequeño", "mediano", "grande"}));
 
         jBCalcular.setText("CALCULAR");
         jBCalcular.addActionListener(new java.awt.event.ActionListener() {
