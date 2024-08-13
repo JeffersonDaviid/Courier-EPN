@@ -234,6 +234,12 @@ public class RegistroClientesUI extends javax.swing.JPanel {
             model.addElement(perfil.getCedula() + " - " + perfil.getNombre() + " " + perfil.getApellido());
         }
         jList1.setModel(model);
+        field_pass1.setText("");
+        field_pass2.setText("");
+        field_pass3.setText("");
+        field_pass4.setText("");
+        field_pass5.setText("");
+        
        // JOptionPane.showMessageDialog(this, "Registro exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_regUsuarioActionPerformed
       
