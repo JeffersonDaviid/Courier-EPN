@@ -11,9 +11,7 @@ public class Seguimiento implements Serializable{
     public Seguimiento(Paquete paquete) {
         this.paquete = paquete;
         this.historialEstados = new ArrayList<>();
-        // Agregar el estado inicial al historial
-       // this.historialEstados.add(paquete.obtenerEstadoActual());
-        //System.out.println("Estado inicial: " + paquete.obtenerEstadoActual().toString());
+        
     }
 
     // Método para realizar seguimiento del paquete
