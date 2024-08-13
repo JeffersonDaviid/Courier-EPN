@@ -11,7 +11,10 @@ import com.proyecto.courierepn.CourierEPN;
 import BL.Administracion.GestorPerfiles;
 import BL.Administracion.Perfil;
 import BL.Administracion.Transportista;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 import java.awt.Color;
 

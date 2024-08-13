@@ -92,7 +92,6 @@ public class Inventario implements Serializable {
         paquete.cambiarEstado(new EnBodega(paquete));
         ingresarRegistro(paquete, paquete.getSucursalOrigen());
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
-        saveInventario();
     }
 
     // Metodo que guarda el ingreso de un paquete al invetario para el Historial
@@ -216,6 +215,16 @@ public class Inventario implements Serializable {
                 }
             }
         }
-        saveInventario();
+    }
+
+    //Metodo que devuelve una lista de paquetes asociado a un cliente
+    public ArrayList<Paquete> getPAquetesDeCliente(String cedula){
+        ArrayList<Paquete> paquetesEncontrados = new ArrayList<>();
+        for (Paquete paquete : paquetesEncontrados) {
+            if(paquete.getCliente().getCedula().equals(cedula)){
+                paquetesEncontrados.add(paquete);
+            }
+        }
+        return paquetesEncontrados;
     }
 }
