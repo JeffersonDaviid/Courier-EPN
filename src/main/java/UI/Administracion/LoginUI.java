@@ -35,6 +35,8 @@ public class LoginUI extends javax.swing.JFrame {
     }
 
     private void InitContent() {
+        jComboBox1.setVisible(false);
+        jLabel1.setVisible(false);
     }
 
     /**
