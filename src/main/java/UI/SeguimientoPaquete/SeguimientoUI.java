@@ -95,8 +95,8 @@ public class SeguimientoUI extends javax.swing.JPanel {
         Paquete paquete = recepcionista.obtenerPaquete(trackingId);
 
         if (paquete != null) {
-            Seguimiento seguimiento = paquete.getSeguimiento();
-            
+            Seguimiento seguimiento = recepcionista.consultarSeguimientoPaquete(paquete.getTracking());
+
             // Si el seguimiento es null, crearlo aquí
             if (seguimiento == null) {
                 seguimiento = new Seguimiento(paquete);
