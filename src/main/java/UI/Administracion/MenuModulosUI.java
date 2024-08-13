@@ -14,6 +14,7 @@ import UI.Almacenamiento.InventarioUI;
 import UI.GestionPaquete.GestionPaquete;
 //import UI.Reclamos.ReclamoUI;
 import UI.Reclamos.SoporteUI;
+import UI.SeguimientoPaquete.SeguimientoUI;
 
 import java.awt.BorderLayout;
 
@@ -441,7 +442,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_envActionPerformed
 
     private void btn_seguimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_seguimientoActionPerformed
-        // TODO add your handling code here:
+        showPanel(new SeguimientoUI((Recepcionista)usuario));
     }//GEN-LAST:event_btn_seguimientoActionPerformed
 
     private void btn_regCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regCamionActionPerformed
