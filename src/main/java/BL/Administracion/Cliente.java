@@ -9,7 +9,7 @@ import BL.GestionPaquete.Paquete;
 import BL.Soporte.DanadoProblema;
 import BL.Soporte.EquivocadoProblema;
 import BL.Soporte.ExtraviadoProblema;
-import BL.Soporte.Gestor_Problema;
+import BL.Soporte.GestorProblema;
 import BL.Soporte.Problema;
 import BL.Soporte.RetrasoProblema;
 
@@ -57,7 +57,7 @@ public class Cliente extends Perfil {
                 JOptionPane.showMessageDialog(null, "Problema no reconocido");
                 return;
         }
-        Gestor_Problema gestorProblema = new Gestor_Problema(paquete, problemaReportado);
+        GestorProblema gestorProblema = new GestorProblema(paquete, problemaReportado);
         gestorProblema.solucionarReclamo();
     }
 

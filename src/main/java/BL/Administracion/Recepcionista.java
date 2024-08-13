@@ -160,7 +160,7 @@ public class Recepcionista extends Perfil{
                 JOptionPane.showMessageDialog(null, "Problema no reconocido");
                 return;
         }
-        Gestor_Problema gestorProblema = new Gestor_Problema(paquete, problemaReportado);
+        GestorProblema gestorProblema = new GestorProblema(paquete, problemaReportado);
         gestorProblema.solucionarReclamo();
     }
 

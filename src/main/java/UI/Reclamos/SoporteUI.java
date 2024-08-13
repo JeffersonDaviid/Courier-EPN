@@ -7,7 +7,7 @@ package UI.Reclamos;
 import BL.Administracion.Perfil;
 import BL.Administracion.Recepcionista;
 import BL.Administracion.Transportista;
-import BL.Soporte.Gestor_Problema;
+import BL.Soporte.GestorProblema;
 
 /**
  *

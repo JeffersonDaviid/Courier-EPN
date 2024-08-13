@@ -11,7 +11,7 @@ import BL.GestionPaquete.Transportandose;
 import BL.Soporte.DanadoProblema;
 import BL.Soporte.EquivocadoProblema;
 import BL.Soporte.ExtraviadoProblema;
-import BL.Soporte.Gestor_Problema;
+import BL.Soporte.GestorProblema;
 import BL.Soporte.Problema;
 import BL.Soporte.RetrasoProblema;
 import BL.Transporte.Camion;
@@ -69,7 +69,7 @@ public class Transportista extends Perfil {
                 JOptionPane.showMessageDialog(null, "Problema no reconocido");
                 return;
         }
-        Gestor_Problema gestorProblema = new Gestor_Problema(paquete, problemaReportado);
+        GestorProblema gestorProblema = new GestorProblema(paquete, problemaReportado);
         gestorProblema.solucionarReclamo();
     }
 
