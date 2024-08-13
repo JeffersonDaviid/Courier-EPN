@@ -6,19 +6,23 @@ package UI.Reclamos;
 
 import BL.Administracion.Perfil;
 import BL.Administracion.Recepcionista;
+import BL.Administracion.Transportista;
 
 /**
  *
  * @author Alex
  */
 public class SoporteUI extends javax.swing.JPanel {
-    Recepcionista usuarioActual;  
+    Perfil usuarioActual;  
     /**
      * Creates new form SoporteUI
      */
     public SoporteUI(Perfil usuario) {
         initComponents();
-        this.usuarioActual = (Recepcionista) usuario;
+        if(usuario instanceof Recepcionista)
+            this.usuarioActual = (Recepcionista) usuario;
+        else if (usuario instanceof Transportista)
+            this.usuarioActual = (Transportista) usuario;
     }
 
     /**

@@ -422,7 +422,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_registrocli1ActionPerformed
 
     private void btn_ReclamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReclamosActionPerformed
-        showPanel(new SoporteUI((Recepcionista)usuario));
+        showPanel(new SoporteUI(usuario));
     }//GEN-LAST:event_btn_ReclamosActionPerformed
 
     /**
