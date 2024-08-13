@@ -390,7 +390,10 @@ public class LoginUI extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        EspacioReclamacionUI espacioReclamacionUI = new EspacioReclamacionUI();
+        espacioReclamacionUI.setVisible(true);
+        this.setVisible(false);
+
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException {// GEN-FIRST:event_jButton1ActionPerformed
