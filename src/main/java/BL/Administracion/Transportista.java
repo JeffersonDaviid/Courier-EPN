@@ -38,6 +38,10 @@ public class Transportista extends Perfil {
             JOptionPane.showMessageDialog(null, "El paquete no existe.");
             return;
         }
+        if(!verificarPaquete(paquete)){
+            JOptionPane.showMessageDialog(null, "El paquete no se encuentra asignado a su camión.");
+            return;
+        }
     }
 
     public void entregarPaquete(String idPaquete){
@@ -47,7 +51,7 @@ public class Transportista extends Perfil {
             return;
         }
         if(!verificarPaquete(paquete)){
-            JOptionPane.showMessageDialog(null, "El paquete no se encuentra asignado a este transportista.");
+            JOptionPane.showMessageDialog(null, "El paquete no se encuentra asignado a su camión.");
             return;
         }
         paquete.setEstado(new Entregado(paquete));
