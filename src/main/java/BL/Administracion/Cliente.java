@@ -43,7 +43,7 @@ public class Cliente extends Perfil {
         Paquete paquete = obtenerPaquete(idPaquete);
         Problema problemaReportado = null;
         if(paquete==null){
-            JOptionPane.showMessageDialog(null, "El paquete no existe.");
+            JOptionPane.showMessageDialog(null, "Este código de paquete no se encuentra asignado a usted!.");
             return;
         }
         paquete.setEstado(new Conflicto(paquete));
