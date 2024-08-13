@@ -68,6 +68,7 @@ public class Recepcionista extends Perfil{
 
     public void registrarPaqueteEnInventario(){
         Inventario.getInstancia().agregarPaquete(paqueteEnRegistro);
+        Inventario.getInstancia().saveInventario();
     }
 
     public float previsualizarPrecioPaquete(){
@@ -148,6 +149,7 @@ public class Recepcionista extends Perfil{
         }
         paquete.setEstado(new Conflicto(paquete));
         Inventario.getInstancia().notificarCambioEstado(idPaquete);
+        Inventario.getInstancia().saveInventario();
         switch (problema.toLowerCase()){
             case "dañado":
                 problemaReportado = new DanadoProblema();

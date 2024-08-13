@@ -1,5 +1,6 @@
 package BL.Almacenamiento;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,8 +23,8 @@ import BL.GestionPaquete.Paquete;
 import BL.GestionPaquete.Transportandose;
 
 public class Inventario implements Serializable {
-    private static final String FILE_NAME_PAQUETES = "src\\main\\java\\BL\\Serializables\\paquetes.ser";
     private static final String FILE_NAME_HISTORIAL = "src\\main\\java\\BL\\Serializables\\historial.ser";
+    private static final String FILE_NAME_PAQUETES = "src\\main\\java\\BL\\Serializables\\paquetes.ser";
     private static Inventario inventario;
     private ArrayList<Paquete> paquetes;
     private Historial historial;
@@ -31,35 +32,30 @@ public class Inventario implements Serializable {
 
     private Inventario() {
         this.diasMaximo = 15;
-        this.paquetes = loadPaquetes();
-        this.historial = loadHistorial();
+        this.paquetes = new ArrayList<>();
+        this.historial = new Historial();
     }
 
-    private Historial loadHistorial() {
+    @SuppressWarnings("unchecked")
+    private void loadInventario() {
         //Carga el Historial
         try (ObjectInputStream ois2 = new ObjectInputStream(new FileInputStream(FILE_NAME_HISTORIAL))) {
-            return (Historial) ois2.readObject();
+            historial = (Historial) ois2.readObject();
         } catch (FileNotFoundException e) {
             // File not found, which is expected for the first run
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error al cargar el Historial.");
             e.printStackTrace();
         }
-        return new Historial();
-    }
-
-    @SuppressWarnings("unchecked")
-    private ArrayList<Paquete> loadPaquetes() {
         // Carga los paquetes
         try (ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream(FILE_NAME_PAQUETES))) {
-            return (ArrayList<Paquete>) ois1.readObject();
+            paquetes = (ArrayList<Paquete>) ois1.readObject();
         } catch (FileNotFoundException e) {
             // File not found, which is expected for the first run
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error al cargar los Paquetes.");
             e.printStackTrace();
         }
-        return new ArrayList<Paquete>();
     }
 
     public void saveInventario(){
@@ -82,6 +78,7 @@ public class Inventario implements Serializable {
     public static Inventario getInstancia() {
         if (inventario == null) {
             inventario = new Inventario();
+            inventario.loadInventario();
         }
         return inventario;
     }
@@ -92,7 +89,7 @@ public class Inventario implements Serializable {
         paquete.cambiarEstado(new EnBodega(paquete));
         ingresarRegistro(paquete, paquete.getSucursalOrigen());
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
-        //saveInventario();
+        saveInventario();
     }
 
     // Metodo que guarda el ingreso de un paquete al invetario para el Historial
@@ -221,7 +218,7 @@ public class Inventario implements Serializable {
     //Metodo que devuelve una lista de paquetes asociado a un cliente
     public ArrayList<Paquete> getPaquetesDeCliente(String cedula){
         ArrayList<Paquete> paquetesEncontrados = new ArrayList<Paquete>();
-        for (Paquete paquete : paquetes) {
+        for (Paquete paquete : paquetesEncontrados) {
             if(paquete.getCliente().getCedula().equals(cedula)){
                 paquetesEncontrados.add(paquete);
             }
