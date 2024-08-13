@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Conflicto;
 import BL.GestionPaquete.Entregado;
 import BL.GestionPaquete.Paquete;
@@ -51,7 +52,7 @@ public class Transportista extends Perfil {
             return;
         }
         paquete.setEstado(new Conflicto(paquete));
-        inventario.notificarCambioEstado(idPaquete);
+        Inventario.getInstancia().notificarCambioEstado(idPaquete);
         switch (problema.toLowerCase()){
             case "dañado":
                 problemaReportado = new DanadoProblema();
@@ -74,7 +75,7 @@ public class Transportista extends Perfil {
     }
 
     public void registrarEntregaPaquete(String idPaquete){
-        Paquete paquete = inventario.buscarPaquete(idPaquete);
+        Paquete paquete = Inventario.getInstancia().buscarPaquete(idPaquete);
         if(paquete==null){
             JOptionPane.showMessageDialog(null, "El paquete no existe.");
             return;
@@ -84,7 +85,7 @@ public class Transportista extends Perfil {
             return;
         }
         paquete.setEstado(new Entregado(paquete));
-        inventario.notificarCambioEstado(idPaquete);
+        Inventario.getInstancia().notificarCambioEstado(idPaquete);
         Camion camion = GestorTransporte.getInstancia().consultarCamionAsignado(this);
         GestorTransporte.getInstancia().eliminarPaqueteAsignado(camion, idPaquete);
     }

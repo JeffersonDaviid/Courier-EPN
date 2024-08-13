@@ -14,7 +14,6 @@ public abstract class Perfil implements Serializable {
     private String correo;
     private String contrasena;
     private String telefono;
-    protected Inventario inventario;
     
     public Perfil(String nombre, String apellido, String cedula, String correo, String contrasena, String telefono){
         this.nombre = nombre;
@@ -23,12 +22,11 @@ public abstract class Perfil implements Serializable {
         this.correo = correo;
         this.contrasena = contrasena;
         this.telefono = telefono;
-        this.inventario = Inventario.getInstancia();
         
     }
 
     public Paquete obtenerPaquete(String idPaquete) {
-        return inventario.buscarPaquete(idPaquete);
+        return Inventario.getInstancia().buscarPaquete(idPaquete);
     }
 
     public abstract void reportarProblema(String idPaquete, String problema);

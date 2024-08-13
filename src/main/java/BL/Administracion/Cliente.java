@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Conflicto;
 import BL.GestionPaquete.Paquete;
 import BL.Soporte.DanadoProblema;
@@ -21,7 +22,7 @@ public class Cliente extends Perfil {
     
     public ArrayList<Paquete> obtenerPaquetes(String cedula){
         ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
-        paquetes = inventario.getPaquetesDeCliente(cedula);
+        paquetes = Inventario.getInstancia().getPaquetesDeCliente(cedula);
         if(paquetes.isEmpty()){
             JOptionPane.showMessageDialog(null, "No se encontraron paquetes asociados a este cliente.");
         }
@@ -37,7 +38,7 @@ public class Cliente extends Perfil {
             return;
         }
         paquete.setEstado(new Conflicto(paquete));
-        inventario.notificarCambioEstado(idPaquete);
+        Inventario.getInstancia().notificarCambioEstado(idPaquete);
         switch (problema.toLowerCase()){
             case "dañado":
                 problemaReportado = new DanadoProblema();

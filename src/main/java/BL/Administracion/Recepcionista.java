@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import BL.Almacenamiento.Inventario;
 import BL.Facturacion.GestorFacturas;
 import BL.GestionPaquete.Conflicto;
 import BL.GestionPaquete.Paquete;
@@ -31,16 +32,15 @@ public class Recepcionista extends Perfil{
             JOptionPane.showMessageDialog(null, "No se pudo agregar el usuario. Verificar entradas.");
             return;
         }
-        GestorPerfiles gestorPerfiles = GestorPerfiles.getInstance();
         switch (rol) {
             case "Transportista":
                 Transportista transportista = new Transportista(nombre, apellido, cedula, correo, contrasena, telefono);
                 GestorTransporte.getInstancia().agregarTransportista(transportista);
-                gestorPerfiles.registrarPerfil(transportista);
+                GestorPerfiles.getInstance().registrarPerfil(transportista);
                 break;
             case "Cliente":
                 Cliente cliente = new Cliente(nombre, apellido, cedula, correo, contrasena, telefono);
-                gestorPerfiles.registrarPerfil(cliente);
+                GestorPerfiles.getInstance().registrarPerfil(cliente);
                 break;
         }
         JOptionPane.showMessageDialog(null, "Registro exitoso");
@@ -67,7 +67,7 @@ public class Recepcionista extends Perfil{
     }
 
     public void registrarPaqueteEnInventario(){
-        inventario.agregarPaquete(paqueteEnRegistro);
+        Inventario.getInstancia().agregarPaquete(paqueteEnRegistro);
     }
 
     public float previsualizarPrecioPaquete(){
@@ -91,7 +91,7 @@ public class Recepcionista extends Perfil{
     }
 
     public ArrayList<Paquete> obtenerPaquetes() {
-        return inventario.getPaquetesInventario();
+        return Inventario.getInstancia().getPaquetesInventario();
     }
 
     public void agregarCamion(String placa, String modelo, String marca, boolean disponibilidad,
@@ -123,11 +123,11 @@ public class Recepcionista extends Perfil{
     }
 
     public DefaultTableModel mostrarPaquetes(int index){
-        return inventario.mostrarPaquetes(index);
+        return Inventario.getInstancia().mostrarPaquetes(index);
     }
 
     public DefaultTableModel mostrarHistorial(int index, String filtro){
-        return inventario.getHistorial().mostrarHistorial(index, filtro);
+        return Inventario.getInstancia().getHistorial().mostrarHistorial(index, filtro);
     }
     
     public Seguimiento consultarSeguimientoPaquete(String idPaquete){
@@ -147,7 +147,7 @@ public class Recepcionista extends Perfil{
             return;
         }
         paquete.setEstado(new Conflicto(paquete));
-        inventario.notificarCambioEstado(idPaquete);
+        Inventario.getInstancia().notificarCambioEstado(idPaquete);
         switch (problema.toLowerCase()){
             case "dañado":
                 problemaReportado = new DanadoProblema();
