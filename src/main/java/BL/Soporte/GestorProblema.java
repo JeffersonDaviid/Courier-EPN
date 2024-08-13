@@ -9,7 +9,6 @@ import BL.GestionPaquete.EnBodega;
 import BL.GestionPaquete.Entregado;
 import BL.GestionPaquete.Paquete;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *

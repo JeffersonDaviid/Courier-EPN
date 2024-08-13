@@ -4,8 +4,6 @@
  */
 package BL.Soporte;
 
-import BL.GestionPaquete.Paquete;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**

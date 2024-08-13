@@ -6,7 +6,6 @@ import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Conflicto;
-import BL.GestionPaquete.EstadoPaquete;
 import BL.GestionPaquete.Paquete;
 import BL.GestionPaquete.Transportandose;
 import BL.Soporte.DanadoProblema;
