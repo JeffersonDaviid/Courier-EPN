@@ -420,7 +420,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonAsignarCamionPaqueteActionPerformed
     
     private void UbicacionTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UbicacionTxtActionPerformed
-
+        
     }//GEN-LAST:event_UbicacionTxtActionPerformed
 
 

@@ -20,11 +20,11 @@ public class UIAsignarCamionesTransportistas extends javax.swing.JPanel {
      * Creates new form UIAsignarCamionesTransportistas
      */
     Recepcionista recepcionista;
-    public UIAsignarCamionesTransportistas(Recepcionista Recepcionista) {
+    public UIAsignarCamionesTransportistas(Recepcionista recepcionista) {
         initComponents();
-        this.recepcionista = Recepcionista;
+        this.recepcionista = recepcionista;
     }
-  
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
