@@ -112,6 +112,8 @@ public class MenuModulosUI extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         registrocli1 = new javax.swing.JButton();
         btn_Reclamos = new javax.swing.JButton();
+        btn_AsignarPaquet = new javax.swing.JButton();
+        btn_AsignarCamione = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -269,6 +271,28 @@ public class MenuModulosUI extends javax.swing.JFrame {
             }
         });
 
+        btn_AsignarPaquet.setBackground(new java.awt.Color(21, 101, 192));
+        btn_AsignarPaquet.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn_AsignarPaquet.setForeground(new java.awt.Color(255, 255, 255));
+        btn_AsignarPaquet.setText(" Asignación Paquetes");
+        btn_AsignarPaquet.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_AsignarPaquet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AsignarPaquetActionPerformed(evt);
+            }
+        });
+
+        btn_AsignarCamione.setBackground(new java.awt.Color(21, 101, 192));
+        btn_AsignarCamione.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn_AsignarCamione.setForeground(new java.awt.Color(255, 255, 255));
+        btn_AsignarCamione.setText(" Asignación Camiones");
+        btn_AsignarCamione.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_AsignarCamione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AsignarCamioneActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -281,12 +305,12 @@ public class MenuModulosUI extends javax.swing.JFrame {
             .addComponent(btn_cargaDespachar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_camionEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_entregaDespachar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-    
+            .addComponent(btn_AsignarPaquet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_AsignarCamione, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_seguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_regCamion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_Reclamos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) // Nuevo botón
+            .addComponent(btn_Reclamos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_regCamion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-           
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -306,7 +330,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(registrocli1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,14 +348,17 @@ public class MenuModulosUI extends javax.swing.JFrame {
                 .addComponent(btn_camionEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_entregaDespachar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-    
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_AsignarPaquet, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_AsignarCamione, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_seguimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_regCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Reclamos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE) // Nuevo botón
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_Reclamos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(btn_regCamion1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -425,6 +452,14 @@ public class MenuModulosUI extends javax.swing.JFrame {
         showPanel(new SoporteUI(usuario));
     }//GEN-LAST:event_btn_ReclamosActionPerformed
 
+    private void btn_AsignarPaquetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AsignarPaquetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_AsignarPaquetActionPerformed
+
+    private void btn_AsignarCamioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AsignarCamioneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_AsignarCamioneActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -441,6 +476,8 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_AsignarCamione;
+    private javax.swing.JButton btn_AsignarPaquet;
     private javax.swing.JButton btn_Reclamos;
     private javax.swing.JButton btn_admin;
     private javax.swing.JButton btn_camionEntrega;
