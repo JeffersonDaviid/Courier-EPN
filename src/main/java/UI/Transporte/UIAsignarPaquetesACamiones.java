@@ -399,7 +399,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
                 TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
                 TextFieldModeloCamion.setText(camion.getModelo());
                 TextFieldMarcaCamion.setText(camion.getMarca());
-                txtUbicacionCamion.setText(camion.getUbicacion().name());
+                txtUbicacionCamion.setText(camion.getUbicacion());
             } else {
                 // Limpiar los campos si el camión no es encontrado
                 TextFieldIDCCamion.setText("");
@@ -464,7 +464,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     }//GEN-LAST:event_txtUbicacionCamionActionPerformed
 
     private void cmbxSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbxSucursalActionPerformed
-    Ubicacion ubicacion = (Ubicacion) cmbxSucursal.getSelectedItem();
+    String ubicacion = (String) cmbxSucursal.getSelectedItem();
     if (ubicacion != null) {
         ArrayList<Paquete> paquetes = GestorTransporte.getInstancia().obtenerPaquetesPorDestino(ubicacion);
         actualizarTablaPaquetes(paquetes);

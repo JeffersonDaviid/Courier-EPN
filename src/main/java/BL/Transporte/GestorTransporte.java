@@ -37,10 +37,11 @@ public class GestorTransporte {
     private GestorTransporte() {
         this.inventario = Inventario.getInstancia();
         inicializarArchivos();
-        this.camiones = loadCamiones();  // Carga camiones desde el archivo
-        this.transportistas = loadTransportistas();  // Carga transportistas desde el archivo
-        this.camionTransportista = loadCamionTransportista();  // Carga asignación de camiones a transportistas desde el archivo
-        this.camionPaquetes = loadCamionPaquete();  // Carga asignación de paquetes a camiones desde el archivo
+        this.camiones = loadCamiones(); // Carga camiones desde el archivo
+        this.transportistas = loadTransportistas(); // Carga transportistas desde el archivo
+        this.camionTransportista = loadCamionTransportista(); // Carga asignación de camiones a transportistas desde el
+                                                              // archivo
+        this.camionPaquetes = loadCamionPaquete(); // Carga asignación de paquetes a camiones desde el archivo
     }
 
     // Método para verificar e inicializar archivos
@@ -186,8 +187,7 @@ public class GestorTransporte {
     }
 
     // Metodo para agregar un nuevo objeto Camion
-    public void registrarCamion(String placa, String modelo, String marca, boolean disponibilidad,
-            Ubicacion ubicacion) {
+    public void registrarCamion(String placa, String modelo, String marca, boolean disponibilidad, String ubicacion) {
         int idCamion = generarIdCamion();
         Camion camion = new Camion(idCamion, placa, modelo, marca, disponibilidad, ubicacion);
         if (camiones == null) {
@@ -231,10 +231,10 @@ public class GestorTransporte {
     }
 
     // Metodo para obtener los paquetes de inventario por la ciudad de destino
-    private ArrayList<Paquete> obtenerPaquetesPorDestino(Ubicacion destino) {
+    public ArrayList<Paquete> obtenerPaquetesPorDestino(String destino) {
         ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
         for (Paquete paquete : inventario.getPaquetesParaEntregar()) {
-            if (paquete.getSucursalDestino().equals(destino.name())) {
+            if (paquete.getSucursalDestino().equals(destino)) {
                 paquetes.add(paquete);
             }
         }
@@ -267,13 +267,13 @@ public class GestorTransporte {
     }
 
     // Metodo para asignar un paquete a un camion por su ciudad de destino
-    public boolean asignarPaqueteACamion(Camion camion, Ubicacion destino) {
+    public boolean asignarPaqueteACamion(Camion camion, String destino) {
         if (camion != null) {
             ArrayList<Paquete> paquetes = obtenerPaquetesPorDestino(destino);
             if (paquetes.size() > 0) {
                 for (Paquete paquete : paquetes) {
                     inventario.buscarPaquete(paquete.getTracking()).cambiarEstado(new Transportandose(paquete));
-                    cargarPaqueteACamion(camion, paquete); 
+                    cargarPaqueteACamion(camion, paquete);
                     inventario.notificarCambioEstado(paquete.getTracking());
                     Inventario.getInstancia().saveInventario();
                 }

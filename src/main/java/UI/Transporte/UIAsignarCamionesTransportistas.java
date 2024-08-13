@@ -451,7 +451,7 @@ public class UIAsignarCamionesTransportistas extends javax.swing.JPanel {
                 TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
                 TextFieldModeloCamion.setText(camion.getModelo());
                 TextFieldMarcaCamion.setText(camion.getMarca());
-                TextFieldUbicacionCamion.setText(camion.getUbicacion().name());
+                TextFieldUbicacionCamion.setText(camion.getUbicacion());
             } else {
                 // Limpiar los campos si el camión no es encontrado
                 TextFieldIDCCamion.setText("");

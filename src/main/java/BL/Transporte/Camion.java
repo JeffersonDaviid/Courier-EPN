@@ -13,11 +13,11 @@ public class Camion implements Serializable {
     private int capacidadCarga;
     private int capacidadOcupada;
     private boolean disponibilidad; // 1 libre y 0 ocupado
-    private Ubicacion ubicacion;
+    private String ubicacion;
 
     // constructor
     public Camion(int idCamion, String placa, String modelo, String marca,
-            boolean disponibilidad, Ubicacion ubicacion) {
+            boolean disponibilidad, String ubicacion) {
         this.idCamion = idCamion;
         this.placa = placa;
         this.modelo = modelo;
@@ -111,11 +111,11 @@ public class Camion implements Serializable {
         this.disponibilidad = disponibilidad;
     }
 
-    public Ubicacion getUbicacion() {
+    public String getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(Ubicacion ubicacion) {
+    public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
 
