@@ -92,6 +92,7 @@ public class Inventario implements Serializable {
         paquete.cambiarEstado(new EnBodega(paquete));
         ingresarRegistro(paquete, paquete.getSucursalOrigen());
         JOptionPane.showMessageDialog(null, "Paquete registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
+        //saveInventario();
     }
 
     // Metodo que guarda el ingreso de un paquete al invetario para el Historial

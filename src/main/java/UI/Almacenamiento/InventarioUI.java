@@ -387,7 +387,7 @@ public class InventarioUI extends javax.swing.JPanel {
     private void jBCancelarcargaRecepcion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarcargaRecepcion1ActionPerformed
         // TODO add your handling code here:
         String id = this.jTFidcargaRecepcion.getText();
-        Paquete paquetes_consulta = Inventario.getInstancia().buscarPaquete(id);
+        Paquete paquetes_consulta = recepcionista.obtenerPaquete(id);
 
         if (paquetes_consulta != null) {
             this.jTFpesocargaRecepcion.setText(String.valueOf(paquetes_consulta.getPeso()));
