@@ -152,7 +152,7 @@ public class GestionPaquete extends javax.swing.JPanel {
             }
         });
 
-        jComboTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pequeño", "mediano", "grande", " " }));
+        jComboTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pequeño", "Mediano", "Grande",}));
 
         jBCalcular.setText("CALCULAR");
         jBCalcular.addActionListener(new java.awt.event.ActionListener() {
@@ -389,7 +389,7 @@ public class GestionPaquete extends javax.swing.JPanel {
         String sucursalOrigen = recepcionista.getSucursal();
         String sucursalDestino = (String) jComboSucurcalRecoger.getSelectedItem();
         String peso = jTpeso.getText(); // Debe convertir este valor a float más adelante si es necesario
-        String tamanio = (String) jComboTamanio.getSelectedItem();
+        String tamanio = jComboTamanio.getSelectedItem().toString().toLowerCase();
         recepcionista.registrarPaquete(generateId(), Float.parseFloat(peso), tamanio, cliente, sucursalOrigen, sucursalDestino, dirDomicilio, nombreDestinatario, correoDestinatario, telefonoDestinatario, null, null);
         float precio = recepcionista.previsualizarPrecioPaquete();
         JOptionPane.showMessageDialog(null, "El precio del paquete es: " + precio);
