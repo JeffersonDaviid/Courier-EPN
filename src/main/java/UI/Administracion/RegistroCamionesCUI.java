@@ -155,6 +155,11 @@ public class RegistroCamionesCUI extends javax.swing.JPanel {
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Placa inválida. Asegúrate de que cumpla con el formato requerido.");
         }
+
+        field_placa.setText("");
+        field_modelo.setText("");
+        field_marca.setText("");
+        
     }//GEN-LAST:event_btn_registrarCamionActionPerformed
 
     private boolean validarPlaca(String placa) {

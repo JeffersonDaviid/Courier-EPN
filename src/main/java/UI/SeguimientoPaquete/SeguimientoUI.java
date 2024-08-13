@@ -8,6 +8,7 @@ import BL.Administracion.Recepcionista;
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
 import BL.GestionPaquete.Seguimiento;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -88,17 +89,23 @@ public class SeguimientoUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
-        // TODO add your handling code here:
-        String trackingId = jTextFieldIdPaquete.getText();
+       String trackingId = jTextFieldIdPaquete.getText();
 
         // Buscar el paquete por su número de tracking en el inventario
-        Paquete paquete = Inventario.getInstancia().buscarPaquete(trackingId);
+        Paquete paquete = recepcionista.obtenerPaquete(trackingId);
 
         if (paquete != null) {
             Seguimiento seguimiento = paquete.getSeguimiento();
+            
+            // Si el seguimiento es null, crearlo aquí
+            if (seguimiento == null) {
+                seguimiento = new Seguimiento(paquete);
+                // Aquí podrías asignar el seguimiento al paquete si es necesario
+                // paquete.setSeguimiento(seguimiento); 
+            }
 
             // Obtener el historial completo de estados
-            String historial = seguimiento.verHistorial();
+           // String historial = seguimiento.verHistorial();
 
             // Mostrar datos del paquete en la tabla
             DefaultTableModel model = (DefaultTableModel) jTableSeguimiento.getModel();
@@ -108,27 +115,24 @@ public class SeguimientoUI extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 paquete.getTracking(),
                 paquete.getNombreDestinatario(),
-                paquete.getDireccion(),
                 paquete.getSucursalDestino(),
                 paquete.obtenerEstadoActual().toString()
             });
+            
+            /*
 
-            // Llenar el historial de estados en la tabla
-            // Llenar la tabla con el último estado del historial
-            DefaultTableModel historialModel = (DefaultTableModel) jTableSeguimiento.getModel();
-            historialModel.setRowCount(0); // Limpiar la tabla de historial
-
-            // Asumiendo que el historial se separa por líneas (una línea por estado)
+            // Separar el historial en líneas para mostrar en la tabla
             String[] estados = historial.split("\n");
-            if (estados.length > 0) {
-                // Mostrar solo el último estado
-                String ultimoEstado = estados[estados.length - 1];
-                historialModel.addRow(new Object[]{ultimoEstado});
-            }
 
+            // Agregar el historial a la tabla
+            for (String estado : estados) {
+                model.addRow(new Object[]{estado});
+            }
+*/
         } else {
-            //JOptionPane.showMessageDialog(null, "Paquete no encontrado");
+            JOptionPane.showMessageDialog(null, "Paquete no encontrado.");
         }
+
 
 
     }//GEN-LAST:event_jBConsultarActionPerformed
