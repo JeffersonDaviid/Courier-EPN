@@ -49,7 +49,8 @@ public class MenuModulosUI extends javax.swing.JFrame {
         this.btn_cargaDespachar.hide();
         this.btn_camionEntrega.hide();
         this.btn_entregaDespachar.hide();
-
+        this.btn_AsignarPaquet.hide();
+        this.btn_AsignarCamione.hide();
         this.btn_seguimiento.hide();
         this.btn_regCamion.hide();
         this.registrocli1.hide();
@@ -66,6 +67,8 @@ public class MenuModulosUI extends javax.swing.JFrame {
             this.btn_hist.show();
             this.btn_inv.show();
             this.registrocli1.show();
+            this.btn_AsignarPaquet.show();
+            this.btn_AsignarCamione.show();
         }else if(usuario.getClass().toString().equals("class BL.Administracion."+"Transportista")){
             this.btn_carga.show();
             this.btn_cargaDespachar.show();
