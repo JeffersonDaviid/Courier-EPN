@@ -6,7 +6,9 @@ import javax.swing.JOptionPane;
 
 import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Conflicto;
+import BL.GestionPaquete.EstadoPaquete;
 import BL.GestionPaquete.Paquete;
+import BL.GestionPaquete.Transportandose;
 import BL.Soporte.DanadoProblema;
 import BL.Soporte.EquivocadoProblema;
 import BL.Soporte.ExtraviadoProblema;
@@ -44,6 +46,10 @@ public class Cliente extends Perfil {
         Problema problemaReportado = null;
         if(paquete==null){
             JOptionPane.showMessageDialog(null, "Este código de paquete no se encuentra asignado a usted!.");
+            return;
+        }
+        if(paquete.getEstado() instanceof Transportandose){
+            JOptionPane.showMessageDialog(null, "El paquete está transportándose, acérquese a una agencia para procesarlo.");
             return;
         }
         paquete.setEstado(new Conflicto(paquete));
