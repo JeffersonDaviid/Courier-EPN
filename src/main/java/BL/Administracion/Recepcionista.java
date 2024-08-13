@@ -117,6 +117,11 @@ public class Recepcionista extends Perfil{
         return GestorTransporte.getInstancia().consultarCamionAsignado(transportista);
     }
 
+    public ArrayList<Paquete> consultarAsignacionPaquetesTransportista(String cedula){
+        Transportista transportista = GestorTransporte.getInstancia().obtenerTransportistaPorCedula(cedula);
+        return GestorTransporte.getInstancia().consultarAsignacionPaquetes(transportista);
+    }
+
     public DefaultTableModel mostrarPaquetes(int index){
         return inventario.mostrarPaquetes(index);
     }
