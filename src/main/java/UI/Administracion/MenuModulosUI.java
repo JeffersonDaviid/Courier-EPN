@@ -142,7 +142,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
         btn_paquetes1.setBackground(new java.awt.Color(21, 101, 192));
         btn_paquetes1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_paquetes1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_paquetes1.setText("Gestión de Paquetes");
+        btn_paquetes1.setText("Registrar Paquete");
         btn_paquetes1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btn_paquetes1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
