@@ -16,7 +16,7 @@ public class EquivocadoProblema implements Problema{
 
     @Override
     public void resolverReclamo() {
-        JOptionPane.showMessageDialog(null, "Resolviendo problema de paquete extraviado...");
+        JOptionPane.showMessageDialog(null, "Resolviendo problema de paquete equivocado...");
     }
 
     @Override
@@ -25,18 +25,13 @@ public class EquivocadoProblema implements Problema{
     }
    
     public void corregirDestinatario(Paquete paquete) {
-        /*System.out.println("Asignando el destinatario correcto para el paquete: " + paquete.obtenerEstadoActual());
-        Scanner sc=new Scanner(System.in);
-        String nombreCorrecto=sc.nextLine();
-        paquete.setNombreDestinatario(nombreCorrecto);
-        System.out.println("Paquete "+paquete.getTracking()+ "cambiado al destinatario"+paquete.getCliente());
-        sc.close();*/
-        JOptionPane.showMessageDialog(null, "Asignando el destinatario correcto para el paquete: " + paquete.obtenerEstadoActual());
+   
+        JOptionPane.showMessageDialog(null, "Asignando el destinatario correcto para el paquete: " + paquete.getTracking());
 
         String nombreCorrecto = JOptionPane.showInputDialog("Ingrese el nombre correcto del destinatario:");
         if (nombreCorrecto != null && !nombreCorrecto.trim().isEmpty()) {
         paquete.setNombreDestinatario(nombreCorrecto);
-        JOptionPane.showMessageDialog(null, "Paquete " + paquete.getTracking() + " cambiado al destinatario " + paquete.getCliente());
+        JOptionPane.showMessageDialog(null, "Paquete " + paquete.getTracking() + " cambiado al destinatario " + paquete.getNombreDestinatario());
         } else {
         JOptionPane.showMessageDialog(null, "El nombre del destinatario no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
         }
