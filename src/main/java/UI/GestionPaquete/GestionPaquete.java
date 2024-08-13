@@ -25,6 +25,9 @@ public class GestionPaquete extends javax.swing.JPanel {
         initComponents();
         this.recepcionista = recepcionista;
         this.recepcionista.eliminarPaqueteRegistrado();
+        jtNombreRemitente.setEditable(false);
+        jtCorreoRemitente.setEditable(false);
+        jtTelefonoRemitente.setEditable(false);
     }
 
     /**
