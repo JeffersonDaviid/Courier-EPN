@@ -197,39 +197,31 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String cedula = transportista.getCedula();
         System.out.println(cedula);
-
-       ArrayList<Paquete> listaPaquetes = transportista.consultarAsignacionPaquetesTransportista(cedula);
+        ArrayList<Paquete> listaPaquetes = transportista.consultarAsignacionPaquetesTransportista(cedula);
         System.out.println(listaPaquetes);
-//
-//    // Paso 4: Definir las columnas de la tabla
-//    String[] columnas = {
-//        "Tracking", "Peso", "Tamaño", "Origen", "Destino", "Dirección", "Destinatario", "Email", "Teléfono", "Fecha de Salida"
-//    };
-//
-//    // Crear el modelo de tabla
-//    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
-//
-//    // Paso 5: Llenar el modelo con los datos de la lista de paquetes
-//    for (Paquete paquete : listaPaquetes) {
-//        Object[] fila = {
-//            paquete.getTracking(),                  // Asume que 'Paquete' tiene un método getTracking()
-//            paquete.getPeso(),                      // Asume que 'Paquete' tiene un método getPeso()
-//            paquete.getTamanio(),                   // Asume que 'Paquete' tiene un método getTamanio()
-//            paquete.getSucursalOrigen(),            // Asume que 'Paquete' tiene un método getSucursalOrigen()
-//            paquete.getSucursalDestino(),           // Asume que 'Paquete' tiene un método getSucursalDestino()
-//            paquete.getDireccion(),                 // Asume que 'Paquete' tiene un método getDireccion()
-//            paquete.getNombreDestinatario(),        // Asume que 'Paquete' tiene un método getNombreDestinatario()
-//            paquete.getCorreoDestinatario(),        // Asume que 'Paquete' tiene un método getCorreoDestinatario()
-//            paquete.getTelefonoDestinatario(),      // Asume que 'Paquete' tiene un método getTelefonoDestinatario()
-//            paquete.getFechaSalida()                // Asume que 'Paquete' tiene un método getFechaSalida()
-//        };
-//        modelo.addRow(fila);
-//    }
-//
-//    // Paso 6: Asignar el modelo al JTable
-//    jTablePaquetesPorDestinoEntrega.setModel(modelo);
+        actualizarTablaPaquetes(listaPaquetes);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+private void actualizarTablaPaquetes(ArrayList<Paquete> paquetes) {
+    DefaultTableModel model = (DefaultTableModel) jTablePaquetesPorDestinoEntrega.getModel();
+    model.setRowCount(0); // Limpia la tabla antes de agregar nuevas filas
+
+    for (Paquete paquete : paquetes) {
+        model.addRow(new Object[]{
+            paquete.getTracking(),
+            paquete.getPeso(),
+            paquete.getTamanio(),
+            paquete.getSucursalOrigen(),
+            paquete.getSucursalDestino(),
+            paquete.getDireccion(),
+            paquete.getNombreDestinatario(), // Asume que 'Paquete' tiene un método getDestinatario()
+            paquete.getCorreoDestinatario(),     // Asume que 'Paquete' tiene un método getEmail()
+            paquete.getTelefonoDestinatario(),  // Asume que 'Paquete' tiene un método getTelefono()
+            paquete.getFechaSalida() // Asume que 'Paquete' tiene un método getFechaSalida()
+        });
+    }
+}
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ImgCamion;
@@ -246,3 +238,4 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
     private javax.swing.JTextField jTextIDPaquete;
     // End of variables declaration//GEN-END:variables
 }
+
