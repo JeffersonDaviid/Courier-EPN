@@ -171,7 +171,7 @@ public class RegistroCamionesCUI extends javax.swing.JPanel {
         String placa = field_placa.getText();
         String modelo = field_modelo.getText();
         String marca = field_marca.getText();
-        String capacidad = field_capacidad.getText();
+        recepcionista.agregarCamion(placa, modelo, marca, true, recepcionista.getSucursal());
 
         if (validarPlaca(placa)) {
             //recepcionista.agregarCamion(placa, modelo, marca, true, recepcionista.getSucursal());
