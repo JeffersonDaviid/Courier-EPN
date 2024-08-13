@@ -4,6 +4,7 @@
  */
 package BL.Soporte;
 
+import BL.Facturacion.GestorFacturas;
 import BL.GestionPaquete.Paquete;
 
 /**
@@ -14,10 +15,11 @@ public class Gestor_Problema {
      private Paquete paquete;
     private Problema problema;
     private double precioPaquete;
+    
 
-    public Gestor_Problema(Paquete paquete, double precioPaquete, Problema problema) {
+    public Gestor_Problema(Paquete paquete, Problema problema) {
         this.paquete = paquete;
-        this.precioPaquete = precioPaquete;
+        this.precioPaquete = GestorFacturas.getInstancia().geFactura().getPrecio().calcularPrecio(paquete);
         this.problema = problema;
     }
 
