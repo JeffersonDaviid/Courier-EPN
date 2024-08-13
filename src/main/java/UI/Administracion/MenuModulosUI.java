@@ -9,6 +9,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 
 import BL.Administracion.Perfil;
 import BL.Administracion.Recepcionista;
+import BL.Administracion.Transportista;
 import UI.Almacenamiento.HistorialnewUI;
 import UI.Almacenamiento.InventarioUI;
 import UI.GestionPaquete.GestionPaquete;
@@ -17,6 +18,7 @@ import UI.Reclamos.SoporteUI;
 import UI.SeguimientoPaquete.SeguimientoUI;
 import UI.Transporte.UIAsignarCamionesTransportistas;
 import UI.Transporte.UIAsignarPaquetesACamiones;
+import UI.Transporte.UIEntregarPaquete;
 
 import java.awt.BorderLayout;
 
@@ -413,7 +415,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cargaDespacharActionPerformed
 
     private void btn_cargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargaActionPerformed
-        //showPanel(new UICamionCarga());
+        showPanel(new UIEntregarPaquete((Transportista) usuario));
     }//GEN-LAST:event_btn_cargaActionPerformed
 
     private void btn_histActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_histActionPerformed
