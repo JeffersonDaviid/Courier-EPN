@@ -4,6 +4,7 @@
  */
 package UI.Transporte;
 
+import BL.Administracion.Recepcionista;
 import BL.Administracion.Transportista;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
@@ -13,15 +14,15 @@ import javax.swing.JOptionPane;
  *
  * @author saidl
  */
-public class UITransporte extends javax.swing.JPanel {
+public class UIAsignarCamionesTransportistas extends javax.swing.JPanel {
 
     /**
      * Creates new form UIAsignarCamionesTransportistas
      */
-    public UITransporte() {
+    public UIAsignarCamionesTransportistas() {
         initComponents();
     }
-
+    Recepcionista recepcionista;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,16 +35,6 @@ public class UITransporte extends javax.swing.JPanel {
         Panel_InfoCamion = new javax.swing.JPanel();
         ImgCamion = new javax.swing.JLabel();
         TxtCamion = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jComboBoxTransportista = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
@@ -68,12 +59,13 @@ public class UITransporte extends javax.swing.JPanel {
         jLabel24 = new javax.swing.JLabel();
         Ubicacion = new javax.swing.JLabel();
         TextFieldUbicacionCamion = new javax.swing.JTextField();
-        jButtonAsignarCamionTransportista = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListCamionesAsignadosTransportistas = new javax.swing.JList<>();
-        jButtonEliminarCamionTransportista1 = new javax.swing.JButton();
+        jButtonAsignarCamionTransportista = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        jButtonEliminarCamionTransportista1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        TxtCamion1 = new javax.swing.JLabel();
 
         Panel_InfoCamion.setBackground(new java.awt.Color(37, 98, 234));
 
@@ -83,73 +75,19 @@ public class UITransporte extends javax.swing.JPanel {
         TxtCamion.setForeground(new java.awt.Color(255, 255, 255));
         TxtCamion.setText("TRANSPORTE");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Transporte/Imagenes/ICONDSH.png"))); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel1.setText("DASHBOARD");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/Transporte/Imagenes/ICONDSH.png"))); // NOI18N
-
-        jLabel12.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel12.setText("ASIGNAR CAMIONES");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout Panel_InfoCamionLayout = new javax.swing.GroupLayout(Panel_InfoCamion);
         Panel_InfoCamion.setLayout(Panel_InfoCamionLayout);
         Panel_InfoCamionLayout.setHorizontalGroup(
             Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_InfoCamionLayout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+            .addGroup(Panel_InfoCamionLayout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_InfoCamionLayout.createSequentialGroup()
-                            .addGroup(Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(ImgCamion)
-                                .addComponent(TxtCamion))
-                            .addGap(45, 45, 45)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_InfoCamionLayout.createSequentialGroup()
+                        .addComponent(ImgCamion)
+                        .addGap(45, 45, 45))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_InfoCamionLayout.createSequentialGroup()
+                        .addComponent(TxtCamion)
+                        .addGap(35, 35, 35))))
         );
         Panel_InfoCamionLayout.setVerticalGroup(
             Panel_InfoCamionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,38 +96,8 @@ public class UITransporte extends javax.swing.JPanel {
                 .addComponent(ImgCamion)
                 .addGap(18, 18, 18)
                 .addComponent(TxtCamion)
-                .addGap(48, 48, 48)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel1.setBackground(new java.awt.Color(37, 98, 234));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 825, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 784, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab1", jPanel3);
 
         jPanel11.setBackground(new java.awt.Color(229, 255, 255));
 
@@ -400,6 +308,13 @@ public class UITransporte extends javax.swing.JPanel {
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
+        jListCamionesAsignadosTransportistas.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jListCamionesAsignadosTransportistas);
+
         jButtonAsignarCamionTransportista.setBackground(new java.awt.Color(0, 0, 151));
         jButtonAsignarCamionTransportista.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButtonAsignarCamionTransportista.setForeground(new java.awt.Color(255, 255, 255));
@@ -410,12 +325,8 @@ public class UITransporte extends javax.swing.JPanel {
             }
         });
 
-        jListCamionesAsignadosTransportistas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jListCamionesAsignadosTransportistas);
+        jLabel14.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel14.setText("CAMIONES ASIGNADOS ");
 
         jButtonEliminarCamionTransportista1.setBackground(new java.awt.Color(0, 0, 151));
         jButtonEliminarCamionTransportista1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -427,40 +338,65 @@ public class UITransporte extends javax.swing.JPanel {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel14.setText("CAMIONES ASIGNADOS ");
+        jPanel1.setBackground(new java.awt.Color(37, 98, 234));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonEliminarCamionTransportista1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonAsignarCamionTransportista, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(44, 44, 44))))
+        TxtCamion1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        TxtCamion1.setForeground(new java.awt.Color(255, 255, 255));
+        TxtCamion1.setText("ASIGNAR CAMIÓN A TRANSPORTISTA");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TxtCamion1)
+                .addGap(156, 156, 156))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(TxtCamion1)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Panel_InfoCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jButtonEliminarCamionTransportista1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonAsignarCamionTransportista, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 16, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36))))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jButtonAsignarCamionTransportista, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
@@ -469,42 +405,8 @@ public class UITransporte extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jButtonEliminarCamionTransportista1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("tab2", jPanel4);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 825, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 784, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab3", jPanel5);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Panel_InfoCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_InfoCamion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 815, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44))
+            .addComponent(Panel_InfoCamion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -525,6 +427,10 @@ public class UITransporte extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldNombreTransportistaActionPerformed
 
+    private void TextFieldEMAILTransportistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldEMAILTransportistaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldEMAILTransportistaActionPerformed
+
     private void TextFieldApellidoTransportistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldApellidoTransportistaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldApellidoTransportistaActionPerformed
@@ -533,13 +439,35 @@ public class UITransporte extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldCITransportistaActionPerformed
 
-    private void TextFieldEMAILTransportistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldEMAILTransportistaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldEMAILTransportistaActionPerformed
+    private void jComboBoxCamionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCamionesActionPerformed
+        // Obtener la placa del camión seleccionado desde el ComboBox
+        String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
+
+        // Obtener la instancia única de GestorTransporte
+        GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
+
+        // Buscar el camión por placa
+        Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
+
+        // Si el camión es encontrado, mostrar su información en los campos de texto
+        if (camion != null) {
+            TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
+            TextFieldPlacaCamion.setText(camion.getPlaca());
+            TextFieldModeloCamion.setText(camion.getModelo());
+            TextFieldMarcaCamion.setText(camion.getMarca());
+            TextFieldUbicacionCamion.setText(camion.getUbicacion().name());
+        } else {
+            JOptionPane.showMessageDialog(this, "Camión no encontrado.");
+        }
+    }//GEN-LAST:event_jComboBoxCamionesActionPerformed
 
     private void TextFieldIDCCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldIDCCamionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldIDCCamionActionPerformed
+
+    private void TextFieldMarcaCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldMarcaCamionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldMarcaCamionActionPerformed
 
     private void TextFieldPlacaCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPlacaCamionActionPerformed
         // TODO add your handling code here:
@@ -549,80 +477,42 @@ public class UITransporte extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldModeloCamionActionPerformed
 
-    private void TextFieldMarcaCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldMarcaCamionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldMarcaCamionActionPerformed
-
     private void TextFieldUbicacionCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldUbicacionCamionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldUbicacionCamionActionPerformed
 
     private void jButtonAsignarCamionTransportistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsignarCamionTransportistaActionPerformed
-    // Obtener la cédula del transportista seleccionado desde el ComboBox
-    String cedulaTransportista = (String) jComboBoxTransportista.getSelectedItem();
+        // Obtener la cédula del transportista seleccionado desde el ComboBox
+        String cedulaTransportista = (String) jComboBoxTransportista.getSelectedItem();
 
-    // Obtener la placa del camión seleccionado desde el ComboBox
-    String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
+        // Obtener la placa del camión seleccionado desde el ComboBox
+        String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
 
-    // Obtener la instancia única de GestorTransporte
-    GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
+        // Si ambos, el transportista y el camión, son encontrados, realizar la asignación
 
-    // Buscar el transportista por su cédula
-    Transportista transportista = gestorTransporte.obtenerTransportistaPorCedula(cedulaTransportista);
+            recepcionista.asignarTransportistaACamion(cedulaTransportista, placaCamion);
 
-    // Buscar el camión por su placa
-    Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
-
-    // Si ambos, el transportista y el camión, son encontrados, realizar la asignación
-    if (transportista != null && camion != null) {
-        gestorTransporte.asignarTransportistaACamion(transportista, camion);
-        JOptionPane.showMessageDialog(this, "Transportista asignado al camión correctamente.");
-    } else {
-        JOptionPane.showMessageDialog(this, "Error: Transportista o Camión no encontrado.");
-    }
     }//GEN-LAST:event_jButtonAsignarCamionTransportistaActionPerformed
-    
-    
+
     private void jButtonEliminarCamionTransportista1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarCamionTransportista1ActionPerformed
-            // Obtener la placa del camión seleccionado desde el ComboBox
-    String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
+        // Obtener la placa del camión seleccionado desde el ComboBox
+        String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
 
-    // Obtener la instancia única de GestorTransporte
-    GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
+        // Obtener la instancia única de GestorTransporte
+        GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
 
-    // Buscar el camión por su placa
-    Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
+        // Buscar el camión por su placa
+        Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
 
-    // Si el camión es encontrado, realizar la eliminación de la asignación
-    if (camion != null) {
-        gestorTransporte.eliminarCamionDeTransportista(camion);
-        JOptionPane.showMessageDialog(this, "Asignación del camión eliminada correctamente.");
-    } else {
-        JOptionPane.showMessageDialog(this, "Error: Camión no encontrado.");
-    }
+        // Si el camión es encontrado, realizar la eliminación de la asignación
+        if (camion != null) {
+            recepcionista.eliminarCamion(camion);
+            //gestorTransporte.eliminarCamionDeTransportista(camion);
+            JOptionPane.showMessageDialog(this, "Asignación del camión eliminada correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error: Camión no encontrado.");
+        }
     }//GEN-LAST:event_jButtonEliminarCamionTransportista1ActionPerformed
-
-    private void jComboBoxCamionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCamionesActionPerformed
-    // Obtener la placa del camión seleccionado desde el ComboBox
-    String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
-
-    // Obtener la instancia única de GestorTransporte
-    GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
-
-    // Buscar el camión por placa
-    Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
-
-    // Si el camión es encontrado, mostrar su información en los campos de texto
-    if (camion != null) {
-        TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
-        TextFieldPlacaCamion.setText(camion.getPlaca());
-        TextFieldModeloCamion.setText(camion.getModelo());
-        TextFieldMarcaCamion.setText(camion.getMarca());
-        TextFieldUbicacionCamion.setText(camion.getUbicacion().name());
-    } else {
-        JOptionPane.showMessageDialog(this, "Camión no encontrado.");
-    }
-    }//GEN-LAST:event_jComboBoxCamionesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -638,48 +528,27 @@ public class UITransporte extends javax.swing.JPanel {
     private javax.swing.JTextField TextFieldPlacaCamion;
     private javax.swing.JTextField TextFieldUbicacionCamion;
     private javax.swing.JLabel TxtCamion;
+    private javax.swing.JLabel TxtCamion1;
     private javax.swing.JLabel Ubicacion;
     private javax.swing.JButton jButtonAsignarCamionTransportista;
     private javax.swing.JButton jButtonEliminarCamionTransportista1;
     private javax.swing.JComboBox<String> jComboBoxCamiones;
     private javax.swing.JComboBox<String> jComboBoxTransportista;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jListCamionesAsignadosTransportistas;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

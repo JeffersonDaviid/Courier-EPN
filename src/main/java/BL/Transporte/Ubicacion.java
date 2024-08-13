@@ -1,5 +1,8 @@
 package BL.Transporte;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Ubicacion {
     CUENCA,
     GUARANDA,
@@ -23,5 +26,10 @@ public enum Ubicacion {
     SANTO_DOMINGO,
     NUEVA_LOJA,
     AMBATO,
-    ZAMORA
+    ZAMORA;
+
+    // Método estático para retornar todos los valores del enum como una lista
+    public static List<Ubicacion> obtenerTodasLasUbicaciones() {
+        return Arrays.asList(Ubicacion.values());
+    }
 }
