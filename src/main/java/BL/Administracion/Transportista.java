@@ -69,7 +69,8 @@ public class Transportista extends Perfil {
                 JOptionPane.showMessageDialog(null, "Problema no reconocido");
                 return;
         }
-        Gestor_Problema gestor_Problema = new Gestor_Problema(paquete, problemaReportado);
+        Gestor_Problema gestorProblema = new Gestor_Problema(paquete, problemaReportado);
+        gestorProblema.solucionarReclamo();
     }
 
     public void registrarEntregaPaquete(String idPaquete){
