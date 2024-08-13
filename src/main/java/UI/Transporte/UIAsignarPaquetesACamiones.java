@@ -6,12 +6,15 @@ package UI.Transporte;
 
 import BL.Administracion.Cliente;
 import BL.Administracion.Recepcionista;
+import BL.Administracion.Transportista;
 import BL.GestionPaquete.Paquete;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
 import BL.Transporte.Ubicacion;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -50,7 +53,6 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         jTablePaquetesPorDestino = new javax.swing.JTable();
         UbicacionTxt = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
-        jComboBoxCamiones = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
         TextFieldIDCCamion = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
@@ -110,14 +112,14 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(69, Short.MAX_VALUE)
                 .addComponent(TxtCamion1)
                 .addGap(253, 253, 253))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(TxtCamion1)
                 .addGap(23, 23, 23))
         );
@@ -159,14 +161,16 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(UbicacionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel18))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(UbicacionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -174,21 +178,14 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(UbicacionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jPanel12.setBackground(new java.awt.Color(229, 255, 255));
-
-        jComboBoxCamiones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxCamiones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxCamionesActionPerformed(evt);
-            }
-        });
 
         jLabel20.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel20.setText("ID Camión");
@@ -243,54 +240,64 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxCamiones, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(Ubicacion)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TextFieldUbicacionCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addContainerGap()
                             .addComponent(jLabel23)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TextFieldMarcaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addContainerGap()
                             .addComponent(jLabel22)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TextFieldModeloCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
+                            .addContainerGap()
                             .addComponent(jLabel21)
+                            .addGap(58, 58, 58)
+                            .addComponent(TextFieldPlacaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel12Layout.createSequentialGroup()
+                            .addContainerGap()
                             .addComponent(jLabel20)
-                            .addComponent(Ubicacion))
-                        .addGap(99, 99, 99)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TextFieldUbicacionCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextFieldIDCCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextFieldPlacaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextFieldModeloCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextFieldMarcaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TextFieldIDCCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel24)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel24)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBoxCamiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(TextFieldIDCCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(TextFieldPlacaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(TextFieldModeloCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(TextFieldMarcaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TextFieldIDCCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Ubicacion)
-                    .addComponent(TextFieldUbicacionCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(TextFieldModeloCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextFieldMarcaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextFieldUbicacionCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ubicacion))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jButtonAsignarCamionPaquete.setBackground(new java.awt.Color(0, 0, 151));
@@ -333,25 +340,18 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Panel_InfoCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jButtonAsignarCamionPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(39, 39, 39))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonAsignarCamionPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)
+                            .addComponent(jScrollPane3))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -361,39 +361,17 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jButtonAsignarCamionPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addGap(50, 50, 50))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jComboBoxCamionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCamionesActionPerformed
-        // Obtener la placa del camión seleccionado desde el ComboBox
-        String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
-
-        // Obtener la instancia única de GestorTransporte
-        GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
-
-        // Buscar el camión por placa
-        Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
-
-        // Si el camión es encontrado, mostrar su información en los campos de texto
-        if (camion != null) {
-            TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
-            TextFieldPlacaCamion.setText(camion.getPlaca());
-            TextFieldModeloCamion.setText(camion.getModelo());
-            TextFieldMarcaCamion.setText(camion.getMarca());
-            TextFieldUbicacionCamion.setText(camion.getUbicacion().name());
-        } else {
-            JOptionPane.showMessageDialog(this, "Camión no encontrado.");
-        }
-    }//GEN-LAST:event_jComboBoxCamionesActionPerformed
 
     private void TextFieldIDCCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldIDCCamionActionPerformed
         // TODO add your handling code here:
@@ -404,7 +382,25 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     }//GEN-LAST:event_TextFieldMarcaCamionActionPerformed
 
     private void TextFieldPlacaCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPlacaCamionActionPerformed
-        // TODO add your handling code here:
+        // Obtener la placa del camión seleccionado desde el ComboBox
+        String placaCamion = (String) TextFieldPlacaCamion.getText();
+
+        // Obtener la instancia única de GestorTransporte
+        GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
+
+        // Buscar el camión por placa
+        Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
+
+        // Si el camión es encontrado, mostrar su información en los campos de texto
+        if (camion != null) {
+            TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
+            TextFieldModeloCamion.setText(camion.getModelo());
+            TextFieldMarcaCamion.setText(camion.getMarca());
+            TextFieldUbicacionCamion.setText(camion.getUbicacion().name());
+        } else {
+            JOptionPane.showMessageDialog(this, "Camión no encontrado.");
+        }
+// TODO add your handling code here:
     }//GEN-LAST:event_TextFieldPlacaCamionActionPerformed
 
     private void TextFieldModeloCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldModeloCamionActionPerformed
@@ -416,7 +412,46 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     }//GEN-LAST:event_TextFieldUbicacionCamionActionPerformed
 
     private void jButtonAsignarCamionPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsignarCamionPaqueteActionPerformed
+        
+        // Obtener la placa del camión seleccionado desde el ComboBox
+        String placaCamion = (String) TextFieldPlacaCamion.getText();
+        
+        String ubicacion = TextFieldUbicacionCamion.getText();
+        Ubicacion ubicacionEnum = Enum.valueOf(Ubicacion.class, ubicacion);
+        recepcionista.asignarPaqueteACamion(placaCamion, ubicacionEnum);
+        Transportista transportista = GestorTransporte.getInstancia().obtenerTransportistaPorPlacaCamion(placaCamion);
+        String cedulaTransportista = transportista.getCedula();
+        // Paso 1: Obtener la lista de paquetes
+        ArrayList<Paquete> listaPaquetes = recepcionista.consultarAsignacionPaquetesTransportista(cedulaTransportista);
 
+        // Paso 2: Definir las columnas
+        String[] columnas = {
+            "Tracking", "Peso", "Tamanio", "Origen", "Destino", "Direccion", "Destinatario", "Email", "Telefono", "Fecha de Salida"
+        };
+
+        // Crear el modelo de tabla
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+
+        // Paso 3: Llenar el modelo con los datos de la lista
+        for (Paquete paquete : listaPaquetes) {
+            Object[] fila = {
+                paquete.getTracking(),  // Asume que 'Paquete' tiene un método getTracking()
+                paquete.getPeso(),      // Asume que 'Paquete' tiene un método getPeso()
+                paquete.getTamanio(),   // Asume que 'Paquete' tiene un método getTamanio()
+                paquete.getSucursalOrigen(),    // Asume que 'Paquete' tiene un método getOrigen()
+                paquete.getSucursalDestino(),   // Asume que 'Paquete' tiene un método getDestino()
+                paquete.getDireccion(), // Asume que 'Paquete' tiene un método getDireccion()
+                paquete.getNombreDestinatario(), // Asume que 'Paquete' tiene un método getDestinatario()
+                paquete.getCorreoDestinatario(),     // Asume que 'Paquete' tiene un método getEmail()
+                paquete.getTelefonoDestinatario(),  // Asume que 'Paquete' tiene un método getTelefono()
+                paquete.getFechaSalida() // Asume que 'Paquete' tiene un método getFechaSalida()
+        };
+        modelo.addRow(fila);
+    }
+
+    // Paso 4: Asignar el modelo al JTable
+    jTablePaquetesAsigandos.setModel(modelo);
+        
     }//GEN-LAST:event_jButtonAsignarCamionPaqueteActionPerformed
     
     private void UbicacionTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UbicacionTxtActionPerformed
@@ -437,7 +472,6 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     private javax.swing.JLabel Ubicacion;
     private javax.swing.JTextField UbicacionTxt;
     private javax.swing.JButton jButtonAsignarCamionPaquete;
-    private javax.swing.JComboBox<String> jComboBoxCamiones;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel20;
