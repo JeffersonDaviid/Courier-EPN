@@ -16,7 +16,6 @@ public class Camion implements Serializable {
     private Ubicacion ubicacion;
 
     // constructor
-
     public Camion(int idCamion, String placa, String modelo, String marca,
             boolean disponibilidad, Ubicacion ubicacion) {
         this.idCamion = idCamion;
@@ -38,10 +37,6 @@ public class Camion implements Serializable {
         this.capacidadOcupada = 0;
         this.disponibilidad = true;
         this.ubicacion = null;
-    }
-
-    public void viajar() {
-
     }
 
     public void incrementarCapacidadOcupada(int cantidad) {
@@ -124,4 +119,8 @@ public class Camion implements Serializable {
         this.ubicacion = ubicacion;
     }
 
+    @Override
+    public String toString() {
+        return "Placa: " + placa + ", Modelo: " + modelo;
+    }
 }
