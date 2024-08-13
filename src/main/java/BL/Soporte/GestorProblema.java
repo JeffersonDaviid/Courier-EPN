@@ -5,6 +5,8 @@
 package BL.Soporte;
 
 import BL.Facturacion.GestorFacturas;
+import BL.GestionPaquete.EnBodega;
+import BL.GestionPaquete.Entregado;
 import BL.GestionPaquete.Paquete;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,13 +30,14 @@ public class GestorProblema {
     public void solucionarReclamo() {
     problema.resolverReclamo();
     double reembolso = problema.calcularReembolso(precioPaquete);
-
+    this.paquete.cambiarEstado(new Entregado(paquete));
     if (problema instanceof EquivocadoProblema) {
         ((EquivocadoProblema) problema).corregirDestinatario(paquete);
+        this.paquete.cambiarEstado(new EnBodega(paquete));
     } else {
         JOptionPane.showMessageDialog(null, "Reembolso calculado: " + reembolso);
     }
-    JOptionPane.showMessageDialog(null, "Reclamo solucionado para el paquete: "+paquete.getTracking() + " con un precio de: " + precioPaquete);
+    JOptionPane.showMessageDialog(null, "Reclamo solucionado para el paquete: "+paquete.getTracking() + " Estado Actual del paquete: " + paquete.getEstado());
     
     }   
     
