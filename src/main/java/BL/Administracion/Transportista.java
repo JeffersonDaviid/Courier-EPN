@@ -53,6 +53,7 @@ public class Transportista extends Perfil {
         }
         paquete.setEstado(new Conflicto(paquete));
         Inventario.getInstancia().notificarCambioEstado(idPaquete);
+        Inventario.getInstancia().saveInventario();
         switch (problema.toLowerCase()){
             case "dañado":
                 problemaReportado = new DanadoProblema();
