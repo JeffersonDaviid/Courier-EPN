@@ -16,7 +16,7 @@ public class ExtraviadoProblema implements Problema{
 
     @Override
     public void resolverReclamo() {
-      JOptionPane.showMessageDialog(null, "Resolviendo problema de paquete equivocado...");
+      JOptionPane.showMessageDialog(null, "Resolviendo problema de paquete extraviado...");
       
     }
 
