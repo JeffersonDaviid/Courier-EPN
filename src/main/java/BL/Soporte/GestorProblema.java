@@ -4,6 +4,7 @@
  */
 package BL.Soporte;
 
+import BL.Almacenamiento.Inventario;
 import BL.Facturacion.GestorFacturas;
 import BL.GestionPaquete.EnBodega;
 import BL.GestionPaquete.Entregado;
@@ -30,9 +31,15 @@ public class GestorProblema {
     problema.resolverReclamo();
     double reembolso = problema.calcularReembolso(precioPaquete);
     this.paquete.cambiarEstado(new Entregado(paquete));
+    Inventario.getInstancia().notificarCambioEstado(paquete.getTracking());
+    Inventario.getInstancia().saveInventario();
+    
     if (problema instanceof EquivocadoProblema) {
         ((EquivocadoProblema) problema).corregirDestinatario(paquete);
         this.paquete.cambiarEstado(new EnBodega(paquete));
+        Inventario.getInstancia().notificarCambioEstado(paquete.getTracking());
+        Inventario.getInstancia().saveInventario();
+    Inventario.getInstancia().saveInventario();
     } else {
         JOptionPane.showMessageDialog(null, "Reembolso calculado: " + reembolso);
     }
