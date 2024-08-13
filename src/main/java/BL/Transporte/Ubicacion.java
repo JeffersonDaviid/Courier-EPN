@@ -2,6 +2,7 @@ package BL.Transporte;
 
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public enum Ubicacion {
     CUENCA,
@@ -32,13 +33,4 @@ public enum Ubicacion {
     public static List<Ubicacion> obtenerTodasLasUbicaciones() {
         return Arrays.asList(Ubicacion.values());
     }
-    
-    private Ubicacion obtenerUbicacionDesdeTexto(String texto) {
-    try {
-        return Ubicacion.valueOf(texto.toUpperCase());
-    } catch (IllegalArgumentException e) {
-        JOptionPane.showMessageDialog(this, "Ubicación no válida.");
-        return null;
-    }
-}
 }

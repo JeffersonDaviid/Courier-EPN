@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import BL.Administracion.Transportista;
 import BL.Almacenamiento.Inventario;
@@ -17,6 +16,7 @@ import BL.GestionPaquete.Paquete;
 import BL.GestionPaquete.Transportandose;
 
 public class GestorTransporte {
+
     // yo solo cambio de estado cuando se carga un paquete en un camion
     // por asi decirlo hago una copia del paqute en mi lista de paquets del camion,
     // y nunca saco el paquete de la lista de paquetes del inventario
@@ -32,7 +32,7 @@ public class GestorTransporte {
     private HashMap<Camion, ArrayList<Paquete>> camionPaquetes;
 
     private static int siguienteIdCamion = 1;
-    
+
     // Constructor
     private GestorTransporte() {
         this.inventario = Inventario.getInstancia();
@@ -63,7 +63,6 @@ public class GestorTransporte {
             }
         }
     }
-
 
     @SuppressWarnings("unchecked")
     private ArrayList<Camion> loadCamiones() {
@@ -111,7 +110,6 @@ public class GestorTransporte {
         }
     }
 
-
     @SuppressWarnings("unchecked")
     private HashMap<Camion, Transportista> loadCamionTransportista() {
         // Carga los paquetes
@@ -125,7 +123,7 @@ public class GestorTransporte {
         }
         return new HashMap<Camion, Transportista>();
     }
-    
+
     private void saveCamionTransportista() {
         try (ObjectOutputStream ois3 = new ObjectOutputStream(new FileOutputStream(FILE_NAMECT))) {
             ois3.writeObject(camionTransportista);
@@ -232,9 +230,7 @@ public class GestorTransporte {
         return null;
     }
 
-    
     // Metodo para obtener los paquetes de inventario por la ciudad de destino
-    
     private ArrayList<Paquete> obtenerPaquetesPorDestino(Ubicacion destino) {
         ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
         for (Paquete paquete : inventario.getPaquetesParaEntregar()) {
@@ -244,8 +240,6 @@ public class GestorTransporte {
         }
         return paquetes;
     }
-
-    
 
     // Método para asignar un camión a un transportista por ID de camión y cédula de
     // transportista
@@ -316,8 +310,6 @@ public class GestorTransporte {
         }
     }
 
-   
-
     // Método para descargar un paquete de un camión a una sucursal
     public void eliminarPaqueteAsignado(Camion camion, String tracking) {
         Paquete paqueteABorrar = null;
@@ -339,7 +331,6 @@ public class GestorTransporte {
     }
 
     // metodo para obtener la lista de paquetes que tiene asignado un transportista
-
     public ArrayList<Paquete> consultarAsignacionPaquetes(Transportista transportista) {
         ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
 
@@ -361,9 +352,8 @@ public class GestorTransporte {
         return paquetes;
     }
 
-	
-	// Metodo para obtener el camion asignado a un transportista
-    public Camion consultarCamionAsignado (Transportista transportista) {
+    // Metodo para obtener el camion asignado a un transportista
+    public Camion consultarCamionAsignado(Transportista transportista) {
         if (transportista != null) {
             // Itera sobre la relación camión-transportista
             for (Camion camion : camionTransportista.keySet()) {
@@ -377,9 +367,20 @@ public class GestorTransporte {
         return null;
     }
 
+    public Transportista obtenerTransportistaPorPlacaCamion(String placa) {
+        // Obtén el camión utilizando la placa
+        Camion camion = obtenerCamionPorPlaca(placa);
+
+        // Verifica si el camión existe y si está asociado a un transportista
+        if (camion != null && camionTransportista.containsKey(camion)) {
+            return camionTransportista.get(camion);
+        } else {
+            System.out.println("No se encontró un transportista asociado al camión con placa: " + placa);
+            return null;
+        }
+    }
 
     // Metodos para mostrar informacion
-
     public void mostrarCamiones() {
         if (camiones != null && !camiones.isEmpty()) {
             for (Camion camion : camiones) {
@@ -454,8 +455,4 @@ public class GestorTransporte {
             System.out.println("No hay camiones con paquetes.");
         }
     }
-
-    
-
-
 }
