@@ -73,9 +73,8 @@ public class MenuModulosUI extends javax.swing.JFrame {
             this.btn_AsignarCamione.show();
         }else if(usuario.getClass().toString().equals("class BL.Administracion."+"Transportista")){
             this.btn_carga.show();
-            this.btn_cargaDespachar.show();
-            this.btn_camionEntrega.show();
-            this.btn_entregaDespachar.show();
+            
+       
         }
     }
 
@@ -174,7 +173,7 @@ public class MenuModulosUI extends javax.swing.JFrame {
         btn_carga.setBackground(new java.awt.Color(21, 101, 192));
         btn_carga.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_carga.setForeground(new java.awt.Color(255, 255, 255));
-        btn_carga.setText("Camión Carga");
+        btn_carga.setText("Despachar");
         btn_carga.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btn_carga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

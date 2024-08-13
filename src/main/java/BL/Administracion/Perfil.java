@@ -24,6 +24,7 @@ public abstract class Perfil implements Serializable {
         this.contrasena = contrasena;
         this.telefono = telefono;
         this.inventario = Inventario.getInstancia();
+        
     }
 
     public Paquete obtenerPaquete(String idPaquete) {

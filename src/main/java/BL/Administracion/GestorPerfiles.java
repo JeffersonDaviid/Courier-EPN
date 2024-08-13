@@ -13,14 +13,14 @@ public class GestorPerfiles {
     private static GestorPerfiles instance;
     private List<Perfil> perfiles;
 
-    // Private constructor to prevent instantiation
+
     private GestorPerfiles() {
         perfiles = new ArrayList<>();
         loadPerfiles();
         initializeDefaultRecepcionista();
     }
 
-    // Public method to get the singleton instance
+    
     public static synchronized GestorPerfiles getInstance() {
         if (instance == null) {
             instance = new GestorPerfiles();
@@ -38,7 +38,7 @@ public class GestorPerfiles {
         System.out.println("Recepcionista por defecto creado con éxito.");
     }
 
-    // Método para registrar un perfil
+
     public synchronized void registrarPerfil(Perfil nuevoPerfil) {
         if (verificarCedulaExistente(nuevoPerfil.getCedula())) {
             System.out.println("No se pudo agregar el usuario. La cédula ya está registrada.");
@@ -48,7 +48,7 @@ public class GestorPerfiles {
         savePerfiles();
     }
 
-    // Método para realizar login
+
     public synchronized Perfil login(String nombre, String contrasena, String agencia, String rol) {
         List<Perfil> usuarios = getUsuarios();
         for (Perfil perfil : usuarios) {
@@ -136,7 +136,7 @@ public class GestorPerfiles {
         File file = new File(FILE_NAME);
         if (!file.exists() || file.length() == 0) {
             System.out.println("No se encontró el archivo de perfiles o está vacío. Creando nuevo archivo.");
-            savePerfiles(); // Guarda un archivo vacío para evitar futuros problemas
+            savePerfiles(); 
             return;
         }
     
@@ -144,7 +144,7 @@ public class GestorPerfiles {
             perfiles = (List<Perfil>) ois.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado, creando un nuevo archivo.");
-            savePerfiles(); // Guarda un archivo vacío para evitar futuros problemas
+            savePerfiles(); 
         } catch (EOFException e) {
             System.out.println("El archivo de perfiles está vacío o corrupto. Se creará un nuevo archivo.");
             savePerfiles();
