@@ -118,6 +118,13 @@ public class Recepcionista extends Perfil{
         return inventario.getHistorial().mostrarHistorial(index, filtro);
     }
     
+    public Seguimiento consultarSeguimientoPaquete(String idPaquete){
+        Paquete paquete = obtenerPaquete(idPaquete);
+        if(paquete==null){
+            return null;
+        }
+        return paquete.getSeguimiento();
+    }
 
     @Override
     public void reportarProblema(String idPaquete, String problema) {
