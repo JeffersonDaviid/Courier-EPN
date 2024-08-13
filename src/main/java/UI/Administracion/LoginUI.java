@@ -391,7 +391,7 @@ public class LoginUI extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         EspacioReclamacionUI espacioReclamacionUI = new EspacioReclamacionUI();
         espacioReclamacionUI.setVisible(true);
-        this.setVisible(false);
+       
 
     }
 
