@@ -421,7 +421,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         
         // Obtener la placa del camión seleccionado desde el ComboBox
         String placaCamion = (String) TextFieldPlacaCamion.getText();
-        Ubicacion ubicacion = (Ubicacion) cmbxSucursal.getSelectedItem();
+        String ubicacion = (String) cmbxSucursal.getSelectedItem();
         recepcionista.asignarPaqueteACamion(placaCamion, ubicacion);
         Transportista transportista = GestorTransporte.getInstancia().obtenerTransportistaPorPlacaCamion(placaCamion);
         String cedulaTransportista = transportista.getCedula();
