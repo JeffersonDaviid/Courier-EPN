@@ -72,6 +72,8 @@ public class Transportista extends Perfil {
         }
         GestorProblema gestorProblema = new GestorProblema(paquete, problemaReportado);
         gestorProblema.solucionarReclamo();
+        Camion camion = GestorTransporte.getInstancia().consultarCamionAsignado(this);
+        GestorTransporte.getInstancia().eliminarPaqueteAsignado(camion, idPaquete);
     }
 
     public void registrarEntregaPaquete(String idPaquete){
