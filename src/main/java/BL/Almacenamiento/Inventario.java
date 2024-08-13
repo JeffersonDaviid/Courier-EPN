@@ -218,8 +218,8 @@ public class Inventario implements Serializable {
     }
 
     //Metodo que devuelve una lista de paquetes asociado a un cliente
-    public ArrayList<Paquete> getPAquetesDeCliente(String cedula){
-        ArrayList<Paquete> paquetesEncontrados = new ArrayList<>();
+    public ArrayList<Paquete> getPaquetesDeCliente(String cedula){
+        ArrayList<Paquete> paquetesEncontrados = new ArrayList<Paquete>();
         for (Paquete paquete : paquetesEncontrados) {
             if(paquete.getCliente().getCedula().equals(cedula)){
                 paquetesEncontrados.add(paquete);
