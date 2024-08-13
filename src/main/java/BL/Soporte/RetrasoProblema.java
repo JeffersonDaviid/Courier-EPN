@@ -5,6 +5,7 @@
 package BL.Soporte;
 
 import BL.GestionPaquete.Paquete;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,7 +15,8 @@ public class RetrasoProblema implements Problema{
 
     @Override
     public void resolverReclamo() {
-        System.out.println("Resolviendo problema de retraso...");
+        
+        JOptionPane.showMessageDialog(null, "Resolviendo problema de retraso...");
     }
 
     @Override

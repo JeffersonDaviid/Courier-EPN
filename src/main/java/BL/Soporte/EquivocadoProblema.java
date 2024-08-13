@@ -6,6 +6,7 @@ package BL.Soporte;
 
 import BL.GestionPaquete.Paquete;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +16,7 @@ public class EquivocadoProblema implements Problema{
 
     @Override
     public void resolverReclamo() {
-        System.out.println("Resolviendo problema de paquete extraviado...");
-
+        JOptionPane.showMessageDialog(null, "Resolviendo problema de paquete extraviado...");
     }
 
     @Override
