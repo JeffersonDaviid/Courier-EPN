@@ -35,7 +35,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         this.recepcionista = recepcionista;
     }
     
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -464,7 +464,33 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     }//GEN-LAST:event_txtUbicacionCamionActionPerformed
 
     private void cmbxSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbxSucursalActionPerformed
-        Ubicacion ubicacion = (Ubicacion) cmbxSucursal.getSelectedItem();
+    Ubicacion ubicacion = (Ubicacion) cmbxSucursal.getSelectedItem();
+    if (ubicacion != null) {
+        ArrayList<Paquete> paquetes = GestorTransporte.getInstancia().obtenerPaquetesPorDestino(ubicacion);
+        actualizarTablaPaquetes(paquetes);
+    }
+} 
+
+// Método para actualizar la tabla con los paquetes obtenidos
+private void actualizarTablaPaquetes(ArrayList<Paquete> paquetes) {
+    DefaultTableModel model = (DefaultTableModel) jTablePaquetesPorDestino.getModel();
+    model.setRowCount(0); // Limpia la tabla antes de agregar nuevas filas
+
+    for (Paquete paquete : paquetes) {
+        model.addRow(new Object[]{
+            paquete.getTracking(),
+            paquete.getPeso(),
+            paquete.getTamanio(),
+            paquete.getSucursalOrigen(),
+            paquete.getSucursalDestino(),
+            paquete.getDireccion(),
+            paquete.getNombreDestinatario(), // Asume que 'Paquete' tiene un método getDestinatario()
+            paquete.getCorreoDestinatario(),     // Asume que 'Paquete' tiene un método getEmail()
+            paquete.getTelefonoDestinatario(),  // Asume que 'Paquete' tiene un método getTelefono()
+            paquete.getFechaSalida() // Asume que 'Paquete' tiene un método getFechaSalida()
+        });
+    }
+        
         
     }//GEN-LAST:event_cmbxSucursalActionPerformed
 
