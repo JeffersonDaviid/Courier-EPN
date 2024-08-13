@@ -4,32 +4,30 @@
  */
 package UI.Administracion;
 
-
-
 import BL.Administracion.Recepcionista;
+import BL.GestionPaquete.Paquete;
+import BL.Administracion.Cliente;
 import BL.Administracion.GestorPerfiles;
 import BL.Administracion.Perfil;
-import javax.swing.DefaultListModel;
 
+import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Emilio
  */
 public class RegistroReclamacionUI extends javax.swing.JPanel {
-    Recepcionista usuarioActual;
+    Cliente cliente = null;
+    ArrayList<Paquete> paquetes = new ArrayList<>();
 
     /**
      * Creates new form RegistroUsuariosUI
      */
-    public RegistroReclamacionUI(Perfil usuario) {
+    public RegistroReclamacionUI() {
         initComponents();
-        this.usuarioActual = (Recepcionista) usuario;
-        DefaultListModel<String> model = new DefaultListModel<>();
-        for (Perfil perfil : GestorPerfiles.getInstance().getClientes()) {
-            model.addElement(perfil.getCedula() + " - " + perfil.getNombre() + " " + perfil.getApellido());
-        }
-        listaPaquetes.setModel(model);
 
     }
 
@@ -40,7 +38,8 @@ public class RegistroReclamacionUI extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         btnConsultarPaquetes = new javax.swing.JButton();
@@ -63,7 +62,12 @@ public class RegistroReclamacionUI extends javax.swing.JPanel {
         btnConsultarPaquetes.setText("Consultar Paquetes");
         btnConsultarPaquetes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               // btnConsultarPaquetesActionPerformed(evt);
+                try {
+                    btnConsultarPaquetesActionPerformed(evt);
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -96,7 +100,8 @@ public class RegistroReclamacionUI extends javax.swing.JPanel {
         jLabel11.setForeground(new java.awt.Color(13, 71, 161));
         jLabel11.setText("Lista de Paquetes del Cliente");
 
-        comboBoxReclamacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Retraso ", "Extravío", "Daño en el paquete", "Paquete equivocado" }));
+        comboBoxReclamacion.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "Retraso ", "Extravío", "Daño en el paquete", "Paquete equivocado" }));
         comboBoxReclamacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxReclamacionActionPerformed(evt);
@@ -120,81 +125,135 @@ public class RegistroReclamacionUI extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textBoxCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btnConsultarPaquetes))
-                    .addComponent(jLabel11)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRegistrarReclamacion)
-                        .addGap(155, 155, 155))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textBoxIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(comboBoxReclamacion, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(70, Short.MAX_VALUE))))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(3, 3, 3)
+                                                .addComponent(jLabel6))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 72,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(textBoxCedula, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(59, 59, 59)
+                                                .addComponent(btnConsultarPaquetes))
+                                        .addComponent(jLabel11)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+                                                .createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnRegistrarReclamacion)
+                                                .addGap(155, 155, 155))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(42, 42, 42)
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel10)
+                                                        .addGroup(layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                        false)
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addComponent(jLabel7,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                100,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                        .addComponent(textBoxIdPaquete,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                197,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addComponent(jLabel8,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                121,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(comboBoxReclamacion,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                197,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addContainerGap(70, Short.MAX_VALUE)))));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textBoxCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnConsultarPaquetes)
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(btnRegistrarReclamacion)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(textBoxIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(comboBoxReclamacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 70, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(textBoxCedula,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel9))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnConsultarPaquetes)
+                                                .addGap(33, 33, 33)
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel11)
+                                                        .addComponent(btnRegistrarReclamacion)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel10)
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel7)
+                                                        .addComponent(textBoxIdPaquete,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel8)
+                                                        .addComponent(comboBoxReclamacion,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 70, Short.MAX_VALUE)));
 
         textBoxCedula.getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarPaquetesActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException {// GEN-FIRST:event_btnConsultarPaquetesActionPerformed
 
-        // listaPaquetes.setModel(model);
+        String cedula = textBoxCedula.getText();
+        if (!esCedulaValida(cedula)) {
+            JOptionPane.showMessageDialog(this, "Cédula inválida", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        cliente = GestorPerfiles.getInstance().getCliente(cedula);
+        if (cliente == null) {
+            JOptionPane.showMessageDialog(this, "Cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        paquetes = cliente.obtenerPaquetes(cliente.getCedula());
 
+        DefaultListModel<String> model1 = new DefaultListModel<>();
+        for (Paquete paquete : paquetes) {
+            model1.addElement(paquete.getTracking() + " - " + paquete.getSucursalOrigen() + " - "
+                    + paquete.getNombreDestinatario() + " - " + paquete.getSucursalDestino() + " - "
+                    + paquete.getEstado().toString());
+        }
+        listaPaquetes.setModel(model1);
         // JOptionPane.showMessageDialog(this, "Registro exitoso", "Éxito",
         // JOptionPane.INFORMATION_MESSAGE);
     }// GEN-LAST:event_btnConsultarPaquetesActionPerformed

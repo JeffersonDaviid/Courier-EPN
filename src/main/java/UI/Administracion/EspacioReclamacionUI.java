@@ -10,7 +10,7 @@ public class EspacioReclamacionUI extends javax.swing.JFrame {
 
     public EspacioReclamacionUI() {
         initComponents();
-        registroReclamacionPanel = new RegistroReclamacionUI(null);
+        registroReclamacionPanel = new RegistroReclamacionUI();
         add(registroReclamacionPanel);
         pack();
     }
