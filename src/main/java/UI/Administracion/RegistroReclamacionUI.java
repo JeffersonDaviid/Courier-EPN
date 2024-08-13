@@ -245,7 +245,10 @@ public class RegistroReclamacionUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Cliente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        paquetes = cliente.obtenerPaquetes(cliente.getCedula());
+        paquetes = cliente.obtenerPaquetes(cedula);
+        for(Paquete paquete : paquetes){
+            JOptionPane.showMessageDialog(this, "Paquete: " + paquete.getTracking() + " - " + paquete.getEstado().toString());
+        }
 
         DefaultListModel<String> model1 = new DefaultListModel<>();
         for (Paquete paquete : paquetes) {

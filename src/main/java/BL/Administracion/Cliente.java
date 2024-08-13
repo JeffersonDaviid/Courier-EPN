@@ -22,10 +22,8 @@ public class Cliente extends Perfil {
     public ArrayList<Paquete> obtenerPaquetes(String cedula){
         ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
         paquetes = inventario.getPaquetesDeCliente(cedula);
-        for(Paquete paquete: paquetes){
-            if(paquete.getCliente().getCedula().equals(this.getCedula())){
-                paquetes.add(paquete);
-            }
+        if(paquetes.isEmpty()){
+            JOptionPane.showMessageDialog(null, "No se encontraron paquetes asociados a este cliente.");
         }
         return paquetes;
     }
