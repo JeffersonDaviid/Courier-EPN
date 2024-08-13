@@ -49,20 +49,13 @@ public class GestorPerfiles {
     }
 
 
-    public synchronized Perfil login(String nombre, String contrasena, String agencia, String rol) {
+    public synchronized Perfil login(String nombre, String contrasena, String rol) {
         List<Perfil> usuarios = getUsuarios();
         for (Perfil perfil : usuarios) {
             JOptionPane.showMessageDialog(null, perfil.getNombre()+" "+perfil.getContrasena());
             if (perfil.getNombre().equals(nombre) && perfil.getContrasena().equals(contrasena)) {
                 if (rol.equals(perfil.getClass().getSimpleName())) {
-                    if (rol.equals("Recepcionista")) {
-                        Recepcionista recepcionista = (Recepcionista) perfil;
-                        if (recepcionista.getSucursal().equals(agencia)) {
-                            return perfil;
-                        }
-                    } else {
-                        return perfil;
-                    }
+                    return perfil;
                 }
             }
         }
