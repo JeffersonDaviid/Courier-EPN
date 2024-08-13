@@ -4,9 +4,16 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import BL.GestionPaquete.Conflicto;
 import BL.GestionPaquete.Entregado;
 import BL.GestionPaquete.Paquete;
 import BL.GestionPaquete.Transportandose;
+import BL.Soporte.DanadoProblema;
+import BL.Soporte.EquivocadoProblema;
+import BL.Soporte.ExtraviadoProblema;
+import BL.Soporte.Gestor_Problema;
+import BL.Soporte.Problema;
+import BL.Soporte.RetrasoProblema;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
 
@@ -34,6 +41,7 @@ public class Transportista extends Perfil {
     @Override
     public void reportarProblema(String idPaquete, String problema) {
         Paquete paquete = obtenerPaquete(idPaquete);
+        Problema problemaReportado = null;
         if(paquete==null||!(paquete.getEstado() instanceof Transportandose)){
             JOptionPane.showMessageDialog(null, "El paquete no existe.");
             return;
@@ -42,6 +50,26 @@ public class Transportista extends Perfil {
             JOptionPane.showMessageDialog(null, "El paquete no se encuentra asignado a su camión.");
             return;
         }
+        paquete.setEstado(new Conflicto(paquete));
+        inventario.notificarCambioEstado(idPaquete);
+        switch (problema.toLowerCase()){
+            case "dañado":
+                problemaReportado = new DanadoProblema();
+                break;
+            case "equivocado":
+                problemaReportado = new EquivocadoProblema();
+                break;
+            case "extraviado":
+                problemaReportado = new ExtraviadoProblema();
+                break;
+            case "retraso":
+                problemaReportado = new RetrasoProblema();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Problema no reconocido");
+                return;
+        }
+        Gestor_Problema gestor_Problema = new Gestor_Problema(paquete, problemaReportado);
     }
 
     public void registrarEntregaPaquete(String idPaquete){

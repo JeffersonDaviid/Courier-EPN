@@ -6,9 +6,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import BL.Facturacion.GestorFacturas;
+import BL.GestionPaquete.Conflicto;
 import BL.GestionPaquete.Paquete;
 import BL.GestionPaquete.Seguimiento;
 import BL.GestionPaquete.Transportandose;
+import BL.Soporte.*;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
 import BL.Transporte.Ubicacion;
@@ -110,6 +112,11 @@ public class Recepcionista extends Perfil{
         GestorTransporte.getInstancia().eliminarCamionDeTransportista(camion);
     }
 
+    public Camion consultarCamionAsignadoTransportista(String cedula){
+        Transportista transportista = GestorTransporte.getInstancia().obtenerTransportistaPorCedula(cedula);
+        return GestorTransporte.getInstancia().consultarCamionAsignado(transportista);
+    }
+
     public DefaultTableModel mostrarPaquetes(int index){
         return inventario.mostrarPaquetes(index);
     }
@@ -129,11 +136,31 @@ public class Recepcionista extends Perfil{
     @Override
     public void reportarProblema(String idPaquete, String problema) {
         Paquete paquete = obtenerPaquete(idPaquete);
+        Problema problemaReportado = null;
         if(paquete==null||(paquete.getEstado() instanceof Transportandose)){
             JOptionPane.showMessageDialog(null, "Este reporte esta fuera de su jurisdiccion");
             return;
         }
-
+        paquete.setEstado(new Conflicto(paquete));
+        inventario.notificarCambioEstado(idPaquete);
+        switch (problema.toLowerCase()){
+            case "dañado":
+                problemaReportado = new DanadoProblema();
+                break;
+            case "equivocado":
+                problemaReportado = new EquivocadoProblema();
+                break;
+            case "extraviado":
+                problemaReportado = new ExtraviadoProblema();
+                break;
+            case "retraso":
+                problemaReportado = new RetrasoProblema();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Problema no reconocido");
+                return;
+        }
+        Gestor_Problema gestor_Problema = new Gestor_Problema(paquete, problemaReportado);
     }
 
     
