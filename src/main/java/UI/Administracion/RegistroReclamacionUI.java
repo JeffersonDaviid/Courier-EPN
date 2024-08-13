@@ -4,6 +4,10 @@
  */
 package UI.Administracion;
 
+import javax.swing.JOptionPane;
+
+import com.proyecto.courierepn.CourierEPN;
+
 import BL.Administracion.Recepcionista;
 import BL.Administracion.GestorPerfiles;
 import BL.Administracion.Perfil;
@@ -253,7 +257,32 @@ public class RegistroReclamacionUI extends javax.swing.JPanel {
     }// GEN-LAST:event_btnRegistrarReclamacionActionPerformed
 
     // Método para verificar si una cédula ecuatoriana es válida
-   
+    private boolean esCedulaValida(String cedula) {
+        if (cedula == null || cedula.length() != 10) {
+            return false;
+        }
+
+        try {
+            int provincia = Integer.parseInt(cedula.substring(0, 2));
+            if (provincia < 1 || provincia > 24) {
+                return false;
+            }
+
+            int[] coeficientes = { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
+            int suma = 0;
+            for (int i = 0; i < 9; i++) {
+                int digito = Integer.parseInt(cedula.substring(i, i + 1)) * coeficientes[i];
+                suma += (digito > 9) ? digito - 9 : digito;
+            }
+
+            int digitoVerificador = Integer.parseInt(cedula.substring(9, 10));
+            int decenaSuperior = ((suma + 9) / 10) * 10;
+            return (decenaSuperior - suma) == digitoVerificador;
+
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultarPaquetes;
