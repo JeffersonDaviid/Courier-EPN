@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.io.*; 
+import java.util.Scanner; 
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -51,7 +54,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePaquetesPorDestino = new javax.swing.JTable();
-        UbicacionTxt = new javax.swing.JTextField();
+        cmbxSucursal = new javax.swing.JComboBox<>();
         jPanel12 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         TextFieldIDCCamion = new javax.swing.JTextField();
@@ -63,7 +66,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         TextFieldModeloCamion = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         Ubicacion = new javax.swing.JLabel();
-        TextFieldUbicacionCamion = new javax.swing.JTextField();
+        txtUbicacionCamion = new javax.swing.JTextField();
         jButtonAsignarCamionPaquete = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -150,9 +153,10 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTablePaquetesPorDestino);
 
-        UbicacionTxt.addActionListener(new java.awt.event.ActionListener() {
+        cmbxSucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AMBATO", "AZOGUES", "BABAHOYO", "CUENCA", "ESMERALDAS", "GUAYAQUIL", "GUARANDA", "IBARRA", "LATACUNGA", "LOJA", "MACARA", "MANTA", "PORTOVIEJO", "PUYO", "QUITO", "RIOBAMBA", "RUMICHACA", "SANTO_DOMINGO", "TENA", "TULCAN", "ZAMORA", "LAGO_AGRIO" }));
+        cmbxSucursal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UbicacionTxtActionPerformed(evt);
+                cmbxSucursalActionPerformed(evt);
             }
         });
 
@@ -170,7 +174,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(UbicacionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbxSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -179,7 +183,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel18)
                 .addGap(18, 18, 18)
-                .addComponent(UbicacionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbxSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -229,9 +233,9 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         Ubicacion.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         Ubicacion.setText("Ubicación");
 
-        TextFieldUbicacionCamion.addActionListener(new java.awt.event.ActionListener() {
+        txtUbicacionCamion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldUbicacionCamionActionPerformed(evt);
+                txtUbicacionCamionActionPerformed(evt);
             }
         });
 
@@ -241,32 +245,29 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel12Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(Ubicacion)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TextFieldUbicacionCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel12Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel23)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TextFieldMarcaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel12Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel22)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TextFieldModeloCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel21)
-                            .addGap(58, 58, 58)
-                            .addComponent(TextFieldPlacaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel12Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel20)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TextFieldIDCCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(Ubicacion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtUbicacionCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TextFieldMarcaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TextFieldModeloCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addGap(58, 58, 58)
+                                .addComponent(TextFieldPlacaCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TextFieldIDCCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jLabel24)))
@@ -295,7 +296,7 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
                     .addComponent(jLabel23))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TextFieldUbicacionCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUbicacionCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Ubicacion))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
@@ -382,43 +383,46 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     }//GEN-LAST:event_TextFieldMarcaCamionActionPerformed
 
     private void TextFieldPlacaCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPlacaCamionActionPerformed
-        // Obtener la placa del camión seleccionado desde el ComboBox
-        String placaCamion = (String) TextFieldPlacaCamion.getText();
+        // Ejecutar en el hilo de despacho de eventos de Swing
+        SwingUtilities.invokeLater(() -> {
+            // Obtener la placa del camión ingresada en el campo de texto
+            String placaCamion = TextFieldPlacaCamion.getText().trim();
 
-        // Obtener la instancia única de GestorTransporte
-        GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
+            // Obtener la instancia única de GestorTransporte
+            GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
 
-        // Buscar el camión por placa
-        Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
+            // Buscar el camión por placa
+            Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
 
-        // Si el camión es encontrado, mostrar su información en los campos de texto
-        if (camion != null) {
-            TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
-            TextFieldModeloCamion.setText(camion.getModelo());
-            TextFieldMarcaCamion.setText(camion.getMarca());
-            TextFieldUbicacionCamion.setText(camion.getUbicacion().name());
-        } else {
-            JOptionPane.showMessageDialog(this, "Camión no encontrado.");
-        }
-// TODO add your handling code here:
+            // Si el camión es encontrado, mostrar su información en los campos de texto
+            if (camion != null) {
+                TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
+                TextFieldModeloCamion.setText(camion.getModelo());
+                TextFieldMarcaCamion.setText(camion.getMarca());
+                txtUbicacionCamion.setText(camion.getUbicacion().name());
+            } else {
+                // Limpiar los campos si el camión no es encontrado
+                TextFieldIDCCamion.setText("");
+                TextFieldModeloCamion.setText("");
+                TextFieldMarcaCamion.setText("");
+                txtUbicacionCamion.setText("");
+
+                // Mostrar un mensaje indicando que el camión no se encontró
+                JOptionPane.showMessageDialog(this, "Camión no encontrado.");
+            }
+        });
     }//GEN-LAST:event_TextFieldPlacaCamionActionPerformed
 
     private void TextFieldModeloCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldModeloCamionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldModeloCamionActionPerformed
 
-    private void TextFieldUbicacionCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldUbicacionCamionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldUbicacionCamionActionPerformed
-
     private void jButtonAsignarCamionPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsignarCamionPaqueteActionPerformed
         
         // Obtener la placa del camión seleccionado desde el ComboBox
         String placaCamion = (String) TextFieldPlacaCamion.getText();
-        
-        String ubicacion = TextFieldUbicacionCamion.getText();
-        Ubicacion ubicacionEnum = Enum.valueOf(Ubicacion.class, ubicacion);
-        recepcionista.asignarPaqueteACamion(placaCamion, ubicacionEnum);
+        Ubicacion ubicacion = (Ubicacion) cmbxSucursal.getSelectedItem();
+        recepcionista.asignarPaqueteACamion(placaCamion, ubicacion);
         Transportista transportista = GestorTransporte.getInstancia().obtenerTransportistaPorPlacaCamion(placaCamion);
         String cedulaTransportista = transportista.getCedula();
         // Paso 1: Obtener la lista de paquetes
@@ -454,9 +458,16 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButtonAsignarCamionPaqueteActionPerformed
     
-    private void UbicacionTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UbicacionTxtActionPerformed
         
-    }//GEN-LAST:event_UbicacionTxtActionPerformed
+    private void txtUbicacionCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUbicacionCamionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUbicacionCamionActionPerformed
+
+    private void cmbxSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbxSucursalActionPerformed
+        Ubicacion ubicacion = (Ubicacion) cmbxSucursal.getSelectedItem();
+        
+    }//GEN-LAST:event_cmbxSucursalActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -466,11 +477,10 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     private javax.swing.JTextField TextFieldMarcaCamion;
     private javax.swing.JTextField TextFieldModeloCamion;
     private javax.swing.JTextField TextFieldPlacaCamion;
-    private javax.swing.JTextField TextFieldUbicacionCamion;
     private javax.swing.JLabel TxtCamion;
     private javax.swing.JLabel TxtCamion1;
     private javax.swing.JLabel Ubicacion;
-    private javax.swing.JTextField UbicacionTxt;
+    private javax.swing.JComboBox<String> cmbxSucursal;
     private javax.swing.JButton jButtonAsignarCamionPaquete;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
@@ -486,5 +496,6 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTablePaquetesAsigandos;
     private javax.swing.JTable jTablePaquetesPorDestino;
+    private javax.swing.JTextField txtUbicacionCamion;
     // End of variables declaration//GEN-END:variables
 }

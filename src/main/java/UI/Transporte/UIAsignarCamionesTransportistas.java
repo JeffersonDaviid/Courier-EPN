@@ -9,6 +9,7 @@ import BL.Administracion.Transportista;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -20,11 +21,12 @@ public class UIAsignarCamionesTransportistas extends javax.swing.JPanel {
      * Creates new form UIAsignarCamionesTransportistas
      */
     Recepcionista recepcionista;
+
     public UIAsignarCamionesTransportistas(Recepcionista recepcionista) {
         initComponents();
         this.recepcionista = recepcionista;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -396,29 +398,32 @@ public class UIAsignarCamionesTransportistas extends javax.swing.JPanel {
     }//GEN-LAST:event_TextFieldApellidoTransportistaActionPerformed
 
     private void TextFieldCITransportistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldCITransportistaActionPerformed
-    // Obtener la cédula del transportista ingresada en el campo de texto
-    String cedula = TextFieldCITransportista.getText().trim();
+        SwingUtilities.invokeLater(() -> {
+            // Obtener la cédula del transportista ingresada en el campo de texto
+            String cedula = TextFieldCITransportista.getText().trim();
 
-    // Obtener la instancia única de GestorTransporte
-    GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
+            // Obtener la instancia única de GestorTransporte
+            GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
 
-    // Buscar el transportista por cédula
-    Transportista transportista = gestorTransporte.obtenerTransportistaPorCedula(cedula);
+            // Buscar el transportista por cédula
+            Transportista transportista = gestorTransporte.obtenerTransportistaPorCedula(cedula);
 
-    // Si el transportista es encontrado, mostrar su información en los campos de texto
-    if (transportista != null) {
-        TextFieldNombreTransportista.setText(transportista.getNombre());
-        TextFieldApellidoTransportista.setText(transportista.getApellido());
-        TextFieldEMAILTransportista.setText(transportista.getCorreo());
-    } else {
-        // Limpiar los campos si el transportista no es encontrado
-        TextFieldNombreTransportista.setText("");
-        TextFieldApellidoTransportista.setText("");
-        TextFieldEMAILTransportista.setText("");
-        
-        // Mostrar un mensaje indicando que el transportista no se encontró
-        JOptionPane.showMessageDialog(this, "Transportista no encontrado.");
-    } 
+            // Si el transportista es encontrado, mostrar su información en los campos de texto
+            if (transportista != null) {
+                TextFieldNombreTransportista.setText(transportista.getNombre());
+                TextFieldApellidoTransportista.setText(transportista.getApellido());
+                TextFieldEMAILTransportista.setText(transportista.getCorreo());
+            } else {
+                // Limpiar los campos si el transportista no es encontrado
+                TextFieldNombreTransportista.setText("");
+                TextFieldApellidoTransportista.setText("");
+                TextFieldEMAILTransportista.setText("");
+
+                // Mostrar un mensaje indicando que el transportista no se encontró
+                JOptionPane.showMessageDialog(this, "Transportista no encontrado.");
+            }
+        });
+
     }//GEN-LAST:event_TextFieldCITransportistaActionPerformed
 
     private void TextFieldIDCCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldIDCCamionActionPerformed
@@ -430,31 +435,34 @@ public class UIAsignarCamionesTransportistas extends javax.swing.JPanel {
     }//GEN-LAST:event_TextFieldMarcaCamionActionPerformed
 
     private void TextFieldPlacaCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPlacaCamionActionPerformed
-    // Obtener la placa del camión ingresada en el campo de texto
-    String placaCamion = TextFieldPlacaCamion.getText().trim();
+        // Ejecutar en el hilo de despacho de eventos de Swing
+        SwingUtilities.invokeLater(() -> {
+            // Obtener la placa del camión ingresada en el campo de texto
+            String placaCamion = TextFieldPlacaCamion.getText().trim();
 
-    // Obtener la instancia única de GestorTransporte
-    GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
+            // Obtener la instancia única de GestorTransporte
+            GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
 
-    // Buscar el camión por placa
-    Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
+            // Buscar el camión por placa
+            Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
 
-    // Si el camión es encontrado, mostrar su información en los campos de texto
-    if (camion != null) {
-        TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
-        TextFieldModeloCamion.setText(camion.getModelo());
-        TextFieldMarcaCamion.setText(camion.getMarca());
-        TextFieldUbicacionCamion.setText(camion.getUbicacion().name());
-    } else {
-        // Limpiar los campos si el camión no es encontrado
-        TextFieldIDCCamion.setText("");
-        TextFieldModeloCamion.setText("");
-        TextFieldMarcaCamion.setText("");
-        TextFieldUbicacionCamion.setText("");
-        
-        // Mostrar un mensaje indicando que el camión no se encontró
-        JOptionPane.showMessageDialog(this, "Camión no encontrado.");
-    }      
+            // Si el camión es encontrado, mostrar su información en los campos de texto
+            if (camion != null) {
+                TextFieldIDCCamion.setText(String.valueOf(camion.getIdCamion()));
+                TextFieldModeloCamion.setText(camion.getModelo());
+                TextFieldMarcaCamion.setText(camion.getMarca());
+                TextFieldUbicacionCamion.setText(camion.getUbicacion().name());
+            } else {
+                // Limpiar los campos si el camión no es encontrado
+                TextFieldIDCCamion.setText("");
+                TextFieldModeloCamion.setText("");
+                TextFieldMarcaCamion.setText("");
+                TextFieldUbicacionCamion.setText("");
+
+                // Mostrar un mensaje indicando que el camión no se encontró
+                JOptionPane.showMessageDialog(this, "Camión no encontrado.");
+            }
+        });
     }//GEN-LAST:event_TextFieldPlacaCamionActionPerformed
 
     private void TextFieldModeloCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldModeloCamionActionPerformed
@@ -481,10 +489,10 @@ public class UIAsignarCamionesTransportistas extends javax.swing.JPanel {
             txtCamionAsignado.setText("No se encontró camión asignado.");
             // Opcional: Mostrar un mensaje de error si es necesario
             JOptionPane.showMessageDialog(null,
-            "No se encontró un camión asignado para el transportista con cédula: " + cedulaTransportista,
-            "Información",
-            JOptionPane.INFORMATION_MESSAGE);
-}
+                    "No se encontró un camión asignado para el transportista con cédula: " + cedulaTransportista,
+                    "Información",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
 
     }//GEN-LAST:event_jButtonAsignarCamionTransportistaActionPerformed
 

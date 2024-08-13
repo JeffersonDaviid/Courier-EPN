@@ -181,7 +181,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="UbicacionTxt" min="-2" pref="95" max="-2" attributes="0"/>
+                          <Component id="cmbxSucursal" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -193,8 +193,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="UbicacionTxt" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Component id="cmbxSucursal" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="123" max="-2" attributes="0"/>
                   <EmptySpace pref="26" max="32767" attributes="0"/>
@@ -295,10 +295,41 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="UbicacionTxt">
+        <Component class="javax.swing.JComboBox" name="cmbxSucursal">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="22">
+                <StringItem index="0" value="AMBATO"/>
+                <StringItem index="1" value="AZOGUES"/>
+                <StringItem index="2" value="BABAHOYO"/>
+                <StringItem index="3" value="CUENCA"/>
+                <StringItem index="4" value="ESMERALDAS"/>
+                <StringItem index="5" value="GUAYAQUIL"/>
+                <StringItem index="6" value="GUARANDA"/>
+                <StringItem index="7" value="IBARRA"/>
+                <StringItem index="8" value="LATACUNGA"/>
+                <StringItem index="9" value="LOJA"/>
+                <StringItem index="10" value="MACARA"/>
+                <StringItem index="11" value="MANTA"/>
+                <StringItem index="12" value="PORTOVIEJO"/>
+                <StringItem index="13" value="PUYO"/>
+                <StringItem index="14" value="QUITO"/>
+                <StringItem index="15" value="RIOBAMBA"/>
+                <StringItem index="16" value="RUMICHACA"/>
+                <StringItem index="17" value="SANTO_DOMINGO"/>
+                <StringItem index="18" value="TENA"/>
+                <StringItem index="19" value="TULCAN"/>
+                <StringItem index="20" value="ZAMORA"/>
+                <StringItem index="21" value="LAGO_AGRIO"/>
+              </StringArray>
+            </Property>
+          </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UbicacionTxtActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbxSucursalActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -320,7 +351,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="Ubicacion" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="TextFieldUbicacionCamion" min="-2" pref="123" max="-2" attributes="0"/>
+                                  <Component id="txtUbicacionCamion" min="-2" pref="123" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
@@ -380,7 +411,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="TextFieldUbicacionCamion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtUbicacionCamion" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Ubicacion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="17" max="32767" attributes="0"/>
@@ -457,9 +488,9 @@
             <Property name="text" type="java.lang.String" value="Ubicaci&#xf3;n"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="TextFieldUbicacionCamion">
+        <Component class="javax.swing.JTextField" name="txtUbicacionCamion">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldUbicacionCamionActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUbicacionCamionActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
