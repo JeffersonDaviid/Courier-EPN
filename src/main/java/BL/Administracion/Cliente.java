@@ -12,7 +12,7 @@ public class Cliente extends Perfil {
         super(nombre, apellido, cedula, correo, contrasena, telefono);
     }
     
-    public ArrayList<Paquete> obtenerPaquetesCliente(String cedula){
+    public ArrayList<Paquete> obtenerPaquetes(String cedula){
         ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
         paquetes = inventario.getPaquetesDeCliente(cedula);
         for(Paquete paquete: paquetes){
