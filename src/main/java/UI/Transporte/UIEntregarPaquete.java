@@ -9,6 +9,7 @@ import BL.Administracion.Transportista;
 import BL.GestionPaquete.Paquete;
 import BL.Transporte.GestorTransporte;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,7 +22,7 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
      * Creates new form UIEntregarPaquete
      */
     Transportista transportista;
-    public UIEntregarPaquete(Transportista transportista, Recepcionista recepcionista) {
+    public UIEntregarPaquete(Transportista transportista) {
         initComponents();
         this.transportista = transportista;
     }
@@ -47,7 +48,6 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
         jButtonAsignarCamionPaquete = new javax.swing.JButton();
         jTextIDPaquete = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jTextFieldPlacaCamionEntrega = new javax.swing.JTextField();
 
         jLabel14.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel14.setText("PAQUETES ASIGNADOS ");
@@ -148,12 +148,6 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
             }
         });
 
-        jTextFieldPlacaCamionEntrega.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPlacaCamionEntregaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,11 +164,8 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
                                     .addComponent(jLabel15)
                                     .addComponent(jButtonAsignarCamionPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextIDPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldPlacaCamionEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 432, Short.MAX_VALUE))))
+                                    .addComponent(jButton1))
+                                .addGap(0, 491, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -187,9 +178,7 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jTextFieldPlacaCamionEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -206,44 +195,40 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonAsignarCamionPaqueteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String placaCamionEntrega = (String)jTextFieldPlacaCamionEntrega.getText();
-       Transportista transportista = GestorTransporte.getInstancia().obtenerTransportistaPorPlacaCamion(placaCamionEntrega);
-       String cedulaTransportista = transportista.getCedula();
-        // Paso 1: Obtener la lista de paquetes
-    ArrayList<Paquete> listaPaquetes = transportista.consultarAsignacionPaquetesTransportista(cedulaTransportista);
+        String cedula = transportista.getCedula();
+        System.out.println(cedula);
 
-    // Paso 2: Definir las columnas
-    String[] columnas = {
-        "Tracking", "Peso", "Tamanio", "Origen", "Destino", "Direccion", "Destinatario", "Email", "Telefono", "Fecha de Salida"
-    };
-
-    // Crear el modelo de tabla
-    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
-
-    // Paso 3: Llenar el modelo con los datos de la lista
-    for (Paquete paquete : listaPaquetes) {
-        Object[] fila = {
-            paquete.getTracking(),  // Asume que 'Paquete' tiene un método getTracking()
-            paquete.getPeso(),      // Asume que 'Paquete' tiene un método getPeso()
-            paquete.getTamanio(),   // Asume que 'Paquete' tiene un método getTamanio()
-            paquete.getSucursalOrigen(),    // Asume que 'Paquete' tiene un método getOrigen()
-            paquete.getSucursalDestino(),   // Asume que 'Paquete' tiene un método getDestino()
-            paquete.getDireccion(), // Asume que 'Paquete' tiene un método getDireccion()
-            paquete.getNombreDestinatario(), // Asume que 'Paquete' tiene un método getDestinatario()
-            paquete.getCorreoDestinatario(),     // Asume que 'Paquete' tiene un método getEmail()
-            paquete.getTelefonoDestinatario(),  // Asume que 'Paquete' tiene un método getTelefono()
-            paquete.getFechaSalida() // Asume que 'Paquete' tiene un método getFechaSalida()
-        };
-        modelo.addRow(fila);
-    }
-
-    // Paso 4: Asignar el modelo al JTable
-    jTablePaquetesPorDestinoEntrega.setModel(modelo);
+       ArrayList<Paquete> listaPaquetes = transportista.consultarAsignacionPaquetesTransportista(cedula);
+        System.out.println(listaPaquetes);
+//
+//    // Paso 4: Definir las columnas de la tabla
+//    String[] columnas = {
+//        "Tracking", "Peso", "Tamaño", "Origen", "Destino", "Dirección", "Destinatario", "Email", "Teléfono", "Fecha de Salida"
+//    };
+//
+//    // Crear el modelo de tabla
+//    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+//
+//    // Paso 5: Llenar el modelo con los datos de la lista de paquetes
+//    for (Paquete paquete : listaPaquetes) {
+//        Object[] fila = {
+//            paquete.getTracking(),                  // Asume que 'Paquete' tiene un método getTracking()
+//            paquete.getPeso(),                      // Asume que 'Paquete' tiene un método getPeso()
+//            paquete.getTamanio(),                   // Asume que 'Paquete' tiene un método getTamanio()
+//            paquete.getSucursalOrigen(),            // Asume que 'Paquete' tiene un método getSucursalOrigen()
+//            paquete.getSucursalDestino(),           // Asume que 'Paquete' tiene un método getSucursalDestino()
+//            paquete.getDireccion(),                 // Asume que 'Paquete' tiene un método getDireccion()
+//            paquete.getNombreDestinatario(),        // Asume que 'Paquete' tiene un método getNombreDestinatario()
+//            paquete.getCorreoDestinatario(),        // Asume que 'Paquete' tiene un método getCorreoDestinatario()
+//            paquete.getTelefonoDestinatario(),      // Asume que 'Paquete' tiene un método getTelefonoDestinatario()
+//            paquete.getFechaSalida()                // Asume que 'Paquete' tiene un método getFechaSalida()
+//        };
+//        modelo.addRow(fila);
+//    }
+//
+//    // Paso 6: Asignar el modelo al JTable
+//    jTablePaquetesPorDestinoEntrega.setModel(modelo);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextFieldPlacaCamionEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPlacaCamionEntregaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPlacaCamionEntregaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -258,7 +243,6 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTablePaquetesPorDestinoEntrega;
-    private javax.swing.JTextField jTextFieldPlacaCamionEntrega;
     private javax.swing.JTextField jTextIDPaquete;
     // End of variables declaration//GEN-END:variables
 }
