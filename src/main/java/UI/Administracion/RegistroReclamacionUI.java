@@ -234,7 +234,9 @@ public class RegistroReclamacionUI extends javax.swing.JPanel {
     }// GEN-LAST:event_comboBoxReclamacionActionPerformed
 
     private void btnRegistrarReclamacionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRegistrarReclamacionActionPerformed
-        // TODO add your handling code here:
+        String idPaquete=textBoxIdPaquete.getText();
+        String problema=comboBoxReclamacion.getSelectedItem().toString();
+        cliente.reportarProblema(idPaquete,problema);
     }// GEN-LAST:event_btnRegistrarReclamacionActionPerformed
 
     // Método para verificar si una cédula ecuatoriana es válida
