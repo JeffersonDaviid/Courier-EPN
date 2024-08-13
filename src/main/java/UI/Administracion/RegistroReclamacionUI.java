@@ -4,12 +4,9 @@
  */
 package UI.Administracion;
 
-import BL.Administracion.Recepcionista;
-import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
 import BL.Administracion.Cliente;
 import BL.Administracion.GestorPerfiles;
-import BL.Administracion.Perfil;
 
 import java.util.ArrayList;
 

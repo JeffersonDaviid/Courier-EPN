@@ -392,6 +392,7 @@ public class LoginUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException {// GEN-FIRST:event_jButton1ActionPerformed
         String user = jTextField1.getText();
+        @SuppressWarnings("deprecation")
         String pass = jPasswordField1.getText();
         String rol = jComboBox2.getSelectedItem().toString();
         usuario = GestorPerfiles.getInstance().login(user, pass, rol);

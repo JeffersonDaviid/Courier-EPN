@@ -14,7 +14,6 @@ import BL.GestionPaquete.Transportandose;
 import BL.Soporte.*;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
-import BL.Transporte.Ubicacion;
 
 public class Recepcionista extends Perfil{
     private Paquete paqueteEnRegistro;
