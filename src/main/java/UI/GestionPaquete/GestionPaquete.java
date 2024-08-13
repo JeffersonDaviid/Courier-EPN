@@ -386,7 +386,7 @@ public class GestionPaquete extends javax.swing.JPanel {
         String telefonoDestinatario = jtTelefonoDestinatario.getText();
 
         // Información del paquete
-        String sucursalOrigen = recepcionista.getSucursal().name();
+        String sucursalOrigen = recepcionista.getSucursal();
         String sucursalDestino = (String) jComboSucurcalRecoger.getSelectedItem();
         String peso = jTpeso.getText(); // Debe convertir este valor a float más adelante si es necesario
         String tamanio = (String) jComboTamanio.getSelectedItem();

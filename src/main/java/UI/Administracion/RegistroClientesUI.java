@@ -226,7 +226,7 @@ public class RegistroClientesUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Correo no válido. Asegúrese de que contenga '@' y termine en un dominio válido.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Detener ejecución si el correo no es válido
         }
-        String agencia = usuarioActual.getSucursal().name();
+        String agencia = usuarioActual.getSucursal();
         // Si todas las validaciones son correctas, proceder con el registro
         usuarioActual.agregarNuevoUsuario(agencia, "NULL", "Cliente", cedula, nombre, apellido, correo, telefono);
         DefaultListModel<String> model = new DefaultListModel<>();

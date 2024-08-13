@@ -18,10 +18,10 @@ import BL.Transporte.Ubicacion;
 
 public class Recepcionista extends Perfil{
     private Paquete paqueteEnRegistro;
-    private Ubicacion sucursal;
+    private String sucursal;
 
     public Recepcionista(String nombre, String apellido, String cedula, String correo, String contrasena, String telefono,
-            Ubicacion agencia) {
+            String agencia) {
         super(nombre, apellido, cedula, correo, contrasena, telefono);
         sucursal = agencia;
     }
@@ -50,11 +50,11 @@ public class Recepcionista extends Perfil{
         return paqueteEnRegistro;
     }
 
-    public Ubicacion getSucursal() {
+    public String getSucursal() {
         return sucursal;
     }
 
-    public void setSucursal(Ubicacion sucursal) {
+    public void setSucursal(String sucursal) {
         this.sucursal = sucursal;
     }
 
@@ -96,7 +96,7 @@ public class Recepcionista extends Perfil{
     }
 
     public void agregarCamion(String placa, String modelo, String marca, boolean disponibilidad,
-    Ubicacion ubicacionProvincia) {
+    String ubicacionProvincia) {
         GestorTransporte.getInstancia().registrarCamion(placa, modelo, marca, disponibilidad, ubicacionProvincia);
     }
 

@@ -256,7 +256,7 @@ public class RegistroUsuariosUI extends javax.swing.JPanel {
         }
     
         // Si todas las validaciones son correctas, proceder con el registro
-        usuarioActual.agregarNuevoUsuario(usuarioActual.getSucursal().name(), pass, "Transportista", cedula, nombre, apellido, correo, telefono);
+        usuarioActual.agregarNuevoUsuario(usuarioActual.getSucursal(), pass, "Transportista", cedula, nombre, apellido, correo, telefono);
         DefaultListModel<String> model = new DefaultListModel<>();
         List<Transportista> usuarios = GestorPerfiles.getInstance().getTransportistas();	
         for (Perfil perfil : usuarios) {

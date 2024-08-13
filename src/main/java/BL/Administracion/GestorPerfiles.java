@@ -32,7 +32,7 @@ public class GestorPerfiles {
         if (verificarCedulaExistente("ADMIN001")) {
             return;
         }
-        Perfil defaultRecepcionista = new Recepcionista("Admin", "Admin", "ADMIN001", "admin@example.com", "123", "0999999999" ,Ubicacion.QUITO);
+        Perfil defaultRecepcionista = new Recepcionista("Admin", "Admin", "ADMIN001", "admin@example.com", "123", "0999999999" ,"QUITO");
         perfiles.add(defaultRecepcionista);
         savePerfiles();
         System.out.println("Recepcionista por defecto creado con éxito.");
@@ -57,7 +57,7 @@ public class GestorPerfiles {
                 if (rol.equals(perfil.getClass().getSimpleName())) {
                     if (rol.equals("Recepcionista")) {
                         Recepcionista recepcionista = (Recepcionista) perfil;
-                        if (recepcionista.getSucursal().name().equals(agencia)) {
+                        if (recepcionista.getSucursal().equals(agencia)) {
                             return perfil;
                         }
                     } else {
