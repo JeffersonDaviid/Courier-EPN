@@ -4,8 +4,10 @@
  */
 package UI.Transporte;
 
+import BL.Administracion.Recepcionista;
 import BL.Administracion.Transportista;
 import BL.GestionPaquete.Paquete;
+import BL.Transporte.GestorTransporte;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,7 +21,7 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
      * Creates new form UIEntregarPaquete
      */
     Transportista transportista;
-    public UIEntregarPaquete(Transportista transportista) {
+    public UIEntregarPaquete(Transportista transportista, Recepcionista recepcionista) {
         initComponents();
         this.transportista = transportista;
     }
@@ -45,6 +47,7 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
         jButtonAsignarCamionPaquete = new javax.swing.JButton();
         jTextIDPaquete = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jTextFieldPlacaCamionEntrega = new javax.swing.JTextField();
 
         jLabel14.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel14.setText("PAQUETES ASIGNADOS ");
@@ -145,6 +148,12 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
             }
         });
 
+        jTextFieldPlacaCamionEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPlacaCamionEntregaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,8 +170,11 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
                                     .addComponent(jLabel15)
                                     .addComponent(jButtonAsignarCamionPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextIDPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldPlacaCamionEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 432, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -175,7 +187,9 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jTextFieldPlacaCamionEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -192,8 +206,11 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonAsignarCamionPaqueteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       String placaCamionEntrega = (String)jTextFieldPlacaCamionEntrega.getText();
+       Transportista transportista = GestorTransporte.getInstancia().obtenerTransportistaPorPlacaCamion(placaCamionEntrega);
+       String cedulaTransportista = transportista.getCedula();
         // Paso 1: Obtener la lista de paquetes
-    ArrayList<Paquete> listaPaquetes = transportista.consultarAsignacionPaquetes();
+    ArrayList<Paquete> listaPaquetes = transportista.consultarAsignacionPaquetesTransportista(cedulaTransportista);
 
     // Paso 2: Definir las columnas
     String[] columnas = {
@@ -224,6 +241,10 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
     jTablePaquetesPorDestinoEntrega.setModel(modelo);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTextFieldPlacaCamionEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPlacaCamionEntregaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPlacaCamionEntregaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ImgCamion;
@@ -237,6 +258,7 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTablePaquetesPorDestinoEntrega;
+    private javax.swing.JTextField jTextFieldPlacaCamionEntrega;
     private javax.swing.JTextField jTextIDPaquete;
     // End of variables declaration//GEN-END:variables
 }
