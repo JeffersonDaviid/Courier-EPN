@@ -105,6 +105,11 @@ public class Recepcionista extends Perfil{
         GestorTransporte.getInstancia().eliminarTransportista((Transportista)GestorPerfiles.getInstance().obtenerTransportistaPorCedula(cedula));
     }
 
+    public void eliminarCamionDeTranportista(String placa){
+        Camion camion = GestorTransporte.getInstancia().obtenerCamionPorPlaca(placa);
+        GestorTransporte.getInstancia().eliminarCamionDeTransportista(camion);
+    }
+
     public DefaultTableModel mostrarPaquetes(int index){
         return inventario.mostrarPaquetes(index);
     }
