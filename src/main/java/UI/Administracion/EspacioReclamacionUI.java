@@ -4,8 +4,6 @@
  */
 package UI.Administracion;
 
-import javax.swing.JPanel;
-
 public class EspacioReclamacionUI extends javax.swing.JFrame {
 
     private RegistroReclamacionUI registroReclamacionPanel;
