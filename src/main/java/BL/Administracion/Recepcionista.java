@@ -86,7 +86,7 @@ public class Recepcionista extends Perfil{
         GestorTransporte.getInstancia().asignarTransportistaACamion(transportista, camion);
     }
     
-    public boolean asignarPaqueteACamion(String placa, Ubicacion destino){
+    public boolean asignarPaqueteACamion(String placa, String destino){
         Camion camion = GestorTransporte.getInstancia().obtenerCamionPorPlaca(placa);
         return GestorTransporte.getInstancia().asignarPaqueteACamion(camion, destino);
     }
