@@ -12,7 +12,8 @@ public class Cliente extends Perfil {
     }
 
     @Override
-    public void reportarProblema(Paquete paquete, String problema) {
+    public void reportarProblema(String idPaquete, String problema) {
+        Paquete paquete = obtenerPaquete(idPaquete);
         if(paquete==null){
             JOptionPane.showMessageDialog(null, "El paquete no existe.");
             return;
