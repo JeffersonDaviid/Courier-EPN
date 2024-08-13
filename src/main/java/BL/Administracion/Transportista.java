@@ -92,9 +92,4 @@ public class Transportista extends Perfil {
         Camion camion = GestorTransporte.getInstancia().consultarCamionAsignado(this);
         GestorTransporte.getInstancia().eliminarPaqueteAsignado(camion, idPaquete);
     }
-    
-        public ArrayList<Paquete> consultarAsignacionPaquetesTransportista(String cedula){
-        Transportista transportista = GestorTransporte.getInstancia().obtenerTransportistaPorCedula(cedula);
-        return GestorTransporte.getInstancia().consultarAsignacionPaquetes(transportista);
-    }
 }

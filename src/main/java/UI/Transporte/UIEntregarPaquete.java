@@ -195,9 +195,7 @@ public class UIEntregarPaquete extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonAsignarCamionPaqueteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String cedula = transportista.getCedula();
-        System.out.println(cedula);
-        ArrayList<Paquete> listaPaquetes = transportista.consultarAsignacionPaquetesTransportista(cedula);
+        ArrayList<Paquete> listaPaquetes = transportista.consultarAsignacionPaquetes();
         System.out.println(listaPaquetes);
         actualizarTablaPaquetes(listaPaquetes);
     }//GEN-LAST:event_jButton1ActionPerformed
