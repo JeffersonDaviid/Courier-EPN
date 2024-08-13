@@ -7,7 +7,7 @@ import BL.Almacenamiento.Inventario;
 import BL.GestionPaquete.Paquete;
 
 public abstract class Perfil implements Serializable {
-    private String cedula;
+    protected String cedula;
     private String nombre;
     private String apellido;
     private String correo;

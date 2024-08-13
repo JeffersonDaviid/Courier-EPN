@@ -15,18 +15,27 @@ import BL.Soporte.Problema;
 import BL.Soporte.RetrasoProblema;
 
 public class Cliente extends Perfil {
-
+    ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
     public Cliente(String nombre, String apellido, String cedula, String correo, String contrasena, String telefono) {
         super(nombre, apellido, cedula, correo, contrasena, telefono);
     }
     
-    public ArrayList<Paquete> obtenerPaquetes(String cedula){
-        ArrayList<Paquete> paquetes = new ArrayList<Paquete>();
-        paquetes = Inventario.getInstancia().getPaquetesDeCliente(cedula);
+    public ArrayList<Paquete> obtenerPaquetes(){
+        paquetes = new ArrayList<Paquete>();
+        paquetes = Inventario.getInstancia().getPaquetesDeCliente(this.cedula);
         if(paquetes.isEmpty()){
             JOptionPane.showMessageDialog(null, "No se encontraron paquetes asociados a este cliente.");
         }
         return paquetes;
+    }
+
+    public Paquete obtenerPaquete(String idPaquete) {
+        for (Paquete paquete : paquetes) {
+            if(paquete.getTracking().equals(idPaquete)){
+                return paquete;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -39,6 +48,7 @@ public class Cliente extends Perfil {
         }
         paquete.setEstado(new Conflicto(paquete));
         Inventario.getInstancia().notificarCambioEstado(idPaquete);
+        Inventario.getInstancia().saveInventario();
         switch (problema.toLowerCase()){
             case "dañado":
                 problemaReportado = new DanadoProblema();

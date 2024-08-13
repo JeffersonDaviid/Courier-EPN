@@ -86,6 +86,7 @@ public class Transportista extends Perfil {
         }
         paquete.setEstado(new Entregado(paquete));
         Inventario.getInstancia().notificarCambioEstado(idPaquete);
+        Inventario.getInstancia().saveInventario();
         Camion camion = GestorTransporte.getInstancia().consultarCamionAsignado(this);
         GestorTransporte.getInstancia().eliminarPaqueteAsignado(camion, idPaquete);
     }

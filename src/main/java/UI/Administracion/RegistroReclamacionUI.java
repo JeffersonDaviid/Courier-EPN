@@ -209,7 +209,7 @@ public class RegistroReclamacionUI extends javax.swing.JPanel {
             return;
         }
         //paquetes = cliente.obtenerPaquetes(cedula);
-        paquetes = cliente.obtenerPaquetes(cedula);
+        paquetes = cliente.obtenerPaquetes();
         DefaultListModel<String> model1 = new DefaultListModel<>();
         for (Paquete paquete : paquetes) {
             model1.addElement(paquete.getTracking() + " - " + paquete.getCliente().getCedula() + " - "
@@ -236,6 +236,10 @@ public class RegistroReclamacionUI extends javax.swing.JPanel {
     private void btnRegistrarReclamacionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRegistrarReclamacionActionPerformed
         String idPaquete=textBoxIdPaquete.getText();
         String problema=comboBoxReclamacion.getSelectedItem().toString();
+        if(cliente==null){
+            JOptionPane.showMessageDialog(this, "Primero debe ingresar una cedula y consultar sus paquetes", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         cliente.reportarProblema(idPaquete,problema);
     }// GEN-LAST:event_btnRegistrarReclamacionActionPerformed
 
