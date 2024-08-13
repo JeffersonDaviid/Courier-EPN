@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import BL.Administracion.Cliente;
 import BL.Almacenamiento.Inventario;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Paquete implements Serializable {
     private static int contador;
@@ -23,6 +25,8 @@ public class Paquete implements Serializable {
 
     public Paquete() {
         this.tracking = generarTracking();
+        this.fechaSalida = obtenerFechaActual();
+
     }
 
     public Paquete(String tracking, float peso, String tamanio, Cliente cliente, String sucursalOrigen, String sucursalDestino, String direccion, String nombreDestinatario, String correoDestinatario, String telefonoDestinatario, String fechaSalida, Seguimiento seguimiento) {
@@ -45,6 +49,11 @@ public class Paquete implements Serializable {
         int  inventario = Inventario.getInstancia().getPaquetesInventario().size();
         return String.valueOf(inventario + 1);
     }
+    
+     private String obtenerFechaActual() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.now().format(formatter);
+    }
     // Método para obtener el estado actual del paquete
     public EstadoPaquete obtenerEstadoActual() {
         return this.estado;
@@ -52,8 +61,9 @@ public class Paquete implements Serializable {
 
     // Método para cambiar el estado del paquete (puede hacerse protected)
     public void cambiarEstado(EstadoPaquete nuevoEstado) {
-        //this.estado = nuevoEstado;
         this.estado = nuevoEstado;
+        this.fechaSalida = obtenerFechaActual(); // Actualiza la fecha de salida con la fecha actual
+        System.out.println("Fecha de salida actualizada: " + this.fechaSalida); // Depuración
         if (seguimiento != null) {
             seguimiento.realizarSeguimiento();
         }

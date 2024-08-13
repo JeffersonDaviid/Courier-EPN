@@ -40,6 +40,8 @@ public class SeguimientoUI extends javax.swing.JPanel {
         jBConsultar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableSeguimiento = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jBConsultar.setText("CONSULTAR");
         jBConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -50,38 +52,53 @@ public class SeguimientoUI extends javax.swing.JPanel {
 
         jTableSeguimiento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tracking", "Destinatario", "Agencia Destino", "Fecha Salida", "Estado"
             }
         ));
         jScrollPane1.setViewportView(jTableSeguimiento);
+
+        jLabel1.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jLabel1.setText("SEGUIMIENTO DEL PAQUETE");
+
+        jLabel2.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        jLabel2.setText("Ingrese el tracking");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBConsultar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(53, Short.MAX_VALUE))
+                        .addGap(172, 172, 172)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBConsultar)))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBConsultar))
+                    .addComponent(jBConsultar)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -89,25 +106,18 @@ public class SeguimientoUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
-       String trackingId = jTextFieldIdPaquete.getText();
-
+        String trackingId = jTextFieldIdPaquete.getText();
         // Buscar el paquete por su número de tracking en el inventario
         Paquete paquete = recepcionista.obtenerPaquete(trackingId);
 
         if (paquete != null) {
-            Seguimiento seguimiento = recepcionista.consultarSeguimientoPaquete(paquete.getTracking());
+            Seguimiento seguimiento = paquete.getSeguimiento();
 
             // Si el seguimiento es null, crearlo aquí
             if (seguimiento == null) {
                 seguimiento = new Seguimiento(paquete);
-                // Aquí podrías asignar el seguimiento al paquete si es necesario
-                // paquete.setSeguimiento(seguimiento); 
+
             }
-
-            // Obtener el historial completo de estados
-           // String historial = seguimiento.verHistorial();
-
-            // Mostrar datos del paquete en la tabla
             DefaultTableModel model = (DefaultTableModel) jTableSeguimiento.getModel();
             model.setRowCount(0); // Limpiar la tabla
 
@@ -116,23 +126,12 @@ public class SeguimientoUI extends javax.swing.JPanel {
                 paquete.getTracking(),
                 paquete.getNombreDestinatario(),
                 paquete.getSucursalDestino(),
+                paquete.getFechaSalida(),
                 paquete.obtenerEstadoActual().toString()
             });
-            
-            /*
-
-            // Separar el historial en líneas para mostrar en la tabla
-            String[] estados = historial.split("\n");
-
-            // Agregar el historial a la tabla
-            for (String estado : estados) {
-                model.addRow(new Object[]{estado});
-            }
-*/
         } else {
-            JOptionPane.showMessageDialog(null, "Paquete no encontrado.");
+            //JOptionPane.showMessageDialog(null, "Paquete no encontrado.");
         }
-
 
 
     }//GEN-LAST:event_jBConsultarActionPerformed
@@ -140,6 +139,8 @@ public class SeguimientoUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBConsultar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableSeguimiento;
     private javax.swing.JTextField jTextFieldIdPaquete;

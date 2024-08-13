@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -224,5 +226,17 @@ public class Inventario implements Serializable {
             }
         }
         return paquetesEncontrados;
+    }
+
+    //Metodo que elimina paquetes del inventario 
+    public void eliminarPaquetePorId(String trackingEliminar) {
+        Iterator<Paquete> iterator = paquetes.iterator();
+        while (iterator.hasNext()) {
+            Paquete paquete = iterator.next();
+            if (paquete.getTracking().equals(trackingEliminar)) {
+                iterator.remove();
+                return;
+            }
+        }
     }
 }
