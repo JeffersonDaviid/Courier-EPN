@@ -2,7 +2,6 @@ package BL.Transporte;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 public enum Ubicacion {
     CUENCA,

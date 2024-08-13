@@ -273,9 +273,9 @@ public class GestorTransporte {
             if (paquetes.size() > 0) {
                 for (Paquete paquete : paquetes) {
                     inventario.buscarPaquete(paquete.getTracking()).cambiarEstado(new Transportandose(paquete));
-                    cargarPaqueteACamion(camion, paquete);
-                    // Incluir la logica para notificar a Inventario que se cambio el estado de los paquetes 
+                    cargarPaqueteACamion(camion, paquete); 
                     inventario.notificarCambioEstado(paquete.getTracking());
+                    Inventario.getInstancia().saveInventario();
                 }
                 saveCamionPaquete();
                 return true;
@@ -380,79 +380,4 @@ public class GestorTransporte {
         }
     }
 
-    // Metodos para mostrar informacion
-    public void mostrarCamiones() {
-        if (camiones != null && !camiones.isEmpty()) {
-            for (Camion camion : camiones) {
-                System.out.println("Placa: " + camion.getPlaca()
-                        + ", Modelo: " + camion.getModelo()
-                        + ", Marca: " + camion.getMarca()
-                        + ", Disponibilidad: " + camion.isDisponibilidad()
-                        + ", Provincia: " + camion.getUbicacion()
-                        + ", Capacidad Total: " + camion.getCapacidadCarga()
-                        + ", Capacidad Ocupada: " + camion.getCapacidadOcupada());
-            }
-        } else {
-            System.out.println("No hay camiones registrados.");
-        }
-    }
-
-    public void mostrarTransportistas() {
-        if (transportistas != null && !transportistas.isEmpty()) {
-            for (Transportista transportista : transportistas) {
-                System.out.println("Nombre: " + transportista.getNombre()
-                        + ", Apellido: " + transportista.getApellido()
-                        + ", Cédula: " + transportista.getCedula()
-                        + ", Correo: " + transportista.getCorreo()
-                        + ", Contraseña: " + transportista.getContrasena());
-            }
-        } else {
-            System.out.println("No hay transportistas registrados.");
-        }
-    }
-
-    public void mostrarCamionesTransportistas() {
-        if (camionTransportista != null && !camionTransportista.isEmpty()) {
-            for (Camion camion : camionTransportista.keySet()) {
-                Transportista transportista = camionTransportista.get(camion);
-                System.out.println("Placa: " + camion.getPlaca()
-                        + ", Modelo: " + camion.getModelo()
-                        + ", Marca: " + camion.getMarca()
-                        + ", Disponibilidad: " + camion.isDisponibilidad()
-                        + ", Provincia: " + camion.getUbicacion()
-                        + ", Transportista: " + transportista.getNombre()
-                        + " " + transportista.getApellido()
-                        + ", Cédula: " + transportista.getCedula()
-                        + ", Correo: " + transportista.getCorreo());
-            }
-        } else {
-            System.out.println("No hay camiones asignados a transportistas.");
-        }
-    }
-
-    public void mostrarCamionesPaquetes() {
-        if (camionPaquetes != null && !camionPaquetes.isEmpty()) {
-            for (Camion camion : camionPaquetes.keySet()) {
-                System.out.println("Placa: " + camion.getPlaca()
-                        + ", Modelo: " + camion.getModelo()
-                        + ", Marca: " + camion.getMarca()
-                        + ", Disponibilidad: " + camion.isDisponibilidad()
-                        + ", Provincia: " + camion.getUbicacion()
-                        + ", Capacidad Total: " + camion.getCapacidadCarga()
-                        + ", Capacidad Ocupada: " + camion.getCapacidadOcupada());
-                for (Paquete paquete : camionPaquetes.get(camion)) {
-                    System.out.println("  Paquete Tracking: " + paquete.getTracking()
-                            + ", Peso: " + paquete.getPeso()
-                            + ", Tamaño: " + paquete.getTamanio()
-                            + ", Cliente: " + paquete.getCliente()
-                            + ", Sucursal Origen: " + paquete.getSucursalOrigen()
-                            + ", Sucursal Destino: " + paquete.getSucursalDestino()
-                            + ", Dirección: " + paquete.getDireccion()
-                            + ", Estado: " + paquete.getEstado());
-                }
-            }
-        } else {
-            System.out.println("No hay camiones con paquetes.");
-        }
-    }
 }
