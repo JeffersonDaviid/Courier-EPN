@@ -32,4 +32,13 @@ public enum Ubicacion {
     public static List<Ubicacion> obtenerTodasLasUbicaciones() {
         return Arrays.asList(Ubicacion.values());
     }
+    
+    private Ubicacion obtenerUbicacionDesdeTexto(String texto) {
+    try {
+        return Ubicacion.valueOf(texto.toUpperCase());
+    } catch (IllegalArgumentException e) {
+        JOptionPane.showMessageDialog(this, "Ubicación no válida.");
+        return null;
+    }
+}
 }

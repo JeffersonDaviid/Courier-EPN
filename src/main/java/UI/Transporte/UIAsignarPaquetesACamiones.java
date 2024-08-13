@@ -9,6 +9,7 @@ import BL.GestionPaquete.Paquete;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
 import BL.Transporte.Ubicacion;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,10 +41,10 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         TxtCamion1 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        jComboBoxPaqueteUbicacion = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePaquetesPorDestino = new javax.swing.JTable();
+        UbicacionTxt = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
         jComboBoxCamiones = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
@@ -119,13 +120,6 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
 
         jPanel11.setBackground(new java.awt.Color(229, 255, 255));
 
-        jComboBoxPaqueteUbicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxPaqueteUbicacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxPaqueteUbicacionActionPerformed(evt);
-            }
-        });
-
         jLabel18.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel18.setText("PAQUETE");
 
@@ -150,6 +144,12 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTablePaquetesPorDestino);
 
+        UbicacionTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UbicacionTxtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -161,8 +161,8 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxPaqueteUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
+                    .addComponent(jLabel18)
+                    .addComponent(UbicacionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -170,9 +170,9 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel18)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBoxPaqueteUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(UbicacionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
@@ -369,10 +369,6 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBoxPaqueteUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPaqueteUbicacionActionPerformed
-        Ubicacion seleccionada = (Ubicacion) jComboBoxPaqueteUbicacion.getSelectedItem();
-    }//GEN-LAST:event_jComboBoxPaqueteUbicacionActionPerformed
-
     private void jComboBoxCamionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCamionesActionPerformed
         // Obtener la placa del camión seleccionado desde el ComboBox
         String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
@@ -416,8 +412,12 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     }//GEN-LAST:event_TextFieldUbicacionCamionActionPerformed
 
     private void jButtonAsignarCamionPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsignarCamionPaqueteActionPerformed
-        String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
+
     }//GEN-LAST:event_jButtonAsignarCamionPaqueteActionPerformed
+    
+    private void UbicacionTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UbicacionTxtActionPerformed
+
+    }//GEN-LAST:event_UbicacionTxtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -431,9 +431,9 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     private javax.swing.JLabel TxtCamion;
     private javax.swing.JLabel TxtCamion1;
     private javax.swing.JLabel Ubicacion;
+    private javax.swing.JTextField UbicacionTxt;
     private javax.swing.JButton jButtonAsignarCamionPaquete;
     private javax.swing.JComboBox<String> jComboBoxCamiones;
-    private javax.swing.JComboBox<String> jComboBoxPaqueteUbicacion;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel20;
