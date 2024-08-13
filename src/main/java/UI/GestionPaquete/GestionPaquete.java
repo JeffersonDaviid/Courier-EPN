@@ -18,9 +18,9 @@ import BL.Administracion.Recepcionista;
  */
 public class GestionPaquete extends javax.swing.JPanel {
 
-
     private Recepcionista recepcionista;
     private Cliente cliente = null;
+
     public GestionPaquete(Recepcionista recepcionista) {
         initComponents();
         this.recepcionista = recepcionista;
@@ -145,14 +145,14 @@ public class GestionPaquete extends javax.swing.JPanel {
 
         jLabel28.setText("Tamaño");
 
-        jComboTipoEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Domicilio", "Agencia", " " }));
+        jComboTipoEnvio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Domicilio", "Agencia" }));
         jComboTipoEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboTipoEnvioActionPerformed(evt);
             }
         });
 
-        jComboTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pequeño", "Mediano", "Grande",}));
+        jComboTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pequeño", "mediano", "grande", " " }));
 
         jBCalcular.setText("CALCULAR");
         jBCalcular.addActionListener(new java.awt.event.ActionListener() {
@@ -324,10 +324,10 @@ public class GestionPaquete extends javax.swing.JPanel {
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         String cedula = jtBuscarCedula.getText();
         cliente = GestorPerfiles.getInstance().getCliente(cedula);
-        if(cliente == null){
+        if (cliente == null) {
             JOptionPane.showMessageDialog(null, "Cliente no encontrado");
             return;
-        }else{
+        } else {
             jtNombreRemitente.setText(cliente.getNombre());
             jtCorreoRemitente.setText(cliente.getCorreo());
             jtTelefonoRemitente.setText(cliente.getTelefono());
@@ -360,26 +360,27 @@ public class GestionPaquete extends javax.swing.JPanel {
 
     private void jComboTipoEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTipoEnvioActionPerformed
         // TODO add your handling code here:
-         String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem();
-         if ("Agencia".equals(tipoEnvio)) {
+        String tipoEnvio = (String) jComboTipoEnvio.getSelectedItem();
+        if ("Agencia".equals(tipoEnvio)) {
             jTdomicilio.setVisible(false);
             jldomicilio.setVisible(false);
-         }else{
-             jTdomicilio.setVisible(true);
+        } else {
+            jTdomicilio.setVisible(true);
             jldomicilio.setVisible(true);
-            
+
         }
     }//GEN-LAST:event_jComboTipoEnvioActionPerformed
 
     private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
-        if(cliente == null){
+        if (cliente == null) {
             JOptionPane.showMessageDialog(null, "Primero debe buscar un cliente");
             return;
         }
         String dirDomicilio = null;
 
-		if (jComboTipoEnvio.getSelectedItem().toString().equals("Domicilio"))
-			dirDomicilio = jTdomicilio.getText();
+        if (jComboTipoEnvio.getSelectedItem().toString().equals("Domicilio")) {
+            dirDomicilio = jTdomicilio.getText();
+        }
         // Información del destinatario
         String nombreDestinatario = jtNombreDestinatario.getText();
         String correoDestinatario = jtCorreoDestinatario.getText();
@@ -393,33 +394,57 @@ public class GestionPaquete extends javax.swing.JPanel {
         recepcionista.registrarPaquete(generateId(), Float.parseFloat(peso), tamanio, cliente, sucursalOrigen, sucursalDestino, dirDomicilio, nombreDestinatario, correoDestinatario, telefonoDestinatario, null, null);
         float precio = recepcionista.previsualizarPrecioPaquete();
         JOptionPane.showMessageDialog(null, "El precio del paquete es: " + precio);
-        
+
     }//GEN-LAST:event_jBCalcularActionPerformed
 
     private void jBaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBaceptarActionPerformed
-        if(recepcionista.getPaqueteEnRegistro()==null){
+
+        String correo = jtCorreoDestinatario.getText();
+        String telefono = jtTelefonoDestinatario.getText();
+        String peso = jTpeso.getText();
+
+// Comprobación de correo con un dominio específico 
+        if (!correo.matches("^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,4}$")) {
+            JOptionPane.showMessageDialog(this, "Correo no válido. Asegúrese de que contenga '@' y termine en un dominio válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener ejecución si el correo no es válido
+        }
+
+// Comprobación de teléfono válido (solo 10 dígitos)
+        if (!telefono.matches("^\\d{10}$")) {
+            JOptionPane.showMessageDialog(this, "Número de teléfono no válido. Debe contener exactamente 10 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener ejecución si el teléfono no es válido
+        }
+
+// Comprobación de que el peso sea un número entero o decimal válido
+        if (!peso.matches("^\\d+(\\.\\d+)?$")) {
+            JOptionPane.showMessageDialog(this, "Peso no válido. Solo se permiten números enteros o decimales.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener ejecución si el peso no es válido
+        }
+        if (recepcionista.getPaqueteEnRegistro() == null) {
             JOptionPane.showMessageDialog(null, "Primero debe ingresar los datos del paquete");
             return;
         }
         recepcionista.generarFactura();
         recepcionista.registrarPaqueteEnInventario();
         recepcionista.eliminarPaqueteRegistrado();
+
+
     }//GEN-LAST:event_jBaceptarActionPerformed
 
     private String generateId() {
-		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		StringBuilder sb = new StringBuilder();
-		Random random = new Random();
-		int length = 10; // desired length of the generated string
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        int length = 10; // desired length of the generated string
 
-		for (int i = 0; i < length; i++) {
-			int index = random.nextInt(characters.length());
-			char randomChar = characters.charAt(index);
-			sb.append(randomChar);
-		}
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            char randomChar = characters.charAt(index);
+            sb.append(randomChar);
+        }
 
-		return sb.toString();
-	}
+        return sb.toString();
+    }
 
     private void jComboSucurcalRecogerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboSucurcalRecogerActionPerformed
         // TODO add your handling code here:
