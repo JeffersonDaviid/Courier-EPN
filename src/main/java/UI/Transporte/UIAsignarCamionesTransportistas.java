@@ -497,16 +497,9 @@ public class UIAsignarCamionesTransportistas extends javax.swing.JPanel {
     private void jButtonEliminarCamionTransportista1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarCamionTransportista1ActionPerformed
         // Obtener la placa del camión seleccionado desde el ComboBox
         String placaCamion = (String) jComboBoxCamiones.getSelectedItem();
-
-        // Obtener la instancia única de GestorTransporte
-        GestorTransporte gestorTransporte = GestorTransporte.getInstancia();
-
-        // Buscar el camión por su placa
-        Camion camion = gestorTransporte.obtenerCamionPorPlaca(placaCamion);
-
         // Si el camión es encontrado, realizar la eliminación de la asignación
-        if (camion != null) {
-            recepcionista.eliminarCamion(camion);
+        if (placaCamion != null) {
+            recepcionista.eliminarCamionDeTranportista(placaCamion);
             //gestorTransporte.eliminarCamionDeTransportista(camion);
             JOptionPane.showMessageDialog(this, "Asignación del camión eliminada correctamente.");
         } else {
