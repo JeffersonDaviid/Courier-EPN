@@ -5,6 +5,7 @@
 package UI.Transporte;
 
 import BL.Administracion.Cliente;
+import BL.Administracion.Recepcionista;
 import BL.GestionPaquete.Paquete;
 import BL.Transporte.Camion;
 import BL.Transporte.GestorTransporte;
@@ -21,8 +22,11 @@ public class UIAsignarPaquetesACamiones extends javax.swing.JPanel {
     /**
      * Creates new form UIAsignarPaquetesACamiones
      */
-    public UIAsignarPaquetesACamiones() {
+
+     Recepcionista recepcionista;
+    public UIAsignarPaquetesACamiones(Recepcionista recepcionista) {
         initComponents();
+        this.recepcionista = recepcionista;
     }
     
     

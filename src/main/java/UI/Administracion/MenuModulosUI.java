@@ -15,6 +15,8 @@ import UI.GestionPaquete.GestionPaquete;
 //import UI.Reclamos.ReclamoUI;
 import UI.Reclamos.SoporteUI;
 import UI.SeguimientoPaquete.SeguimientoUI;
+import UI.Transporte.UIAsignarCamionesTransportistas;
+import UI.Transporte.UIAsignarPaquetesACamiones;
 
 import java.awt.BorderLayout;
 
@@ -456,11 +458,11 @@ public class MenuModulosUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ReclamosActionPerformed
 
     private void btn_AsignarPaquetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AsignarPaquetActionPerformed
-        // TODO add your handling code here:
+        showPanel(new UIAsignarPaquetesACamiones((Recepcionista)usuario));
     }//GEN-LAST:event_btn_AsignarPaquetActionPerformed
 
     private void btn_AsignarCamioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AsignarCamioneActionPerformed
-        // TODO add your handling code here:
+        showPanel(new UIAsignarCamionesTransportistas((Recepcionista)usuario));
     }//GEN-LAST:event_btn_AsignarCamioneActionPerformed
 
     /**

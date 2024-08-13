@@ -148,10 +148,11 @@ public class RegistroCamionesCUI extends javax.swing.JPanel {
         String placa = field_placa.getText();
         String modelo = field_modelo.getText();
         String marca = field_marca.getText();
-        recepcionista.agregarCamion(placa, modelo, marca, true, recepcionista.getSucursal());
+       
 
         if (validarPlaca(placa)) {
-            //recepcionista.agregarCamion(placa, modelo, marca, true, recepcionista.getSucursal());
+            recepcionista.agregarCamion(placa, modelo, marca, true, recepcionista.getSucursal());
+            javax.swing.JOptionPane.showMessageDialog(this, "Camión registrado exitosamente.");
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Placa inválida. Asegúrate de que cumpla con el formato requerido.");
         }

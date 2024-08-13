@@ -11,7 +11,7 @@ import com.proyecto.courierepn.CourierEPN;
 import BL.Administracion.GestorPerfiles;
 import BL.Administracion.Perfil;
 import BL.Administracion.Transportista;
-import UI.Transporte.UITransporte;
+
 
 import java.awt.Color;
 
@@ -25,7 +25,6 @@ import javax.swing.JOptionPane;
 public class LoginUI extends javax.swing.JFrame {
 
     MenuModulosUI menuUI;
-    UITransporte transporteUI;
     Perfil usuario;
 
     /**
