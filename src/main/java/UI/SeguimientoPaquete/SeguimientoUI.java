@@ -19,7 +19,8 @@ public class SeguimientoUI extends javax.swing.JPanel {
     /**
      * Creates new form SeguimientoUI
      */
-     private Recepcionista recepcionista;
+    private Recepcionista recepcionista;
+
     public SeguimientoUI(Recepcionista recepcionista) {
         initComponents();
         this.recepcionista = recepcionista;
@@ -113,20 +114,23 @@ public class SeguimientoUI extends javax.swing.JPanel {
             });
 
             // Llenar el historial de estados en la tabla
+            // Llenar la tabla con el último estado del historial
             DefaultTableModel historialModel = (DefaultTableModel) jTableSeguimiento.getModel();
             historialModel.setRowCount(0); // Limpiar la tabla de historial
 
             // Asumiendo que el historial se separa por líneas (una línea por estado)
             String[] estados = historial.split("\n");
-            for (String estado : estados) {
-                historialModel.addRow(new Object[]{estado});
+            if (estados.length > 0) {
+                // Mostrar solo el último estado
+                String ultimoEstado = estados[estados.length - 1];
+                historialModel.addRow(new Object[]{ultimoEstado});
             }
 
         } else {
             //JOptionPane.showMessageDialog(null, "Paquete no encontrado");
         }
-    
-        
+
+
     }//GEN-LAST:event_jBConsultarActionPerformed
 
 
